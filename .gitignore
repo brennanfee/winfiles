@@ -1,0 +1,57 @@
+#### Git merge files
+*.orig
+
+#### Git merge files
+
+#### Common temporary files
+*.bak
+*.log
+*.tmp
+*.temp
+
+#### Common temporary files
+
+#### VIM Files
+# Swap Files
+.*.swp
+.*.swo
+
+# Vim Backup Files
+~*
+
+#### VIM Files
+
+#### SublimeText project files
+*.sublime-workspace
+
+#### SublimeText project files
+
+#### Visaul Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+#### Visual Studio Code
+
+#### OS Junk files
+# Windows
+[Tt]humbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# MS Office temp files
+~$*
+*.xlk
+*.~vsdx
+
+# OSX
+*.DS_Store
+
+# Linux
+*~
+.Trash-*
+.directory
+
+#### OS Junk files

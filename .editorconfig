@@ -1,0 +1,25 @@
+# EditorConfig: http://EditorConfig.org
+
+# Top-most EditorConfig file
+root = true
+
+# Basic defaults
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.ps1]
+end_of_line = crlf
+
+[*.psm1]
+end_of_line = crlf
+
+[*.cmd]
+end_of_line = crlf
+
+[*.bat]
+end_of_line = crlf
