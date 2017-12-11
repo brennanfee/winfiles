@@ -9,8 +9,11 @@ Param(
     [string] $installType = "home"
 )
 
-# GVim
+# VsVim & ViEmu
 cmd /c mklink "$env:userprofile\_vsvimrc" "$env:userprofile\winFiles\settings\vsvimrc"
+cmd /c mklink "$env:userprofile\_viemurc" "$env:userprofile\winFiles\settings\viemurc"
+
+# GVim
 cmd /c mklink "$env:userprofile\_vimrc" "$env:userprofile\winFiles\dotfiles\rcs\vimrc"
 cmd /c mklink "$env:userprofile\.vimrc.bundles" "$env:userprofile\winFiles\dotfiles\rcs\vimrc.bundles"
 cmd /c mklink "$env:userprofile\.vimrc.lightline" "$env:userprofile\winFiles\dotfiles\rcs\vimrc.lightline"
