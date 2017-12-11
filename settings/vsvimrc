@@ -1,0 +1,6 @@
+
+set clipboard+=unnamed " Yanks to the clipboard
+set incsearch
+
+let mapleader=","
+
