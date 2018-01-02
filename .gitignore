@@ -55,3 +55,6 @@ $RECYCLE.BIN/
 .directory
 
 #### OS Junk files
+
+#### Project specific overrides
+output/
