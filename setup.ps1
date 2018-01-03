@@ -40,5 +40,7 @@ Write-Host "Running script: $special_script"
     }
 }
 
+rundll32.exe user32.dll, UpdatePerUserSystemParameters
+
 Write-Host "A reboot may be necessary for settings to take effect." -foreground "yellow"
 Write-Host "Complete" -foreground "green"
