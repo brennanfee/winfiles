@@ -23,7 +23,9 @@ function Get-CustomPrompt {
 
     Write-Host($global:AdminSession) -nonewline -foregroundcolor Red
 
-    Write-Host($(get-location)) -nonewline
+    Write-Host("$env:username@$env:computername ") -nonewline -ForegroundColor Green
+
+    Write-Host($(get-location)) -nonewline -ForegroundColor Magenta
 
     Write-VcsStatus
 
