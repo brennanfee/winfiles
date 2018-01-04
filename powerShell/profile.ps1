@@ -19,6 +19,7 @@ Set-Variable -name HOME -value $env:home -Force
 Write-Host -ForegroundColor 'Green' "Importing third-party modules..."
 Import-Module PSReadLine
 Import-Module Pscx -arg "$ScriptDir\Pscx.UserPreferences.ps1"
+Import-Module posh-docker
 
 Import-Module posh-git
 $global:GitPromptSettings.EnableWindowTitle = $true

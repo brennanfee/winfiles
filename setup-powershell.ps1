@@ -65,6 +65,7 @@ Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
 Install-Module -Name Pscx -AllowClobber
 Install-Module -Name posh-git -AllowClobber
+Install-Module -Name posh-docker
 
 # This script runs the setup scripts that require admin privileges.  A reboot
 # WILL be required for the settings to take effect.
