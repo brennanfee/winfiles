@@ -42,3 +42,6 @@ Set-RegistryInt "$key\Advanced" "DisablePreviewDesktop" 0
 
 # Turn off "Show sync provider notifications" (advertising)
 Set-RegistryInt "$key\Advanced" "ShowSyncProviderNotifications" 0
+
+# Turn off the Startup delay for Startup Apps
+Set-RegistryInt "$key\Serialize" "StartupDelayInMSec" 0
