@@ -4,7 +4,7 @@ My 'dotfiles' for Windows
 
 ## Installation Steps
 
-NOTE: These steps are intended to follow a [BoxStarter](https://boxstarter.org) install found in my [provision-windows](https://github.com/brennanfee/provision-windows) repository.  In truth the only pre-reqs for the following to succeed are that [Chocolatey](https://chocolatey.org) and [Git](https://git-scm.com) are already installed.
+NOTE: These steps are intended to follow a [BoxStarter](http://boxstarter.org) install found in my [provision-windows](https://github.com/brennanfee/provision-windows) repository.  In truth the only pre-reqs for the following to succeed are that [Chocolatey](https://chocolatey.org) and [Git](https://git-scm.com) are already installed.
 
 1. Use Git to clone the repository into a "winFiles" folder in your home folder (typically C:\Users\<username>).
     * Given that the repo has a submodule you will need to execute `git submodule update --init --recursive` after clone.
