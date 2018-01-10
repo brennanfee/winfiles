@@ -37,6 +37,8 @@ else
 }
 
 # Setup NuGet profile used within Visual Studio
+# TODO: Originally this was used by Visual Studio, not sure if VS 2017 still uses this or standard
+# powershell.  Validate that this is still needed.
 $nuGetFile = Join-Path $profileDirectory "NuGet_profile.ps1"
 $isNugetInstalled = $false
 
