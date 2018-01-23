@@ -8,5 +8,6 @@ Make-Link "$env:userprofile\_viemurc" "$env:userprofile\winFiles\settings\viemur
 
 # GVim
 Make-Link "$env:userprofile\_vimrc" "$env:userprofile\winFiles\dotfiles\rcs\vimrc"
-Make-Link "$env:userprofile\.vimrc.bundles" "$env:userprofile\winFiles\dotfiles\rcs\vimrc.bundles"
-Make-Link "$env:userprofile\.vimrc.lightline" "$env:userprofile\winFiles\dotfiles\rcs\vimrc.lightline"
+Make-Link "$env:userprofile\.vim\vimrc.bundles" "$env:userprofile\winFiles\dotfiles\rcs\vim\vimrc.bundles"
+Make-Link "$env:userprofile\.vim\vimrc.lightline" "$env:userprofile\winFiles\dotfiles\rcs\vim\vimrc.lightline"
+
