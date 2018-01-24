@@ -12,6 +12,6 @@ Param(
 
 Make-Link "$env:userprofile\.gitconfig" "$env:userprofile\winFiles\dotfiles\rcs\gitconfig"
 
-Make-Link "$env:userprofile\.config\git\gitconfig.os" "$env:userprofile\winFiles\settings\config\git\gitconfig.os"
+Make-Link "$env:userprofile\.config\git\gitconfig.os" "$env:userprofile\winFiles\settings\gitconfig.os"
 
 Make-Link "$env:userprofile\.config\git\gitconfig.user" "$env:userprofile\winFiles\dotfiles\rcs\tag-$InstallType\config\git\gitconfig.user"

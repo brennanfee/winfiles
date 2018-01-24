@@ -2,6 +2,10 @@
 
 Import-Module -DisableNameChecking "$PSScriptRoot\..\Utilities\FileAndRegistryUtilities.psm1"
 
+# Create the cache directory
+mkdir "$env:userprofile\.cache\vim"
+mkdir "$env:userprofile\.vim"
+
 # VsVim & ViEmu
 Make-Link "$env:userprofile\_vsvimrc" "$env:userprofile\winFiles\settings\vsvimrc"
 Make-Link "$env:userprofile\_viemurc" "$env:userprofile\winFiles\settings\viemurc"
