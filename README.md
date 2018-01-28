@@ -1,15 +1,15 @@
 # winfiles
 
-My 'dotfiles' for Windows
+My ['dotfiles'](https://dotfiles.github.io) for Windows
 
 ## Installation Steps
 
-NOTE: These steps are intended to follow a [BoxStarter](http://boxstarter.org) install found in my [provision-windows](https://github.com/brennanfee/provision-windows) repository.  In truth the only pre-reqs for the following to succeed are that [Chocolatey](https://chocolatey.org) and [Git](https://git-scm.com) are already installed.
+NOTE: These steps are intended to follow a [BoxStarter](http://boxstarter.org) install found in my [provision-windows](https://github.com/brennanfee/provision-windows) repository.  In truth the only prerequisites for the following to succeed are that [Chocolatey](https://chocolatey.org) and [Git](https://git-scm.com) are already installed.
 
 1. Use Git to clone the repository into a "winFiles" folder in your home folder (typically C:\Users\<username>).
     * Given that the repo has a submodule you will need to execute `git submodule update --init --recursive` after clone.
-1. Launch PowerShell as an administrator.  Run `setup-powershell.ps1` script.  This initializes a PowerShell profile and installs any settings/files that require administrator privileges.
-1. Launch PowerShell again, this time not as administrator.  Run the `setup.ps1` script. This installs most of the settings and files that are user account specific.
+1. Launch PowerShell as an administrator.  Run the [setup-powershell.ps1](setup-powershell.ps1) script.  This initializes a PowerShell profile and installs any settings\files that require administrator privileges.
+1. Launch PowerShell again, this time not as administrator.  Run the [setup.ps1](setup.ps1) script. This installs most of the settings, files, and applications that are user account specific.
 1. If the machine is brand new and things have not been installed you should run the `install-apps.ps1` script.
 1. If the machine is brand new and is a developer machine also run the `install-apps-dev.ps1` script.
 1. Close the console.
