@@ -1,0 +1,21 @@
+# Darcula Mintty
+# MIT License
+
+ForegroundColour=169,183,198
+BackgroundColour=43,43,43
+Black=43,43,43
+BoldBlack=128,128,128
+Red=143,82,71
+BoldRed=201,59,72
+Green=106,135,89
+BoldGreen=101,156,107
+Yellow=204,120,50
+BoldYellow=255,198,109
+Blue=104,151,187
+BoldBlue=40,123,222
+Magenta=152,118,170
+BoldMagenta=255,153,255
+Cyan=41,153,153
+BoldCyan=98,218,218
+White=169,183,198
+BoldWhite=208,208,255

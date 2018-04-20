@@ -1,0 +1,18 @@
+# To use common configuration in %APPDATA%\mintty, simply remove this file
+BoldAsFont=-1
+Font=Hasklug NF
+FontHeight=14
+Locale=en_US
+ForegroundColour=169,183,198
+BackgroundColour=43,43,43
+Transparency=low
+OpaqueWhenFocused=no
+Columns=120
+Rows=40
+Language=en_US
+Term=xterm-256color
+Printer=*
+FontSmoothing=full
+AllowBlinking=yes
+CursorColour=169,183,198
+ThemeFile=darcula
