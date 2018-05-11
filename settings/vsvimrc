@@ -1,6 +1,11 @@
 
-set clipboard+=unnamed " Yanks to the clipboard
+set clipboard=unnamed " Yanks to the clipboard
 set incsearch
 
-let mapleader=","
+let g:mapleader=','
+let g:maplocalleader = '\\'
 
+set ignorecase
+set smartcase
+
+set scrolloff=4

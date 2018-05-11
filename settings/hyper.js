@@ -1,4 +1,3 @@
-// -- hyper-stylesheet-hash:9888b7e43102e78f1d43137ac4282aca --
 // Future versions of Hyper may add additional config options, which will not
 // automatically be merged into this file.  See https://hyper.is#cfg for all
 // currently supported options.
@@ -9,12 +8,14 @@ module.exports = {
         // less polished but more frequent updates
         updateChannel: "stable",
 
+        opacity: 0.85,
+
         // default font size in pixels for all tabs
         fontSize: 18,
 
         // font family with optional fallbacks
         fontFamily:
-            '"Hasklig NF", "Source Code Pro NF", "DejaVuSansMono NF", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+            '"Hasklug NF", "SauceCodePro NF", "DejaVuSansMono NF", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
         // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or
         // cmyk)
@@ -86,11 +87,11 @@ module.exports = {
         //
         // Powershell on Windows - Example:
         // `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`
-        shell: "bash.exe",
+        shell: "wsl.exe",
 
         // for setting shell arguments (i.e. for using interactive shellArgs:
         // ['-i']) by default ['--login'] will be used
-        shellArgs: [],
+        shellArgs: ["tmux"],
 
         // for environment variables
         env: {},
@@ -112,18 +113,7 @@ module.exports = {
     // a list of plugins to fetch and install from npm format:
     // [@org/]project[#version] examples: `hyperpower` `@company/project`
     // `project#1.0.1`
-    plugins: [
-        "hyperterm-paste",
-        "hyperterm-tabs",
-        "hyperlinks",
-        "hyper-search",
-        "hyperterm-cursor",
-        "hyper-stylesheet",
-        "hyper-tab-icons",
-        "hyper-arc-dark-controls",
-        "hyper-dark-scrollbar",
-        "hyper-quit"
-    ],
+    plugins: ["hyper-opacity"],
 
     // in development, you can create a directory under `~/.hyper_plugins/local/`
     // and include it here to load it and avoid it being `npm install`ed
