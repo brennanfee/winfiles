@@ -8,7 +8,7 @@ module.exports = {
         // less polished but more frequent updates
         updateChannel: "stable",
 
-        opacity: 0.85,
+        opacity: 0.9,
 
         // default font size in pixels for all tabs
         fontSize: 18,
