@@ -1,18 +1,19 @@
 # To use common configuration in %APPDATA%\mintty, simply remove this file
-BoldAsFont=-1
-Font=Hasklug NF
-FontHeight=14
+BoldAsFont=yes
+ThemeFile=darcula
+Font=SauceCodePro Nerd Font Mono
+FontHeight=16
+AllowBlinking=yes
 Locale=en_US
 ForegroundColour=169,183,198
 BackgroundColour=43,43,43
+CursorColour=169,183,198
 Transparency=low
 OpaqueWhenFocused=no
+CursorType=underscore
 Columns=120
-Rows=40
+Rows=36
 Language=en_US
 Term=xterm-256color
 Printer=*
 FontSmoothing=full
-AllowBlinking=yes
-CursorColour=169,183,198
-ThemeFile=darcula
