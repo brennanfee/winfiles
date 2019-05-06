@@ -23,5 +23,5 @@ if (!(Test-Path "$winfilesRoot\README.md")) {
     # Pull the repo
     git clone --recurse-submodules "https://github.com/brennanfee/winfiles.git" "$env:USERPROFILE\winfiles"
 
-    Write-Output "Finished downloading winfiles."
+    Write-Host -ForegroundColor 'Green' "Finished downloading winfiles."
 }

@@ -1,11 +1,11 @@
 #!/usr/bin/env powershell.exe
 #Requires -Version 5
-Set-StrictMode -Version Latest
+Set-StrictMode -Version 2.0
 
-Push-Location (Split-Path -Path $MyInvocation.MyCommand.Path -Parent)
+Push-Location "$PSScriptRoot"
 
 $BinFolder = Join-Path (Get-Item (Get-Location)).parent.FullName "bin"
-$ScriptDir = Split-Path -Path $MyInvocation.MyCommand.Path -Parent
+$ScriptDir = "$PSScriptRoot"
 
 $env:PSModulePath = "$ScriptDir;" + "$ScriptDir\TodayTechTools;" + "$env:PSModulePath"
 $global:PsGetDestinationModulePath = $ScriptDir
@@ -39,16 +39,16 @@ Write-Host -ForegroundColor 'Green' "Modules imported."
 #Set-WinFilesRoot
 
 # Add the editor environment variables if not already set
-if ([string]::IsNullOrEmpty($env:EDITOR))
-{
-    Set-DefaultEditor
-}
+#if ([string]::IsNullOrEmpty($env:EDITOR))
+#{
+#    Set-DefaultEditor
+#}
 
 # Set the DIRCMD environment variable if not already set
-if ([string]::IsNullOrEmpty($env:DIRCMD))
-{
-    Set-DirCmd
-}
+#if ([string]::IsNullOrEmpty($env:DIRCMD))
+#{
+#    Set-DirCmd
+#}
 
 # Set the TERM environment variable if not already set
 #if ([string]::IsNullOrEmpty($env:TERM))
@@ -57,22 +57,22 @@ if ([string]::IsNullOrEmpty($env:DIRCMD))
 #}
 
 # Set the VIMRUNTIME environment variable, if needed
-if ([string]::IsNullOrEmpty($env:VIMRUNTIME))
-{
-    Set-VimEnvironmentToDefault
-}
+#if ([string]::IsNullOrEmpty($env:VIMRUNTIME))
+#{
+#    Set-VimEnvironmentToDefault
+#}
 
 # Set the VIM environment variable, if needed
-if ([string]::IsNullOrEmpty($env:VIM))
-{
-    Set-VimEnvironmentToDefault
-}
+#if ([string]::IsNullOrEmpty($env:VIM))
+#{
+#    Set-VimEnvironmentToDefault
+#}
 
 # Add bin folder to the environment path
-Add-ToPath($BinFolder)
+#Add-ToPath($BinFolder)
 
 # Add the Git path to the environment path
-Add-GitToPath
+#Add-GitToPath
 
 # Add the Vim path to the environment path
 # $vimBatchPath = Get-DefaultVimBatchPath
@@ -81,16 +81,16 @@ Add-GitToPath
 # }
 
 # Add the editor's path to the environment path
-Add-ToPath([System.IO.Path]::GetDirectoryName($env:EDITOR))
+#Add-ToPath([System.IO.Path]::GetDirectoryName($env:EDITOR))
 
 # Set the visual studio environment
 # TODO: DO I NEED THIS ANY MORE?
 #Set-VsVars32 2017
 
 # Set the editor for PowerShell Extensions Edit-File function
-$Pscx:Preferences['TextEditor'] = $env:EDITOR
+#$Pscx:Preferences['TextEditor'] = $env:EDITOR
 
 # Load last saved history list
-.\PsHistory\SaveAndLoadHistory.ps1
+#.\PsHistory\SaveAndLoadHistory.ps1
 
 Pop-Location

@@ -1,7 +1,7 @@
 #!/usr/bin/env powershell.exe
 #Requires -Version 5
 #Requires -RunAsAdministrator
-Set-StrictMode -Version Latest
+Set-StrictMode -Version 2.0
 
 # Check Profile Directory
 $profileDirectory = Split-Path $PROFILE -Parent
@@ -15,15 +15,15 @@ if(-not (Test-Path($PROFILE)))
     Write-Host "Creating profile."
 }
 
-$root = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
+$root = $PSScriptRoot
 
 # Set up main PowerShell Profile
-$isInstalled = Get-Content $PROFILE | ForEach-Object { if($_.Contains(". $root\powerShell\profile.ps1") -eq $true){$true;}}
+$isInstalled = Get-Content $PROFILE | ForEach-Object { if($_.Contains(". $root\powershell-profile\profile.ps1") -eq $true){$true;}}
 
 if($isInstalled -ne $true){
     Add-Content $PROFILE "#Requires -Version 5"
     Add-Content $PROFILE ""
-    Add-Content $PROFILE ". $root\powerShell\profile.ps1"
+    Add-Content $PROFILE ". `"$root\powershell-profile\profile.ps1`""
     Add-Content $PROFILE ""
     Add-Content $PROFILE "function prompt {"
     Add-Content $PROFILE "    return Get-CustomPrompt"
@@ -37,19 +37,19 @@ else
 }
 
 # Setup NuGet profile used within Visual Studio
-# TODO: Originally this was used by Visual Studio, not sure if VS 2017 still uses this or standard
+# TODO: Originally this was used by Visual Studio, not sure if VS 2017\2019 still uses this or standard
 # powershell.  Validate that this is still needed.
 $nuGetFile = Join-Path $profileDirectory "NuGet_profile.ps1"
 $isNugetInstalled = $false
 
 if (Test-Path $nugetFile){
-    $isNugetInstalled = Get-Content $nuGetFile | ForEach-Object { if($_.Contains(". $root\powerShell\profile.ps1") -eq $true){$true;}}
+    $isNugetInstalled = Get-Content $nuGetFile | ForEach-Object { if($_.Contains(". $root\powershell-profile\profile.ps1") -eq $true){$true;}}
 }
 
 if($isNugetInstalled -ne $true){
     Add-Content $nuGetFile "#Requires -Version 5"
     Add-Content $nuGetFile ""
-    Add-Content $nuGetFile ". $root\powerShell\profile.ps1"
+    Add-Content $nuGetFile ". `"$root\powershell-profile\profile.ps1`""
     Add-Content $nuGetFile ""
     Add-Content $nuGetFile "function prompt {"
     Add-Content $nuGetFile "    return Get-CustomPrompt"
