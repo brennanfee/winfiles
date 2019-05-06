@@ -1,3 +1,8 @@
+#!/usr/bin/env powershell.exe
+#Requires -Version 5
+
+# TODO: Add documentation to each function
+
 # Credit for the idea goes to this article:
 # http://www.nivot.org/post/2009/08/15/PowerShell20PersistingCommandHistory.aspx
 
@@ -5,6 +10,7 @@ $psHistoryPath = Join-Path (split-path $profile) history.clixml
 $psHistoryLength = 1000
 
 function Init-PsHistory {
+    [CmdletBinding()]
     param(
         [switch]$Silent = $false
     )
