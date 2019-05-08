@@ -112,6 +112,8 @@ Install-Module -Name PSReadLine -AllowPrerelease -AcceptLicense -Scope AllUsers 
 
 ### Scoop
 
-# scoop install sudo 7zip git --global
+# scoop install sudo 7zip git which --global
+# scoop bucket add extras
 # scoop install which aria2 curl grep sed less touch
 # scoop install python ruby go perl...
+# scoop install vim

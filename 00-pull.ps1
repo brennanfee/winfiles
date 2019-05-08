@@ -31,7 +31,7 @@ if (!(Test-Path "$winfilesRoot\README.md")) {
     # Check if git is already installed
     if (-not (Test-Path "$env:USERPROFILE\scoop\shims\git.exe")) {
         # Install git
-        scoop install sudo 7zip git --global
+        scoop install sudo 7zip git which --global
         [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
     }
 
