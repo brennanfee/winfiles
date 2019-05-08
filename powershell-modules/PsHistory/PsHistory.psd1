@@ -9,9 +9,11 @@
 
     Description = 'Module to load and save the PowerShell command history'
 
+    PowerShellVersion = '5.0'
+
     FileList = @('PsHistory.psm1')
 
-    FunctionsToExport = @('Init-PsHistory')
+    CmdletsToExport = @('Init-PsHistory')
 
     VariablesToExport = @('psHistoryPath', 'psHistoryLength')
 }
