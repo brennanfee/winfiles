@@ -8,6 +8,12 @@ Import-Module PSReadLine
 Import-Module Pscx -arg "$PSScriptRoot\Pscx.UserPreferences.ps1"
 Import-Module posh-git
 
+# posh-git settings
+$global:GitPromptSettings.EnableWindowTitle = $true
+$global:GitPromptSettings.DefaultForegroundColor = "white"
+
+
+
 #Push-Location "$PSScriptRoot"
 
 #$ScriptDir = "$PSScriptRoot"
@@ -31,8 +37,8 @@ Import-Module posh-git
 
 #Import-Module posh-git
 # posh-git settings
-$global:GitPromptSettings.EnableWindowTitle = $true
-$global:GitPromptSettings.DefaultForegroundColor = "white"
+#$global:GitPromptSettings.EnableWindowTitle = $true
+#$global:GitPromptSettings.DefaultForegroundColor = "white"
 
 #Import-Module posh-npm
 
