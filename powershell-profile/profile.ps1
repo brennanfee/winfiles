@@ -4,8 +4,9 @@ Set-StrictMode -Version 2.0
 
 Push-Location "$PSScriptRoot"
 
-$BinFolder = Join-Path (Get-Item (Get-Location)).parent.FullName "bin"
 $ScriptDir = "$PSScriptRoot"
+$WinFilesFolder = Split-Path -Path $ScriptDir -Parent
+$BinFolder = Join-Path -Path $WinFilesFolder -ChildPath "bin"
 
 $env:PSModulePath = "$ScriptDir;" + "$ScriptDir\TodayTechTools;" + "$env:PSModulePath"
 $global:PsGetDestinationModulePath = $ScriptDir
@@ -13,6 +14,7 @@ $global:PsGetDestinationModulePath = $ScriptDir
 # Set filesystem providers home location
 $provider = get-psprovider FileSystem
 $provider.Home = $env:userprofile
+[environment]::SetEnvironmentVariable('HOME', "$env:userprofile", 'User')
 $env:home = $env:userprofile
 Set-Variable -name HOME -value $env:home -Force
 

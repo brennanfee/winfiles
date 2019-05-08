@@ -47,7 +47,7 @@
         CD                = $true
         DirectoryServices = $true
         FileSystem        = $true
-        GetHelp           = $true
+        GetHelp           = $false    # Disabled by default due to some bugs that have to be resolved.
         Net               = $true
         Prompt            = $false    # Disabled by default because a lot of users have already established prompt functions.
         TranscribeSession = $false    # Disabled by default for security and privacy reasons.
