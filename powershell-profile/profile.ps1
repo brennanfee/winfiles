@@ -2,40 +2,41 @@
 #Requires -Version 5
 Set-StrictMode -Version 2.0
 
-Push-Location "$PSScriptRoot"
+#Push-Location "$PSScriptRoot"
 
 $ScriptDir = "$PSScriptRoot"
 $WinFilesFolder = Split-Path -Path $ScriptDir -Parent
 $BinFolder = Join-Path -Path $WinFilesFolder -ChildPath "bin"
 
-$env:PSModulePath = "$ScriptDir;" + "$ScriptDir\TodayTechTools;" + "$env:PSModulePath"
-$global:PsGetDestinationModulePath = $ScriptDir
+#$env:PSModulePath = "$ScriptDir;" + "$ScriptDir\TodayTechTools;" + "$env:PSModulePath"
+#$global:PsGetDestinationModulePath = $ScriptDir
 
 # Set filesystem providers home location
-$provider = get-psprovider FileSystem
-$provider.Home = $env:userprofile
-[environment]::SetEnvironmentVariable('HOME', "$env:userprofile", 'User')
-$env:home = $env:userprofile
-Set-Variable -name HOME -value $env:home -Force
+#$provider = get-psprovider FileSystem
+#$provider.Home = $env:userprofile
+#[environment]::SetEnvironmentVariable('HOME', "$env:userprofile", 'User')
+#$env:home = $env:userprofile
+#Set-Variable -name HOME -value $env:home -Force
 
 Write-Host -ForegroundColor 'Green' "Importing third-party modules..."
 Import-Module PSReadLine
 Import-Module Pscx -arg "$ScriptDir\Pscx.UserPreferences.ps1"
-Import-Module posh-docker
+#Import-Module posh-docker
 
-Import-Module posh-git
+#Import-Module posh-git
+# posh-git settings
 $global:GitPromptSettings.EnableWindowTitle = $true
 $global:GitPromptSettings.DefaultForegroundColor = "white"
 
 #Import-Module posh-npm
 
-Write-Host -ForegroundColor 'Green' "Importing custom modules..."
-Import-Module EnvironmentTools
+#Write-Host -ForegroundColor 'Green' "Importing custom modules..."
+#Import-Module EnvironmentTools
 #Import-Module VisualStudioTools -DisableNameChecking
-Import-Module CustomPrompt
-Import-Module Aliases
+#Import-Module CustomPrompt
+#Import-Module Aliases
 
-Write-Host -ForegroundColor 'Green' "Modules imported."
+#Write-Host -ForegroundColor 'Green' "Modules imported."
 
 # Set the WinFilesRoot environment variable (if not already set)
 #Set-WinFilesRoot
@@ -95,4 +96,4 @@ Write-Host -ForegroundColor 'Green' "Modules imported."
 # Load last saved history list
 #.\PsHistory\SaveAndLoadHistory.ps1
 
-Pop-Location
+#Pop-Location
