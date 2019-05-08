@@ -53,13 +53,15 @@ function Switch-ToProfileFolder {
         [string]$Folder
     )
 
+    # TODO: Erorr handling when $env:ProfilePath is invalid
+
     $path = Join-Path -Path $env:ProfilePath -ChildPath $Folder
     if (Test-Path $path) {
         Set-Location $path
     }
 }
 
-function Switch-ToWinHomeLocation {
+function Switch-ToHomeLocation {
     Switch-ToSpecialFolder "UserProfile"
 }
 
@@ -67,9 +69,28 @@ function Switch-ToDesktopLocation {
     Switch-ToSpecialFolder "DesktopDirectory"
 }
 
-function Switch-ToHomeDocumentsLocation {
+function Switch-ToMyDocumentsLocation {
     Switch-ToSpecialFolder "MyDocuments"
 }
+
+function Switch-ToMusicLocation {
+    Switch-ToSpecialFolder "MyMusic"
+}
+
+function Switch-ToPicturesLocation {
+    Switch-ToSpecialFolder "MyPictures"
+}
+
+function Switch-ToTemplatesLocation {
+    # Might not be what I want.  TODO: Test
+    Switch-ToSpecialFolder "Templates"
+}
+
+function Switch-ToVideosLocation {
+    Switch-ToSpecialFolder "MyVideos"
+}
+
+# Profile paths
 
 function Switch-ToDocumentsLocation {
     Switch-ToProfileFolder "documents"
@@ -85,14 +106,6 @@ function Switch-ToDropboxLocation {
 
 function Switch-ToMountsLocation {
     Switch-ToProfileFolder "mounts"
-}
-
-function Switch-ToMusicLocation {
-    Switch-ToSpecialFolder "MyMusic"
-}
-
-function Switch-ToPicturesLocation {
-    Switch-ToSpecialFolder "MyPictures"
 }
 
 function Switch-ToPublicLocation {
@@ -111,11 +124,6 @@ function Switch-ToSourceGithubLocation {
     Switch-ToProfileFolder "source\github"
 }
 
-function Switch-ToTemplatesLocation {
-    # Might not be what I want.  TODO: Test
-    Switch-ToSpecialFolder "Templates"
-}
-
-function Switch-ToVideosLocation {
-    Switch-ToSpecialFolder "MyVideos"
+function Switch-ToWinFilesLocation {
+    Switch-ToProfileFolder "winfiles"
 }

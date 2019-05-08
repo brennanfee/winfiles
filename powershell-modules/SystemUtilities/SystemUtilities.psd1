@@ -21,15 +21,24 @@
 
     FileList          = @(
         'ComputerDetails.psm1',
+        'EditorUtilities.psm1',
         'FileAndRegistryUtilities.psm1',
         'InvokeMsiInstaller.psm1',
+        'LocationUtilities.psm1',
         'PathUtilities.psm1',
         'PermissionUtilities.psm1'
     )
 
     CmdletsToExport = @(
-        'Get-IsAdministrator',
         'Get-ComputerDetails',
+        'Set-Editor',
+        'Set-DefaultEditor', ## Move to custom
+        'Set-EditorToVim',
+        'Set-EditorToEmacs',
+        'Set-EditorToVSCode',
+        'Set-EditorToSublime',
+        'Set-EditorToAtom',
+        'Set-EditorToNotepad',
         'Set-RegistryBool',
         'Set-RegistryInt',
         'Set-RegistryString',
@@ -43,9 +52,31 @@
         'New-SymbolicLink',
         'Invoke-MsiInstaller',
         'Invoke-MsiInstallerFromUrl',
+        'Get-SpecialFolder',
+        'Set-ProfileLocation',
+        'Switch-ToSpecialFolder',
+        'Switch-ToProfileFolder',
+        'Switch-ToHomeLocation',
+        'Switch-ToDesktopLocation',
+        'Switch-ToMyDocumentsLocation',
+        'Switch-ToMusicLocation',
+        'Switch-ToPicturesLocation',
+        'Switch-ToTemplatesLocation',
+        'Switch-ToVideosLocation',
+        'Switch-ToDocumentsLocation', # Move to custom
+        'Switch-ToDownloadsLocation', # Move to custom
+        'Switch-ToDropboxLocation', # Move to custom
+        'Switch-ToMountsLocation', # Move to custom
+        'Switch-ToPublicLocation', # Move to custom
+        'Switch-ToSourceLocation', # Move to custom
+        'Switch-ToSourcePersonalLocation', # Move to custom
+        'Switch-ToSourceGithubLocation', # Move to custom
+        'Switch-ToWinFilesLocation', # Move to custom
         'Add-ToPath',
         'Remove-FromPath',
-
+        'Add-ToPSModulePath',
+        'Remove-FromPSModulePath',
+        'Get-IsAdministrator'
     )
 
     AliasesToExport = @('Set-DirectoryOwnership')
