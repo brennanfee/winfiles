@@ -16,36 +16,22 @@
             ModuleName="Pscx";
             ModuleVersion="3.3.0";
             Guid="0fab0d39-2f29-4e79-ab9a-fd750c66e6c5"
+        },
+        @{
+            ModuleName="SystemUtilities";
+            ModuleVersion="1.0.0";
+            Guid="1e581f7d-584d-40bf-b0f3-3d1ee63164f8"
         }
     )
 
-    FileList          = @(
-        'ComputerDetails.psm1',
-        'FileAndRegistryUtilities.psm1',
-        'InvokeMsiInstaller.psm1',
-        'PathUtilities.psm1',
-        'PermissionUtilities.psm1'
+    FileList = @(
+        'Aliases.psm1',
+        'CustomPrompt.psm1'
     )
 
-    CmdletsToExport = @(
-        'Get-IsAdministrator',
-        'Get-ComputerDetails',
-        'Set-RegistryBool',
-        'Set-RegistryInt',
-        'Set-RegistryString',
-        'Set-RegistryStringExpand',
-        'Set-RegistryStringMulti',
-        'Set-RegistryValue',
-        'Set-RegistryOwnership',
-        'Set-FileOwnership',
-        'Set-FolderOwnership',
-        'New-SymbolicLink-Safe',
-        'New-SymbolicLink',
-        'Invoke-MsiInstaller',
-        'Invoke-MsiInstallerFromUrl',
-        'Add-ToPath',
-        'Remove-FromPath'
+    FunctinosToExport = @(
+        'Get-CustomPrompt'
     )
 
-    AliasesToExport = @('Set-DirectoryOwnership')
+    AliasesToExport = '*'
 }
