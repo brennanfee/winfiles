@@ -3,8 +3,10 @@
 Set-StrictMode -Version 2.0
 
 Write-Host -ForegroundColor 'Green' "Importing third-party modules..."
+# Manually import these
 Import-Module PSReadLine
 Import-Module Pscx -arg "$PSScriptRoot\Pscx.UserPreferences.ps1"
+Import-Module posh-git
 
 #Push-Location "$PSScriptRoot"
 

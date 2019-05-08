@@ -31,6 +31,7 @@ Import-Module -Name PowerShellGet -MinimumVersion 2.1.2
 
 # Install the others
 #Install-Module -Name PSDscResources -AcceptLicense -Scope AllUsers -Force
+Install-Module -Name PackageManagement -AcceptLicense -Scope AllUsers -Force
 Install-Module -Name Pester -AcceptLicense -Scope AllUsers -Force -SkipPublisherCheck
 Install-Module -Name PSReadLine -AllowPrerelease -AcceptLicense -Scope AllUsers -Force
 
@@ -75,6 +76,7 @@ Install-Module -Name PSReadLine -AllowPrerelease -AcceptLicense -Scope AllUsers 
 #Install-Module -Name Pscx -AllowClobber -AcceptLicense -Scope CurrentUser
 #Install-Module -Name posh-git -AllowClobber -AcceptLicense -Scope CurrentUser
 #Install-Module -Name posh-docker -AcceptLicense -Scope CurrentUser
+#Install-Module -Name posh-npm -AcceptLicense -Scope CurrentUser
 # AWSPowerShell
 # AWSPowerShell.NetCore -> if using powershell core
 # PendingReboot
