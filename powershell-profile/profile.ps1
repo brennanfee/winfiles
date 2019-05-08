@@ -2,11 +2,15 @@
 #Requires -Version 5
 Set-StrictMode -Version 2.0
 
+Write-Host -ForegroundColor 'Green' "Importing third-party modules..."
+Import-Module PSReadLine
+Import-Module Pscx -arg "$PSScriptRoot\Pscx.UserPreferences.ps1"
+
 #Push-Location "$PSScriptRoot"
 
-$ScriptDir = "$PSScriptRoot"
-$WinFilesFolder = Split-Path -Path $ScriptDir -Parent
-$BinFolder = Join-Path -Path $WinFilesFolder -ChildPath "bin"
+#$ScriptDir = "$PSScriptRoot"
+#$WinFilesFolder = Split-Path -Path $ScriptDir -Parent
+#$BinFolder = Join-Path -Path $WinFilesFolder -ChildPath "bin"
 
 #$env:PSModulePath = "$ScriptDir;" + "$ScriptDir\TodayTechTools;" + "$env:PSModulePath"
 #$global:PsGetDestinationModulePath = $ScriptDir
@@ -18,9 +22,9 @@ $BinFolder = Join-Path -Path $WinFilesFolder -ChildPath "bin"
 #$env:home = $env:userprofile
 #Set-Variable -name HOME -value $env:home -Force
 
-Write-Host -ForegroundColor 'Green' "Importing third-party modules..."
-Import-Module PSReadLine
-Import-Module Pscx -arg "$ScriptDir\Pscx.UserPreferences.ps1"
+#Write-Host -ForegroundColor 'Green' "Importing third-party modules..."
+#Import-Module PSReadLine
+#Import-Module Pscx -arg "$ScriptDir\Pscx.UserPreferences.ps1"
 #Import-Module posh-docker
 
 #Import-Module posh-git
