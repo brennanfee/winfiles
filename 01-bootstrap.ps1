@@ -110,3 +110,8 @@ Install-Module -Name PSReadLine -AllowPrerelease -AcceptLicense -Scope AllUsers 
 # Recycle
 # ConversionModule
 
+### Scoop
+
+# scoop install sudo 7zip git --global
+# scoop install which aria2 curl grep sed less touch
+# scoop install python ruby go perl...
