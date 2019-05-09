@@ -2,6 +2,9 @@
 #Requires -Version 5
 Set-StrictMode -Version 2.0
 
+$ScriptDir = "$PSScriptRoot"
+$WinFilesFolder = Split-Path -Path $ScriptDir -Parent
+
 Write-Host -ForegroundColor 'Green' "Importing third-party modules..."
 # Manually import these
 Import-Module PSReadLine
@@ -12,7 +15,12 @@ Import-Module posh-git
 $global:GitPromptSettings.EnableWindowTitle = $true
 $global:GitPromptSettings.DefaultForegroundColor = "white"
 
+Write-Host -ForegroundColor "Modules imported."
 
+if (-not ("$env.PSModulePath".Contains("$WinFilesFolder\powershell-modules")) {
+    $env:PSModulePath = "$WinFilesFolder\powershell-modules;" + "$env:PSModulePath"
+}
+Add-ToPSModulePath -Path "$WinFilesFolder\powershell-modules" -Prepend
 
 #Push-Location "$PSScriptRoot"
 
