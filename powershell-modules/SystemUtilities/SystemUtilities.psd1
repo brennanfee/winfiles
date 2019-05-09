@@ -19,14 +19,14 @@
         }
     )
 
-    FileList          = @(
-        'ComputerDetails.psm1',
-        'EditorUtilities.psm1',
-        'FileAndRegistryUtilities.psm1',
-        'InvokeMsiInstaller.psm1',
-        'LocationUtilities.psm1',
-        'PathUtilities.psm1',
-        'PermissionUtilities.psm1'
+    NestedModules = @(
+        'ComputerDetails.ps1',
+        'EditorUtilities.ps1',
+        'FileAndRegistryUtilities.ps1',
+        'InvokeMsiInstaller.ps1',
+        'LocationUtilities.ps1',
+        'PathUtilities.ps1',
+        'PermissionUtilities.ps1'
     )
 
     CmdletsToExport = @(

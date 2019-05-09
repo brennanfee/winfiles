@@ -11,7 +11,7 @@
 
     PowerShellVersion = '5.0'
 
-    FileList = @('PsHistory.psm1')
+    NestedModules = @('PsHistory.ps1')
 
     CmdletsToExport = @('Init-PsHistory')
 

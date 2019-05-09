@@ -24,9 +24,9 @@
         }
     )
 
-    FileList = @(
-        'Aliases.psm1',
-        'CustomPrompt.psm1'
+    NestedModules = @(
+        'Aliases.ps1',
+        'CustomPrompt.ps1'
     )
 
     FunctinosToExport = @(
