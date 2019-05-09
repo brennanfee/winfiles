@@ -18,9 +18,7 @@ $global:GitPromptSettings.DefaultForegroundColor = "white"
 Write-Host "Modules imported."
 
 if (-not ("$env:PSModulePath".Contains("$WinFilesFolder\powershell-modules"))) {
-    $newPath = "$WinFilesFolder\powershell-modules;" + "$env:PSModulePath"
-    Set-ItemProperty -Path "HKCU:\Environment" -Name "PSModulePath" -Value "$newPath"
-    $env:PSModulePath = "$newPath"
+    $env:PSModulePath = "$WinFilesFolder\powershell-modules;" + "$env:PSModulePath"
 }
 
 #Push-Location "$PSScriptRoot"
