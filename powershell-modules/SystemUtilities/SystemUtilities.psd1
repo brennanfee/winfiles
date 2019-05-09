@@ -74,8 +74,6 @@
         'Switch-ToWinFilesLocation', # Move to custom
         'Add-ToPath',
         'Remove-FromPath',
-        'Add-ToPSModulePath',
-        'Remove-FromPSModulePath',
         'Get-IsAdministrator'
     )
 
