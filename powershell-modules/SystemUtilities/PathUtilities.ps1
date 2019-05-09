@@ -14,7 +14,23 @@ function Add-ToPathPrivate {
         [switch] $Prepend
     )
 
-    $currentPath = Get-PathVariable -Name "$Variable" -RemoveEmptyPaths -StripQuotes -Target "$Scope"
+    if ($Scope -eq "Machine") {
+        #$key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment"
+        $key = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment"
+    } else {
+        #$key = "HKEY_CURRENT_USER\Environment"
+        $key = "HKCU:\Environment"
+    }
+
+    #$currentPathString = [Microsoft.Win32.Registry]::GetValue("$key", "$Variable", "")
+    $currentPathString = Get-ItemProperty -Path "$key" -Name "$Variable"
+
+    if (-not [string]::IsNullOrEmpty($currentPathString))
+    {
+        $currentPath = Get-PathVariable -Name "$Variable" -RemoveEmptyPaths -StripQuotes -Target "$Scope"
+    } else {
+        $currentPath = New-Object System.Collections.ArrayList
+    }
 
     if (-not ($currentPath -contains $Path)) {
         if ($Prepend) {
