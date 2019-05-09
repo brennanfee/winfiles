@@ -9,7 +9,7 @@ function Add-ToPathPrivate {
         [string] $Variable,
         [ValidateScript({Test-Path $_ -PathType "Container"})]
         [string] $Path,
-        [ValidSet("User", "Machine")]
+        [ValidateSet("User", "Machine")]
         [string] $Scope = "User",
         [switch] $Prepend
     )
@@ -32,7 +32,7 @@ function Remove-FromPathPrivate {
         [string] $Variable,
         [ValidateScript( { Test-Path $_ -PathType "Container" })]
         [string] $Path,
-        [ValidSet("User", "Machine")]
+        [ValidateSet("User", "Machine")]
         [string] $Scope = "User"
     )
 
@@ -52,7 +52,7 @@ function Add-ToPath {
     param (
         [ValidateScript({Test-Path $_ -PathType "Container"})]
         [string] $Path,
-        [ValidSet("User", "Machine")]
+        [ValidateSet("User", "Machine")]
         [string] $Scope = "User",
         [switch] $Prepend
     )
@@ -69,7 +69,7 @@ function Remove-FromPath {
     param (
         [ValidateScript({Test-Path $_ -PathType "Container"})]
         [string] $Path,
-        [ValidSet("User", "Machine")]
+        [ValidateSet("User", "Machine")]
         [string] $Scope = "User"
     )
 
@@ -83,7 +83,7 @@ function Add-ToPSModulePath {
     param (
         [ValidateScript( { Test-Path $_ -PathType "Container" })]
         [string] $Path,
-        [ValidSet("User", "Machine")]
+        [ValidateSet("User", "Machine")]
         [string] $Scope = "User",
         [switch] $Prepend
     )
@@ -101,7 +101,7 @@ function Remove-FromPSModulePath {
     param (
         [ValidateScript( { Test-Path $_ -PathType "Container" })]
         [string] $Path,
-        [ValidSet("User", "Machine")]
+        [ValidateSet("User", "Machine")]
         [string] $Scope = "User"
     )
 
