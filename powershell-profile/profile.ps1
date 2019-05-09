@@ -15,7 +15,7 @@ Import-Module posh-git
 $global:GitPromptSettings.EnableWindowTitle = $true
 $global:GitPromptSettings.DefaultForegroundColor = "white"
 
-Write-Host -ForegroundColor "Modules imported."
+Write-Host "Modules imported."
 
 if (-not ("$env.PSModulePath".Contains("$WinFilesFolder\powershell-modules"))) {
     $env:PSModulePath = "$WinFilesFolder\powershell-modules;" + "$env:PSModulePath"
