@@ -24,17 +24,6 @@ function Set-Editor {
     $Pscx:Preferences['TextEditor'] = $env:editor
 }
 
-function Set-DefaultEditor {
-    # My preferred order of precedence (currently): Vim, Visual Studio Code, Notepad
-    if (-not (Set-EditorToVim))
-    {
-        if (-not (Set-EditorToVSCode))
-        {
-            Set-EditorToNotepad
-        }
-    }
-}
-
 function Set-EditorToVim {
     $editor = Get-DefaultVimExe
     if (-not ([string]::IsNullOrEmpty($editor))) {
