@@ -4,6 +4,10 @@ Set-StrictMode -Version 2.0
 
 function Get-SpecialFolder {
     param(
+        [Parameter(Position = 0,
+            ParameterSetName = "Alias",
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true)]
         [System.Environment+SpecialFolder]$Alias
     )
 
@@ -42,13 +46,21 @@ function Set-ProfileLocation {
 
 function Switch-ToSpecialFolder {
     param(
+        [Parameter(Position = 0,
+            ParameterSetName = "Alias",
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true)]
         [System.Environment+SpecialFolder]$Alias,
+        [Parameter(Position = 1,
+            ParameterSetName = "Subfolder",
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true)]
         [string]$Subfolder = ""
     )
 
     $specialFolder = Get-SpecialFolder $Alias
     if (Test-Path $specialFolder) {
-        Switch-ToFolderInternal $specialFolder $Subfolder
+        Switch-ToFolderInternal -RootPath $specialFolder -Subfolder $Subfolder
     }
     else {
         Write-Warning "The Special folder does not exist or is not configured."
@@ -57,14 +69,18 @@ function Switch-ToSpecialFolder {
 
 function Switch-ToProfileFolder {
     param(
-        [string]$Folder = ""
+        [Parameter(Position = 1,
+            ParameterSetName = "Subfolder",
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true)]
+        [string]$Subfolder = ""
     )
 
     if ([string]::IsNullOrEmpty($env:ProfilePath) -or (-not (Test-Path $env:ProfilePath))) {
         Write-Warning "The Profile location has not been set or does not exist.  Set it first and try again."
     }
     else {
-        Switch-ToFolderInternal $env:ProfilePath $Folder
+        Switch-ToFolderInternal -RootPath $env:ProfilePath -Subfolder $Subfolder
     }
 }
 
