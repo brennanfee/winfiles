@@ -56,11 +56,16 @@ function Switch-ToProfileFolder {
         [string]$Folder
     )
 
-    # TODO: Erorr handling when $env:ProfilePath is invalid
-
-    $path = Join-Path -Path $env:ProfilePath -ChildPath $Folder
-    if (Test-Path $path) {
-        Set-Location $path
+    if ([string]::IsNullOrEmpty($env:ProfilePath)) {
+        Write-Warning "The Profile location has not been set.  Set it first and try again."
+        Set-Location $env:USERPROFILE
+    } else {
+        $path = Join-Path -Path $env:ProfilePath -ChildPath $Folder
+        if (Test-Path $path) {
+            Set-Location $path
+        } else {
+            Set-Location $env:ProfilePath
+        }
     }
 }
 
