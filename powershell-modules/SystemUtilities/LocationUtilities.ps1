@@ -87,32 +87,3 @@ function Switch-ToProfileFolder {
         }
     }
 }
-
-function Switch-ToHomeLocation {
-    Switch-ToSpecialFolder "UserProfile"
-}
-
-function Switch-ToDesktopLocation {
-    Switch-ToSpecialFolder "DesktopDirectory"
-}
-
-function Switch-ToMyDocumentsLocation {
-    Switch-ToSpecialFolder "MyDocuments"
-}
-
-function Switch-ToMusicLocation {
-    Switch-ToSpecialFolder "MyMusic"
-}
-
-function Switch-ToPicturesLocation {
-    Switch-ToSpecialFolder "MyPictures"
-}
-
-function Switch-ToTemplatesLocation {
-    # Might not be what I want.  TODO: Test
-    Switch-ToSpecialFolder "Templates"
-}
-
-function Switch-ToVideosLocation {
-    Switch-ToSpecialFolder "MyVideos"
-}

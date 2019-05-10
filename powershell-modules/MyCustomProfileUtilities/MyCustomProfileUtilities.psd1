@@ -33,17 +33,7 @@
     CmdletsToExport = @(
         'Get-CustomPrompt',
         'Set-DefaultEditor',
-        'Set-MyCustomProfileLocation',
-        'Switch-ToDocumentsLocation',
-        'Switch-ToDownloadsLocation',
-        'Switch-ToInstallsLocation',
-        'Switch-ToDropboxLocation',
-        'Switch-ToMountsLocation',
-        'Switch-ToPublicLocation',
-        'Switch-ToSourceLocation',
-        'Switch-ToSourcePersonalLocation',
-        'Switch-ToSourceGithubLocation',
-        'Switch-ToWinFilesLocation'
+        'Set-MyCustomProfileLocation'
     )
 
     AliasesToExport = '*'

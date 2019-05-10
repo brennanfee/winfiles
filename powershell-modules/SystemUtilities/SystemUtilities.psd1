@@ -55,13 +55,6 @@
         'Set-ProfileLocation',
         'Switch-ToSpecialFolder',
         'Switch-ToProfileFolder',
-        'Switch-ToHomeLocation',
-        'Switch-ToDesktopLocation',
-        'Switch-ToMyDocumentsLocation',
-        'Switch-ToMusicLocation',
-        'Switch-ToPicturesLocation',
-        'Switch-ToTemplatesLocation',
-        'Switch-ToVideosLocation',
         'Add-ToPath',
         'Remove-FromPath',
         'Get-IsAdministrator'
