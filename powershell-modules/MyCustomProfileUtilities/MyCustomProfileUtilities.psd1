@@ -27,7 +27,8 @@
     NestedModules = @(
         'Aliases.ps1',
         'CustomPrompt.ps1',
-        'Set-DefaultEditor.ps1'
+        'Set-DefaultEditor.ps1',
+        'CustomLocations.ps1'
     )
 
     CmdletsToExport = @(
