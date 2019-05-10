@@ -5,38 +5,89 @@ Set-StrictMode -Version 2.0
 Set-Alias e Edit-File
 Set-Alias edit Edit-File
 
-Set-Alias ls wsl ls --color=auto --group-directories-first
-Set-Alias la wsl ls -A --color=auto --group-directories-first
-Set-Alias ll wsl ls -oh --color=auto --group-directories-first --time-style=long-iso
-Set-Alias lla wsl ls -ohA --color=auto --group-directories-first --time-style=long-iso
-Set-Alias lls wsl ls -ohA --color=auto --group-directories-first --time-style=long-iso
-Set-Alias ldir wsl ls -ohA --color=never --group-directories-first --time-style=long-iso | grep --color=never "^d"
-Set-Alias vdir wsl ls -A --color=auto --group-directories-first --format=long
+Function lsWslFunc {}
+Set-Alias ls lsWslFunc
+
+Function laWslFunc { wsl.exe ls -A --color=auto --group-directories-first }
+Set-Alias la laWslFunc
+
+Function llWslFunc { wsl.exe ls -oh --color=auto --group-directories-first --time-style=long-iso }
+Set-Alias ll llWslFunc
+
+Function llaWslFunc { wsl.exe ls -ohA --color=auto --group-directories-first --time-style=long-iso }
+Set-Alias lla llaWslFunc
+
+Function llsWslFunc { wsl.exe ls -ohA --color=auto --group-directories-first --time-style=long-iso }
+Set-Alias lls llsWslFunc
+
+Function ldirWslFunc { wsl.exe ls -ohA --color=never --group-directories-first --time-style=long-iso | grep --color=never "^d" }
+Set-Alias ldir ldirWslFunc
+
+Function vdirWslFunc { wsl.exe ls -A --color=auto --group-directories-first --format=long }
+Set-Alias vdir vdirWslFunc
+
+Function treeWslFunc { wsl.exe tree -C }
 Set-Alias tree wsl tree -C
 
 # TODO: Change to match the linux cd aliases
-Set-Alias cd. cd ..
-Set-Alias cd.. cd ..
-Set-Alias cdu cd ..
+Function cdDotFunc { Set-Location ".." }
+Set-Alias cd. cdDotFunc
+Set-Alias cd.. cdDotFunc
+Set-Alias cdu cdDotFunc
 
 Set-Alias cdp Switch-ToProfileFolder
-Set-Alias cdk Switch-ToSpecialFolder "DesktopDirectory"
-Set-Alias cdl Switch-ToSpecialFolder "Templates" # Might not be what I want.  TODO: Test
-Set-Alias cds Switch-ToProfileFolder "source"
-Set-Alias cdss Switch-ToProfileFolder "source\personal"
-Set-Alias cdsg Switch-ToProfileFolder "source\github"
-Set-Alias cdd Switch-ToProfileFolder "downloads"
-Set-Alias cdi Switch-ToProfileFolder "downloads\installs"
-Set-Alias cdm Switch-ToSpecialFolder "MyMusic"
-Set-Alias cdmp Switch-ToSpecialFolder "MyMusic" "playlists"
-Set-Alias cdmt Switch-ToProfileFolder "mounts"
-Set-Alias cdv Switch-ToSpecialFolder "MyVideos"
-Set-Alias cdvm Switch-ToProfileFolder "vms"
-Set-Alias cddb Switch-ToProfileFolder "dropbox"
+
+Function cdkFunc { Switch-ToSpecialFolder "DesktopDirectory" }
+Set-Alias cdk cdkFunc
+
+# Might not be what I want.  TODO: Test
+Function cdlFunc { Switch-ToSpecialFolder "Templates" }
+Set-Alias cdl cdlFunc
+
+Function cdsFunc { Switch-ToProfileFolder "source" }
+Set-Alias cds cdsFunc
+
+Function cdssFunc { Switch-ToProfileFolder "source\personal" }
+Set-Alias cdss cdssFunc
+
+Function csgFunc { Switch-ToProfileFolder "source\github" }
+Set-Alias cdsg csgFunc
+
+Function cddFunc { Switch-ToProfileFolder "downloads" }
+Set-Alias cdd cddFunc
+
+Function cdiFunc { Switch-ToProfileFolder "downloads\installs" }
+Set-Alias cdi cdiFunc
+
+Function cdmFunc { Switch-ToSpecialFolder "MyMusic" }
+Set-Alias cdm cdmFunc
+
+Function cdmpFunc { Switch-ToSpecialFolder "MyMusic" "playlists" }
+Set-Alias cdmp cdmpFunc
+
+Function cdmtFunc { Switch-ToProfileFolder "mounts" }
+Set-Alias cdmt cdmtFunc
+
+Function cdvFunc { Switch-ToSpecialFolder "MyVideos" }
+Set-Alias cdv cdvFunc
+
+Function cdvmFunc { Switch-ToProfileFolder "vms" }
+Set-Alias cdvm cdvmFunc
+
+Function cddbFunc { Switch-ToProfileFolder "dropbox" }
+Set-Alias cddb cddbFunc
+
 #NOTE: This is NOT the "My Documents" special folder
-Set-Alias cdc Switch-ToProfileFolder "documents"
-Set-Alias cdx Switch-ToSpecialFolder "MyPictures"
-Set-Alias cdh Switch-ToSpecialFolder "UserProfile"
-Set-Alias cdw Switch-ToProfileFolder "winfiles"
+Function cdcFunc { Switch-ToProfileFolder "documents" }
+Set-Alias cdc cdcFunc
+
+Function cdxFunc { Switch-ToSpecialFolder "MyPictures" }
+Set-Alias cdx cdxFunc
+
+Function cdhFunc { Switch-ToSpecialFolder "UserProfile" }
+Set-Alias cdh cdhFunc
+
+Function cdwFunc { Switch-ToProfileFolder "winfiles" }
+Set-Alias cdw cdwFunc
 
 #TODO: cdr - to to root of git folder
