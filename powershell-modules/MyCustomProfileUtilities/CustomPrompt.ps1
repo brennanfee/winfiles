@@ -15,7 +15,9 @@ function Get-CustomPrompt {
 
     Write-Host([System.Environment]::NewLine) -nonewline
 
-    Write-Host($isAdminSession) -nonewline -foregroundcolor Red
+    if ($isAdminSession) {
+        Write-Host("[Admin] ") -nonewline -foregroundcolor Red
+    }
 
     Write-Host("$env:username@$env:computername ") -nonewline -ForegroundColor Green
 
