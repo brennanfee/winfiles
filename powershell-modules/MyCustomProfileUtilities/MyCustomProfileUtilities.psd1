@@ -26,11 +26,23 @@
 
     NestedModules = @(
         'Aliases.ps1',
-        'CustomPrompt.ps1'
+        'CustomPrompt.ps1',
+        'Set-DefaultEditor.ps1'
     )
 
-    FunctinosToExport = @(
-        'Get-CustomPrompt'
+    CmdletsToExport = @(
+        'Get-CustomPrompt',
+        'Set-DefaultEditor',
+        'Set-MyCustomProfileLocation',
+        'Switch-ToDocumentsLocation',
+        'Switch-ToDownloadsLocation',
+        'Switch-ToDropboxLocation',
+        'Switch-ToMountsLocation',
+        'Switch-ToPublicLocation',
+        'Switch-ToSourceLocation',
+        'Switch-ToSourcePersonalLocation',
+        'Switch-ToSourceGithubLocation',
+        'Switch-ToWinFilesLocation'
     )
 
     AliasesToExport = '*'
