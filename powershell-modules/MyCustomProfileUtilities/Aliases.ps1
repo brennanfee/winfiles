@@ -3,11 +3,16 @@
 Set-StrictMode -Version 2.0
 
 Set-Alias e Edit-File
+Set-Alias edit Edit-File
 
-# TODO: Can I use the wsl command line here to get real ls?
-Set-Alias la Get-ChildItem
-Set-Alias ll Get-ChildItem
-Set-Alias lla Get-ChildItem
+Set-Alias ls wsl ls --color=auto --group-directories-first
+Set-Alias la wsl ls -A --color=auto --group-directories-first
+Set-Alias ll wsl ls -oh --color=auto --group-directories-first --time-style=long-iso
+Set-Alias lla wsl ls -ohA --color=auto --group-directories-first --time-style=long-iso
+Set-Alias lls wsl ls -ohA --color=auto --group-directories-first --time-style=long-iso
+Set-Alias ldir wsl ls -ohA --color=never --group-directories-first --time-style=long-iso | grep --color=never "^d"
+Set-Alias vdir wsl ls -A --color=auto --group-directories-first --format=long
+Set-Alias tree wsl tree -C
 
 # TODO: Change to match the linux cd aliases
 Set-Alias sdown Switch-ToDownloadsLocation
