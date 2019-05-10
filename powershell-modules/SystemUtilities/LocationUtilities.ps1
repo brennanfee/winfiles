@@ -48,18 +48,10 @@ function Switch-ToSpecialFolder {
 
     $specialFolder = Get-SpecialFolder $Alias
     if (Test-Path $specialFolder) {
-        if ([string]::IsNullOrEmpty($Subfolder)) {
-            Set-Location $specialFolder
-        }
-        else {
-            $path = Join-Path -Path $specialFolder -ChildPath $Subfolder
-            if (Test-Path $path) {
-                Set-Location $path
-            }
-            else {
-                Set-Location $specialFolder
-            }
-        }
+        Switch-ToFolderInternal $specialFolder $Subfolder
+    }
+    else {
+        Write-Warning "The Special folder does not exist or is not configured."
     }
 }
 
@@ -68,21 +60,43 @@ function Switch-ToProfileFolder {
         [string]$Folder = ""
     )
 
-    if ([string]::IsNullOrEmpty($env:ProfilePath)) {
-        Write-Warning "The Profile location has not been set.  Set it first and try again."
-        Set-Location $env:USERPROFILE
+    if ([string]::IsNullOrEmpty($env:ProfilePath) -or (-not (Test-Path $env:ProfilePath))) {
+        Write-Warning "The Profile location has not been set or does not exist.  Set it first and try again."
     }
     else {
-        if ([string]::IsNullOrEmpty($Folder)) {
-            Set-Location $env:ProfilePath
+        Switch-ToFolderInternal $env:ProfilePath $Folder
+    }
+}
+
+function Switch-ToFolderInternal {
+    param(
+        [ValidateScript( { Test-Path $_ -PathType "Container" })]
+        [string]$RootPath,
+        [string]$Subfolder = ""
+    )
+
+    if ([string]::IsNullOrEmpty($Subfolder)) {
+        Set-Location $RootPath
+    }
+    else {
+        $path = Join-Path -Path $RootPath -ChildPath $Subfolder
+        if (Test-Path $path) {
+            Set-Location $path
         }
         else {
-            $path = Join-Path -Path $env:ProfilePath -ChildPath $Folder
-            if (Test-Path $path) {
-                Set-Location $path
+            # See if they asked for a sub-subfolder:  x\y
+            if ($Subfolder.Contains([IO.Path]::PathSeparator)) {
+                $paths = $Subfolder -split [IO.Path]::PathSeparator
+                $path = Join-Path $RootPath -ChildPath $paths[0]
+                if (Test-Path $path) {
+                    Set-Location $path
+                }
+                else {
+                    Set-Location $RootPath
+                }
             }
             else {
-                Set-Location $env:ProfilePath
+                Set-Location $RootPath
             }
         }
     }
