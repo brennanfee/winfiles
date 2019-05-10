@@ -3,11 +3,11 @@
 Set-StrictMode -Version 2.0
 
 function Get-SpecialFolder {
-  param(
-      [System.Environment+SpecialFolder]$Alias
-  )
+    param(
+        [System.Environment+SpecialFolder]$Alias
+    )
 
-  [Environment]::GetFolderPath([System.Environment+SpecialFolder]$Alias)
+    [Environment]::GetFolderPath([System.Environment+SpecialFolder]$Alias)
 }
 
 # On Windows, I set a "profile" directory which is usually at one of the drive
@@ -17,13 +17,13 @@ function Get-SpecialFolder {
 # move the entire C:\User\<username> folder someplace else so my profile serves
 # the same purpose but the $HOME and $USERPROFILE are still the User directory.
 function Set-ProfileLocation {
-    [CmdletBinding(DefaultParameterSetName="Path", SupportsShouldProcess=$true)]
+    [CmdletBinding(DefaultParameterSetName = "Path", SupportsShouldProcess = $true)]
     param(
-        [Parameter(Position=0,
-                   ParameterSetName="Path",
-                   ValueFromPipeline=$true,
-                   ValueFromPipelineByPropertyName=$true)]
-        [ValidateScript({Test-Path $_ -PathType "Container"})]
+        [Parameter(Position = 0,
+            ParameterSetName = "Path",
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true)]
+        [ValidateScript( { Test-Path $_ -PathType "Container" })]
         [string]
         $Path,
         [switch]$Force = $false
@@ -42,12 +42,24 @@ function Set-ProfileLocation {
 
 function Switch-ToSpecialFolder {
     param(
-        [System.Environment+SpecialFolder]$Alias
+        [System.Environment+SpecialFolder]$Alias,
+        [string]$Subfolder = ""
     )
 
     $specialFolder = Get-SpecialFolder $Alias
     if (Test-Path $specialFolder) {
-        Set-Location $specialFolder
+        if ([string]::IsNullOrEmpty($Subfolder)) {
+            Set-Location $specialFolder
+        }
+        else {
+            $path = Join-Path -Path $specialFolder -ChildPath $Subfolder
+            if (Test-Path $path) {
+                Set-Location $path
+            }
+            else {
+                Set-Location $specialFolder
+            }
+        }
     }
 }
 
@@ -59,14 +71,17 @@ function Switch-ToProfileFolder {
     if ([string]::IsNullOrEmpty($env:ProfilePath)) {
         Write-Warning "The Profile location has not been set.  Set it first and try again."
         Set-Location $env:USERPROFILE
-    } else {
+    }
+    else {
         if ([string]::IsNullOrEmpty($Folder)) {
             Set-Location $env:ProfilePath
-        } else {
+        }
+        else {
             $path = Join-Path -Path $env:ProfilePath -ChildPath $Folder
             if (Test-Path $path) {
                 Set-Location $path
-            } else {
+            }
+            else {
                 Set-Location $env:ProfilePath
             }
         }
