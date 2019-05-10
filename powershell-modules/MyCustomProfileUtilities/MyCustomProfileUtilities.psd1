@@ -36,6 +36,7 @@
         'Set-MyCustomProfileLocation',
         'Switch-ToDocumentsLocation',
         'Switch-ToDownloadsLocation',
+        'Switch-ToInstallsLocation',
         'Switch-ToDropboxLocation',
         'Switch-ToMountsLocation',
         'Switch-ToPublicLocation',

@@ -21,6 +21,10 @@ function Switch-ToDownloadsLocation {
     Switch-ToProfileFolder "downloads"
 }
 
+function Switch-ToInstallsLocation {
+    Switch-ToProfileFolder "downloads\installs"
+}
+
 function Switch-ToDropboxLocation {
     Switch-ToProfileFolder "dropbox"
 }
