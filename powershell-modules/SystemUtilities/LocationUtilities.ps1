@@ -25,7 +25,8 @@ function Set-ProfileLocation {
                    ValueFromPipelineByPropertyName=$true)]
         [ValidateScript({Test-Path $_ -PathType "Container"})]
         [string]
-        $Path
+        $Path,
+        [switch]$Force = $false
     )
 
     # May not need this any more with the ValidateScript above, TODO: test
@@ -33,8 +34,10 @@ function Set-ProfileLocation {
         throw "Path given not valid."
     }
 
-    [Environment]::SetEnvironmentVariable("ProfilePath", $Path, "User")
-    $env:ProfilePath = $Path
+    if ($Force -or [string]::IsNullOrEmpty($env:ProfilePath)) {
+        [Environment]::SetEnvironmentVariable("ProfilePath", $Path, "User")
+        $env:ProfilePath = $Path
+    }
 }
 
 function Switch-ToSpecialFolder {
