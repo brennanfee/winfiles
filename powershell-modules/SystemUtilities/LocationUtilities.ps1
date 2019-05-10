@@ -21,7 +21,7 @@ function Get-SpecialFolder {
 # move the entire C:\User\<username> folder someplace else so my profile serves
 # the same purpose but the $HOME and $USERPROFILE are still the User directory.
 function Set-ProfileLocation {
-    [CmdletBinding(DefaultParameterSetName = "Path", SupportsShouldProcess = $true)]
+    [CmdletBinding(DefaultParameterSetName = "Path")]
     param(
         [Parameter(Position = 0,
             ParameterSetName = "Path",

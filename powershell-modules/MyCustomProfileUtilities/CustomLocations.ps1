@@ -3,6 +3,8 @@
 Set-StrictMode -Version 2.0
 
 function Set-MyCustomProfileLocation {
+    [CmdletBinding()]
+
     $DriveCount = (Get-PhysicalDisk | Measure-Object).Count
 
     $profilesPath="C:\profile"
