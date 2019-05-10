@@ -162,7 +162,7 @@ Set-Alias Set-DirectoryOwnership Set-FolderOwnership
 
 # Symbolic links
 
-function New-SymbolicLink-Safe {
+function New-SymbolicLinkSafe {
     [CmdletBinding()]
     param(
         [string]$Link,

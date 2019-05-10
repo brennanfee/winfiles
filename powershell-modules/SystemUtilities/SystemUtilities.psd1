@@ -47,7 +47,7 @@
         'Set-RegistryOwnership',
         'Set-FileOwnership',
         'Set-FolderOwnership',
-        'New-SymbolicLink-Safe',
+        'New-SymbolicLinkSafe',
         'New-SymbolicLink',
         'Invoke-MsiInstaller',
         'Invoke-MsiInstallerFromUrl',
