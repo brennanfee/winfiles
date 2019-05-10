@@ -2,8 +2,11 @@
 #Requires -Version 5
 Set-StrictMode -Version 2.0
 
-$ScriptDir = "$PSScriptRoot"
-$WinFilesFolder = Split-Path -Path $ScriptDir -Parent
+$WinFilesFolder = Split-Path -Path "$PSScriptRoot" -Parent
+
+if (-not ("$env:PSModulePath".Contains("$WinFilesFolder\powershell-modules"))) {
+    $env:PSModulePath = "$WinFilesFolder\powershell-modules;" + "$env:PSModulePath"
+}
 
 Write-Host -ForegroundColor 'Green' "Importing third-party modules..."
 # Manually import these
@@ -16,10 +19,6 @@ $global:GitPromptSettings.EnableWindowTitle = $true
 $global:GitPromptSettings.DefaultForegroundColor = "white"
 
 Write-Host "Modules imported."
-
-if (-not ("$env:PSModulePath".Contains("$WinFilesFolder\powershell-modules"))) {
-    $env:PSModulePath = "$WinFilesFolder\powershell-modules;" + "$env:PSModulePath"
-}
 
 #Push-Location "$PSScriptRoot"
 
