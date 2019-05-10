@@ -53,18 +53,22 @@ function Switch-ToSpecialFolder {
 
 function Switch-ToProfileFolder {
     param(
-        [string]$Folder
+        [string]$Folder = ""
     )
 
     if ([string]::IsNullOrEmpty($env:ProfilePath)) {
         Write-Warning "The Profile location has not been set.  Set it first and try again."
         Set-Location $env:USERPROFILE
     } else {
-        $path = Join-Path -Path $env:ProfilePath -ChildPath $Folder
-        if (Test-Path $path) {
-            Set-Location $path
-        } else {
+        if ([string]::IsNullOrEmpty($Folder)) {
             Set-Location $env:ProfilePath
+        } else {
+            $path = Join-Path -Path $env:ProfilePath -ChildPath $Folder
+            if (Test-Path $path) {
+                Set-Location $path
+            } else {
+                Set-Location $env:ProfilePath
+            }
         }
     }
 }
