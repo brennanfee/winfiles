@@ -15,29 +15,28 @@ Set-Alias vdir wsl ls -A --color=auto --group-directories-first --format=long
 Set-Alias tree wsl tree -C
 
 # TODO: Change to match the linux cd aliases
-Set-Alias sdown Switch-ToDownloadsLocation
-Set-Alias sdownload Switch-ToDownloadsLocation
-Set-Alias sdownloads Switch-ToDownloadsLocation
+Set-Alias cd. cd ..
+Set-Alias cd.. cd ..
+Set-Alias cdu cd ..
 
-Set-Alias sproj Switch-ToProjectsLocation
-Set-Alias sproject Switch-ToProjectsLocation
-Set-Alias sprojects Switch-ToProjectsLocation
+Set-Alias cdp Switch-ToProfileFolder
+Set-Alias cdk Switch-ToSpecialFolder "DesktopDirectory"
+Set-Alias cdl Switch-ToSpecialFolder "Templates" # Might not be what I want.  TODO: Test
+Set-Alias cds Switch-ToProfileFolder "source"
+Set-Alias cdss Switch-ToProfileFolder "source\personal"
+Set-Alias cdsg Switch-ToProfileFolder "source\github"
+Set-Alias cdd Switch-ToProfileFolder "downloads"
+Set-Alias cdi Switch-ToProfileFolder "downloads\installs"
+Set-Alias cdm Switch-ToSpecialFolder "MyMusic"
+Set-Alias cdmp Switch-ToSpecialFolder "MyMusic" "playlists"
+Set-Alias cdmt Switch-ToProfileFolder "mounts"
+Set-Alias cdv Switch-ToSpecialFolder "MyVideos"
+Set-Alias cdvm Switch-ToProfileFolder "vms"
+Set-Alias cddb Switch-ToProfileFolder "dropbox"
+#NOTE: This is NOT the "My Documents" special folder
+Set-Alias cdc Switch-ToProfileFolder "documents"
+Set-Alias cdx Switch-ToSpecialFolder "MyPictures"
+Set-Alias cdh Switch-ToSpecialFolder "UserProfile"
+Set-Alias cdw Switch-ToProfileFolder "winfiles"
 
-Set-Alias ssource Switch-ToWorkSourceLocation
-Set-Alias swork Switch-ToWorkSourceLocation
-
-Set-Alias swinfiles Switch-ToWinFilesLocation
-
-Set-Alias sprofile Switch-ToProfileLocation
-
-Set-Alias smusic Switch-ToMusicLocation
-
-Set-Alias svideo Switch-ToVideosLocation
-Set-Alias svideos Switch-ToVideosLocation
-
-Set-Alias spicture Switch-ToPicturesLocation
-Set-Alias spictures Switch-ToPicturesLocation
-Set-Alias spics Switch-ToPicturesLocation
-
-Set-Alias sdocs Switch-ToDocumentsLocation
-Set-Alias sdocuments Switch-ToDocumentsLocation
+#TODO: cdr - to to root of git folder
