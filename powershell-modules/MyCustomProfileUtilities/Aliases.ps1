@@ -40,8 +40,7 @@ Set-Alias cdp Switch-ToProfileFolder
 Function cdkFunc { Switch-ToSpecialFolder "DesktopDirectory" }
 Set-Alias cdk cdkFunc
 
-# Might not be what I want.  TODO: Test
-Function cdlFunc { Switch-ToSpecialFolder "Templates" }
+Function cdlFunc { Switch-ToProfileFolder "Templates" }
 Set-Alias cdl cdlFunc
 
 Function cdsFunc { Switch-ToProfileFolder "source" }
