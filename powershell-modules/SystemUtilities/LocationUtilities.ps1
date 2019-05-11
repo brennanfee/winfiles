@@ -115,6 +115,11 @@ function Switch-ToFolderInternal {
 
 # Special folder locations
 
+function Switch-LocationToParent
+{
+    Set-Location ".."
+}
+
 function Switch-LocationToDesktop
 {
     Switch-LocationToSpecialFolder "DesktopDirectory"
