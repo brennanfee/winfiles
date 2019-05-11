@@ -101,15 +101,15 @@ function Switch-ToFolderInternal {
         }
         else {
             # See if they asked for a sub-subfolder:  x\y
-            if ($Subfolder.Contains([IO.Path]::PathSeparator)) {
-                $paths = $Subfolder -split [IO.Path]::PathSeparator
-                $path = Join-Path $RootPath -ChildPath $paths[0]
-                if (Test-Path $path) {
-                    Set-Location $path
-                }
-                else {
-                    Set-Location $RootPath
-                }
+            if ($Subfolder.Contains([IO.Path]::DirectorySeparatorChar)) {
+                $parentPath = $path
+                do {
+                    $parentPath = Split-Path $parentPath -Parent
+                    if (Test-Path $parentPath) {
+                        Set-Location $parentPath
+                    }
+                } while (-not ([string]::IsNullOrEmpty($parentPath)))
+                Set-Location $RootPath
             }
             else {
                 Set-Location $RootPath
