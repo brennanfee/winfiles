@@ -31,13 +31,13 @@
         'CustomLocations.ps1'
     )
 
-    CmdletsToExport = @(
+    CmdletsToExport = ''
+
+    FunctionsToExport = @(
         'Get-CustomPrompt',
         'Set-DefaultEditor',
         'Set-MyCustomProfileLocation'
     )
-
-    FunctionsToExport = ''
 
     VariablesToExport = ''
 

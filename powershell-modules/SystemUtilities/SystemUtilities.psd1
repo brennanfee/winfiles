@@ -29,7 +29,11 @@
         'PermissionUtilities.ps1'
     )
 
-    CmdletsToExport = @(
+    CmdletsToExport = ''
+
+    VariablesToExport = ''
+
+    FunctionsToExport = @(
         'Get-ComputerDetails',
         'Set-Editor',
         'Set-EditorToVim',
@@ -59,10 +63,6 @@
         'Remove-FromPath',
         'Get-IsAdministrator'
     )
-
-    VariablesToExport = ''
-
-    FunctionsToExport = ''
 
     AliasesToExport = @('Set-DirectoryOwnership')
 }

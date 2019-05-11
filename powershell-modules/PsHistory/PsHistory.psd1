@@ -13,11 +13,11 @@
 
     NestedModules = @('PsHistory.ps1')
 
-    CmdletsToExport = @('Init-PsHistory')
+    CmdletsToExport = ''
 
     VariablesToExport = @('psHistoryPath', 'psHistoryLength')
 
-    FunctionsToExport = ''
+    FunctionsToExport = @('Init-PsHistory')
 
     AliasesToExport = ''
 }
