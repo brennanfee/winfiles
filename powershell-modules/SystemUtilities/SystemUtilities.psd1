@@ -29,11 +29,7 @@
         'PermissionUtilities.ps1'
     )
 
-    CmdletsToExport = @(
-        'Get-SpecialFolder',
-        'Set-ProfileLocation',
-        'Switch-LocationTo*',
-    )
+    CmdletsToExport = ''
 
     VariablesToExport = ''
 
@@ -41,6 +37,7 @@
         'Add-ToPath',
         'Get-ComputerDetails',
         'Get-IsAdministrator',
+        'Get-SpecialFolder',
         'Invoke-MsiInstaller',
         'Invoke-MsiInstallerFromUrl',
         'New-SymbolicLink',
@@ -55,13 +52,15 @@
         'Set-EditorToVSCode',
         'Set-FileOwnership',
         'Set-FolderOwnership',
+        'Set-ProfileLocation',
         'Set-RegistryBool',
         'Set-RegistryInt',
         'Set-RegistryOwnership',
         'Set-RegistryString',
         'Set-RegistryStringExpand',
         'Set-RegistryStringMulti',
-        'Set-RegistryValue'
+        'Set-RegistryValue',
+        'Switch-LocationTo*'
     )
 
     AliasesToExport = @('Set-DirectoryOwnership')

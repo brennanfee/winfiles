@@ -105,7 +105,7 @@ function Switch-ToFolderInternal {
                 $parentPath = $path
                 do {
                     $parentPath = Split-Path $parentPath -Parent
-                    if ((-not ([string]::IsNullOrEmpty($parentPath))) -and Test-Path $parentPath) {
+                    if ((-not ([string]::IsNullOrEmpty($parentPath))) -and (Test-Path $parentPath)) {
                         Set-Location $parentPath
                     }
                 } while (-not ([string]::IsNullOrEmpty($parentPath)))
