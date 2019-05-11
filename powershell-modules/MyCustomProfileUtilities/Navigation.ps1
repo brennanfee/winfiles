@@ -42,11 +42,14 @@ Set-Alias cdvm Switch-LocationToVms
 function Switch-LocationToDropbox { Switch-LocationToProfileFolder "dropbox" }
 Set-Alias cddb Switch-LocationToDropbox
 
+function Switch-LocationToCloud { Switch-LocationToProfileFolder "cloud" }
+Set-Alias cdc Switch-LocationToCloud
+
 Set-Alias cdmd Switch-LocationToMyDocuments
 
 #NOTE: This is NOT the "My Documents" special folder
 function Switch-LocationToDocuments { Switch-LocationToProfileFolder "documents" }
-Set-Alias cdc Switch-LocationToDocuments
+Set-Alias cdoc Switch-LocationToDocuments
 
 Set-Alias cdx Switch-LocationToPictures
 

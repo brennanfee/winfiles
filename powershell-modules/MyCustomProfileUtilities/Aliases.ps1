@@ -6,6 +6,7 @@ Set-Alias e Edit-File
 Set-Alias edit Edit-File
 
 function Get-ListingWslLs { wsl.exe ls --color=auto --group-directories-first }
+#TODO: Neither of these are working
 Set-Alias ls Get-ListingWslLs -Option AllScope
 Set-Alias sl Get-ListingWslLs
 
