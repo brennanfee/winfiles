@@ -37,5 +37,9 @@
         'Set-MyCustomProfileLocation'
     )
 
+    FunctionsToExport = ''
+
+    VariablesToExport = ''
+
     AliasesToExport = '*'
 }

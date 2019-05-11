@@ -16,4 +16,8 @@
     CmdletsToExport = @('Init-PsHistory')
 
     VariablesToExport = @('psHistoryPath', 'psHistoryLength')
+
+    FunctionsToExport = ''
+
+    AliasesToExport = ''
 }

@@ -60,5 +60,9 @@
         'Get-IsAdministrator'
     )
 
+    VariablesToExport = ''
+
+    FunctionsToExport = ''
+
     AliasesToExport = @('Set-DirectoryOwnership')
 }
