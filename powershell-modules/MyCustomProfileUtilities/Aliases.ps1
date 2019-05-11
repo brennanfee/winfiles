@@ -7,6 +7,7 @@ Set-Alias edit Edit-File
 
 function Get-ListingWslLs { wsl.exe ls --color=auto --group-directories-first }
 Set-Alias ls Get-ListingWslLs -Option AllScope
+Set-Alias sl Get-ListingWslLs
 
 function Get-ListingWslLa { wsl.exe ls -A --color=auto --group-directories-first }
 Set-Alias la Get-ListingWslLa
@@ -17,14 +18,14 @@ Set-Alias ll Get-ListingWslLl
 function Get-ListingWslLla { wsl.exe ls -ohA --color=auto --group-directories-first --time-style=long-iso }
 Set-Alias lla Get-ListingWslLla
 
-function Get-ListingWslLls { wsl.exe ls -ohA --color=auto --group-directories-first --time-style=long-iso }
+function Get-ListingWslLls { wsl.exe ls -lhA --color=auto --group-directories-first --time-style=long-iso }
 Set-Alias lls Get-ListingWslLls
 
-function Get-ListingWslLdir { wsl.exe ls -ohA --color=never --group-directories-first --time-style=long-iso | grep --color=never "^d" }
+function Get-ListingWslLdir { wsl.exe ls -ohA --color=never --group-directories-first --time-style=long-iso | wsl.exe grep --color=never "^d" }
 Set-Alias ldir Get-ListingWslLdir
 
-function Get-ListingWslVdir { wsl.exe ls -A --color=auto --group-directories-first --format=long }
-Set-Alias vdir Switch-LocationWslVdir
+function Get-ListingWslVdir { wsl.exe ls -lhA --color=auto --group-directories-first --time-style=long-iso }
+Set-Alias vdir Get-ListingWslVdir
 
 function Get-ListingWslTree { wsl.exe tree -C }
 Set-Alias tree Get-ListingWslTree
