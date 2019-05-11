@@ -10,6 +10,9 @@ function Get-ListingWslLs { wsl.exe ls --color=auto --group-directories-first }
 Set-Alias ls Get-ListingWslLs -Option AllScope
 Set-Alias sl Get-ListingWslLs
 
+function Get-ListingWslLss { wsl.exe ls -1 --color=auto --group-directories-first }
+Set-Alias lss Get-ListingWslLss
+
 function Get-ListingWslLa { wsl.exe ls -A --color=auto --group-directories-first }
 Set-Alias la Get-ListingWslLa
 
