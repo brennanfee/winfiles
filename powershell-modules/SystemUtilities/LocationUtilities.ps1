@@ -137,7 +137,7 @@ function Switch-LocationToVideos
 
 function Switch-LocationToMyDocuments
 {
-    Switch-LocationToSpecialFolder "My Documents"
+    Switch-LocationToSpecialFolder "MyDocuments"
 }
 
 function Switch-LocationToPictures
