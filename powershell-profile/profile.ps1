@@ -20,6 +20,13 @@ $global:GitPromptSettings.DefaultForegroundColor = "white"
 
 Write-Host "Modules imported."
 
+# Aliases.  These are here because it seems a module can't export an alias
+# that overrides a built-in alias.
+Set-Alias ls Get-ListingWslLs -Force -Option AllScope
+Set-Alias sl Get-ListingWslLs -Force -Option AllScope
+Set-Alias dir Get-ListingWslLla -Force -Option AllScope
+
+####################### OLD
 #Push-Location "$PSScriptRoot"
 
 #$ScriptDir = "$PSScriptRoot"
