@@ -30,6 +30,7 @@ Set-Alias cdm Switch-LocationToMusic
 
 function Switch-LocationToMusicPlaylist { Switch-LocationToSpecialFolder "MyMusic" "playlists" }
 Set-Alias cdmp Switch-LocationToMusicPlaylist
+Set-Alias cdpl Switch-LocationToMusicPlaylist
 
 function Switch-LocationToMounts { Switch-LocationToProfileFolder "mounts" }
 Set-Alias cdmt Switch-LocationToMounts
