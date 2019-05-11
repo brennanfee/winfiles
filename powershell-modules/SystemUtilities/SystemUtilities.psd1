@@ -29,39 +29,39 @@
         'PermissionUtilities.ps1'
     )
 
-    CmdletsToExport = ''
+    CmdletsToExport = @(
+        'Get-SpecialFolder',
+        'Set-ProfileLocation',
+        'Switch-LocationTo*',
+    )
 
     VariablesToExport = ''
 
     FunctionsToExport = @(
+        'Add-ToPath',
         'Get-ComputerDetails',
+        'Get-IsAdministrator',
+        'Invoke-MsiInstaller',
+        'Invoke-MsiInstallerFromUrl',
+        'New-SymbolicLink',
+        'New-SymbolicLinkSafe',
+        'Remove-FromPath',
         'Set-Editor',
-        'Set-EditorToVim',
-        'Set-EditorToEmacs',
-        'Set-EditorToVSCode',
-        'Set-EditorToSublime',
         'Set-EditorToAtom',
+        'Set-EditorToEmacs',
         'Set-EditorToNotepad',
+        'Set-EditorToSublime',
+        'Set-EditorToVim',
+        'Set-EditorToVSCode',
+        'Set-FileOwnership',
+        'Set-FolderOwnership',
         'Set-RegistryBool',
         'Set-RegistryInt',
+        'Set-RegistryOwnership',
         'Set-RegistryString',
         'Set-RegistryStringExpand',
         'Set-RegistryStringMulti',
-        'Set-RegistryValue',
-        'Set-RegistryOwnership',
-        'Set-FileOwnership',
-        'Set-FolderOwnership',
-        'New-SymbolicLinkSafe',
-        'New-SymbolicLink',
-        'Invoke-MsiInstaller',
-        'Invoke-MsiInstallerFromUrl',
-        'Get-SpecialFolder',
-        'Set-ProfileLocation',
-        'Switch-ToSpecialFolder',
-        'Switch-ToProfileFolder',
-        'Add-ToPath',
-        'Remove-FromPath',
-        'Get-IsAdministrator'
+        'Set-RegistryValue'
     )
 
     AliasesToExport = @('Set-DirectoryOwnership')

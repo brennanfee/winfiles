@@ -5,88 +5,91 @@ Set-StrictMode -Version 2.0
 Set-Alias e Edit-File
 Set-Alias edit Edit-File
 
-Function lsWslFunc {}
-Set-Alias ls lsWslFunc
+function Get-ListingWslLs { wsl.exe ls --color=auto --group-directories-first }
+Set-Alias ls Get-ListingWslLs -Options AllScope
 
-Function laWslFunc { wsl.exe ls -A --color=auto --group-directories-first }
-Set-Alias la laWslFunc
+function Get-ListingWslLa { wsl.exe ls -A --color=auto --group-directories-first }
+Set-Alias la Get-ListingWslLa
 
-Function llWslFunc { wsl.exe ls -oh --color=auto --group-directories-first --time-style=long-iso }
-Set-Alias ll llWslFunc
+function Get-ListingWslLl { wsl.exe ls -oh --color=auto --group-directories-first --time-style=long-iso }
+Set-Alias ll Get-ListingWslLl
 
-Function llaWslFunc { wsl.exe ls -ohA --color=auto --group-directories-first --time-style=long-iso }
-Set-Alias lla llaWslFunc
+function Get-ListingWslLla { wsl.exe ls -ohA --color=auto --group-directories-first --time-style=long-iso }
+Set-Alias lla Get-ListingWslLla
 
-Function llsWslFunc { wsl.exe ls -ohA --color=auto --group-directories-first --time-style=long-iso }
-Set-Alias lls llsWslFunc
+function Get-ListingWslLls { wsl.exe ls -ohA --color=auto --group-directories-first --time-style=long-iso }
+Set-Alias lls Get-ListingWslLls
 
-Function ldirWslFunc { wsl.exe ls -ohA --color=never --group-directories-first --time-style=long-iso | grep --color=never "^d" }
-Set-Alias ldir ldirWslFunc
+function Get-ListingWslLdir { wsl.exe ls -ohA --color=never --group-directories-first --time-style=long-iso | grep --color=never "^d" }
+Set-Alias ldir Get-ListingWslLdir
 
-Function vdirWslFunc { wsl.exe ls -A --color=auto --group-directories-first --format=long }
-Set-Alias vdir vdirWslFunc
+function Get-ListingWslVdir { wsl.exe ls -A --color=auto --group-directories-first --format=long }
+Set-Alias vdir Switch-LocationWslVdir
 
-Function treeWslFunc { wsl.exe tree -C }
-Set-Alias tree wsl tree -C
+function Get-ListingWslTree { wsl.exe tree -C }
+Set-Alias tree Get-ListingWslTree
 
 # TODO: Change to match the linux cd aliases
-Function cdDotFunc { Set-Location ".." }
-Set-Alias cd. cdDotFunc
-Set-Alias cd.. cdDotFunc
-Set-Alias cdu cdDotFunc
+function Switch-LocationParent { Set-Location ".." }
+Set-Alias cd. Switch-LocationParent
+Set-Alias cd.. Switch-LocationParent
+Set-Alias cdu Switch-LocationParent
 
 Set-Alias cdp Switch-ToProfileFolder
 
-Function cdkFunc { Switch-ToSpecialFolder "DesktopDirectory" }
-Set-Alias cdk cdkFunc
+function Switch-LocationToDesktop { Switch-ToSpecialFolder "DesktopDirectory" }
+Set-Alias cdk Switch-LocationToDesktop
 
-Function cdlFunc { Switch-ToProfileFolder "Templates" }
-Set-Alias cdl cdlFunc
+function Switch-LocationToTemplates { Switch-ToProfileFolder "Templates" }
+Set-Alias cdl Switch-LocationToTemplates
 
-Function cdsFunc { Switch-ToProfileFolder "source" }
-Set-Alias cds cdsFunc
+function Switch-LocationToSource { Switch-ToProfileFolder "source" }
+Set-Alias cds Switch-LocationToSource
 
-Function cdssFunc { Switch-ToProfileFolder "source\personal" }
-Set-Alias cdss cdssFunc
+function Switch-LocationToSourcePersonal { Switch-ToProfileFolder "source\personal" }
+Set-Alias cdss Switch-LocationToSourcePersonal
 
-Function csgFunc { Switch-ToProfileFolder "source\github" }
-Set-Alias cdsg csgFunc
+function Switch-LocationToSourceGithub { Switch-ToProfileFolder "source\github" }
+Set-Alias cdsg Switch-LocationToSourceGithub
 
-Function cddFunc { Switch-ToProfileFolder "downloads" }
-Set-Alias cdd cddFunc
+function Switch-LocationToDownloads { Switch-ToProfileFolder "downloads" }
+Set-Alias cdd Switch-LocationToDownloads
 
-Function cdiFunc { Switch-ToProfileFolder "downloads\installs" }
-Set-Alias cdi cdiFunc
+function Switch-LocationToInstalls { Switch-ToProfileFolder "downloads\installs" }
+Set-Alias cdi Switch-LocationToInstalls
 
-Function cdmFunc { Switch-ToSpecialFolder "MyMusic" }
-Set-Alias cdm cdmFunc
+function Switch-LocationToMusic { Switch-ToSpecialFolder "MyMusic" }
+Set-Alias cdm Switch-LocationToMusic
 
-Function cdmpFunc { Switch-ToSpecialFolder "MyMusic" "playlists" }
-Set-Alias cdmp cdmpFunc
+function Switch-LocationToMusicPlaylist { Switch-ToSpecialFolder "MyMusic" "playlists" }
+Set-Alias cdmp Switch-LocationToMusicPlaylist
 
-Function cdmtFunc { Switch-ToProfileFolder "mounts" }
-Set-Alias cdmt cdmtFunc
+function Switch-LocationToMounts { Switch-ToProfileFolder "mounts" }
+Set-Alias cdmt Switch-LocationToMounts
 
-Function cdvFunc { Switch-ToSpecialFolder "MyVideos" }
-Set-Alias cdv cdvFunc
+function Switch-LocationToVideos { Switch-ToSpecialFolder "MyVideos" }
+Set-Alias cdv Switch-LocationToVideos
 
-Function cdvmFunc { Switch-ToProfileFolder "vms" }
-Set-Alias cdvm cdvmFunc
+function Switch-LocationToVms { Switch-ToProfileFolder "vms" }
+Set-Alias cdvm Switch-LocationToVms
 
-Function cddbFunc { Switch-ToProfileFolder "dropbox" }
-Set-Alias cddb cddbFunc
+function Switch-LocationToDropbox { Switch-ToProfileFolder "dropbox" }
+Set-Alias cddb Switch-LocationToDropbox
+
+function Switch-LocationToMyDocuments { Switch-ToSpecialFolder "My Documents" }
+Set-Alias cdmd Switch-LocationToMyDocuments
 
 #NOTE: This is NOT the "My Documents" special folder
-Function cdcFunc { Switch-ToProfileFolder "documents" }
-Set-Alias cdc cdcFunc
+function Switch-LocationToDocuments { Switch-ToProfileFolder "documents" }
+Set-Alias cdc Switch-LocationToDocuments
 
-Function cdxFunc { Switch-ToSpecialFolder "MyPictures" }
-Set-Alias cdx cdxFunc
+function Switch-LocationToPictures { Switch-ToSpecialFolder "MyPictures" }
+Set-Alias cdx Switch-LocationToPictures
 
-Function cdhFunc { Switch-ToSpecialFolder "UserProfile" }
-Set-Alias cdh cdhFunc
+function Switch-LocationToHome { Switch-ToSpecialFolder "UserProfile" }
+Set-Alias cdh Switch-LocationToHome
 
-Function cdwFunc { Switch-ToProfileFolder "winfiles" }
-Set-Alias cdw cdwFunc
+function Switch-LocationToWinfiles { Switch-ToProfileFolder "winfiles" }
+Set-Alias cdw Switch-LocationToWinfiles
 
 #TODO: cdr - to to root of git folder

@@ -44,7 +44,7 @@ function Set-ProfileLocation {
     }
 }
 
-function Switch-ToSpecialFolder {
+function Switch-LocationToSpecialFolder {
     param(
         [Parameter(Position = 0,
             ParameterSetName = "Alias",
@@ -67,7 +67,7 @@ function Switch-ToSpecialFolder {
     }
 }
 
-function Switch-ToProfileFolder {
+function Switch-LocationToProfileFolder {
     param(
         [Parameter(Position = 1,
             ParameterSetName = "Subfolder",
