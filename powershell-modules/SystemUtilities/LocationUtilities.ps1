@@ -4,10 +4,6 @@ Set-StrictMode -Version 2.0
 
 function Get-SpecialFolder {
     param(
-        [Parameter(Position = 0,
-            ParameterSetName = "Alias",
-            ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true)]
         [System.Environment+SpecialFolder]$Alias
     )
 
@@ -23,10 +19,6 @@ function Get-SpecialFolder {
 function Set-ProfileLocation {
     [CmdletBinding(DefaultParameterSetName = "Path")]
     param(
-        [Parameter(Position = 0,
-            ParameterSetName = "Path",
-            ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true)]
         [ValidateScript( { Test-Path $_ -PathType "Container" })]
         [string]
         $Path,
@@ -41,15 +33,7 @@ function Set-ProfileLocation {
 
 function Switch-LocationToSpecialFolder {
     param(
-        [Parameter(Position = 0,
-            ParameterSetName = "Alias",
-            ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true)]
         [System.Environment+SpecialFolder]$Alias,
-        [Parameter(Position = 1,
-            ParameterSetName = "Subfolder",
-            ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true)]
         [string]$Subfolder = ""
     )
 
@@ -64,10 +48,6 @@ function Switch-LocationToSpecialFolder {
 
 function Switch-LocationToProfileFolder {
     param(
-        [Parameter(Position = 1,
-            ParameterSetName = "Subfolder",
-            ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true)]
         [string]$Subfolder = ""
     )
 
