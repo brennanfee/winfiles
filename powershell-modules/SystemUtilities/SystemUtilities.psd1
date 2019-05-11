@@ -63,5 +63,8 @@
         'Switch-LocationTo*'
     )
 
-    AliasesToExport = @('Set-DirectoryOwnership')
+    AliasesToExport = @(
+        'Set-DirectoryOwnership',
+        'Switch-LocationToHome'
+    )
 }

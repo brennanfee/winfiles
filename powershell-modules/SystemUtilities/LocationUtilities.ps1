@@ -33,11 +33,6 @@ function Set-ProfileLocation {
         [switch]$Force = $false
     )
 
-    # May not need this any more with the ValidateScript above, TODO: test
-    if (-not (Test-Path $Path)) {
-        throw "Path given not valid."
-    }
-
     if ($Force -or [string]::IsNullOrEmpty($env:ProfilePath)) {
         [Environment]::SetEnvironmentVariable("ProfilePath", $Path, "User")
         $env:ProfilePath = $Path
@@ -117,3 +112,37 @@ function Switch-ToFolderInternal {
         }
     }
 }
+
+# Special folder locations
+
+function Switch-LocationToDesktop
+{
+    Switch-LocationToSpecialFolder "DesktopDirectory"
+}
+
+function Switch-LocationToMusic
+{
+    Switch-LocationToSpecialFolder "MyMusic"
+}
+
+function Switch-LocationToVideos
+{
+    Switch-LocationToSpecialFolder "MyVideos"
+}
+
+function Switch-LocationToMyDocuments
+{
+    Switch-LocationToSpecialFolder "My Documents"
+}
+
+function Switch-LocationToPictures
+{
+    Switch-LocationToSpecialFolder "MyPictures"
+}
+
+function Switch-LocationToUserProfile
+{
+    Switch-LocationToSpecialFolder "UserProfile"
+}
+
+Set-Alias Switch-LocationToHome Switch-LocationToUserProfile

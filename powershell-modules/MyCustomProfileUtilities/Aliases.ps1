@@ -6,7 +6,7 @@ Set-Alias e Edit-File
 Set-Alias edit Edit-File
 
 function Get-ListingWslLs { wsl.exe ls --color=auto --group-directories-first }
-Set-Alias ls Get-ListingWslLs -Options AllScope
+Set-Alias ls Get-ListingWslLs -Option AllScope
 
 function Get-ListingWslLa { wsl.exe ls -A --color=auto --group-directories-first }
 Set-Alias la Get-ListingWslLa
@@ -35,61 +35,55 @@ Set-Alias cd. Switch-LocationParent
 Set-Alias cd.. Switch-LocationParent
 Set-Alias cdu Switch-LocationParent
 
-Set-Alias cdp Switch-ToProfileFolder
+Set-Alias cdp Switch-LocationToProfileFolder
 
-function Switch-LocationToDesktop { Switch-ToSpecialFolder "DesktopDirectory" }
 Set-Alias cdk Switch-LocationToDesktop
 
-function Switch-LocationToTemplates { Switch-ToProfileFolder "Templates" }
+function Switch-LocationToTemplates { Switch-LocationToProfileFolder "Templates" }
 Set-Alias cdl Switch-LocationToTemplates
 
-function Switch-LocationToSource { Switch-ToProfileFolder "source" }
+function Switch-LocationToSource { Switch-LocationToProfileFolder "source" }
 Set-Alias cds Switch-LocationToSource
 
-function Switch-LocationToSourcePersonal { Switch-ToProfileFolder "source\personal" }
+function Switch-LocationToSourcePersonal { Switch-LocationToProfileFolder "source\personal" }
 Set-Alias cdss Switch-LocationToSourcePersonal
 
-function Switch-LocationToSourceGithub { Switch-ToProfileFolder "source\github" }
+function Switch-LocationToSourceGithub { Switch-LocationToProfileFolder "source\github" }
 Set-Alias cdsg Switch-LocationToSourceGithub
 
-function Switch-LocationToDownloads { Switch-ToProfileFolder "downloads" }
+function Switch-LocationToDownloads { Switch-LocationToProfileFolder "downloads" }
 Set-Alias cdd Switch-LocationToDownloads
 
-function Switch-LocationToInstalls { Switch-ToProfileFolder "downloads\installs" }
+function Switch-LocationToInstalls { Switch-LocationToProfileFolder "downloads\installs" }
 Set-Alias cdi Switch-LocationToInstalls
 
-function Switch-LocationToMusic { Switch-ToSpecialFolder "MyMusic" }
 Set-Alias cdm Switch-LocationToMusic
 
-function Switch-LocationToMusicPlaylist { Switch-ToSpecialFolder "MyMusic" "playlists" }
+function Switch-LocationToMusicPlaylist { Switch-LocationToSpecialFolder "MyMusic" "playlists" }
 Set-Alias cdmp Switch-LocationToMusicPlaylist
 
-function Switch-LocationToMounts { Switch-ToProfileFolder "mounts" }
+function Switch-LocationToMounts { Switch-LocationToProfileFolder "mounts" }
 Set-Alias cdmt Switch-LocationToMounts
 
-function Switch-LocationToVideos { Switch-ToSpecialFolder "MyVideos" }
 Set-Alias cdv Switch-LocationToVideos
 
-function Switch-LocationToVms { Switch-ToProfileFolder "vms" }
+function Switch-LocationToVms { Switch-LocationToProfileFolder "vms" }
 Set-Alias cdvm Switch-LocationToVms
 
-function Switch-LocationToDropbox { Switch-ToProfileFolder "dropbox" }
+function Switch-LocationToDropbox { Switch-LocationToProfileFolder "dropbox" }
 Set-Alias cddb Switch-LocationToDropbox
 
-function Switch-LocationToMyDocuments { Switch-ToSpecialFolder "My Documents" }
 Set-Alias cdmd Switch-LocationToMyDocuments
 
 #NOTE: This is NOT the "My Documents" special folder
-function Switch-LocationToDocuments { Switch-ToProfileFolder "documents" }
+function Switch-LocationToDocuments { Switch-LocationToProfileFolder "documents" }
 Set-Alias cdc Switch-LocationToDocuments
 
-function Switch-LocationToPictures { Switch-ToSpecialFolder "MyPictures" }
 Set-Alias cdx Switch-LocationToPictures
 
-function Switch-LocationToHome { Switch-ToSpecialFolder "UserProfile" }
 Set-Alias cdh Switch-LocationToHome
 
-function Switch-LocationToWinfiles { Switch-ToProfileFolder "winfiles" }
+function Switch-LocationToWinfiles { Switch-LocationToProfileFolder "winfiles" }
 Set-Alias cdw Switch-LocationToWinfiles
 
 #TODO: cdr - to to root of git folder
