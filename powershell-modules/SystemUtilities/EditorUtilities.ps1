@@ -3,13 +3,11 @@
 Set-StrictMode -Version 2.0
 
 function Set-Editor {
-    [CmdletBinding(DefaultParameterSetName="Path")]
+    [CmdletBinding()]
     param(
-        [Parameter(Position=0,
-                   ParameterSetName="Path",
-                   ValueFromPipeline=$true,
-                   ValueFromPipelineByPropertyName=$true)]
-        [ValidateScript({Test-Path $_})]
+        [Parameter(ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true)]
+        [ValidateScript( { Test-Path $_ })]
         [string]
         $Path
     )
@@ -20,8 +18,8 @@ function Set-Editor {
     }
 
     [Environment]::SetEnvironmentVariable("EDITOR", $Path, "User")
-    $env:editor = $Path
-    $Pscx:Preferences['TextEditor'] = $env:editor
+    $env:EDITOR = $Path
+    $Pscx:Preferences['TextEditor'] = $env:EDITOR
 }
 
 function Set-EditorToVim {
@@ -39,7 +37,15 @@ function Set-EditorToVim {
 
 function Set-EditorToEmacs {
     $editor = Get-DefaultEmacsExe
-    Write-Error "Not implemented yet."
+    if (-not ([string]::IsNullOrEmpty($editor))) {
+        Write-Host -ForegroundColor 'Green' "Setting editor to Emacs: $editor"
+        Set-Editor($editor)
+        return $true
+    }
+    else {
+        Write-Host -ForegroundColor 'Red' "Unable to locate Emacs"
+        return $false
+    }
 }
 
 function Set-EditorToVSCode {
@@ -92,6 +98,9 @@ function Get-DefaultSublimeTextExe {
     if (Test-Path "C:\Program Files\Sublime Text 3\sublime_text.exe") {
         return "C:\Program Files\Sublime Text 3\sublime_text.exe"
     }
+    elseif (Test-Path "C:\Program Files (x86)\Sublime Text 3\sublime_text.exe") {
+        return "C:\Program Files (x86)\Sublime Text 3\sublime_text.exe"
+    }
     else {
         return ""
     }
@@ -107,7 +116,10 @@ function Get-DefaultAtomExe {
 }
 
 function Get-DefaultVSCodeExe {
-    if (Test-Path "C:\Program Files\Microsoft VS Code\Code.exe") {
+    if (Test-Path "$env:LOCALAPPDATA\Programs\Microsoft VS Code\Code.exe") {
+        return "$env:LOCALAPPDATA\Programs\Microsoft VS Code\Code.exe"
+    }
+    elseif (Test-Path "C:\Program Files\Microsoft VS Code\Code.exe") {
         return "C:\Program Files\Microsoft VS Code\Code.exe"
     }
     elseif (Test-Path "C:\Program Files (x86)\Microsoft VS Code\Code.exe") {
@@ -119,22 +131,46 @@ function Get-DefaultVSCodeExe {
 }
 
 function Get-DefaultVimExe {
-    $pathFound = ""
-    @(
-        "80",
-        "74",
-        "73"
-    ) | ForEach-Object {
-        if (Test-Path "C:\Program Files (x86)\Vim\vim$_\gvim.exe") {
-            $pathFound = "C:\Program Files (x86)\Vim\vim$_\gvim.exe"
-        }
-        elseif (Test-Path "C:\Program Files\Vim\vim$_\gvim.exe") {
-            $pathFound = "C:\Program Files\Vim\vim$_\gvim.exe"
+    ## Check for scoop first...
+    if (-not ([string]::IsNullOrEmpty($env:SCOOP))) {
+        if (Test-Path "$env:SCOOP\shims\gvim.exe") {
+            return Test-Path "$env:SCOOP\shims\gvim.exe"
         }
     }
-    return $pathFound
+    else {
+        ## Look for an installed vim
+        @(
+            "81",
+            "80",
+            "74",
+            "73"
+        ) | ForEach-Object {
+            if (Test-Path "C:\Program Files\Vim\vim$_\gvim.exe") {
+                return "C:\Program Files\Vim\vim$_\gvim.exe"
+            }
+            elseif (Test-Path "C:\Program Files (x86)\Vim\vim$_\gvim.exe") {
+                return "C:\Program Files (x86)\Vim\vim$_\gvim.exe"
+            }
+        }
+    }
+
+    return ""
 }
 
 function Get-DefaultEmacsExe {
     Write-Error "Not implemented yet."
+    if (-not ([string]::IsNullOrEmpty($env:SCOOP))) {
+        if (Test-Path "$env:SCOOP\shims\emacsclientw.exe") {
+            return Test-Path "$env:SCOOP\shims\emacsclientw.exe"
+        }
+    }
+    elseif (Test-Path "C:\Program Files\Emacs\bin\emacsclientw.exe") {
+        return "C:\Program Files\Emacs\bin\emacsclientw.exe"
+    }
+    elseif (Test-Path "C:\Program Files (x86)\Emacs\bin\emacsclientw.exe") {
+        return "C:\Program Files (x86)\Emacs\bin\emacsclientw.exe"
+    }
+    else {
+        return ""
+    }
 }
