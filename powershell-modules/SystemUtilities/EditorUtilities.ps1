@@ -92,10 +92,54 @@ function Set-EditorToNotepad {
     return $true
 }
 
-# Internal methods to find editor exe's
+function Get-ApplicationPath {
+    [CmdletBinding()]
+    param(
+        [Parameter(ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true)]
+        [string]
+        $Application
+    )
+
+    $command = Get-Command -CommandType Application -ErrorAction Ignore -Name "$Application"
+    if ($command) {
+        if (Test-Path $command.Source) {
+            return $command.Source
+        }
+    }
+
+    return ""
+}
+
+function Get-GitExe {
+    # Look for lab first (gitlab version of hub)
+    $app = Get-ApplicationPath "lab.exe"
+    if (-not ([string]::IsNullOrEmpty($app))) {
+        return $app
+    }
+
+    # Look for hub second
+    $app = Get-ApplicationPath "hub.exe"
+    if (-not ([string]::IsNullOrEmpty($app))) {
+        return $app
+    }
+
+    # Lastly, git itself
+    $app = Get-ApplicationPath "git.exe"
+    if (-not ([string]::IsNullOrEmpty($app))) {
+        return $app
+    }
+    else {
+        return ""
+    }
+}
 
 function Get-DefaultSublimeTextExe {
-    if (Test-Path "C:\Program Files\Sublime Text 3\sublime_text.exe") {
+    $app = Get-ApplicationPath "sublime_text.exe"
+    if (-not ([string]::IsNullOrEmpty($app))) {
+        return $app
+    }
+    elseif (Test-Path "C:\Program Files\Sublime Text 3\sublime_text.exe") {
         return "C:\Program Files\Sublime Text 3\sublime_text.exe"
     }
     elseif (Test-Path "C:\Program Files (x86)\Sublime Text 3\sublime_text.exe") {
@@ -107,7 +151,11 @@ function Get-DefaultSublimeTextExe {
 }
 
 function Get-DefaultAtomExe {
-    if (Test-Path "$env:LOCALAPPDATA\atom\atom.exe") {
+    $app = Get-ApplicationPath "atom.exe"
+    if (-not ([string]::IsNullOrEmpty($app))) {
+        return $app
+    }
+    elseif (Test-Path "$env:LOCALAPPDATA\atom\atom.exe") {
         return "$env:LOCALAPPDATA\atom\atom.exe"
     }
     else {
@@ -116,7 +164,11 @@ function Get-DefaultAtomExe {
 }
 
 function Get-DefaultVSCodeExe {
-    if (Test-Path "$env:LOCALAPPDATA\Programs\Microsoft VS Code\Code.exe") {
+    $app = Get-ApplicationPath "Code.exe"
+    if (-not ([string]::IsNullOrEmpty($app))) {
+        return $app
+    }
+    elseif (Test-Path "$env:LOCALAPPDATA\Programs\Microsoft VS Code\Code.exe") {
         return "$env:LOCALAPPDATA\Programs\Microsoft VS Code\Code.exe"
     }
     elseif (Test-Path "C:\Program Files\Microsoft VS Code\Code.exe") {
@@ -131,11 +183,9 @@ function Get-DefaultVSCodeExe {
 }
 
 function Get-DefaultVimExe {
-    ## Check for scoop first...
-    if (-not ([string]::IsNullOrEmpty($env:SCOOP))) {
-        if (Test-Path "$env:SCOOP\shims\gvim.exe") {
-            return "$env:SCOOP\shims\gvim.exe"
-        }
+    $app = Get-ApplicationPath "gvim.exe"
+    if (-not ([string]::IsNullOrEmpty($app))) {
+        return $app
     }
     else {
         ## Look for an installed vim
@@ -158,11 +208,9 @@ function Get-DefaultVimExe {
 }
 
 function Get-DefaultEmacsExe {
-    Write-Error "Not implemented yet."
-    if (-not ([string]::IsNullOrEmpty($env:SCOOP))) {
-        if (Test-Path "$env:SCOOP\shims\emacsclientw.exe") {
-            return "$env:SCOOP\shims\emacsclientw.exe"
-        }
+    $app = Get-ApplicationPath "emacsclientw.exe"
+    if (-not ([string]::IsNullOrEmpty($app))) {
+        return $app
     }
     elseif (Test-Path "C:\Program Files\Emacs\bin\emacsclientw.exe") {
         return "C:\Program Files\Emacs\bin\emacsclientw.exe"

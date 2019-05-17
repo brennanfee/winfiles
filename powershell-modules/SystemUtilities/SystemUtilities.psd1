@@ -35,7 +35,14 @@
 
     FunctionsToExport = @(
         'Add-ToPath',
+        'Get-ApplicationPath',
         'Get-ComputerDetails',
+        'Get-DefaultAtomExe',
+        'Get-DefaultEmacsExe',
+        'Get-DefaultSublimeTextExe',
+        'Get-DefaultVimExe',
+        'Get-DefaultVSCodeExe',
+        'Get-GitExe',
         'Get-IsAdministrator',
         'Get-SpecialFolder',
         'Invoke-MsiInstaller',
