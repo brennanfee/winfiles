@@ -134,7 +134,7 @@ function Get-DefaultVimExe {
     ## Check for scoop first...
     if (-not ([string]::IsNullOrEmpty($env:SCOOP))) {
         if (Test-Path "$env:SCOOP\shims\gvim.exe") {
-            return Test-Path "$env:SCOOP\shims\gvim.exe"
+            return "$env:SCOOP\shims\gvim.exe"
         }
     }
     else {
@@ -161,7 +161,7 @@ function Get-DefaultEmacsExe {
     Write-Error "Not implemented yet."
     if (-not ([string]::IsNullOrEmpty($env:SCOOP))) {
         if (Test-Path "$env:SCOOP\shims\emacsclientw.exe") {
-            return Test-Path "$env:SCOOP\shims\emacsclientw.exe"
+            return "$env:SCOOP\shims\emacsclientw.exe"
         }
     }
     elseif (Test-Path "C:\Program Files\Emacs\bin\emacsclientw.exe") {
