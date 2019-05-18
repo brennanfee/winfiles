@@ -34,16 +34,16 @@ function Get-ListingWslTree { wsl.exe tree -C }
 Set-Alias tree Get-ListingWslTree
 
 function Search-ListingWslGrep { wsl.exe ls -A | grep -i "$args" }
-Set-Alias lsgrep
+Set-Alias lsgrep Search-ListingWslGrep
 
 function Search-ListingWslGrepLong { wsl.exe ls -hlA --time-style=long-iso | grep -i "$args" }
-Set-Alias llgrep
+Set-Alias llgrep Search-ListingWslGrepLong
 
 function Search-ListingWslRg { wsl.exe ls -A | rg -S "$args" }
-Set-Alias lsrg
+Set-Alias lsrg Search-ListingWslRg
 
 function Search-ListingWslRgLong { wsl.exe ls -hlA --time-style=long-iso | rg -S "$args" }
-Set-Alias llrg
+Set-Alias llrg Search-ListingWslRgLong
 
 Set-Alias mkdatedir New-DateDir
 Set-Alias mkdatefile New-DateFile
