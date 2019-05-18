@@ -105,7 +105,7 @@ function Set-LocationToNewDir {
 }
 
 function New-DateDir {
-    $date = Get-Date -format "yyyy-mm-dd"
+    $date = Get-Date -format "yyyy-MM-dd"
     $pwd = Get-Location
     $newPath = Join-Path "$pwd" "$date"
     New-Item -Path $newPath -ItemType Directory -ErrorAction SilentlyContinue
@@ -122,7 +122,7 @@ function New-DateFile {
         $Prefix = ""
     )
 
-    $date = Get-Date -format "yyyy-mm-dd"
+    $date = Get-Date -format "yyyy-MM-dd"
     $file = "$Prefix$date.$Extension"
     $pwd = Get-Location
     $newPath = Join-Path "$pwd" "$file"
