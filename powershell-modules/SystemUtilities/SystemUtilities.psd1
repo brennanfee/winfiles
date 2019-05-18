@@ -49,7 +49,6 @@
         'Get-GitRootPath',
         'Get-IsAdministrator',
         'Get-SpecialFolder',
-        'Invoke-Git',
         'Invoke-MsiInstaller',
         'Invoke-MsiInstallerFromUrl',
         'New-SymbolicLink',

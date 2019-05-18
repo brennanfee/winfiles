@@ -28,7 +28,7 @@ function Get-GitExe {
 function Get-GitExeSafe {
     $git = Get-GitExe
     if ([string]::IsNullOrEmpty($git)) {
-        $git = git.exe
+        $git = "git.exe"
     }
 
     return $git
@@ -38,7 +38,7 @@ function Get-GitExeSafe {
 
 function Invoke-Git {
     $git = Get-GitExeSafe
-    "$git" $args
+    Invoke-Expression -command "$git $args"
 }
 
 function Invoke-GitStatus {
@@ -63,7 +63,7 @@ function Invoke-GitFetch {
 
 function Invoke-GitAdd {
     if ($args) {
-        Invoke-Git "add" $args
+        Invoke-Git "add" "$args"
     }
     else {
         Invoke-Git "add" "."
@@ -106,20 +106,28 @@ function Invoke-GitLog {
 
 function Get-GitInARepo {
     $git = Get-GitExeSafe
-    $result = $git rev-parse --is-inside-work-tree 2>/dev/null
-
-    Write-Host "Result: $result"
+    $command = "$git rev-parse --is-inside-work-tree" + ' 2>$null'
+    $result = Invoke-Expression -command $command
+    if ($result -eq "true") {
+        return $true
+    }
+    else {
+        return $false
+    }
 }
 
 function Get-GitBranchName {
-
+    Write-Error "Not Implemented Yet."
 }
 
 function Get-GitRootPath {
+    Write-Error "Not Implemented Yet."
 }
 
 function Set-LocationToGitRootPath {
+    Write-Error "Not Implemented Yet."
 }
 
 function Remove-GitMissingFiles {
+    Write-Error "Not Implemented Yet."
 }
