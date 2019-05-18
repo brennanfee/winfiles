@@ -104,6 +104,31 @@ function Set-LocationToNewDir {
     Set-Location $newPath
 }
 
+function New-DateDir {
+    $date = Get-Date -format "yyyy-mm-dd"
+    $pwd = Get-Location
+    $newPath = Join-Path "$pwd" "$date"
+    New-Item -Path $newPath -ItemType Directory -ErrorAction SilentlyContinue
+}
+
+function New-DateFile {
+    [CmdletBinding()]
+    param(
+        [Parameter(ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true)]
+        [string]
+        $Extension = "md",
+        [string]
+        $Prefix = ""
+    )
+
+    $date = Get-Date -format "yyyy-mm-dd"
+    $file = "$Prefix$date.$Extension"
+    $pwd = Get-Location
+    $newPath = Join-Path "$pwd" "$file"
+    New-Item -Path $newPath -ItemType File -ErrorAction SilentlyContinue
+}
+
 # Special folder locations
 
 function Set-LocationToParent

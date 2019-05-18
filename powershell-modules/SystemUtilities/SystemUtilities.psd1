@@ -51,6 +51,8 @@
         'Get-SpecialFolder',
         'Invoke-MsiInstaller',
         'Invoke-MsiInstallerFromUrl',
+        'New-DateDir',
+        'New-DateFile',
         'New-SymbolicLink',
         'New-SymbolicLinkSafe',
         'Remove-FromPath',
