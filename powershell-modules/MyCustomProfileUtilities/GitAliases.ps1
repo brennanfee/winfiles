@@ -13,7 +13,7 @@ Set-Alias gpu Invoke-GitPush
 Set-Alias gpl Invoke-GitPull
 Set-Alias gf Invoke-GitFetch
 Set-Alias ga Invoke-GitAdd
-Set-Alias gc Invoke-GitCommit
+Set-Alias gc Invoke-GitCommit -Force -Option AllScope
 Set-Alias gd Invoke-GitDiff
 Set-Alias gds Invoke-GitDiffStaged
 Set-Alias gdt Invoke-GitDifftool
@@ -22,6 +22,6 @@ Set-Alias gmt Invoke-GitMergetool
 
 Set-Alias gexp Invoke-GitExport
 
-Set-Alias gl Invoke-GitLog
+Set-Alias gl Invoke-GitLog -Force -Option AllScope
 
 Set-Alias cdr Set-LocationToGitRootPath

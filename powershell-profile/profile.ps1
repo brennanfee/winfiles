@@ -30,6 +30,8 @@ Set-Alias ls Get-ListingWslLs -Force -Option AllScope
 Set-Alias sl Get-ListingWslLs -Force -Option AllScope
 Set-Alias dir Get-ListingWslLla -Force -Option AllScope
 Set-Alias curl curl.exe -Force -Option AllScope
+Set-Alias gc Invoke-GitCommit -Force -Option AllScope
+Set-Alias gl Invoke-GitLog -Force -Option AllScope
 
 # Add the EDITOR environment variables if not already set
 if ([string]::IsNullOrEmpty($env:EDITOR))
