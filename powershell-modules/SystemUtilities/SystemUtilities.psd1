@@ -27,7 +27,8 @@
         'LocationUtilities.ps1',
         'PathUtilities.ps1',
         'PermissionUtilities.ps1',
-        'GitTools.ps1'
+        'GitTools.ps1',
+        'Write-Log.ps1'
     )
 
     CmdletsToExport = ''
@@ -48,6 +49,7 @@
         'Get-GitInARepo',
         'Get-GitRootPath',
         'Get-IsAdministrator',
+        'Get-LogFile',
         'Get-SpecialFolder',
         'Invoke-MsiInstaller',
         'Invoke-MsiInstallerFromUrl',
@@ -73,6 +75,8 @@
         'Set-RegistryStringExpand',
         'Set-RegistryStringMulti',
         'Set-RegistryValue',
+        'Write-Log',
+        'Write-LogAndConsole',
 
         'Invoke-Git*',
         'Set-LocationTo*'
