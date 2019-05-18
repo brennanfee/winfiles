@@ -38,6 +38,7 @@
     FunctionsToExport = @(
         'Get-CustomPrompt',
         'Set-DefaultEditor',
+        'Set-HomeEnvironmentVariable',
         'Set-MyCustomProfileLocation',
         'Get-Listing*',
         'Set-LocationTo*',
