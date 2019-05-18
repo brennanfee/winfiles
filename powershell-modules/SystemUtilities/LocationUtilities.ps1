@@ -31,7 +31,7 @@ function Set-ProfileLocation {
     }
 }
 
-function Switch-LocationToSpecialFolder {
+function Set-LocationToSpecialFolder {
     param(
         [System.Environment+SpecialFolder]$Alias,
         [string]$Subfolder = ""
@@ -39,14 +39,14 @@ function Switch-LocationToSpecialFolder {
 
     $specialFolder = Get-SpecialFolder $Alias
     if (Test-Path $specialFolder) {
-        Switch-ToFolderInternal -RootPath $specialFolder -Subfolder $Subfolder
+        Set-ToFolderInternal -RootPath $specialFolder -Subfolder $Subfolder
     }
     else {
         Write-Warning "The Special folder does not exist or is not configured."
     }
 }
 
-function Switch-LocationToProfileFolder {
+function Set-LocationToProfileFolder {
     param(
         [string]$Subfolder = ""
     )
@@ -55,11 +55,11 @@ function Switch-LocationToProfileFolder {
         Write-Warning "The Profile location has not been set or does not exist.  Set it first and try again."
     }
     else {
-        Switch-ToFolderInternal -RootPath $env:ProfilePath -Subfolder $Subfolder
+        Set-ToFolderInternal -RootPath $env:ProfilePath -Subfolder $Subfolder
     }
 }
 
-function Switch-ToFolderInternal {
+function Set-ToFolderInternal {
     param(
         [ValidateScript( { Test-Path $_ -PathType "Container" })]
         [string]$RootPath,
@@ -86,39 +86,39 @@ function Switch-ToFolderInternal {
 
 # Special folder locations
 
-function Switch-LocationToParent
+function Set-LocationToParent
 {
     Set-Location ".."
 }
 
-function Switch-LocationToDesktop
+function Set-LocationToDesktop
 {
-    Switch-LocationToSpecialFolder "DesktopDirectory"
+    Set-LocationToSpecialFolder "DesktopDirectory"
 }
 
-function Switch-LocationToMusic
+function Set-LocationToMusic
 {
-    Switch-LocationToSpecialFolder "MyMusic"
+    Set-LocationToSpecialFolder "MyMusic"
 }
 
-function Switch-LocationToVideos
+function Set-LocationToVideos
 {
-    Switch-LocationToSpecialFolder "MyVideos"
+    Set-LocationToSpecialFolder "MyVideos"
 }
 
-function Switch-LocationToMyDocuments
+function Set-LocationToMyDocuments
 {
-    Switch-LocationToSpecialFolder "MyDocuments"
+    Set-LocationToSpecialFolder "MyDocuments"
 }
 
-function Switch-LocationToPictures
+function Set-LocationToPictures
 {
-    Switch-LocationToSpecialFolder "MyPictures"
+    Set-LocationToSpecialFolder "MyPictures"
 }
 
-function Switch-LocationToUserProfile
+function Set-LocationToUserProfile
 {
-    Switch-LocationToSpecialFolder "UserProfile"
+    Set-LocationToSpecialFolder "UserProfile"
 }
 
-Set-Alias Switch-LocationToHome Switch-LocationToUserProfile
+Set-Alias Set-LocationToHome Set-LocationToUserProfile

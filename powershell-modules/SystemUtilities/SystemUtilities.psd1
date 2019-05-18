@@ -67,11 +67,11 @@
         'Set-RegistryStringExpand',
         'Set-RegistryStringMulti',
         'Set-RegistryValue',
-        'Switch-LocationTo*'
+        'Set-LocationTo*'
     )
 
     AliasesToExport = @(
         'Set-DirectoryOwnership',
-        'Switch-LocationToHome'
+        'Set-LocationToHome'
     )
 }
