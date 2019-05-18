@@ -1,62 +1,60 @@
 # Typo's
-Set-Alias cd. Switch-LocationToParent
-Set-Alias cd.. Switch-LocationToParent
+Set-Alias cd. Set-LocationToParent
+Set-Alias cd.. Set-LocationToParent
 # cd "up"
-Set-Alias cdu Switch-LocationToParent
+Set-Alias cdu Set-LocationToParent
 
-Set-Alias cdp Switch-LocationToProfileFolder
+Set-Alias cdp Set-LocationToProfileFolder
 
-Set-Alias cdk Switch-LocationToDesktop
+Set-Alias cdk Set-LocationToDesktop
 
-function Switch-LocationToTemplates { Switch-LocationToProfileFolder "Templates" }
-Set-Alias cdl Switch-LocationToTemplates
+function Set-LocationToTemplates { Set-LocationToProfileFolder "Templates" }
+Set-Alias cdl Set-LocationToTemplates
 
-function Switch-LocationToSource { Switch-LocationToProfileFolder "source" }
-Set-Alias cds Switch-LocationToSource
+function Set-LocationToSource { Set-LocationToProfileFolder "source" }
+Set-Alias cds Set-LocationToSource
 
-function Switch-LocationToSourcePersonal { Switch-LocationToProfileFolder "source\personal" }
-Set-Alias cdss Switch-LocationToSourcePersonal
+function Set-LocationToSourcePersonal { Set-LocationToProfileFolder "source\personal" }
+Set-Alias cdss Set-LocationToSourcePersonal
 
-function Switch-LocationToSourceGithub { Switch-LocationToProfileFolder "source\github" }
-Set-Alias cdsg Switch-LocationToSourceGithub
+function Set-LocationToSourceGithub { Set-LocationToProfileFolder "source\github" }
+Set-Alias cdsg Set-LocationToSourceGithub
 
-function Switch-LocationToDownloads { Switch-LocationToProfileFolder "downloads" }
-Set-Alias cdd Switch-LocationToDownloads
+function Set-LocationToDownloads { Set-LocationToProfileFolder "downloads" }
+Set-Alias cdd Set-LocationToDownloads
 
-function Switch-LocationToInstalls { Switch-LocationToProfileFolder "downloads\installs" }
-Set-Alias cdi Switch-LocationToInstalls
+function Set-LocationToInstalls { Set-LocationToProfileFolder "downloads\installs" }
+Set-Alias cdi Set-LocationToInstalls
 
-Set-Alias cdm Switch-LocationToMusic
+Set-Alias cdm Set-LocationToMusic
 
-function Switch-LocationToMusicPlaylist { Switch-LocationToSpecialFolder "MyMusic" "playlists" }
-Set-Alias cdmp Switch-LocationToMusicPlaylist
-Set-Alias cdpl Switch-LocationToMusicPlaylist
+function Set-LocationToMusicPlaylist { Set-LocationToSpecialFolder "MyMusic" "playlists" }
+Set-Alias cdmp Set-LocationToMusicPlaylist
+Set-Alias cdpl Set-LocationToMusicPlaylist
 
-function Switch-LocationToMounts { Switch-LocationToProfileFolder "mounts" }
-Set-Alias cdmt Switch-LocationToMounts
+function Set-LocationToMounts { Set-LocationToProfileFolder "mounts" }
+Set-Alias cdmt Set-LocationToMounts
 
-Set-Alias cdv Switch-LocationToVideos
+Set-Alias cdv Set-LocationToVideos
 
-function Switch-LocationToVms { Switch-LocationToProfileFolder "vms" }
-Set-Alias cdvm Switch-LocationToVms
+function Set-LocationToVms { Set-LocationToProfileFolder "vms" }
+Set-Alias cdvm Set-LocationToVms
 
-function Switch-LocationToDropbox { Switch-LocationToProfileFolder "dropbox" }
-Set-Alias cddb Switch-LocationToDropbox
+function Set-LocationToDropbox { Set-LocationToProfileFolder "dropbox" }
+Set-Alias cddb Set-LocationToDropbox
 
-function Switch-LocationToCloud { Switch-LocationToProfileFolder "cloud" }
-Set-Alias cdc Switch-LocationToCloud
+function Set-LocationToCloud { Set-LocationToProfileFolder "cloud" }
+Set-Alias cdc Set-LocationToCloud
 
-Set-Alias cdmd Switch-LocationToMyDocuments
+Set-Alias cdmd Set-LocationToMyDocuments
 
 #NOTE: This is NOT the "My Documents" special folder
-function Switch-LocationToDocuments { Switch-LocationToProfileFolder "documents" }
-Set-Alias cdoc Switch-LocationToDocuments
+function Set-LocationToDocuments { Set-LocationToProfileFolder "documents" }
+Set-Alias cdoc Set-LocationToDocuments
 
-Set-Alias cdx Switch-LocationToPictures
+Set-Alias cdx Set-LocationToPictures
 
-Set-Alias cdh Switch-LocationToHome
+Set-Alias cdh Set-LocationToHome
 
-function Switch-LocationToWinfiles { Switch-LocationToProfileFolder "winfiles" }
-Set-Alias cdw Switch-LocationToWinfiles
-
-#TODO: cdr - to to root of git folder
+function Set-LocationToWinfiles { Set-LocationToProfileFolder "winfiles" }
+Set-Alias cdw Set-LocationToWinfiles

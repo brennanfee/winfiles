@@ -39,7 +39,7 @@
         'Set-DefaultEditor',
         'Set-MyCustomProfileLocation',
         'Get-Listing*',
-        'Switch-LocationTo*'
+        'Set-LocationTo*'
     )
 
     VariablesToExport = ''
