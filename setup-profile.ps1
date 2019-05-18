@@ -45,8 +45,7 @@ Write-Log "Profile script started."
 
 # Check Profile Directory
 $profileDirectory = Split-Path $PROFILE -Parent
-if(-not (Test-Path($PROFILE)))
-{
+if(-not (Test-Path($PROFILE))) {
     if (-not (Test-Path $profileDirectory)) {
         New-Item $profileDirectory -ItemType Directory -Force | Out-Null
     }
@@ -60,7 +59,7 @@ $root = $PSScriptRoot
 # Set up main PowerShell Profile
 $isInstalled = Get-Content $PROFILE | ForEach-Object { if($_.Contains(". $root\powershell-profile\profile.ps1") -eq $true){$true;}}
 
-if($isInstalled -ne $true){
+if($isInstalled -ne $true) {
     Add-Content $PROFILE "#!/usr/bin/env powershell.exe"
     Add-Content $PROFILE "#Requires -Version 5"
     Add-Content $PROFILE ""
@@ -72,8 +71,7 @@ if($isInstalled -ne $true){
 
     Write-Log "Your environment has been configured at: $PROFILE"
 }
-else
-{
+else {
     Write-Log "Your environment is already configured at: $PROFILE"
 }
 
@@ -83,11 +81,11 @@ else
 $nuGetFile = Join-Path $profileDirectory "NuGet_profile.ps1"
 $isNugetInstalled = $false
 
-if (Test-Path $nugetFile){
+if (Test-Path $nugetFile) {
     $isNugetInstalled = Get-Content $nuGetFile | ForEach-Object { if($_.Contains(". $root\powershell-profile\profile.ps1") -eq $true){$true;}}
 }
 
-if($isNugetInstalled -ne $true){
+if($isNugetInstalled -ne $true) {
     Add-Content $nuGetFile "#!/usr/bin/env powershell.exe"
     Add-Content $nuGetFile "#Requires -Version 5"
     Add-Content $nuGetFile ""
@@ -99,8 +97,7 @@ if($isNugetInstalled -ne $true){
 
     Write-Log "Your NuGet environment has been configured at: $nuGetFile"
 }
-else
-{
+else {
     Write-Log "Your NuGet environment is already configured at: $nuGetFile"
 }
 
