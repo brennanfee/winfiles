@@ -19,7 +19,7 @@ $winfilesRoot="$profilesPath\winfiles"
 
 ### Setup logging
 $logPath="$profilesPath\logs\winfiles"
-$logFile="$logPath\bootstrap.log"
+$logFile="$logPath\bootstrap-pull.log"
 if (-not (Test-Path -PathType Container -Path $logPath)) {
     New-Item -ItemType Directory -Force -Path $logPath | Out-Null
 }
