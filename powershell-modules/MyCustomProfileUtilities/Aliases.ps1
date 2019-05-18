@@ -33,16 +33,16 @@ Set-Alias vdir Get-ListingWslVdir
 function Get-ListingWslTree { wsl.exe tree -C }
 Set-Alias tree Get-ListingWslTree
 
-function Search-ListingWslGrep { wsl.exe ls -A | grep -i "$args" }
+function Search-ListingWslGrep { wsl.exe ls -A | wsl.exe grep -i "$args" }
 Set-Alias lsgrep Search-ListingWslGrep
 
-function Search-ListingWslGrepLong { wsl.exe ls -hlA --time-style=long-iso | grep -i "$args" }
+function Search-ListingWslGrepLong { wsl.exe ls -hlA --time-style=long-iso | wsl.exe grep -i "$args" }
 Set-Alias llgrep Search-ListingWslGrepLong
 
-function Search-ListingWslRg { wsl.exe ls -A | rg -S "$args" }
+function Search-ListingWslRg { wsl.exe ls -A | wsl.exe rg -S "$args" }
 Set-Alias lsrg Search-ListingWslRg
 
-function Search-ListingWslRgLong { wsl.exe ls -hlA --time-style=long-iso | rg -S "$args" }
+function Search-ListingWslRgLong { wsl.exe ls -hlA --time-style=long-iso | wsl.exe rg -S "$args" }
 Set-Alias llrg Search-ListingWslRgLong
 
 Set-Alias mkdatedir New-DateDir
