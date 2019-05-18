@@ -30,7 +30,8 @@
         'Set-DefaultEditor.ps1',
         'Set-MyCustomProfileLocation.ps1',
         'Navigation.ps1',
-        'Set-LocationToNewDir.ps1'
+        'Set-LocationToNewDir.ps1',
+        'GitAliases.ps1'
     )
 
     CmdletsToExport = ''
