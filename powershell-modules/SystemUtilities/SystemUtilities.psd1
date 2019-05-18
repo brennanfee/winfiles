@@ -26,7 +26,8 @@
         'InvokeMsiInstaller.ps1',
         'LocationUtilities.ps1',
         'PathUtilities.ps1',
-        'PermissionUtilities.ps1'
+        'PermissionUtilities.ps1',
+        'GitTools.ps1'
     )
 
     CmdletsToExport = ''
@@ -42,7 +43,10 @@
         'Get-DefaultSublimeTextExe',
         'Get-DefaultVimExe',
         'Get-DefaultVSCodeExe',
+        'Get-GitBranchName',
         'Get-GitExe',
+        'Get-GitInARepo',
+        'Get-GitRootPath',
         'Get-IsAdministrator',
         'Get-SpecialFolder',
         'Invoke-MsiInstaller',
@@ -50,6 +54,7 @@
         'New-SymbolicLink',
         'New-SymbolicLinkSafe',
         'Remove-FromPath',
+        'Remove-GitMissingFiles',
         'Set-Editor',
         'Set-EditorToAtom',
         'Set-EditorToEmacs',
@@ -67,6 +72,8 @@
         'Set-RegistryStringExpand',
         'Set-RegistryStringMulti',
         'Set-RegistryValue',
+
+        'Invoke-Git*',
         'Set-LocationTo*'
     )
 

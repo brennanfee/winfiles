@@ -111,29 +111,6 @@ function Get-ApplicationPath {
     return ""
 }
 
-function Get-GitExe {
-    # Look for lab first (gitlab version of hub)
-    $app = Get-ApplicationPath "lab.exe"
-    if (-not ([string]::IsNullOrEmpty($app))) {
-        return $app
-    }
-
-    # Look for hub second
-    $app = Get-ApplicationPath "hub.exe"
-    if (-not ([string]::IsNullOrEmpty($app))) {
-        return $app
-    }
-
-    # Lastly, git itself
-    $app = Get-ApplicationPath "git.exe"
-    if (-not ([string]::IsNullOrEmpty($app))) {
-        return $app
-    }
-    else {
-        return ""
-    }
-}
-
 function Get-DefaultSublimeTextExe {
     $app = Get-ApplicationPath "sublime_text.exe"
     if (-not ([string]::IsNullOrEmpty($app))) {
