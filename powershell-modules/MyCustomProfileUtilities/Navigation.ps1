@@ -58,3 +58,5 @@ Set-Alias cdh Set-LocationToHome
 
 function Set-LocationToWinfiles { Set-LocationToProfileFolder "winfiles" }
 Set-Alias cdw Set-LocationToWinfiles
+
+Set-Alias mkcd Set-LocationToNewDir
