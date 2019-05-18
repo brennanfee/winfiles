@@ -25,6 +25,7 @@ Write-Host "Modules imported."
 Set-Alias ls Get-ListingWslLs -Force -Option AllScope
 Set-Alias sl Get-ListingWslLs -Force -Option AllScope
 Set-Alias dir Get-ListingWslLla -Force -Option AllScope
+Set-Alias curl curl.exe -Force -Option AllScope
 
 # Add the HOME environment variables if not already set
 # TODO: Should this move to the bootstrap?
