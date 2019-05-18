@@ -27,11 +27,23 @@ Set-Alias lls Get-ListingWslLls
 function Get-ListingWslLdir { wsl.exe ls -ohAv --color=never --group-directories-first --time-style=long-iso $args | wsl.exe grep --color=never "^d" }
 Set-Alias ldir Get-ListingWslLdir
 
-function Get-ListingWslVdir { wsl.exe ls -lhAv --color=auto --group-directories-first --time-style=long-iso  $args }
+function Get-ListingWslVdir { wsl.exe ls -lhAv --color=auto --group-directories-first --time-style=long-iso $args }
 Set-Alias vdir Get-ListingWslVdir
 
 function Get-ListingWslTree { wsl.exe tree -C }
 Set-Alias tree Get-ListingWslTree
+
+function Search-ListingWslGrep { wsl.exe ls -A | grep -i "$args" }
+Set-Alias lsgrep
+
+function Search-ListingWslGrepLong { wsl.exe ls -hlA --time-style=long-iso | grep -i "$args" }
+Set-Alias llgrep
+
+function Search-ListingWslRg { wsl.exe ls -A | rg -S "$args" }
+Set-Alias lsrg
+
+function Search-ListingWslRgLong { wsl.exe ls -hlA --time-style=long-iso | rg -S "$args" }
+Set-Alias llrg
 
 Set-Alias mkdatedir New-DateDir
 Set-Alias mkdatefile New-DateFile
