@@ -10,8 +10,8 @@ Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
 Write-Host "Updating modules"
 Update-Module -ErrorAction SilentlyContinue
-Update-Module -Name Pscx -AllowClobber -Scope CurrentUser
-Update-Module -Name posh-git -AllowClobber -Scope CurrentUser
+Install-Module -Name Pscx -AllowClobber -Scope CurrentUser
+Install-Module -Name posh-git -AllowClobber -Scope CurrentUser
 
 if (-not ("$env:PSModulePath".Contains("$winfilesRoot\powershell-modules"))) {
     $env:PSModulePath = "$winfilesRoot\powershell-modules;" + "$env:PSModulePath"
@@ -41,19 +41,21 @@ else {
     Write-LogAndConsole $logFile "Profile already exists."
 }
 
+$outputContent = @"
+#!/usr/bin/env powershell.exe
+#Requires -Version 5
+
+. `"$winfilesRoot\powershell-profile\profile.ps1`"
+
+function prompt {
+    return Get-CustomPrompt
+}
+"@
+
 # Set up main PowerShell Profile
-$isInstalled = Get-Content "$PROFILE" | ForEach-Object { if($_.Contains(". $winfilesRoot\powershell-profile\profile.ps1") -eq $true){$true;}}
-
-if ($isInstalled -ne $true) {
-    Add-Content $PROFILE "#!/usr/bin/env powershell.exe"
-    Add-Content $PROFILE "#Requires -Version 5"
-    Add-Content $PROFILE ""
-    Add-Content $PROFILE ". `"$winfilesRoot\powershell-profile\profile.ps1`""
-    Add-Content $PROFILE ""
-    Add-Content $PROFILE "function prompt {"
-    Add-Content $PROFILE "    return Get-CustomPrompt"
-    Add-Content $PROFILE "}"
-
+$profileContent = Get-Content -Path $PROFILE | Out-String
+if (-not ($profileContent.Contains("$winfilesRoot\powershell-profile\profile.ps1"))) {
+    Add-Content $PROFILE $outputContent
     Write-LogAndConsole $logFile "Your environment has been configured at: $PROFILE"
 }
 else {
@@ -64,22 +66,13 @@ else {
 # TODO: Originally this was used by Visual Studio, not sure if VS 2017\2019 still uses this or standard
 # powershell.  Validate that this is still needed.
 $nuGetFile = Join-Path $profileDirectory "NuGet_profile.ps1"
-$isNugetInstalled = $false
-
+$nugetContent = ""
 if (Test-Path "$nugetFile") {
-    $isNugetInstalled = Get-Content "$nuGetFile" | ForEach-Object { if($_.Contains(". $winfilesRoot\powershell-profile\profile.ps1") -eq $true){$true;}}
+    $nugetContent = Get-Content -Path $nugetFile | Out-String
 }
 
-if($isNugetInstalled -ne $true) {
-    Add-Content $nuGetFile "#!/usr/bin/env powershell.exe"
-    Add-Content $nuGetFile "#Requires -Version 5"
-    Add-Content $nuGetFile ""
-    Add-Content $nuGetFile ". `"$winfilesRoot\powershell-profile\profile.ps1`""
-    Add-Content $nuGetFile ""
-    Add-Content $nuGetFile "function prompt {"
-    Add-Content $nuGetFile "    return Get-CustomPrompt"
-    Add-Content $nuGetFile "}"
-
+if (-not ($nugetContent.Contains("$winfilesRoot\powershell-profile\profile.ps1"))) {
+    Add-Content $nuGetFile $outputContent
     Write-LogAndConsole $logFile "Your NuGet environment has been configured at: $nuGetFile"
 }
 else {

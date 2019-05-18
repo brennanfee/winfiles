@@ -7,3 +7,4 @@ Set-StrictMode -Version 2.0
 Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
 Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
 
+#Set-HomeEnvironmentVariable  # move to bootstrap
