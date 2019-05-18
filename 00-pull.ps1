@@ -4,8 +4,8 @@
 Set-StrictMode -Version 2.0
 
 # Note, these may need to be run BEFORE this script
-Set-ExecutionPolicy RemoteSigned -scope LocalMachine -Force
-Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force
+Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
+Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
 
 ### Set Profile location (based on how many disks we have)
 ### 1 disk means porfile is in C:\profile, 2 disks or more means D:\profile
@@ -20,14 +20,14 @@ $winfilesRoot="$profilesPath\winfiles"
 ### Setup logging
 $logPath="$profilesPath\logs\winfiles"
 $logFile="$logPath\bootstrap.log"
-if (-not Test-Path -PathType Container -Path $logPath) {
-    New-Item -ItemType Directory -Force -Path
+if (-not (Test-Path -PathType Container -Path $logPath)) {
+    New-Item -ItemType Directory -Force -Path $logPath | Out-Null
 }
 
 function Write-Log {
     Param(
-        [string]$LogEntry
-        [switch]$Color = ""
+        [string]$LogEntry,
+        [string]$Color = ""
     )
 
     $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
@@ -78,5 +78,3 @@ if (-not (Test-Path "$winfilesRoot\README.md")) {
 }
 
 Invoke-Expression -command "$winfilesRoot\setup-profile.ps1"
-Write-Log "You will need to close and re-open PowerShell to continue." -Color "Yellow"
-Write-Log "Complete" -Color "Green"
