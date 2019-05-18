@@ -117,17 +117,48 @@ function Get-GitInARepo {
 }
 
 function Get-GitBranchName {
-    Write-Error "Not Implemented Yet."
+    if (Get-GitInARepo) {
+        $git = Get-GitExeSafe
+        $result = Invoke-Expression -command "$git rev-parse --abbrev-ref HEAD"
+        return $result
+    }
+    else {
+        Write-Host "Not a git repo."
+        return ""
+    }
 }
 
 function Get-GitRootPath {
-    Write-Error "Not Implemented Yet."
+    if (Get-GitInARepo) {
+        $git = Get-GitExeSafe
+        $result = Invoke-Expression -command "$git rev-parse --show-toplevel"
+        return $result
+    }
+    else {
+        return (Get-Location).Path
+    }
 }
 
 function Set-LocationToGitRootPath {
-    Write-Error "Not Implemented Yet."
+    param(
+        [string]$Subfolder = ""
+    )
+
+    $path = Get-GitRootPath
+    if ([string]::IsNullOrEmpty($Subfolder)) {
+        Set-Location $path
+    }
+    else {
+        $newPath = Join-Path $path $Subfolder
+        if (Test-Path $newPath) {
+            Set-Location $newPath
+        }
+        else {
+            Set-Location $path
+        }
+    }
 }
 
-function Remove-GitMissingFiles {
+function Invoke-GitStageRemovedFiles {
     Write-Error "Not Implemented Yet."
 }

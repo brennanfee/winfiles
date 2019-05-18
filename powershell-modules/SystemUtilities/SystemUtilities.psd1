@@ -54,7 +54,6 @@
         'New-SymbolicLink',
         'New-SymbolicLinkSafe',
         'Remove-FromPath',
-        'Remove-GitMissingFiles',
         'Set-Editor',
         'Set-EditorToAtom',
         'Set-EditorToEmacs',
