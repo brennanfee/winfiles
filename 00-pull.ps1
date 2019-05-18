@@ -42,7 +42,7 @@ function LogWrite {
 LogWrite "Bootstrap script started."
 
 ### Phase 1 - If the winfiles are not there, pull them from GitHub
-if (!(Test-Path "$winfilesRoot\README.md")) {
+if (-not (Test-Path "$winfilesRoot\README.md")) {
     LogWrite "Winfiles missing, preparing to download"
     # Check if scoop is already installed
     if (-not (Test-Path "$profilesPath\scoop\shims\scoop")) {
@@ -59,7 +59,7 @@ if (!(Test-Path "$winfilesRoot\README.md")) {
     }
 
     # Check if git is already installed
-    if (-not (Test-Path "$env:USERPROFILE\scoop\shims\git.exe")) {
+    if (-not (Test-Path "$env:SCOOP_GLOBAL\shims\git.exe")) {
         LogWrite "Git missing, preparing for install."
         # Install git
         scoop install sudo 7zip git which --global
@@ -75,5 +75,3 @@ if (!(Test-Path "$winfilesRoot\README.md")) {
 } else {
     LogWrite "Winfiles already set up." -Success
 }
-
-## Now run the "admin" setup script
