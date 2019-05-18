@@ -12,12 +12,7 @@ function Set-Editor {
         $Path
     )
 
-    # May not need this any more with the ValidateScript above, TODO: test
-    if (-not (Test-Path $Path)) {
-        throw "File given not valid."
-    }
-
-    [Environment]::SetEnvironmentVariable("EDITOR", $Path, "User")
+    [Environment]::SetEnvironmentVariable("EDITOR", "$Path", "User")
     $env:EDITOR = $Path
     $Pscx:Preferences['TextEditor'] = $env:EDITOR
 }

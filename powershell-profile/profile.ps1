@@ -27,15 +27,7 @@ Set-Alias sl Get-ListingWslLs -Force -Option AllScope
 Set-Alias dir Get-ListingWslLla -Force -Option AllScope
 Set-Alias curl curl.exe -Force -Option AllScope
 
-# Add the HOME environment variables if not already set
-# TODO: Should this move to the bootstrap?
-if ([string]::IsNullOrEmpty($env:HOME)) {
-    $provider = get-psprovider FileSystem
-    $provider.Home = $env:userprofile
-    [environment]::SetEnvironmentVariable('HOME', "$env:userprofile", 'User')
-    $env:home = $env:userprofile
-    Set-Variable -name HOME -value $env:home -Force
-}
+Set-HomeEnvironmentVariable
 
 # Add the EDITOR environment variables if not already set
 if ([string]::IsNullOrEmpty($env:EDITOR))
