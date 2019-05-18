@@ -23,7 +23,6 @@ Import-Module MyCustomProfileUtilities
 
 # Setup the profile environment variable
 Set-MyCustomProfileLocation
-#Set-HomeEnvironmentVariable  # move to bootstrap
 
 $logFile="$env:ProfilePath\logs\winfiles\bootstrap-pull.log"
 Write-LogAndConsole $logFile "Profile script started."

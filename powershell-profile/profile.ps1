@@ -38,4 +38,4 @@ if ([string]::IsNullOrEmpty($env:EDITOR))
 }
 $Pscx:Preferences['TextEditor'] = $env:EDITOR
 
-Init-PsHistory
+Initialize-PsHistory

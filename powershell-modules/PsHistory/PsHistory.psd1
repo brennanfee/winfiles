@@ -17,7 +17,7 @@
 
     VariablesToExport = @('psHistoryPath', 'psHistoryLength')
 
-    FunctionsToExport = @('Init-PsHistory')
+    FunctionsToExport = @('Initialize-PsHistory')
 
     AliasesToExport = ''
 }

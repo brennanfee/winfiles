@@ -10,7 +10,7 @@ Set-StrictMode -Version 2.0
 $psHistoryPath = Join-Path (split-path $profile) history.clixml
 $psHistoryLength = 1000
 
-function Init-PsHistory {
+function Initialize-PsHistory {
     [CmdletBinding()]
     param(
         [switch]$Silent = $false
