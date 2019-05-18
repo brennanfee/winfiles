@@ -7,6 +7,14 @@ Set-StrictMode -Version 2.0
 Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
 Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
 
+Write-Host "Setting up PowerShell repositories"
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+
+Write-Host "Updating modules"
+Update-Module -ErrorAction SilentlyContinue
+Install-Module -Name Pscx -AllowClobber -Scope CurrentUser
+Install-Module -Name posh-git -AllowClobber -Scope CurrentUser
+
 ### Set Profile location (based on how many disks we have)
 ### 1 disk means porfile is in C:\profile, 2 disks or more means D:\profile
 $DriveCount = (Get-PhysicalDisk | Measure-Object).Count
@@ -76,5 +84,16 @@ if (-not (Test-Path "$winfilesRoot\README.md")) {
 } else {
     Write-Log "Winfiles already set up." -Color "Green"
 }
+
+Write-Log "Setting up PowerShell repositories"
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+
+Write-Log "Updating modules"
+Update-Module -ErrorAction SilentlyContinue
+
+# Install critical user modules (profile doesn't work without these)
+Write-Log "Installing modules"
+Update-Module -Name Pscx -AllowClobber -Scope CurrentUser
+Update-Module -Name posh-git -AllowClobber -Scope CurrentUser
 
 Invoke-Expression -command "$winfilesRoot\setup-profile.ps1"
