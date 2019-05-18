@@ -3,7 +3,9 @@
 Set-StrictMode -Version 2.0
 
 Set-Alias e Edit-File
+Set-Alias ge Edit-File # "graphical edit"
 Set-Alias edit Edit-File
+Set-Alias vis Edit-File # for "visual edit"
 
 function Get-ListingWslLs { wsl.exe ls -v --color=auto --group-directories-first $args }
 
@@ -30,3 +32,6 @@ Set-Alias vdir Get-ListingWslVdir
 
 function Get-ListingWslTree { wsl.exe tree -C }
 Set-Alias tree Get-ListingWslTree
+
+Set-Alias mkdatedir New-DateDir
+Set-Alias mkdatefile New-DateFile
