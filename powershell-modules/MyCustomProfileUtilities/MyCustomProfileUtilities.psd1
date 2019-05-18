@@ -29,7 +29,8 @@
         'CustomPrompt.ps1',
         'Set-DefaultEditor.ps1',
         'Set-MyCustomProfileLocation.ps1',
-        'Navigation.ps1'
+        'Navigation.ps1',
+        'Set-LocationToNewDir.ps1'
     )
 
     CmdletsToExport = ''
