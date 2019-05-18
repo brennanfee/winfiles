@@ -5,7 +5,7 @@ Set-StrictMode -Version 2.0
 function Get-LogFile {
     Param(
         [string]$Name,
-        [string]$SubPath = "",
+        [string]$SubPath = ""
     )
 
     $logPath="$env:ProfilePath\logs"
@@ -20,7 +20,7 @@ function Get-LogFile {
 function Write-Log {
     Param(
         [string]$LogFile,
-        [string]$LogEntry,
+        [string]$LogEntry
     )
 
     $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
@@ -43,4 +43,3 @@ function Write-LogAndConsole {
         Write-Host -ForegroundColor "$Color" $LogEntry
     }
 }
-
