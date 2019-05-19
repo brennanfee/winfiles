@@ -53,6 +53,8 @@
         'Get-IsAdministrator',
         'Get-LogFile',
         'Get-SpecialFolder',
+        'Install-WithAppGet',
+        'Install-WithScoop',
         'Invoke-MsiInstaller',
         'Invoke-MsiInstallerFromUrl',
         'New-DateDir',
