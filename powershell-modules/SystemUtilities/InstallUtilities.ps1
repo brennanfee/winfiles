@@ -14,4 +14,3 @@ function Add-ScoopBucket {
         Invoke-Expression "scoop bucket add $Bucket"
     }
 }
-
