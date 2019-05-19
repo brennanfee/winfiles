@@ -12,8 +12,15 @@ $logFile = "$logPath\bootstrap.log"
 Write-LogAndConsole $logFile "Bootstrap script started"
 
 Get-ChildItem "$PSScriptRoot\bootstrapScripts" -File -Filter "*.ps1" | Sort-Object "FullName" | ForEach-Object {
-    $script = $_.FullName
-    Write-LogAndConsole $logFile "Running script: $script"
-    Invoke-Expression -command "$script *> `"$logPath\script-$_.log`""
-    Start-Sleep 1
+    Write-LogAndConsole $logFile "Running script: $_.FullName"
+
+    try {
+        #-UseMinimalHeader
+        Start-Transcript -Path "$logPath\script-$_.log" -Append -IncludeInvocationHeader
+        Invoke-Expression -command "$_.FullName"
+    }
+    finally {
+        Start-Sleep -Seconds 1
+        Stop-Transcript
+    }
 }
