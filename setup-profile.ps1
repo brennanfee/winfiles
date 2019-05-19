@@ -76,6 +76,35 @@ else {
     Write-LogAndConsole $logFile "Your NuGet environment is already configured at: $nugetFile"
 }
 
+# Check if scoop is already installed
+if (-not (Test-Path "$env:ProfilePath\scoop\shims\scoop")) {
+    Write-Log "Scoop missing, preparing for install"
+    [environment]::setEnvironmentVariable('SCOOP', "$env:ProfilePath\scoop", 'User')
+    $env:SCOOP="$env:ProfilePath\scoop"
+    [environment]::setEnvironmentVariable('SCOOP_GLOBAL','C:\scoop-global','Machine')
+    $env:SCOOP_GLOBAL='C:\scoop-global'
+
+    # Install scoop
+    iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+
+    Write-Log "Scoop installed." -Color "Green"
+}
+else {
+    Write-Log "Scoop already installed." -Color "Green"
+}
+
+# Check if git is already installed
+if (-not (Test-Path "$env:SCOOP_GLOBAL\shims\git.exe")) {
+    Write-Log "Git missing, preparing for install using scoop."
+
+    scoop install sudo 7zip git which --global
+    [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
+    Write-Log "Git installed." -Color "Green"
+}
+else {
+    Write-Log "Git already installed." -Color "Green"
+}
+
 Write-LogAndConsole $logFile "Profile setup complete" -Color "Green"
 Write-Host ""
 Write-LogAndConsole $logFile "You will need to close and re-open PowerShell to continue." -Color "Yellow"
