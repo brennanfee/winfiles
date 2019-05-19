@@ -1,6 +1,7 @@
 #!/usr/bin/env powershell.exe
 #Requires -Version 5
 #Requires -RunAsAdministrator
+
 Param(
     [Parameter(ValueFromPipeline = $true,
         ValueFromPipelineByPropertyName = $true)]
@@ -37,3 +38,10 @@ Get-ChildItem "$PSScriptRoot\bootstrapScripts" -File -Filter "*.ps1" | Sort-Obje
         Stop-Transcript
     }
 }
+
+rundll32.exe user32.dll, UpdatePerUserSystemParameters
+
+Write-Host ""
+Write-LogAndConsole $logFile "A reboot may be necessary for settings to take effect." -Color "Yellow"
+Write-Host ""
+Write-LogAndConsole $logFile "Complete" -Color "Green"
