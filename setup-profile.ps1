@@ -3,6 +3,10 @@
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
+# Note, these may need to be run BEFORE this script
+Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
+Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
+
 $winfilesRoot = $PSScriptRoot
 
 Write-Host "Setting up PowerShell repositories"
@@ -27,20 +31,6 @@ Set-MyCustomProfileLocation
 $logFile="$env:ProfilePath\logs\winfiles\bootstrap-pull.log"
 Write-LogAndConsole $logFile "Profile script started."
 
-# Check Profile Directory
-$profileDirectory = Split-Path $PROFILE -Parent
-if(-not (Test-Path "$PROFILE")) {
-    if (-not (Test-Path "$profileDirectory")) {
-        New-Item "$profileDirectory" -ItemType Directory -Force | Out-Null
-    }
-
-    New-Item "$PROFILE" -ItemType File | Out-Null
-    Write-LogAndConsole $logFile "Creating profile."
-}
-else {
-    Write-LogAndConsole $logFile "Profile already exists."
-}
-
 $outputContent = @"
 #!/usr/bin/env powershell.exe
 #Requires -Version 5
@@ -53,9 +43,13 @@ function prompt {
 "@
 
 # Set up main PowerShell Profile
-$profileContent = Get-Content -Path $PROFILE | Out-String
+$profileContent = ""
+if (Test-Path $PROFILE) {
+    $profileContent = Get-Content -Path $PROFILE | Out-String
+}
+
 if (-not ($profileContent.Contains("$winfilesRoot\powershell-profile\profile.ps1"))) {
-    Add-Content $PROFILE $outputContent
+    Set-Content $PROFILE $outputContent
     Write-LogAndConsole $logFile "Your environment has been configured at: $PROFILE"
 }
 else {
@@ -65,18 +59,19 @@ else {
 # Setup NuGet profile used within Visual Studio
 # TODO: Originally this was used by Visual Studio, not sure if VS 2017\2019 still uses this or standard
 # powershell.  Validate that this is still needed.
-$nuGetFile = Join-Path $profileDirectory "NuGet_profile.ps1"
+$profileDirectory = Split-Path $PROFILE -Parent
+$nugetFile = Join-Path $profileDirectory "NuGet_profile.ps1"
 $nugetContent = ""
-if (Test-Path "$nugetFile") {
+if (Test-Path $nugetFile) {
     $nugetContent = Get-Content -Path $nugetFile | Out-String
 }
 
 if (-not ($nugetContent.Contains("$winfilesRoot\powershell-profile\profile.ps1"))) {
-    Add-Content $nuGetFile $outputContent
-    Write-LogAndConsole $logFile "Your NuGet environment has been configured at: $nuGetFile"
+    Set-Content $nugetFile $outputContent
+    Write-LogAndConsole $logFile "Your NuGet environment has been configured at: $nugetFile"
 }
 else {
-    Write-LogAndConsole $logFile "Your NuGet environment is already configured at: $nuGetFile"
+    Write-LogAndConsole $logFile "Your NuGet environment is already configured at: $nugetFile"
 }
 
 Write-LogAndConsole $logFile "Profile setup complete" -Color "Green"
