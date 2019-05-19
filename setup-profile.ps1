@@ -30,6 +30,7 @@ Import-Module MyCustomProfileUtilities
 Set-MyCustomProfileLocation
 
 $logFile="$env:ProfilePath\logs\winfiles\bootstrap-pull.log"
+Write-Log $logFile "----------"
 Write-LogAndConsole $logFile "Profile script started."
 
 $outputContent = @"

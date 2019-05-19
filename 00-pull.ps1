@@ -45,6 +45,7 @@ function Write-Log {
     }
 }
 
+Write-Log "----------"
 Write-Log "Bootstrap script started."
 
 # Check if scoop is already installed

@@ -7,20 +7,24 @@ Set-StrictMode -Version 2.0
 Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
 Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
 
-$logPath="$env:ProfilePath\logs\winfiles"
+$logPath = "$env:ProfilePath\logs\winfiles"
 $logFile = "$logPath\bootstrap.log"
+Write-Log $logFile "----------"
 Write-LogAndConsole $logFile "Bootstrap script started"
 
 Get-ChildItem "$PSScriptRoot\bootstrapScripts" -File -Filter "*.ps1" | Sort-Object "FullName" | ForEach-Object {
-    Write-LogAndConsole $logFile "Running script: $_.FullName"
+    $script = $_.FullName
+    $scriptName = [io.path]::GetFileNameWithoutExtension("$script")
+
+    Write-Host ""
+    Write-LogAndConsole $logFile "Running script: $script"
 
     try {
-        #-UseMinimalHeader
-        Start-Transcript -Path "$logPath\script-$_.log" -Append -IncludeInvocationHeader
-        Invoke-Expression -command "$_.FullName"
+        Start-Transcript -Path "$logPath\script-$scriptName.log" -Append
+        Invoke-Expression -command "$script"
+        Start-Sleep -Seconds 1
     }
     finally {
-        Start-Sleep -Seconds 1
         Stop-Transcript
     }
 }
