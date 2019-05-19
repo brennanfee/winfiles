@@ -1,5 +1,6 @@
 #!/usr/bin/env powershell.exe
 #Requires -Version 5
+#Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
 Write-Host "Setting up PowerShell repositories"
