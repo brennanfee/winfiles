@@ -29,7 +29,8 @@
         'PermissionUtilities.ps1',
         'GitTools.ps1',
         'Write-Log.ps1',
-        'InstallUtilities.ps1'
+        'InstallUtilities.ps1',
+        'Enable-RemoteDesktop.ps1'
     )
 
     CmdletsToExport = ''
@@ -39,6 +40,7 @@
     FunctionsToExport = @(
         'Add-ScoopBucket',
         'Add-ToPath',
+        'Enable-RemoteDesktop',
         'Get-ApplicationPath',
         'Get-ComputerDetails',
         'Get-DefaultAtomExe',

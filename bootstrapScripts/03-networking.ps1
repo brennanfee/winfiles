@@ -17,3 +17,6 @@ if (-not $enabled) {
 else {
     Write-Host "PSRemoting already enabled"
 }
+
+Write-Host "Enabling Remote Desktop"
+Enable-RemoteDesktop
