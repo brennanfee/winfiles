@@ -28,7 +28,8 @@
         'PathUtilities.ps1',
         'PermissionUtilities.ps1',
         'GitTools.ps1',
-        'Write-Log.ps1'
+        'Write-Log.ps1',
+        'InstallUtilities.ps1'
     )
 
     CmdletsToExport = ''
@@ -36,6 +37,7 @@
     VariablesToExport = ''
 
     FunctionsToExport = @(
+        'Add-ScoopBucket',
         'Add-ToPath',
         'Get-ApplicationPath',
         'Get-ComputerDetails',
