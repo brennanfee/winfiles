@@ -15,8 +15,8 @@ Import-Module Pscx -arg "$PSScriptRoot\Pscx.UserPreferences.ps1"
 Import-Module posh-git
 
 # posh-git settings
-$global:GitPromptSettings.EnableWindowTitle = $true
-$global:GitPromptSettings.DefaultForegroundColor = "white"
+#$global:GitPromptSettings.EnableWindowTitle = $true
+#$global:GitPromptSettings.DefaultForegroundColor = "white"
 
 Write-Host "Modules imported."
 
