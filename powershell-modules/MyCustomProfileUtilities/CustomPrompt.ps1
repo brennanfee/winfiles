@@ -12,18 +12,18 @@ function Get-CustomPrompt {
         $prompt += Write-Prompt  "[Admin] " -ForegroundColor ([ConsoleColor]::Red)
     }
 
-    if ($PSVersionTable.PSEdition -eq "Desktop") {
-        $prompt += Write-Prompt "PSHD " -ForegroundColor ([ConsoleColor]::Green)
-    }
-    else {
-        $prompt += Write-Prompt "PSHC " -ForegroundColor ([ConsoleColor]::Green)
-    }
-
     $prompt += Write-Prompt  "$env:username@$env:computername " -ForegroundColor ([ConsoleColor]::Green)
 
     $prompt += Write-Prompt  "$(get-location) " -ForegroundColor ([ConsoleColor]::Magenta)
 
     $prompt += Write-VcsStatus
+
+    if ($PSVersionTable.PSEdition -eq "Desktop") {
+        $prompt += Write-Prompt " (PS DESKTOP)" -ForegroundColor ([ConsoleColor]::Blue)
+    }
+    else {
+        $prompt += Write-Prompt " (PS CORE)" -ForegroundColor ([ConsoleColor]::Blue)
+    }
 
     $prompt += "$([System.Environment]::NewLine)> "
 
