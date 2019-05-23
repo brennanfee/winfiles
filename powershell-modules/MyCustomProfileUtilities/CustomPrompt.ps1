@@ -3,28 +3,30 @@
 Set-StrictMode -Version 2.0
 
 function Get-CustomPrompt {
+    # This version of my prompt requires posh-git 1.0-beta3 or later
     $realLASTEXITCODE = $LASTEXITCODE
 
-    $isAdminSession = Get-IsAdministrator
+    $prompt = "$([System.Environment]::NewLine)"
 
-    # Set the window title
-    #$Host.UI.RawUI.WindowTitle = "{0}{1}" -f $global:AdminSession,$pwd.Path
-
-    # Reset color, which can be messed up by Enable-GitColors
-    $Host.UI.RawUI.ForegroundColor = $GitPromptSettings.DefaultForegroundColor
-
-    Write-Host([System.Environment]::NewLine) -nonewline
-
-    if ($isAdminSession) {
-        Write-Host("[Admin] ") -nonewline -foregroundcolor Red
+    if (Get-IsAdministrator) {
+        $prompt += Write-Prompt  "[Admin] " -ForegroundColor ([ConsoleColor]::Red)
     }
 
-    Write-Host("$env:username@$env:computername ") -nonewline -ForegroundColor Green
+    if ($PSVersionTable.PSEdition -eq "Desktop") {
+        $prompt += Write-Prompt "PSHD " -ForegroundColor ([ConsoleColor]::Green)
+    }
+    else {
+        $prompt += Write-Prompt "PSHC " -ForegroundColor ([ConsoleColor]::Green)
+    }
 
-    Write-Host($(get-location)) -nonewline -ForegroundColor Magenta
+    $prompt += Write-Prompt  "$env:username@$env:computername " -ForegroundColor ([ConsoleColor]::Green)
 
-    Write-VcsStatus
+    $prompt += Write-Prompt  "$(get-location) " -ForegroundColor ([ConsoleColor]::Magenta)
+
+    $prompt += Write-VcsStatus
+
+    $prompt += "$([System.Environment]::NewLine)> "
 
     $LASTEXITCODE = $realLASTEXITCODE
-    return [System.Environment]::NewLine + '> '
+    return $prompt
 }
