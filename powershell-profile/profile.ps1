@@ -19,8 +19,8 @@ Import-Module MyCustomProfileUtilities
 Import-Module PsHistory
 
 # posh-git settings
-$global:GitPromptSettings.EnableWindowTitle = $true
-$global:GitPromptSettings.DefaultForegroundColor = "white"
+#$global:GitPromptSettings.EnableWindowTitle = $true
+#$global:GitPromptSettings.DefaultForegroundColor = "white"
 
 Write-Host "Modules imported."
 
