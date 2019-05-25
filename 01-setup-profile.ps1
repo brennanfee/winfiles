@@ -41,19 +41,23 @@ $moduleBlock = {
     Write-Host "Upgrading built-in modules"
     Install-Module -Name PackageManagement -Scope AllUsers -Force
     Install-Module -Name PowerShellGet -Scope AllUsers -Force
-    Install-Module -Name Pester -Scope AllUsers -Force
+    Install-Module -Name Pester -Scope AllUsers -Force -SkipPublisherCheck
 
     Write-Host "Updating modules"
     Update-Module -ErrorAction SilentlyContinue
 
-    Remove-Module PowerShellGet -Force
-    Remove-Module PackageManagement -Force
+#    Remove-Module PowerShellGet -Force
+#    Remove-Module PackageManagement -Force
+#    Import-Module PowerShellGet -MinimumVersion 2.1
 
     # Only the minimum necessary modules to make the profile work
     Write-Host "Installing modules"
     Install-Module -Name Pscx -AllowClobber -Scope CurrentUser -Force
-    Install-Module -Name posh-git -AllowClobber -Scope CurrentUser -AllowPrerelease -Force
 }
+
+$arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+"-Command `"Install-Module -Name posh-git -AllowClobber -Scope CurrentUser -AllowPrerelease -Force`""
+Start-Process -Wait -NoNewWindow -FilePath "powershell.exe" -ArgumentList $arguments
 
 Invoke-Command -ScriptBlock $moduleBlock
 
@@ -112,6 +116,10 @@ if (-not (Test-Path "$psCoreExe")) {
     Write-LogAndConsole $logFile "Installing modules for PowerShell Core"
     $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
         "-Command $moduleBlock"
+    Start-Process -Wait -NoNewWindow -FilePath "$psCoreExe" -ArgumentList $arguments
+
+    $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+    "-Command `"Install-Module -Name posh-git -AllowClobber -Scope CurrentUser -AllowPrerelease -Force`""
     Start-Process -Wait -NoNewWindow -FilePath "$psCoreExe" -ArgumentList $arguments
 }
 else {
