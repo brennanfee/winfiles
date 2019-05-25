@@ -62,7 +62,6 @@
         'New-DateDir',
         'New-DateFile',
         'New-SymbolicLink',
-        'New-SymbolicLinkSafe',
         'Remove-FromPath',
         'Set-Editor',
         'Set-EditorToAtom',

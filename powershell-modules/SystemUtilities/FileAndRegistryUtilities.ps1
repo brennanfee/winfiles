@@ -125,6 +125,7 @@ function Set-RegistryOwnership {
 function Set-FileOwnership {
     [CmdletBinding()]
     param(
+        [ValidateScript( { Test-Path $_ -PathType "Leaf" })]
         [string]$File
     )
 
@@ -145,6 +146,7 @@ function Set-FileOwnership {
 function Set-FolderOwnership {
     [CmdletBinding()]
     param(
+        [ValidateScript( { Test-Path $_ -PathType "Container" })]
         [string]$Path
     )
 
@@ -162,34 +164,20 @@ Set-Alias Set-DirectoryOwnership Set-FolderOwnership
 
 # Symbolic links
 
-function New-SymbolicLinkSafe {
-    [CmdletBinding()]
-    param(
-        [string]$Link,
-        [string]$Target
-    )
-
-    # This version will not do anything if the a link or file already exists
-    # at the link point
-    If (!(Test-Path("$Link"))) {
-#        cmd /c mklink "$Link" "$Target"
-        New-Item -ItemType SymbolicLink -Name "$Link" -Target "$Target"
-    }
-}
-
 function New-SymbolicLink {
     [CmdletBinding()]
     param(
         [string]$Link,
-        [string]$Target
+        [ValidateScript( { Test-Path $_ -PathType "Leaf" })]
+        [string]$Target,
+        [switch]$Force
     )
 
-    # This version will first remove the link or file if it exists and will
-    # then re-create the link
-    If (Test-Path("$Link")) {
-        Remove-Item -Path "$Link"
+    if ($Force -and (Test-Path $Link)) {
+        Remove-Item -Path $Link
     }
 
-#    cmd /c mklink "$Link" "$Target"
-    New-Item -ItemType SymbolicLink -Name "$Link" -Target "$Target"
+    if (-not (Test-Path $Link)) {
+        New-Item -ItemType SymbolicLink -Name $Link -Target $Target
+    }
 }
