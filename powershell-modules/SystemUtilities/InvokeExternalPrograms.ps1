@@ -22,7 +22,9 @@ function Invoke-ExternalPowerShell {
             "-ExecutionPolicy Unresctricted"
         ))
 
-    $arguments.AddRange($AdditionalArguments)
+    if ($AdditionalArguments) {
+        $arguments.AddRange($AdditionalArguments)
+    }
 
     # Command should always be last as it may have newlines, spaces, etc.
     $arguments.Add('-Command "{0}"' -f $Command)
@@ -56,7 +58,9 @@ function Invoke-ExternalPowerShellCore {
             "-ExecutionPolicy Unresctricted"
         ))
 
-    $arguments.AddRange($AdditionalArguments)
+    if ($AdditionalArguments) {
+        $arguments.AddRange($AdditionalArguments)
+    }
 
     # Command should always be last as it may have newlines, spaces, etc.
     $arguments.Add('-Command "{0}"' -f $Command)
