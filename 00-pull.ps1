@@ -14,15 +14,6 @@ Set-StrictMode -Version 2.0
 Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
 Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
 
-Write-Host "Setting up PowerShell repositories"
-Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-
-Write-Host "Updating modules"
-Update-Module -ErrorAction SilentlyContinue
-# Only the minimum necessary modules to make the profile work
-Install-Module -Name Pscx -AllowClobber -Scope CurrentUser -Force
-Install-Module -Name posh-git -AllowClobber -Scope CurrentUser -AllowPrerelease -Force
-
 ### Set Profile location (based on how many disks we have)
 ### 1 disk means porfile is in C:\profile, 2 disks or more means D:\profile
 $DriveCount = (Get-PhysicalDisk | Measure-Object).Count
