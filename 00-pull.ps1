@@ -12,7 +12,7 @@ Set-StrictMode -Version 2.0
 #    Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)
 
 # Note, this may need to be run BEFORE this script
-Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
+Set-ExecutionPolicy Unrestricted -scope Process -Force -ErrorAction Ignore
 
 ### Set Profile location (based on how many disks we have)
 ### 1 disk means porfile is in C:\profile, 2 disks or more means D:\profile
@@ -25,6 +25,7 @@ if ($DriveCount -ge 2) {
 [Environment]::SetEnvironmentVariable("ProfilePath", $profilesPath, "User")
 $env:ProfilePath = $profilesPath
 
+Write-Host ""
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 Write-Host "Pull script started - $date"
 
@@ -37,7 +38,11 @@ if (-not (Test-Path "$env:ProfilePath\scoop\shims\scoop")) {
     $env:SCOOP_GLOBAL = 'C:\scoop-global'
 
     # Install scoop
+    Write-Host ""
+    Set-StrictMode -Off # Need to turn StrictMode off because Scoop script has errors
     Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -Uri 'https://get.scoop.sh').Content)
+    Set-StrictMode -Version 2.0
+    Write-Host ""
 
     # Scoop configuration
     Add-MpPreference -ExclusionPath $env:SCOOP
@@ -54,8 +59,11 @@ else {
 if (-not (Test-Path "$env:SCOOP_GLOBAL\shims\git.exe")) {
     Write-Host "Git missing, preparing for install using scoop."
 
+    Write-Host ""
     #Invoke-Expression "scoop install --global sudo 7zip git innounp dark which"
     Invoke-Expression "scoop install --global sudo 7zip git innounp dark"
+    Write-Host ""
+
     [environment]::SetEnvironmentVariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
     $env:GIT_SSH = (resolve-path (scoop which ssh))
     Write-Host "Git installed." -ForegroundColor "Green"
@@ -68,7 +76,9 @@ else {
 if (-not (Test-Path "$env:ProfilePath\winfiles\README.md")) {
     Write-Host "Winfiles missing, preparing to clone"
 
+    Write-Host ""
     Invoke-Expression "git clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$env:ProfilePath\winfiles`""
+    Write-Host ""
 
     Write-Host "Finished cloning winfiles." -ForegroundColor "Green"
 }
