@@ -1,4 +1,4 @@
-#!/usr/bin/env powershell.exe
+#!/usr/bin/env pwsh.exe
 #Requires -Version 5
 #Requires -RunAsAdministrator
 

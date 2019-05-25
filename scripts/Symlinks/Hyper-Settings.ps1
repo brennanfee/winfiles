@@ -1,4 +1,4 @@
-#!/usr/bin/env powershell.exe
+#!/usr/bin/env pwsh.exe
 Set-StrictMode -Version Latest
 
 Import-Module -DisableNameChecking "$PSScriptRoot\..\Utilities\FileAndRegistryUtilities.psm1"

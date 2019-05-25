@@ -1,4 +1,4 @@
-#!/usr/bin/env powershell.exe
+#!/usr/bin/env pwsh.exe
 
 Import-Module -DisableNameChecking "$PSScriptRoot\..\Utilities\FileAndRegistryUtilities.psm1"
 Import-Module -DisableNameChecking "$PSScriptRoot\..\Utilities\Get-ComputerDetails.psm1"

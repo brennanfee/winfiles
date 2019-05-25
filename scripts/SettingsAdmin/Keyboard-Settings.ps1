@@ -1,4 +1,4 @@
-#!/usr/bin/env powershell.exe
+#!/usr/bin/env pwsh.exe
 
 # Map the CAPS LOCK key to the Control key
 $hexified = "00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00".Split(',') | % { "0x$_"};

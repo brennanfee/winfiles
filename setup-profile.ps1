@@ -1,4 +1,4 @@
-#!/usr/bin/env powershell.exe
+#!/usr/bin/env pwsh.exe
 #Requires -Version 5
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
@@ -34,7 +34,7 @@ Write-Log $logFile "----------"
 Write-LogAndConsole $logFile "Profile script started."
 
 $outputContent = @"
-#!/usr/bin/env powershell.exe
+#!/usr/bin/env pwsh.exe
 #Requires -Version 5
 
 . `"$winfilesRoot\powershell-profile\profile.ps1`"
