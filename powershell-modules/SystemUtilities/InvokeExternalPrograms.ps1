@@ -7,7 +7,8 @@ function Invoke-ExternalPowerShell {
     param(
         [string]$Command,
         [switch]$UseProfile,
-        [switch]$Use32Bit
+        [switch]$Use32Bit,
+        [array]$AdditionalArguments
     )
 
     $arguments = New-Object System.Collections.Generic.List[System.Object]
@@ -19,8 +20,14 @@ function Invoke-ExternalPowerShell {
     $arguments.AddRange(@(
             "-NonInteractive"
             "-ExecutionPolicy Unresctricted"
-            ('-Command "{0}"' -f $Command)
         ))
+
+    if ($AdditionalArguments.Count -gt 0) {
+        $arguments.AddRange($AdditionalArguments)
+    }
+
+    # Command should always be last as it may have newlines, spaces, etc.
+    $arguments.Add('-Command "{0}"' -f $Command)
 
     $powerShellExe = "powershell.exe"
     if ($Use32Bit) {
@@ -36,7 +43,8 @@ function Invoke-ExternalPowerShellCore {
     [CmdletBinding()]
     param(
         [string]$Command,
-        [switch]$UseProfile
+        [switch]$UseProfile,
+        [array]$AdditionalArguments
     )
 
     $arguments = New-Object System.Collections.Generic.List[System.Object]
@@ -48,8 +56,14 @@ function Invoke-ExternalPowerShellCore {
     $arguments.AddRange(@(
             "-NonInteractive"
             "-ExecutionPolicy Unresctricted"
-            ('-Command "{0}"' -f $Command)
         ))
+
+    if ($AdditionalArguments.Count -gt 0) {
+        $arguments.AddRange($AdditionalArguments)
+    }
+
+    # Command should always be last as it may have newlines, spaces, etc.
+    $arguments.Add('-Command "{0}"' -f $Command)
 
     $psCoreExe = "$env:ProgramFiles\PowerShell\6\pwsh.exe"
 
