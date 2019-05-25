@@ -23,6 +23,9 @@ function Write-Log {
         [string]$LogEntry
     )
 
+    $path = Split-Path $LogFile -Parent
+    New-Item -ItemType Directory -Path "$path" -Force -ErrorAction SilentlyContinue
+
     $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
     Add-Content $logFile -value "$date : $LogEntry"
 }
