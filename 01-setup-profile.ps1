@@ -31,15 +31,23 @@ Start-Process -Wait -NoNewWindow -FilePath "powershell.exe" -ArgumentList $argum
 # Install Nuget provider if needed
 $providers = Get-PackageProvider | Select-Object Name
 if (-not ($providers.Contains("nuget"))) {
-    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-Null
 }
 
 $moduleBlock = {
     Write-Host "Setting up PowerShell repositories"
     Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
+    Write-Host "Upgrading built-in modules"
+    Install-Module -Name PackageManagement -Scope AllUsers -Force
+    Install-Module -Name PowerShellGet -Scope AllUsers -Force
+    Install-Module -Name Pester -Scope AllUsers -Force
+
     Write-Host "Updating modules"
     Update-Module -ErrorAction SilentlyContinue
+
+    Remove-Module PowerShellGet -Force
+    Remove-Module PackageManagement -Force
 
     # Only the minimum necessary modules to make the profile work
     Write-Host "Installing modules"
