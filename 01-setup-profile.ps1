@@ -75,13 +75,9 @@ Write-Host "Importing profile location"
 Set-MyCustomProfileLocation
 
 $logFile = "$env:ProfilePath\logs\winfiles\setup-profile.log"
-if ($PSVersionTable.PSEdition -eq "Core") {
-    $logFile = "$env:ProfilePath\logs\winfiles\setup-profile-core.log"
-}
 
 Write-Log $logFile "----------"
 Write-LogAndConsole $logFile "Profile script log started"
-Write-LogAndConsole $logFile "PowerShell Edition: $PSVersionTable.PSEdition"
 Write-LogAndConsole $logFile ""
 
 Write-LogAndConsole $logFile "Symlinking profile into place"
