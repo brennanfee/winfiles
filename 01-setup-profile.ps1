@@ -55,11 +55,11 @@ $moduleBlock = {
     Install-Module -Name Pscx -AllowClobber -Scope CurrentUser -Force
 }
 
+Invoke-Command -ScriptBlock $moduleBlock
+
 $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
 "-Command `"Install-Module -Name posh-git -AllowClobber -Scope CurrentUser -AllowPrerelease -Force`""
 Start-Process -Wait -NoNewWindow -FilePath "powershell.exe" -ArgumentList $arguments
-
-Invoke-Command -ScriptBlock $moduleBlock
 
 # Prepend the WinFiles modules folder to the module search path
 $winfilesRoot = $PSScriptRoot
