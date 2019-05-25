@@ -2,16 +2,16 @@
 #Requires -Version 5
 Set-StrictMode -Version 2.0
 
-$WinFilesFolder = Split-Path -Path "$PSScriptRoot" -Parent
+$winFilesFolder = "$env:ProfilePath\winfiles"
 
-if (-not ("$env:PSModulePath".Contains("$WinFilesFolder\powershell-modules"))) {
-    $env:PSModulePath = "$WinFilesFolder\powershell-modules;" + "$env:PSModulePath"
+if (-not ("$env:PSModulePath".Contains("$winFilesFolder\powershell-modules"))) {
+    $env:PSModulePath = "$winFilesFolder\powershell-modules;" + "$env:PSModulePath"
 }
 
 Write-Host -ForegroundColor 'Green' "Importing third-party modules..."
 # Manually import these
 Import-Module PSReadLine
-Import-Module Pscx -arg "$PSScriptRoot\Pscx.UserPreferences.ps1"
+Import-Module Pscx -arg "$winFilesFolder\powershell-profile\Pscx.UserPreferences.ps1"
 Import-Module posh-git
 
 Import-Module SystemUtilities
@@ -34,8 +34,7 @@ Set-Alias gc Invoke-GitCommit -Force -Option AllScope
 Set-Alias gl Invoke-GitLog -Force -Option AllScope
 
 # Add the EDITOR environment variables if not already set
-if ([string]::IsNullOrEmpty($env:EDITOR))
-{
+if ([string]::IsNullOrEmpty($env:EDITOR)) {
     Set-DefaultEditor
 }
 $Pscx:Preferences['TextEditor'] = $env:EDITOR
