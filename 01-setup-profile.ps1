@@ -17,7 +17,6 @@ $executionPolicyBlock = {
     Set-ExecutionPolicy Unrestricted -scope Process -Force -ErrorAction Ignore
     Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
     Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
-    Get-ExecutionPolicy -List
 }
 
 if (Is64Bit) {
@@ -66,12 +65,6 @@ Write-Host "Importing modules"
 Import-Module SystemUtilities
 Import-Module MyCustomProfileUtilities
 
-Write-Host "Importing posh-git"
-$installPoshGit = "Install-Module -Name posh-git -AllowClobber -Scope CurrentUser " +
-"-AllowPrerelease -Force"
-
-Invoke-ExternalPowerShell -Command $installPoshGit
-
 # Setup the profile environment variable
 Write-Host "Importing profile location"
 Set-MyCustomProfileLocation
@@ -81,6 +74,12 @@ $logFile = "$env:ProfilePath\logs\winfiles\setup-profile.log"
 Write-Log $logFile "----------"
 Write-LogAndConsole $logFile "Profile script log started"
 Write-LogAndConsole $logFile ""
+
+Write-LogAndConsole $logFile "Installing posh-git"
+$installPoshGit = "Install-Module -Name posh-git -AllowClobber -Scope CurrentUser " +
+"-AllowPrerelease -Force"
+
+Invoke-ExternalPowerShell -Command $installPoshGit
 
 Write-LogAndConsole $logFile "Symlinking profile into place"
 
