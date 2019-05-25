@@ -77,6 +77,5 @@ else {
 
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 Write-Host "Pull script finished - $date"
+Set-Location "$env:ProfilePath\winfiles"
 Write-Host ""
-
-Invoke-Expression "$env:ProfilePath\winfiles\01-setup-profile.ps1"
