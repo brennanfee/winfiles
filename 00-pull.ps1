@@ -75,7 +75,9 @@ else {
     Write-Host "Winfiles already set up." -ForegroundColor "Green"
 }
 
+Set-Location "$env:ProfilePath\winfiles"
+Write-Host "WinFiles are ready, you may now run .\01-setup-profile.ps1" -ForegroundColor "Yellow"
+
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 Write-Host "Pull script finished - $date"
-Set-Location "$env:ProfilePath\winfiles"
 Write-Host ""
