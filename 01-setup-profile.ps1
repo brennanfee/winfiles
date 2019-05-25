@@ -64,12 +64,14 @@ Write-Host "Importing modules"
 Import-Module SystemUtilities
 Import-Module MyCustomProfileUtilities
 
+Write-Host "Importing posh-git"
 $installPoshGit = "Install-Module -Name posh-git -AllowClobber -Scope CurrentUser " +
 "-AllowPrerelease -Force"
 
 Invoke-ExternalPowerShell -Command $installPoshGit
 
 # Setup the profile environment variable
+Write-Host "Importing profile location"
 Set-MyCustomProfileLocation
 
 $logFile = "$env:ProfilePath\logs\winfiles\setup-profile.log"
