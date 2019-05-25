@@ -19,14 +19,9 @@ $executionPolicyBlock = {
 }
 
 if (Is64Bit) {
-    $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-        "-Command $executionPolicyBlock"
-    Start-Process -Wait -NoNewWindow -ArgumentList $arguments `
-        -FilePath "$env:SystemRoot\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" `
+    Invoke-ExternalPowerShell -Command $executionPolicyBlock -Use32Bit
 }
-$arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-    "-Command $executionPolicyBlock"
-Start-Process -Wait -NoNewWindow -FilePath "powershell.exe" -ArgumentList $arguments
+Invoke-ExternalPowerShell -Command $executionPolicyBlock
 
 # Install Nuget provider if needed
 $providers = Get-PackageProvider | Select-Object Name
@@ -46,10 +41,6 @@ $moduleBlock = {
     Write-Host "Updating modules"
     Update-Module -ErrorAction SilentlyContinue
 
-#    Remove-Module PowerShellGet -Force
-#    Remove-Module PackageManagement -Force
-#    Import-Module PowerShellGet -MinimumVersion 2.1
-
     # Only the minimum necessary modules to make the profile work
     Write-Host "Installing modules"
     Install-Module -Name Pscx -AllowClobber -Scope CurrentUser -Force
@@ -57,9 +48,10 @@ $moduleBlock = {
 
 Invoke-Command -ScriptBlock $moduleBlock
 
-$arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-"-Command `"Install-Module -Name posh-git -AllowClobber -Scope CurrentUser -AllowPrerelease -Force`""
-Start-Process -Wait -NoNewWindow -FilePath "powershell.exe" -ArgumentList $arguments
+$installPoshGit = "Install-Module -Name posh-git -AllowClobber -Scope CurrentUser " +
+"-AllowPrerelease -Force"
+
+Invoke-ExternalPowerShell -Command $installPoshGit
 
 # Prepend the WinFiles modules folder to the module search path
 $winfilesRoot = $PSScriptRoot
@@ -102,25 +94,24 @@ Write-Host "Checking for PowerShell Core"
 $psCoreExe = "$env:ProgramFiles\PowerShell\6\pwsh.exe"
 if (-not (Test-Path "$psCoreExe")) {
     Write-LogAndConsole $logFile "Installing PowerShell Core"
-    $command = "msiexec.exe /package " +
-      "`"$winfilesRoot\installs\PowerShell.msi`" /quiet " +
-      "ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 " +
-      "REGISTER_MANIFEST=1"
-    Invoke-Expression -Command $command
+
+    $msiLogFile = "$env:ProfilePath\logs\winfiles\pwsh-install.log"
+    $msiArguments = @(
+        "ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1"
+        "ENABLE_PSREMOTING=1"
+        "REGISTER_MANIFEST=1"
+    )
+
+    Invoke-MsiInstaller "$winfilesRoot\installs\PowerShell.msi" $msiLogFile `
+        $msiArguments
 
     Write-LogAndConsole $logFile "Setting PowerShell Core permissions"
-    $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-        "-Command $executionPolicyBlock"
-    Start-Process -Wait -NoNewWindow -FilePath "$psCoreExe" -ArgumentList $arguments
+    Invoke-ExternalPowerShellCore $executionPolicyBlock
 
     Write-LogAndConsole $logFile "Installing modules for PowerShell Core"
-    $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-        "-Command $moduleBlock"
-    Start-Process -Wait -NoNewWindow -FilePath "$psCoreExe" -ArgumentList $arguments
+    Invoke-ExternalPowerShellCore $moduleBlock
 
-    $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-    "-Command `"Install-Module -Name posh-git -AllowClobber -Scope CurrentUser -AllowPrerelease -Force`""
-    Start-Process -Wait -NoNewWindow -FilePath "$psCoreExe" -ArgumentList $arguments
+    Invoke-ExternalPowerShellCore $installPoshGit
 }
 else {
     Write-LogAndConsole $logFile "PowerShell Core already installed" -Color "Green"
@@ -136,7 +127,9 @@ Write-Host "Checking for AppGet"
 if (-not (Test-Path "C:\ProgramData\AppGet\bin\appget.exe")) {
     Write-Host "Installing AppGet"
     $logFile = "$env:ProfilePath\logs\winfiles\appget-install.log"
-    $command = "$winfilesRoot\installs\appget.exe /VERYSILENT /SUPPRESSMSGBOXES /SP `"/LOG=$logFile`""
+    $command = "$winfilesRoot\installs\appget.exe /VERYSILENT " +
+    "/SUPPRESSMSGBOXES /SP `"/LOG=$logFile`""
+
     Invoke-Expression -command $command
 }
 else {
@@ -145,6 +138,7 @@ else {
 
 Write-LogAndConsole $logFile "Profile setup complete" -Color "Green"
 Write-Host ""
-Write-LogAndConsole $logFile "You will need to close and re-open PowerShell to continue." -Color "Yellow"
+Write-LogAndConsole $logFile -Color "Yellow" `
+    "You will need to close and re-open PowerShell to continue."
 Write-Host ""
 Write-LogAndConsole $logFile "Complete" -Color "Green"
