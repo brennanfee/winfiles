@@ -178,6 +178,6 @@ function New-SymbolicLink {
     }
 
     if (-not (Test-Path $Link)) {
-        New-Item -ItemType SymbolicLink -Path $Link -Value $Target | Out-Null
+        New-Item -ItemType SymbolicLink -Path $Link -Value $Target -Force | Out-Null
     }
 }
