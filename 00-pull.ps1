@@ -54,7 +54,8 @@ else {
 if (-not (Test-Path "$env:SCOOP_GLOBAL\shims\git.exe")) {
     Write-Host "Git missing, preparing for install using scoop."
 
-    Invoke-Expression "scoop install --global sudo 7zip git innounp dark which"
+    #Invoke-Expression "scoop install --global sudo 7zip git innounp dark which"
+    Invoke-Expression "scoop install --global sudo 7zip git innounp dark"
     [environment]::SetEnvironmentVariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
     $env:GIT_SSH = (resolve-path (scoop which ssh))
     Write-Host "Git installed." -ForegroundColor "Green"
