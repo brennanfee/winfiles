@@ -14,8 +14,10 @@ Write-Host "Setup Profile script started - $date"
 Write-Host ""
 
 $executionPolicyBlock = {
+    Set-ExecutionPolicy Unrestricted -scope Process -Force -ErrorAction Ignore
     Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
     Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
+    Get-ExecutionPolicy -List
 }
 
 if (Is64Bit) {
