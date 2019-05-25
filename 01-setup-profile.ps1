@@ -19,15 +19,14 @@ $executionPolicyBlock = {
 }
 
 if (Is64Bit) {
-    Start-Process -Wait -NoNewWindow `
+    $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+        "-Command $executionPolicyBlock"
+    Start-Process -Wait -NoNewWindow -ArgumentList $arguments `
         -FilePath "$env:SystemRoot\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" `
-        -ArgumentList "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-          "-Command $executionPolicyBlock"
 }
-Start-Process -Wait -NoNewWindow `
-    -FilePath "powershell.exe" `
-    -ArgumentList "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-      "-Command $executionPolicyBlock"
+$arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+    "-Command $executionPolicyBlock"
+Start-Process -Wait -NoNewWindow -FilePath "powershell.exe" -ArgumentList $arguments
 
 $moduleBlock = {
     Write-Host "Setting up PowerShell repositories"
@@ -85,22 +84,21 @@ Write-Host "Checking for PowerShell Core"
 $psCoreExe = "$env:ProgramFiles\PowerShell\6\pwsh.exe"
 if (-not (Test-Path "$psCoreExe")) {
     Write-LogAndConsole $logFile "Installing PowerShell Core"
-    Invoke-Expression -Command "msiexec.exe /package " +
+    $command = "msiexec.exe /package " +
       "`"$winfilesRoot\installs\PowerShell.msi`" /quiet " +
       "ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 " +
       "REGISTER_MANIFEST=1"
+    Invoke-Expression -Command $command
 
     Write-LogAndConsole $logFile "Setting PowerShell Core permissions"
-    Start-Process -Wait -NoNewWindow `
-        -FilePath "$psCoreExe" `
-        -ArgumentList "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-          "-Command $executionPolicyBlock"
+    $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+        "-Command $executionPolicyBlock"
+    Start-Process -Wait -NoNewWindow -FilePath "$psCoreExe" -ArgumentList $arguments
 
     Write-LogAndConsole $logFile "Installing modules for PowerShell Core"
-    Start-Process -Wait -NoNewWindow `
-        -FilePath "$psCoreExe" `
-        -ArgumentList "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-          "-Command $moduleBlock"
+    $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+        "-Command $moduleBlock"
+    Start-Process -Wait -NoNewWindow -FilePath "$psCoreExe" -ArgumentList $arguments
 }
 else {
     Write-LogAndConsole $logFile "PowerShell Core already installed" -Color "Green"
