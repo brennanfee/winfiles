@@ -30,7 +30,7 @@ function Invoke-MsiInstaller {
             ('"{0}"' -f $LogFile)
         ))
 
-    if ($AdditionalArguments.Count -gt 0) {
+    if ($AdditionalArguments.Length -gt 0) {
         $arguments.AddRange($AdditionalArguments)
     }
 

@@ -22,7 +22,7 @@ function Invoke-ExternalPowerShell {
             "-ExecutionPolicy Unresctricted"
         ))
 
-    if ($AdditionalArguments.Count -gt 0) {
+    if ($AdditionalArguments.Length -gt 0) {
         $arguments.AddRange($AdditionalArguments)
     }
 
@@ -58,7 +58,7 @@ function Invoke-ExternalPowerShellCore {
             "-ExecutionPolicy Unresctricted"
         ))
 
-    if ($AdditionalArguments.Count -gt 0) {
+    if ($AdditionalArguments.Length -gt 0) {
         $arguments.AddRange($AdditionalArguments)
     }
 
