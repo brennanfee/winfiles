@@ -99,4 +99,4 @@ else {
     Write-Log "Winfiles already set up." -Color "Green"
 }
 
-Invoke-Expression "$winfilesRoot\setup-profile.ps1"
+Invoke-Expression "$winfilesRoot\01-setup-profile.ps1"
