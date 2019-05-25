@@ -1,6 +1,7 @@
 #!/usr/bin/env pwsh.exe
 #Requires -Version 5
 #Requires -RunAsAdministrator
+#Requires -PSEdition Desktop
 Set-StrictMode -Version 2.0
 
 # BAF - The purpose of this script is to do the minimum necessary to pull
@@ -8,7 +9,7 @@ Set-StrictMode -Version 2.0
 # Linux "dotfiles" but for Windows.  It is intended that this script be run
 # directly from the web from the command line without any prior setup for
 # the machine.  Use this command:
-#    Invoke-Expression ((Invoke-WebRequest -Uri 'https://git.io/fjBQX').Content)
+#    Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)
 
 Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
 # Note, this may need to be run BEFORE this script
@@ -25,8 +26,6 @@ if ($DriveCount -ge 2) {
 [Environment]::SetEnvironmentVariable("ProfilePath", $profilesPath, "User")
 $env:ProfilePath = $profilesPath
 
-$winfilesRoot = "$env:ProfilePath\winfiles"
-
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 Write-Host "Pull script started - $date"
 
@@ -39,7 +38,12 @@ if (-not (Test-Path "$env:ProfilePath\scoop\shims\scoop")) {
     $env:SCOOP_GLOBAL = 'C:\scoop-global'
 
     # Install scoop
-    Invoke-Expression ((Invoke-WebRequest -Uri 'https://get.scoop.sh').Content)
+    Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -Uri 'https://get.scoop.sh').Content)
+
+    # Scoop configuration
+    Add-MpPreference -ExclusionPath $env:SCOOP
+    Add-MpPreference -ExclusionPath $env:SCOOP_GLOBAL
+    Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
 
     Write-Host "Scoop installed." -ForegroundColor "Green"
 }
@@ -51,8 +55,9 @@ else {
 if (-not (Test-Path "$env:SCOOP_GLOBAL\shims\git.exe")) {
     Write-Host "Git missing, preparing for install using scoop."
 
-    Invoke-Expression "scoop install sudo 7zip git which --global"
+    Invoke-Expression "scoop install --global sudo 7zip git innounp dark which"
     [environment]::SetEnvironmentVariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
+    $env:GIT_SSH = (resolve-path (scoop which ssh))
     Write-Host "Git installed." -ForegroundColor "Green"
 }
 else {
@@ -60,10 +65,10 @@ else {
 }
 
 ### Pull the WinFiles repo from GitHub
-if (-not (Test-Path "$winfilesRoot\README.md")) {
+if (-not (Test-Path "$env:ProfilePath\winfiles\README.md")) {
     Write-Host "Winfiles missing, preparing to clone"
 
-    Invoke-Expression "git clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$winfilesRoot`""
+    Invoke-Expression "git clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$env:ProfilePath\winfiles`""
 
     Write-Host "Finished cloning winfiles." -ForegroundColor "Green"
 }
@@ -75,4 +80,4 @@ $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 Write-Host "Pull script finished - $date"
 Write-Host ""
 
-Invoke-Expression "$winfilesRoot\01-setup-profile.ps1"
+Invoke-Expression "$env:ProfilePath\winfiles\01-setup-profile.ps1"
