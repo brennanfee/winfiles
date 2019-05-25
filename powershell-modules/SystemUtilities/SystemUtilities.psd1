@@ -30,7 +30,8 @@
         'GitTools.ps1',
         'Write-Log.ps1',
         'InstallUtilities.ps1',
-        'Enable-RemoteDesktop.ps1'
+        'Enable-RemoteDesktop.ps1',
+        'InvokeExternalPrograms.ps1'
     )
 
     CmdletsToExport = ''
