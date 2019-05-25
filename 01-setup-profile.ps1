@@ -19,9 +19,15 @@ $executionPolicyBlock = {
 }
 
 if (Is64Bit) {
-    Invoke-ExternalPowerShell -Command $executionPolicyBlock -Use32Bit
+    $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+    "-Command $executionPolicyBlock"
+    Start-Process -Wait -NoNewWindow -ArgumentList $arguments `
+        -FilePath "$env:SystemRoot\SysWOW64\WindowsPowerShell\v1.0\powershell.exe"
 }
-Invoke-ExternalPowerShell -Command $executionPolicyBlock
+
+$arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+"-Command $executionPolicyBlock"
+Start-Process -Wait -NoNewWindow -FilePath "powershell.exe" -ArgumentList $arguments
 
 # Install Nuget provider if needed
 $providers = Get-PackageProvider | Select-Object Name
@@ -48,11 +54,6 @@ $moduleBlock = {
 
 Invoke-Command -ScriptBlock $moduleBlock
 
-$installPoshGit = "Install-Module -Name posh-git -AllowClobber -Scope CurrentUser " +
-"-AllowPrerelease -Force"
-
-Invoke-ExternalPowerShell -Command $installPoshGit
-
 # Prepend the WinFiles modules folder to the module search path
 $winfilesRoot = $PSScriptRoot
 if (-not ("$env:PSModulePath".Contains("$winfilesRoot\powershell-modules"))) {
@@ -62,6 +63,11 @@ if (-not ("$env:PSModulePath".Contains("$winfilesRoot\powershell-modules"))) {
 Write-Host "Importing modules"
 Import-Module SystemUtilities
 Import-Module MyCustomProfileUtilities
+
+$installPoshGit = "Install-Module -Name posh-git -AllowClobber -Scope CurrentUser " +
+"-AllowPrerelease -Force"
+
+Invoke-ExternalPowerShell -Command $installPoshGit
 
 # Setup the profile environment variable
 Set-MyCustomProfileLocation
