@@ -28,6 +28,12 @@ $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
     "-Command $executionPolicyBlock"
 Start-Process -Wait -NoNewWindow -FilePath "powershell.exe" -ArgumentList $arguments
 
+# Install Nuget provider if needed
+$providers = Get-PackageProvider | Select-Object Name
+if (-not ($providers.Contains("nuget"))) {
+    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+}
+
 $moduleBlock = {
     Write-Host "Setting up PowerShell repositories"
     Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
