@@ -18,9 +18,9 @@ Set-ExecutionPolicy Unrestricted -scope Process -Force -ErrorAction Ignore
 ### 1 disk means porfile is in C:\profile, 2 disks or more means D:\profile
 $DriveCount = (Get-PhysicalDisk | Measure-Object).Count
 
-$profilesPath = "C:\profile"
+$profilesPath = "C:\pro file"
 if ($DriveCount -ge 2) {
-    $profilesPath = "D:\profile"
+    $profilesPath = "D:\pro file"
 }
 [Environment]::SetEnvironmentVariable("ProfilePath", $profilesPath, "User")
 $env:ProfilePath = $profilesPath
