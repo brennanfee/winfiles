@@ -34,8 +34,10 @@ function Invoke-MsiInstaller {
         $arguments.AddRange($AdditionalArguments)
     }
 
+    $argumentsArray = $arguments.ToArray()
+
     Start-Process -Wait -NoNewWindow -FilePath "msiexec.exe" `
-        -ArgumentList $arguments.ToArray()
+        -ArgumentList $argumentsArray
 }
 
 function Invoke-MsiInstallerFromUrl {
