@@ -10,8 +10,8 @@ Set-StrictMode -Version 2.0
 # the machine.  Use this command:
 #    Invoke-Expression ((Invoke-WebRequest -Uri 'https://git.io/fjBQX').Content)
 
-# Note, these may need to be run BEFORE this script
 Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
+# Note, this may need to be run BEFORE this script
 Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
 
 ### Set Profile location (based on how many disks we have)
@@ -27,31 +27,12 @@ $env:ProfilePath = $profilesPath
 
 $winfilesRoot = "$env:ProfilePath\winfiles"
 
-### Setup logging
-$logFile = "$env:ProfilePath\logs\winfiles\00-pull.log"
-
-function Write-Log {
-    Param(
-        [string]$LogEntry,
-        [string]$Color = ""
-    )
-
-    $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
-    Add-Content $logFile -value "$date : $LogEntry"
-    if ([string]::IsNullOrEmpty($Color)) {
-        Write-Host $LogEntry
-    }
-    else {
-        Write-Host -ForegroundColor "$Color" $LogEntry
-    }
-}
-
-Write-Log "----------"
-Write-Log "Pull script started."
+$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
+Write-Host "Pull script started - $date"
 
 # Check if scoop is already installed
 if (-not (Test-Path "$env:ProfilePath\scoop\shims\scoop")) {
-    Write-Log "Scoop missing, preparing for install"
+    Write-Host "Scoop missing, preparing for install"
     [environment]::SetEnvironmentVariable('SCOOP', "$env:ProfilePath\scoop", 'User')
     $env:SCOOP = "$env:ProfilePath\scoop"
     [environment]::SetEnvironmentVariable('SCOOP_GLOBAL', 'C:\scoop-global', 'Machine')
@@ -60,34 +41,38 @@ if (-not (Test-Path "$env:ProfilePath\scoop\shims\scoop")) {
     # Install scoop
     Invoke-Expression ((Invoke-WebRequest -Uri 'https://get.scoop.sh').Content)
 
-    Write-Log "Scoop installed." -Color "Green"
+    Write-Host "Scoop installed." -ForegroundColor "Green"
 }
 else {
-    Write-Log "Scoop already installed." -Color "Green"
+    Write-Host "Scoop already installed." -ForegroundColor "Green"
 }
 
 # Check if git is already installed
 if (-not (Test-Path "$env:SCOOP_GLOBAL\shims\git.exe")) {
-    Write-Log "Git missing, preparing for install using scoop."
+    Write-Host "Git missing, preparing for install using scoop."
 
     Invoke-Expression "scoop install sudo 7zip git which --global"
     [environment]::SetEnvironmentVariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
-    Write-Log "Git installed." -Color "Green"
+    Write-Host "Git installed." -ForegroundColor "Green"
 }
 else {
-    Write-Log "Git already installed." -Color "Green"
+    Write-Host "Git already installed." -ForegroundColor "Green"
 }
 
 ### Pull the WinFiles repo from GitHub
 if (-not (Test-Path "$winfilesRoot\README.md")) {
-    Write-Log "Winfiles missing, preparing to clone"
+    Write-Host "Winfiles missing, preparing to clone"
 
     Invoke-Expression "git clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$winfilesRoot`""
 
-    Write-Log "Finished cloning winfiles." -Color "Green"
+    Write-Host "Finished cloning winfiles." -ForegroundColor "Green"
 }
 else {
-    Write-Log "Winfiles already set up." -Color "Green"
+    Write-Host "Winfiles already set up." -ForegroundColor "Green"
 }
+
+$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
+Write-Host "Pull script finished - $date"
+Write-Host ""
 
 Invoke-Expression "$winfilesRoot\01-setup-profile.ps1"
