@@ -29,7 +29,7 @@ Import-Module MyCustomProfileUtilities
 # Setup the profile environment variable
 Set-MyCustomProfileLocation
 
-$logFile="$env:ProfilePath\logs\winfiles\bootstrap-pull.log"
+$logFile = "$env:ProfilePath\logs\winfiles\bootstrap-pull.log"
 Write-Log $logFile "----------"
 Write-LogAndConsole $logFile "Profile script started."
 
@@ -79,13 +79,13 @@ else {
 # Check if scoop is already installed
 if (-not (Test-Path "$env:ProfilePath\scoop\shims\scoop")) {
     Write-Log "Scoop missing, preparing for install"
-    [environment]::setEnvironmentVariable('SCOOP', "$env:ProfilePath\scoop", 'User')
-    $env:SCOOP="$env:ProfilePath\scoop"
-    [environment]::setEnvironmentVariable('SCOOP_GLOBAL','C:\scoop-global','Machine')
-    $env:SCOOP_GLOBAL='C:\scoop-global'
+    [environment]::SetEnvironmentVariable('SCOOP', "$env:ProfilePath\scoop", 'User')
+    $env:SCOOP = "$env:ProfilePath\scoop"
+    [environment]::SetEnvironmentVariable('SCOOP_GLOBAL', 'C:\scoop-global', 'Machine')
+    $env:SCOOP_GLOBAL = 'C:\scoop-global'
 
     # Install scoop
-    iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+    Invoke-Expression ((Invoke-WebRequest -Uri 'https://get.scoop.sh').Content)
 
     Write-Log "Scoop installed." -Color "Green"
 }
@@ -97,8 +97,8 @@ else {
 if (-not (Test-Path "$env:SCOOP_GLOBAL\shims\git.exe")) {
     Write-Log "Git missing, preparing for install using scoop."
 
-    scoop install sudo 7zip git which --global
-    [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
+    Invoke-Expression "scoop install sudo 7zip git which --global"
+    [environment]::SetEnvironmentVariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
     Write-Log "Git installed." -Color "Green"
 }
 else {

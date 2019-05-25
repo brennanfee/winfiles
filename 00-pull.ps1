@@ -3,6 +3,13 @@
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
+# BAF - The purpose of this script is to do the minimum necessary to pull
+# my WinFiles repository onto the current machine.  The "WinFiles" are like
+# Linux "dotfiles" but for Windows.  It is intended that this script be run
+# directly from the web from the command line without any prior setup for
+# the machine.  Use this command:
+#    Invoke-Expression ((Invoke-WebRequest -Uri 'https://git.io/fjBQX').Content)
+
 # Note, these may need to be run BEFORE this script
 Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
 Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
@@ -20,14 +27,17 @@ Install-Module -Name posh-git -AllowClobber -Scope CurrentUser -AllowPrerelease 
 ### 1 disk means porfile is in C:\profile, 2 disks or more means D:\profile
 $DriveCount = (Get-PhysicalDisk | Measure-Object).Count
 
-$profilesPath="C:\profile"
+$profilesPath = "C:\profile"
 if ($DriveCount -ge 2) {
-    $profilesPath="D:\profile"
+    $profilesPath = "D:\profile"
 }
-$winfilesRoot="$profilesPath\winfiles"
+[Environment]::SetEnvironmentVariable("ProfilePath", $profilesPath, "User")
+$env:ProfilePath = $profilesPath
+
+$winfilesRoot = "$env:ProfilePath\winfiles"
 
 ### Setup logging
-$logFile="$profilesPath\logs\winfiles\bootstrap-pull.log"
+$logFile = "$env:ProfilePath\logs\winfiles\00-pull.log"
 
 function Write-Log {
     Param(
@@ -46,18 +56,18 @@ function Write-Log {
 }
 
 Write-Log "----------"
-Write-Log "Bootstrap script started."
+Write-Log "Pull script started."
 
 # Check if scoop is already installed
-if (-not (Test-Path "$profilesPath\scoop\shims\scoop")) {
+if (-not (Test-Path "$env:ProfilePath\scoop\shims\scoop")) {
     Write-Log "Scoop missing, preparing for install"
-    [environment]::setEnvironmentVariable('SCOOP', "$profilesPath\scoop", 'User')
-    $env:SCOOP="$profilesPath\scoop"
-    [environment]::setEnvironmentVariable('SCOOP_GLOBAL','C:\scoop-global','Machine')
-    $env:SCOOP_GLOBAL='C:\scoop-global'
+    [environment]::SetEnvironmentVariable('SCOOP', "$env:ProfilePath\scoop", 'User')
+    $env:SCOOP = "$env:ProfilePath\scoop"
+    [environment]::SetEnvironmentVariable('SCOOP_GLOBAL', 'C:\scoop-global', 'Machine')
+    $env:SCOOP_GLOBAL = 'C:\scoop-global'
 
     # Install scoop
-    Invoke-Expression (new-object net.webclient).downloadstring('https://get.scoop.sh')
+    Invoke-Expression ((Invoke-WebRequest -Uri 'https://get.scoop.sh').Content)
 
     Write-Log "Scoop installed." -Color "Green"
 }
@@ -70,7 +80,7 @@ if (-not (Test-Path "$env:SCOOP_GLOBAL\shims\git.exe")) {
     Write-Log "Git missing, preparing for install using scoop."
 
     Invoke-Expression "scoop install sudo 7zip git which --global"
-    [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
+    [environment]::SetEnvironmentVariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
     Write-Log "Git installed." -Color "Green"
 }
 else {
@@ -84,7 +94,8 @@ if (-not (Test-Path "$winfilesRoot\README.md")) {
     Invoke-Expression "git clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$winfilesRoot`""
 
     Write-Log "Finished cloning winfiles." -Color "Green"
-} else {
+}
+else {
     Write-Log "Winfiles already set up." -Color "Green"
 }
 
