@@ -11,7 +11,6 @@ Set-StrictMode -Version 2.0
 # the machine.  Use this command:
 #    Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)
 
-Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
 # Note, this may need to be run BEFORE this script
 Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
 
