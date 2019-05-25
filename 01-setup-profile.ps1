@@ -110,19 +110,23 @@ if (-not (Test-Path "$psCoreExe")) {
     Invoke-MsiInstaller "$winfilesRoot\installs\PowerShell.msi" $msiLogFile `
         $msiArguments
 
-    Write-LogAndConsole $logFile "Setting PowerShell Core permissions"
-    Invoke-ExternalPowerShellCore $executionPolicyBlock
-
-    Write-LogAndConsole $logFile "Installing modules for PowerShell Core"
-    Invoke-ExternalPowerShellCore $moduleBlock
-
-    Invoke-ExternalPowerShellCore $installPoshGit
+    Write-LogAndConsole $logFile "PowerShell Core installed" -Color "Green"
 }
 else {
     Write-LogAndConsole $logFile "PowerShell Core already installed" -Color "Green"
 }
 
+Write-LogAndConsole $logFile "Setting PowerShell Core permissions"
+Invoke-ExternalPowerShellCore $executionPolicyBlock
+
+Write-LogAndConsole $logFile "Installing modules for PowerShell Core"
+Invoke-ExternalPowerShellCore $moduleBlock
+
+Write-LogAndConsole $logFile "Installing posh-git for PowerShell Core"
+Invoke-ExternalPowerShellCore $installPoshGit
+
 # Profile for PowerShell Core
+Write-LogAndConsole $logFile "Symlinking profile for PowerShell Core"
 $myDocsFolder = [Environment]::GetFolderPath("MyDocuments")
 $psCoreProfile = "$myDocsFolder\PowerShell\Microsoft.PowerShell_profile.ps1"
 New-SymbolicLink $psCoreProfile "$winfilesRoot\powershell-profile\profile.ps1" -Force
@@ -136,9 +140,11 @@ if (-not (Test-Path "C:\ProgramData\AppGet\bin\appget.exe")) {
     "/SUPPRESSMSGBOXES /SP `"/LOG=$logFile`""
 
     Invoke-Expression -command $command
+
+    Write-LogAndConsole $logFile "AppGet installed" -Color "Green"
 }
 else {
-    Write-Host "AppGet already installed"
+    Write-LogAndConsole $logFile "AppGet already installed" -Color "Green"
 }
 
 Write-LogAndConsole $logFile "Profile setup complete" -Color "Green"
