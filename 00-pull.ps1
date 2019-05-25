@@ -13,8 +13,8 @@ Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 Write-Host "Updating modules"
 Update-Module -ErrorAction SilentlyContinue
 # Only the minimum necessary modules to make the profile work
-Install-Module -Name Pscx -AllowClobber -Scope CurrentUser
-Install-Module -Name posh-git -AllowClobber -Scope CurrentUser
+Install-Module -Name Pscx -AllowClobber -Scope CurrentUser -Force
+Install-Module -Name posh-git -AllowClobber -Scope CurrentUser -AllowPrerelease -Force
 
 ### Set Profile location (based on how many disks we have)
 ### 1 disk means porfile is in C:\profile, 2 disks or more means D:\profile

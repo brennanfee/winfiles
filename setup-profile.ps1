@@ -15,8 +15,8 @@ Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 Write-Host "Updating modules"
 Update-Module -ErrorAction SilentlyContinue
 # Only the minimum necessary modules to make the profile work
-Install-Module -Name Pscx -AllowClobber -Scope CurrentUser
-Install-Module -Name posh-git -AllowClobber -Scope CurrentUser
+Install-Module -Name Pscx -AllowClobber -Scope CurrentUser -Force
+Install-Module -Name posh-git -AllowClobber -Scope CurrentUser -AllowPrerelease -Force
 
 if (-not ("$env:PSModulePath".Contains("$winfilesRoot\powershell-modules"))) {
     $env:PSModulePath = "$winfilesRoot\powershell-modules;" + "$env:PSModulePath"
