@@ -12,14 +12,14 @@ Set-StrictMode -Version 2.0
 #    Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)
 
 # Note, this may need to be run BEFORE this script
-Set-ExecutionPolicy Unrestricted -scope Process -Force -ErrorAction Ignore
+Set-ExecutionPolicy Unrestricted -Scope Process -Force -ErrorAction Ignore
 
 ### Set Profile location (based on how many disks we have)
 ### 1 disk means porfile is in C:\profile, 2 disks or more means D:\profile
-$DriveCount = (Get-PhysicalDisk | Measure-Object).Count
+$driveCount = (Get-PhysicalDisk | Measure-Object).Count
 
 $profilesPath = "C:\pro file"
-if ($DriveCount -ge 2) {
+if ($driveCount -ge 2) {
     $profilesPath = "D:\pro file"
 }
 [Environment]::SetEnvironmentVariable("ProfilePath", $profilesPath, "User")
