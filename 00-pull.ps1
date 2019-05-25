@@ -57,7 +57,7 @@ if (-not (Test-Path "$profilesPath\scoop\shims\scoop")) {
     $env:SCOOP_GLOBAL='C:\scoop-global'
 
     # Install scoop
-    iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+    Invoke-Expression (new-object net.webclient).downloadstring('https://get.scoop.sh')
 
     Write-Log "Scoop installed." -Color "Green"
 }
@@ -69,7 +69,7 @@ else {
 if (-not (Test-Path "$env:SCOOP_GLOBAL\shims\git.exe")) {
     Write-Log "Git missing, preparing for install using scoop."
 
-    scoop install sudo 7zip git which --global
+    Invoke-Expression "scoop install sudo 7zip git which --global"
     [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
     Write-Log "Git installed." -Color "Green"
 }
@@ -81,11 +81,11 @@ else {
 if (-not (Test-Path "$winfilesRoot\README.md")) {
     Write-Log "Winfiles missing, preparing to clone"
 
-    git clone --recurse-submodules "https://github.com/brennanfee/winfiles.git" "$winfilesRoot"
+    Invoke-Expression "git clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$winfilesRoot`""
 
     Write-Log "Finished cloning winfiles." -Color "Green"
 } else {
     Write-Log "Winfiles already set up." -Color "Green"
 }
 
-Invoke-Expression -command "$winfilesRoot\setup-profile.ps1"
+Invoke-Expression "$winfilesRoot\setup-profile.ps1"
