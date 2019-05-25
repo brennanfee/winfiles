@@ -1,23 +1,51 @@
 #!/usr/bin/env pwsh.exe
 #Requires -Version 5
 #Requires -RunAsAdministrator
+#Requires -PSEdition Desktop
 Set-StrictMode -Version 2.0
 
-# Note, these may need to be run BEFORE this script
-Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
+# Note, this may need to be run BEFORE this script
 Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
 
+function Is64Bit { [IntPtr]::Size -eq 8 }
+
+$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
+Write-Host "Setup Profile script started - $date"
+Write-Host ""
+
+$executionPolicyBlock = {
+    Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
+    Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
+}
+
+if (Is64Bit) {
+    Start-Process -Wait -NoNewWindow `
+        -FilePath "$env:SystemRoot\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" `
+        -ArgumentList "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+          "-Command $executionPolicyBlock"
+}
+Start-Process -Wait -NoNewWindow `
+    -FilePath "powershell.exe" `
+    -ArgumentList "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+      "-Command $executionPolicyBlock"
+
+$moduleBlock = {
+    Write-Host "Setting up PowerShell repositories"
+    Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+
+    Write-Host "Updating modules"
+    Update-Module -ErrorAction SilentlyContinue
+
+    # Only the minimum necessary modules to make the profile work
+    Write-Host "Installing modules"
+    Install-Module -Name Pscx -AllowClobber -Scope CurrentUser -Force
+    Install-Module -Name posh-git -AllowClobber -Scope CurrentUser -AllowPrerelease -Force
+}
+
+Invoke-Command -ScriptBlock $moduleBlock
+
+# Prepend the WinFiles modules folder to the module search path
 $winfilesRoot = $PSScriptRoot
-
-Write-Host "Setting up PowerShell repositories"
-Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-
-Write-Host "Updating modules"
-Update-Module -ErrorAction SilentlyContinue
-# Only the minimum necessary modules to make the profile work
-Install-Module -Name Pscx -AllowClobber -Scope CurrentUser -Force
-Install-Module -Name posh-git -AllowClobber -Scope CurrentUser -AllowPrerelease -Force
-
 if (-not ("$env:PSModulePath".Contains("$winfilesRoot\powershell-modules"))) {
     $env:PSModulePath = "$winfilesRoot\powershell-modules;" + "$env:PSModulePath"
 }
@@ -29,80 +57,70 @@ Import-Module MyCustomProfileUtilities
 # Setup the profile environment variable
 Set-MyCustomProfileLocation
 
-$logFile = "$env:ProfilePath\logs\winfiles\bootstrap-pull.log"
+$logFile = "$env:ProfilePath\logs\winfiles\setup-profile.log"
+if ($PSVersionTable.PSEdition -eq "Core") {
+    $logFile = "$env:ProfilePath\logs\winfiles\setup-profile-core.log"
+}
+
 Write-Log $logFile "----------"
-Write-LogAndConsole $logFile "Profile script started."
+Write-LogAndConsole $logFile "Profile script log started"
+Write-LogAndConsole $logFile "PowerShell Edition: $PSVersionTable.PSEdition"
+Write-LogAndConsole $logFile ""
 
-$outputContent = @"
-#!/usr/bin/env pwsh.exe
-#Requires -Version 5
+Write-LogAndConsole $logFile "Symlinking profile into place"
 
-. `"$winfilesRoot\powershell-profile\profile.ps1`"
+# First the traditional powershell profile
+New-SymbolicLink $PROFILE "$winfilesRoot\powershell-profile\profile.ps1" -Force
 
-function prompt {
-    return Get-CustomPrompt
-}
-"@
+# Also symlink for the Nuget profile
+# TODO: Originally this was used by Visual Studio, not sure if VS 2017\2019
+# still uses this or standard powershell.  Validate that this is still needed.
+$profileLocation = Split-Path -Path $PROFILE -Parent
+$nugetFile = Join-Path $profileLocation "NuGet_profile.ps1"
 
-# Set up main PowerShell Profile
-$profileContent = ""
-if (Test-Path $PROFILE) {
-    $profileContent = Get-Content -Path $PROFILE | Out-String
-}
+New-SymbolicLink $nugetFile "$winfilesRoot\powershell-profile\profile.ps1" -Force
 
-if (-not ($profileContent.Contains("$winfilesRoot\powershell-profile\profile.ps1"))) {
-    Set-Content $PROFILE $outputContent
-    Write-LogAndConsole $logFile "Your environment has been configured at: $PROFILE"
-}
-else {
-    Write-LogAndConsole $logFile "Your environment is already configured at: $PROFILE"
-}
+# Install PowerShell Core if needed
+Write-Host "Checking for PowerShell Core"
+$psCoreExe = "$env:ProgramFiles\PowerShell\6\pwsh.exe"
+if (-not (Test-Path "$psCoreExe")) {
+    Write-LogAndConsole $logFile "Installing PowerShell Core"
+    Invoke-Expression -Command "msiexec.exe /package " +
+      "`"$winfilesRoot\installs\PowerShell.msi`" /quiet " +
+      "ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 " +
+      "REGISTER_MANIFEST=1"
 
-# Setup NuGet profile used within Visual Studio
-# TODO: Originally this was used by Visual Studio, not sure if VS 2017\2019 still uses this or standard
-# powershell.  Validate that this is still needed.
-$profileDirectory = Split-Path $PROFILE -Parent
-$nugetFile = Join-Path $profileDirectory "NuGet_profile.ps1"
-$nugetContent = ""
-if (Test-Path $nugetFile) {
-    $nugetContent = Get-Content -Path $nugetFile | Out-String
-}
+    Write-LogAndConsole $logFile "Setting PowerShell Core permissions"
+    Start-Process -Wait -NoNewWindow `
+        -FilePath "$psCoreExe" `
+        -ArgumentList "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+          "-Command $executionPolicyBlock"
 
-if (-not ($nugetContent.Contains("$winfilesRoot\powershell-profile\profile.ps1"))) {
-    Set-Content $nugetFile $outputContent
-    Write-LogAndConsole $logFile "Your NuGet environment has been configured at: $nugetFile"
+    Write-LogAndConsole $logFile "Installing modules for PowerShell Core"
+    Start-Process -Wait -NoNewWindow `
+        -FilePath "$psCoreExe" `
+        -ArgumentList "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+          "-Command $moduleBlock"
 }
 else {
-    Write-LogAndConsole $logFile "Your NuGet environment is already configured at: $nugetFile"
+    Write-LogAndConsole $logFile "PowerShell Core already installed" -Color "Green"
 }
 
-# Check if scoop is already installed
-if (-not (Test-Path "$env:ProfilePath\scoop\shims\scoop")) {
-    Write-Log "Scoop missing, preparing for install"
-    [environment]::SetEnvironmentVariable('SCOOP', "$env:ProfilePath\scoop", 'User')
-    $env:SCOOP = "$env:ProfilePath\scoop"
-    [environment]::SetEnvironmentVariable('SCOOP_GLOBAL', 'C:\scoop-global', 'Machine')
-    $env:SCOOP_GLOBAL = 'C:\scoop-global'
+# Profile for PowerShell Core
+$myDocsFolder = [Environment]::GetFolderPath("MyDocuments")
+$psCoreProfile = "$myDocsFolder\PowerShell\Microsoft.PowerShell_profile.ps1"
+New-SymbolicLink $psCoreProfile "$winfilesRoot\powershell-profile\profile.ps1" -Force
 
-    # Install scoop
-    Invoke-Expression ((Invoke-WebRequest -Uri 'https://get.scoop.sh').Content)
-
-    Write-Log "Scoop installed." -Color "Green"
-}
-else {
-    Write-Log "Scoop already installed." -Color "Green"
-}
-
-# Check if git is already installed
-if (-not (Test-Path "$env:SCOOP_GLOBAL\shims\git.exe")) {
-    Write-Log "Git missing, preparing for install using scoop."
-
-    Invoke-Expression "scoop install sudo 7zip git which --global"
-    [environment]::SetEnvironmentVariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
-    Write-Log "Git installed." -Color "Green"
+# Install AppGet
+Write-Host "Checking for AppGet"
+if (-not (Test-Path "C:\ProgramData\AppGet\bin\appget.exe")) {
+    Write-Host "Installing AppGet"
+    $logFile = "$env:ProfilePath\logs\winfiles\appget-install.log"
+    $command = "$winfilesRoot\installs\appget.exe /VERYSILENT /SUPPRESSMSGBOXES /SP `"/LOG=$logFile`""
+    Invoke-Expression -command $command
 }
 else {
-    Write-Log "Git already installed." -Color "Green"
+    Write-Host "AppGet already installed"
 }
 
 Write-LogAndConsole $logFile "Profile setup complete" -Color "Green"
