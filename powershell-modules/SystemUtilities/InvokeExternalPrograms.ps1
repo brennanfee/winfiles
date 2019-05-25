@@ -22,9 +22,7 @@ function Invoke-ExternalPowerShell {
             "-ExecutionPolicy Unresctricted"
         ))
 
-    if ($AdditionalArguments.Length -gt 0) {
-        $arguments.AddRange($AdditionalArguments)
-    }
+    $arguments.AddRange($AdditionalArguments)
 
     # Command should always be last as it may have newlines, spaces, etc.
     $arguments.Add('-Command "{0}"' -f $Command)
@@ -36,7 +34,7 @@ function Invoke-ExternalPowerShell {
     }
 
     Start-Process -Wait -NoNewWindow -FilePath $powerShellExe `
-        -ArgumentList $arguments.ToArray
+        -ArgumentList $arguments.ToArray()
 }
 
 function Invoke-ExternalPowerShellCore {
@@ -58,9 +56,7 @@ function Invoke-ExternalPowerShellCore {
             "-ExecutionPolicy Unresctricted"
         ))
 
-    if ($AdditionalArguments.Length -gt 0) {
-        $arguments.AddRange($AdditionalArguments)
-    }
+    $arguments.AddRange($AdditionalArguments)
 
     # Command should always be last as it may have newlines, spaces, etc.
     $arguments.Add('-Command "{0}"' -f $Command)
@@ -68,7 +64,7 @@ function Invoke-ExternalPowerShellCore {
     $psCoreExe = "$env:ProgramFiles\PowerShell\6\pwsh.exe"
 
     Start-Process -Wait -NoNewWindow -FilePath $psCoreExe `
-        -ArgumentList $arguments.ToArray
+        -ArgumentList $arguments.ToArray()
 }
 
 function Invoke-ExternalCommand {
