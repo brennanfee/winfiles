@@ -146,6 +146,13 @@ Set-RegistryInt "$key\%SystemRoot%_SysWOW64_WindowsPowerShell_v1.0_powershell.ex
 Set-RegistryInt "$key\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe" "QuickEdit" 1
 Set-RegistryInt "$key\%SystemRoot%_SysWOW64_WindowsPowerShell_v1.0_powershell.exe" "QuickEdit" 1
 
+# Available fonts
+$key = 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Console'
+
+#TBD -> Set-RegistryString "$key\TrueTypeFont" "000" "Hack NF"
+#TBD -> Set-RegistryString "$key\TrueTypeFont" "0000" "Hasklig NF"
+#TBD -> Set-RegistryString "$key\TrueTypeFont" "00000" "SourceCodePro NF"
+
 ########  Taskbar Settings
 
 $key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer'
