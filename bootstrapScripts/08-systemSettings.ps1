@@ -5,6 +5,9 @@ Set-StrictMode -Version 2.0
 
 $computerDetails = Get-ComputerDetails
 
+# We set some explorer settings
+taskkill.exe /F /IM "explorer.exe"
+
 ########  Theme Settings
 Write-Host "Theme settings"
 
@@ -108,6 +111,11 @@ Set-RegistryInt "$key\Advanced" "ShowSyncProviderNotifications" 0
 
 # Turn off the Startup delay for Startup Apps
 Set-RegistryInt "$key\Serialize" "StartupDelayInMSec" 0
+
+######## Control Panel
+# Show "large" icons
+$key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel"
+Set-RegistryInt "$key" "AllItemsIconView" 0
 
 ########  Terminal (conhost) settings
 Write-Host "Terminal Settings"
