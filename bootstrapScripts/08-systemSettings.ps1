@@ -5,6 +5,8 @@ Set-StrictMode -Version 2.0
 
 $computerDetails = Get-ComputerDetails
 
+########  Theme Settings
+
 $winkey = "HKCU:\Software\Microsoft\Windows\CurrentVersion"
 
 # Turn on Dark mode for apps
@@ -30,7 +32,8 @@ Set-RegistryInt "HKCU:\Control Panel\Desktop" "Wallpaper" $wallpaper
 # Disabled for now
 #Set-RegistryInt "HKCU:\Control Panel\Desktop" "PaintDesktopVersion" 1
 
-# Night Light Settings
+########  Night Light Settings
+
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\" +
 "DefaultAccount\Current\default$windows.data.bluelightreduction.settings\" +
 "windows.data.bluelightreduction.settings"
@@ -42,7 +45,8 @@ $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\" +
 "bluelightreductionstate\windows.data.bluelightreduction.bluelightreductionstate"
 Set-RegistryValue $key "Data" $value
 
-# Screen Save Settings
+########  Screen Saver
+
 if (-not ($computerDetails.IsVirtual)) {
     $key = "HKCU:\Control Panel\Desktop"
     # ScreenSaver settings
@@ -52,3 +56,49 @@ if (-not ($computerDetails.IsVirtual)) {
     Set-RegistryInt $key "ScreenSaveTimeout" 1800
     Set-RegistryString $key "SCRNSAVE.EXE" "$env:SystemRoot\system32\scrnsave.scr"
 }
+
+########  Explorer Settings
+
+$key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer'
+
+# Show file extensions
+Set-RegistryInt "$key\Advanced" "HideFileExt" 0
+
+# Show hidden files, folders, and drives
+Set-RegistryInt "$key\Advanced" "Hidden" 1
+
+# Disable showing protected OS files
+Set-RegistryInt "$key\Advanced" "ShowSuperHidden" 0
+
+# Show the full path in the title bar of explorer
+Set-RegistryInt "$key\CabinetState" "FullPath" 1
+
+# Turn off recent files in Quick Access
+Set-RegistryInt "$key" "ShowRecent" 0
+
+# Turn off frequent directories in Quick Access
+Set-RegistryInt "$key" "ShowFrequent" 0
+
+# Disable expanding to open folder (in the tree of paths, disables it tracking the main pain)
+Set-RegistryInt "$key\Advanced" "NavPaneExpandToCurrentFolder" 0
+
+# Launch explorer to "My PC", not Quick Access
+Set-RegistryInt "$key\Advanced" "LaunchTo" 1
+
+# Hide Ribbon in Explorer
+Set-RegistryInt "$key\Ribbon" "MinimizedStateTabletModeOff" 1
+
+# Run explorer sessions in separate processes
+Set-RegistryInt "$key\Advanced" "SeparateProcess" 1
+
+# Always show menus in explorer
+Set-RegistryInt "$key\Advanced" "AlwaysShowMenus" 1
+
+# Use "Peek" to preview desktop when hovered over bottom-right
+Set-RegistryInt "$key\Advanced" "DisablePreviewDesktop" 0
+
+# Turn off "Show sync provider notifications" (advertising)
+Set-RegistryInt "$key\Advanced" "ShowSyncProviderNotifications" 0
+
+# Turn off the Startup delay for Startup Apps
+Set-RegistryInt "$key\Serialize" "StartupDelayInMSec" 0
