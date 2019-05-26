@@ -40,3 +40,7 @@ if ([string]::IsNullOrEmpty($env:EDITOR)) {
 $Pscx:Preferences['TextEditor'] = $env:EDITOR
 
 Initialize-PsHistory
+
+function prompt {
+    return Get-CustomPrompt
+}
