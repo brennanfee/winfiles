@@ -5,7 +5,6 @@ Set-StrictMode -Version 2.0
 
 Write-Host "Setting up environment variables"
 
-Set-MyCustomProfileLocation
 Set-HomeEnvironmentVariable
 Set-DefaultEditor
 
