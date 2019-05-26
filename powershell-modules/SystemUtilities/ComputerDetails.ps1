@@ -3,7 +3,7 @@
 Set-StrictMode -Version 2.0
 
 function Get-ComputerDetails {
-<#
+    <#
 .SYNOPSIS
     Returns some details on the given machine.  Includes whether the machine is virtual and/or a laptop.
 .DESCRIPTION
@@ -118,6 +118,12 @@ function Get-ComputerDetails {
                 $ResultProps.VirtualType = "Unknown"
             }
         }
+
+        # Windows Version Info
+        $ResultProps.WinVersionInfo = [System.Environment]::OSVersion.Version
+        $regKey = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+        $ResultProps.WinReleaseId = `
+        (Get-ItemProperty -Path $regKey -Name ReleaseId).ReleaseId
 
         $result += New-Object PsObject -Property $ResultProps
     }
