@@ -6,6 +6,7 @@ Set-StrictMode -Version 2.0
 $computerDetails = Get-ComputerDetails
 
 ########  Theme Settings
+Write-Host "Theme settings"
 
 $winkey = "HKCU:\Software\Microsoft\Windows\CurrentVersion"
 
@@ -26,13 +27,14 @@ Set-RegistryInt "$winkey\Themes\Personalize" "EnableTransparancy" 1
 
 # Set wallpaper
 $wallpaper = "$env:ProfilePath\winfiles\dotfiles\wallpapers\1920x1080\darkest-hour.jpg"
-Set-RegistryInt "HKCU:\Control Panel\Desktop" "Wallpaper" $wallpaper
+Set-RegistryString "HKCU:\Control Panel\Desktop" "Wallpaper" $wallpaper
 
 # Show the Windows version on the desktop
 # Disabled for now
 #Set-RegistryInt "HKCU:\Control Panel\Desktop" "PaintDesktopVersion" 1
 
 ########  Night Light Settings
+Write-Host "Night Light Settings"
 
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\" +
 "DefaultAccount\Current\default$windows.data.bluelightreduction.settings\" +
@@ -48,6 +50,7 @@ $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\" +
 Set-RegistryValue $key "Data" ([byte[]]$hexified) "Binary"
 
 ########  Screen Saver
+Write-Host "Screen Save Settings"
 
 if (-not ($computerDetails.IsVirtual)) {
     $key = "HKCU:\Control Panel\Desktop"
@@ -60,6 +63,7 @@ if (-not ($computerDetails.IsVirtual)) {
 }
 
 ########  Explorer Settings
+Write-Host "Explorer Settings"
 
 $key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer'
 
@@ -106,6 +110,7 @@ Set-RegistryInt "$key\Advanced" "ShowSyncProviderNotifications" 0
 Set-RegistryInt "$key\Serialize" "StartupDelayInMSec" 0
 
 ########  Terminal (conhost) settings
+Write-Host "Terminal Settings"
 
 $key = 'HKCU:\Console'
 
@@ -154,6 +159,7 @@ $key = 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Console'
 #TBD -> Set-RegistryString "$key\TrueTypeFont" "00000" "SourceCodePro NF"
 
 ########  Taskbar Settings
+Write-Host "Taskbar Settings"
 
 $key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer'
 
@@ -173,6 +179,7 @@ Set-RegistryInt "$key\Advanced" "TaskbarGlomLevel" 0
 Set-RegistryInt "$key\Advanced\People" "PeopleBand" 0
 
 ########  Search Settings
+Write-Host "Search Settings"
 
 # Trun off web searches
 Set-WindowsSearchSetting -EnableWebResultsSetting $False `
@@ -193,6 +200,7 @@ Set-RegistryInt "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" "VoiceS
 Set-RegistryInt "HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy" "StoragePoliciesNotified" 1
 
 ########  Keyboard Settings
+Write-Host "Keyboard Settings"
 
 # Map the CAPS LOCK key to the Control key
 $hexified = "00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00".
