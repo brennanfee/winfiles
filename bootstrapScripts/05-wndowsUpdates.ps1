@@ -6,7 +6,7 @@ Set-StrictMode -Version 2.0
 $computerDetails = Get-ComputerDetails
 
 # Set the "active hours" for windows updates
-if ($computerDetails -ge 1903) {
+if ($computerDetails.WinReleaseId -ge 1903) {
     # Just turn on the "Smart Active Hours State" feature
     $updateKey = "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings"
     Set-RegistryInt "$updateKey" "SmartActiveHoursState" 1
