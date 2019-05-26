@@ -66,7 +66,7 @@ Import-Module SystemUtilities
 Import-Module MyCustomProfileUtilities
 
 # Setup the profile environment variable
-Write-Host "Importing profile location"
+Write-Host "Setting profile location"
 Set-MyCustomProfileLocation
 
 $logFile = "$env:ProfilePath\logs\winfiles\setup-profile.log"
