@@ -157,5 +157,7 @@ Write-LogAndConsole $logFile "Profile setup complete" -Color "Green"
 Write-Host ""
 Write-LogAndConsole $logFile -Color "Yellow" `
     "You will need to close and re-open PowerShell to continue."
+Write-LogAndConsole $logFile -Color "Yellow" `
+    "Once reloaded you can run .\02-bootstrap.ps1"
 Write-Host ""
 Write-LogAndConsole $logFile "Complete" -Color "Green"
