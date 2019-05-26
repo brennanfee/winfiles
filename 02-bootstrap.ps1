@@ -36,7 +36,7 @@ Get-ChildItem "$PSScriptRoot\bootstrapScripts" -File -Filter "*.ps1" | Sort-Obje
 
     Write-LogAndConsole $logFile "Script finished: $script"
     ## For debugging
-    [void](Read-Host -Prompt 'Press Enter to continue…')
+    [void](Read-Host -Prompt 'Press Enter to continue...')
 }
 
 rundll32.exe user32.dll, UpdatePerUserSystemParameters
