@@ -31,7 +31,8 @@
         'Write-Log.ps1',
         'InstallUtilities.ps1',
         'Enable-RemoteDesktop.ps1',
-        'InvokeExternalPrograms.ps1'
+        'InvokeExternalPrograms.ps1',
+        'PinningUtilities.ps1'
     )
 
     CmdletsToExport = ''
@@ -84,6 +85,8 @@
         'Set-RegistryStringExpand',
         'Set-RegistryStringMulti',
         'Set-RegistryValue',
+        'Set-StartMenuPin',
+        'Set-TaskbarPin',
         'Write-Log',
         'Write-LogAndConsole',
 
