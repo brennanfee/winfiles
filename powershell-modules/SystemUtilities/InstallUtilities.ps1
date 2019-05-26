@@ -19,7 +19,7 @@ function Install-WithScoop {
     Param(
         [string]$App,
         [string]$VerifyPath,
-        [switch]$Global = $false
+        [switch]$Global
     )
 
     if (-not (Test-Path $VerifyPath)) {
@@ -37,15 +37,18 @@ function Install-WithScoop {
 
 function Install-WithAppGet {
     Param(
-        [string]$App,
-        [string]$VerifyPath
+        [string]$App
     )
 
-    if (-not (Test-Path $VerifyPath)) {
-        Write-Host "Install with AppGet: $App"
+    $apps = AppGet.exe list
+
+    if (-not ($apps.Contains($App))) {
+        Write-Host "Installing with AppGet: $App"
+
         $command = "$env:ALLUSERSPROFILE\AppGet\bin\appget.exe install -s -v `"$App`""
         Invoke-Expression $command
 
+        Write-Host "App installed: $App"
     }
     else {
         Write-Host "App already installed: $App"
