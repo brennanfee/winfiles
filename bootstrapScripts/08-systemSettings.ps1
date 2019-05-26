@@ -143,3 +143,22 @@ Set-RegistryInt "$key\%SystemRoot%_SysWOW64_WindowsPowerShell_v1.0_powershell.ex
 
 Set-RegistryInt "$key\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe" "QuickEdit" 1
 Set-RegistryInt "$key\%SystemRoot%_SysWOW64_WindowsPowerShell_v1.0_powershell.exe" "QuickEdit" 1
+
+########  Taskbar Settings
+
+$key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer'
+
+# Switch app on click of taskbar icon (default behavior is to view mini-windows)
+Set-RegistryInt "$key\Advanced" "LastActiveClick" 1
+
+# Show the larger icons in the taskbar
+Set-RegistryInt "$key\Advanced" "TaskbarSmallIcons" 0
+
+# Lock the taskbar from being moved
+Set-RegistryInt "$key\Advanced" "TaskbarSizeMove" 0
+
+# Always combine (and hide the text) for taskbar buttons
+Set-RegistryInt "$key\Advanced" "TaskbarGlomLevel" 0
+
+# Turn off "People" button in the Taskbar
+Set-RegistryInt "$key\Advanced\People" "PeopleBand" 0
