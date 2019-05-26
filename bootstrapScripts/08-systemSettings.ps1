@@ -200,7 +200,15 @@ Set-RegistryInt "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" "VoiceS
 # Turn on storage sense (I know, not a search setting)
 Set-RegistryInt "HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy" "StoragePoliciesNotified" 1
 
+# Disable Bing search
+$key = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion'
+Set-RegistryInt "$key\Search" "BingSearchEnabled" 0
+
+# Disable Game Bar Tips
+Set-RegistryInt "HKCU:\SOFTWARE\Microsoft\GameBar" "ShowStartupPanel" 0
+
 ########  Keyboard Settings
+
 Write-Host "Keyboard Settings"
 
 # Map the CAPS LOCK key to the Control key
