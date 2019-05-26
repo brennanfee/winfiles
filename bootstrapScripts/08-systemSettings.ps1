@@ -102,3 +102,44 @@ Set-RegistryInt "$key\Advanced" "ShowSyncProviderNotifications" 0
 
 # Turn off the Startup delay for Startup Apps
 Set-RegistryInt "$key\Serialize" "StartupDelayInMSec" 0
+
+########  Terminal (conhost) settings
+
+$key = 'HKCU:\Console'
+
+# Setup font for console
+Set-RegistryString "$key" "FaceName" "__DefaultTTFont__"
+#TBD -> Set-RegistryString "$key" "FaceName" "SourceCodePro NF"
+Set-RegistryInt "$key" "FontSize" 1310720
+
+# Console settings
+Set-RegistryInt "$key" "ForceV2" 1
+Set-RegistryInt "$key" "LineSelection" 1
+Set-RegistryInt "$key" "FilterOnPaste" 1
+Set-RegistryInt "$key" "LineWrap" 1
+Set-RegistryInt "$key" "CtrlKeyShortcutsDisabled" 0
+Set-RegistryInt "$key" "ExtendedEditKey" 0
+Set-RegistryInt "$key" "TrimLeadingZeros" 0
+Set-RegistryInt "$key" "WindowsAlpha" 243
+Set-RegistryInt "$key" "InsertMode" 1
+Set-RegistryInt "$key" "QuickEdit" 1
+Set-RegistryInt "$key" "InterceptCopyPaste" 1
+Set-RegistryInt "$key" "LineSelection" 1
+Set-RegistryInt "$key" "TerminalScrolling" 0
+
+# Block cursor, inverse color
+Set-RegistryInt "$key" "CursorType" 4
+Set-RegistryInt "$key" "CursorColor" 4294967295
+
+Set-RegistryInt "$key" "HistoryBufferSize" 999
+Set-RegistryInt "$key" "NumberOfHistoryBuffers" 4
+Set-RegistryInt "$key" "HistoryNoDup" 1
+
+# Powershell
+#Set-RegistryString "$key\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe" "FaceName" "SourceCodePro NF"
+#Set-RegistryString "$key\%SystemRoot%_SysWOW64_WindowsPowerShell_v1.0_powershell.exe" "FaceName" "SourceCodePro NF"
+Set-RegistryInt "$key\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe" "FontSize" 1310720
+Set-RegistryInt "$key\%SystemRoot%_SysWOW64_WindowsPowerShell_v1.0_powershell.exe" "FontSize" 1310720
+
+Set-RegistryInt "$key\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe" "QuickEdit" 1
+Set-RegistryInt "$key\%SystemRoot%_SysWOW64_WindowsPowerShell_v1.0_powershell.exe" "QuickEdit" 1
