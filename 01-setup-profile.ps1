@@ -135,11 +135,17 @@ New-SymbolicLink $psCoreProfile "$winfilesRoot\powershell-profile\profile.ps1" -
 Write-Host "Checking for AppGet"
 if (-not (Test-Path "C:\ProgramData\AppGet\bin\appget.exe")) {
     Write-Host "Installing AppGet"
-    $logFile = "$env:ProfilePath\logs\winfiles\appget-install.log"
-    $command = "$winfilesRoot\installs\appget.exe /VERYSILENT " +
-    "/SUPPRESSMSGBOXES /SP `"/LOG=$logFile`""
 
-    Invoke-Expression -command $command
+    $logFile = "$env:ProfilePath\logs\winfiles\appget-install.log"
+    $appGetExe = "$winfilesRoot\installs\appget.exe"
+    $arguments = @(
+        "/VERYSILENT"
+        "/SUPPRESSMSGBOXES"
+        "/SP"
+        ('"/LOG={0}"' -f $logFile)
+    )
+
+    Start-Process -Wait -NoNewWindow -FilePath $appGetExe -ArgumentList $arguments
 
     Write-LogAndConsole $logFile "AppGet installed" -Color "Green"
 }
