@@ -53,8 +53,3 @@ else
         cmd /c powercfg -Change -standby-timeout-dc 240
     }
 }
-
-# Set "active" hours for Windows Update, 8 am to 10pm
-$updateKey = "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings"
-Set-RegistryInt "$updateKey" "ActiveHoursStart" 8
-Set-RegistryInt "$updateKey" "ActiveHoursEnd" 22
