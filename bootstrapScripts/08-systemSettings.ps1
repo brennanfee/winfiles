@@ -37,13 +37,15 @@ Set-RegistryInt "HKCU:\Control Panel\Desktop" "Wallpaper" $wallpaper
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\" +
 "DefaultAccount\Current\default$windows.data.bluelightreduction.settings\" +
 "windows.data.bluelightreduction.settings"
-$value = ([byte[]](0x43, 0x42, 0x01, 0x00, 0x0A, 0x02, 0x01, 0x00,
-    0x2A, 0x06, 0xB1, 0x9E, 0xA8, 0xE7, 0x05, 0x2A))
-Set-RegistryValue $key "Data" $value
+$hexified = "43,42,01,00,0A,02,01,00,2A,06,B1,9E,A8,E7,05,2A".
+Split(',') | ForEach-Object { "0x$_" };
+
+Set-RegistryValue $key "Data" ([byte[]]$hexified) "Binary"
+
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\" +
 "DefaultAccount\Current\default$windows.data.bluelightreduction." +
 "bluelightreductionstate\windows.data.bluelightreduction.bluelightreductionstate"
-Set-RegistryValue $key "Data" $value
+Set-RegistryValue $key "Data" ([byte[]]$hexified) "Binary"
 
 ########  Screen Saver
 
@@ -182,3 +184,13 @@ Set-RegistryInt "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" "VoiceS
 
 # Turn on storage sense (I know, not a search setting)
 Set-RegistryInt "HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy" "StoragePoliciesNotified" 1
+
+########  Keyboard Settings
+
+# Map the CAPS LOCK key to the Control key
+$hexified = "00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00".
+Split(',') | ForEach-Object { "0x$_" };
+
+$key = 'HKLM:\System\CurrentControlSet\Control\Keyboard Layout';
+
+Set-RegistryValue $key "Scancode Map" ([byte[]]$hexified) "Binary"

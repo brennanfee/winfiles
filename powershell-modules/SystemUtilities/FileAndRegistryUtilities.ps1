@@ -77,7 +77,8 @@ function Set-RegistryValue {
     if (!(Test-Path $Key)) {
         New-Item -ItemType Directory -Force -Path $Key
     }
-    New-ItemProperty -Path $Key -Name $ValueName -Value $Value -PropertyType $DataType -ErrorAction SilentlyContinue | Out-Null
+    New-ItemProperty -Path $Key -Name $ValueName -Value $Value `
+        -PropertyType $DataType -ErrorAction SilentlyContinue | Out-Null
     Set-ItemProperty -Path $Key -Name $ValueName -Value $Value
 }
 
