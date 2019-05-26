@@ -5,9 +5,9 @@ Set-StrictMode -Version 2.0
 function Set-MyCustomProfileLocation {
     $DriveCount = (Get-PhysicalDisk | Measure-Object).Count
 
-    $profilesPath="C:\pro file"
+    $profilesPath="C:\profile"
     if ($DriveCount -ge 2) {
-        $profilesPath="D:\pro file"
+        $profilesPath="D:\profile"
     }
 
     Set-ProfileLocation $profilesPath
