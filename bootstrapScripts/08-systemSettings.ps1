@@ -162,3 +162,23 @@ Set-RegistryInt "$key\Advanced" "TaskbarGlomLevel" 0
 
 # Turn off "People" button in the Taskbar
 Set-RegistryInt "$key\Advanced\People" "PeopleBand" 0
+
+########  Search Settings
+
+# Trun off web searches
+Set-WindowsSearchSetting -EnableWebResultsSetting $False `
+    -EnableMeteredWebResultsSetting $False `
+    -SafeSearchSetting "Moderate" `
+    -SearchExperienceSetting "NotPersonalized"
+
+# Turn off Cortana when device is locked
+Set-RegistryInt "HKCU:\Software\Speech_OneCore\Preferences" "VoiceActivationEnableAboveLockscreen" 0
+
+# Turn off Voice Activation
+Set-RegistryInt "HKCU:\Software\Speech_OneCore\Preferences" "VoiceActivationOn" 0
+
+# Turn off the Cortana Shortcut (win+c)
+Set-RegistryInt "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" "VoiceShortcut" 0
+
+# Turn on storage sense (I know, not a search setting)
+Set-RegistryInt "HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy" "StoragePoliciesNotified" 1
