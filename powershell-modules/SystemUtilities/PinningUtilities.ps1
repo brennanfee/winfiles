@@ -30,7 +30,7 @@ function Set-StartMenuPin {
         }
     }
     catch {
-        Write-Error "Error Pinning/Unpinning App! (App-Name correct?) -> $appname"
+        return "Couldn't Pin/Unpin App! (App-Name correct?) -> $appname"
     }
 }
 
@@ -63,6 +63,6 @@ function Set-TaskbarPin {
         }
     }
     catch {
-        Write-Error "Error Pinning/Unpinning App! (App-Name correct?) -> $appname"
+        return "Couldn't Pin/Unpin App! (App-Name correct?) -> $appname"
     }
 }
