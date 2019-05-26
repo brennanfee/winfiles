@@ -8,8 +8,9 @@ Set-StrictMode -Version 2.0
 # my WinFiles repository onto the current machine.  The "WinFiles" are like
 # Linux "dotfiles" but for Windows.  It is intended that this script be run
 # directly from the web from the command line without any prior setup for
-# the machine.  Use this command:
+# the machine.  Use one of these command:
 #    Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)
+#    iex ((iwr -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)
 
 # Note, this may need to be run BEFORE this script
 Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force -ErrorAction Ignore
