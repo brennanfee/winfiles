@@ -12,7 +12,11 @@ if (-not $enabled) {
     Get-NetConnectionProfile | Set-NetConnectionProfile -NetworkCategory Private
 
     Write-Host "Enabling PSRemoting"
-    Enable-PSRemoting -Force -SkipNetworkProfileCheck
+
+    $command = "$PSScriptRoot\..\bin\ConfigureRemotingForAnsible.ps1 " +
+    "-CertValidityDays 3650 -ForceNewSSLCert -Verbose"
+
+    Invoke-Expression $command
 }
 else {
     Write-Host "PSRemoting already enabled"
