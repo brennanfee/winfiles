@@ -5,7 +5,7 @@ Set-StrictMode -Version 2.0
 
 # Turn off Telemetry (set to Basic)
 $key = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection"
-Set-RegistryInt $key "AllowTelemetry" 1
+Set-RegistryInt $key "AllowTelemetry" 1  # Basic
 # Sneaky devils keep moving it around
 $key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection"
 Set-RegistryInt $key "AllowTelemetry" 1  # Basic
