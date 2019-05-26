@@ -12,7 +12,7 @@ Set-StrictMode -Version 2.0
 #    Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)
 
 # Note, this may need to be run BEFORE this script
-Set-ExecutionPolicy Unrestricted -Scope Process -Force -ErrorAction Ignore
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force -ErrorAction Ignore
 
 ### Set Profile location (based on how many disks we have)
 ### 1 disk means porfile is in C:\profile, 2 disks or more means D:\profile
