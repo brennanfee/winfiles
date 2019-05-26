@@ -37,7 +37,7 @@ Set-RegistryString "HKCU:\Control Panel\Desktop" "Wallpaper" $wallpaper
 Write-Host "Night Light Settings"
 
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\" +
-"DefaultAccount\Current\default$windows.data.bluelightreduction.settings\" +
+'DefaultAccount\Current\default$windows.data.bluelightreduction.settings\' +
 "windows.data.bluelightreduction.settings"
 $hexified = "43,42,01,00,0A,02,01,00,2A,06,B1,9E,A8,E7,05,2A".
 Split(',') | ForEach-Object { "0x$_" };
@@ -45,7 +45,7 @@ Split(',') | ForEach-Object { "0x$_" };
 Set-RegistryValue $key "Data" ([byte[]]$hexified) "Binary"
 
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\" +
-"DefaultAccount\Current\default$windows.data.bluelightreduction." +
+'DefaultAccount\Current\default$windows.data.bluelightreduction.' +
 "bluelightreductionstate\windows.data.bluelightreduction.bluelightreductionstate"
 Set-RegistryValue $key "Data" ([byte[]]$hexified) "Binary"
 
@@ -136,7 +136,7 @@ Set-RegistryInt "$key" "TerminalScrolling" 0
 
 # Block cursor, inverse color
 Set-RegistryInt "$key" "CursorType" 4
-Set-RegistryInt "$key" "CursorColor" 4294967295
+Set-RegistryValue "$key" "CursorColor" 4294967295 "DWord"
 
 Set-RegistryInt "$key" "HistoryBufferSize" 999
 Set-RegistryInt "$key" "NumberOfHistoryBuffers" 4
@@ -182,10 +182,11 @@ Set-RegistryInt "$key\Advanced\People" "PeopleBand" 0
 Write-Host "Search Settings"
 
 # Trun off web searches
-Set-WindowsSearchSetting -EnableWebResultsSetting $False `
-    -EnableMeteredWebResultsSetting $False `
-    -SafeSearchSetting "Moderate" `
-    -SearchExperienceSetting "NotPersonalized"
+Set-WindowsSearchSetting -EnableWebResultsSetting $False
+# Set-WindowsSearchSetting -EnableWebResultsSetting $True `
+#     -EnableMeteredWebResultsSetting $False `
+#     -SafeSearchSetting "Moderate" `
+#     -SearchExperienceSetting "NotPersonalized"
 
 # Turn off Cortana when device is locked
 Set-RegistryInt "HKCU:\Software\Speech_OneCore\Preferences" "VoiceActivationEnableAboveLockscreen" 0
