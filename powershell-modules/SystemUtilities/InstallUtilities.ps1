@@ -18,23 +18,36 @@ function Add-ScoopBucket {
 function Install-WithScoop {
     Param(
         [string]$App,
+        [string]$VerifyPath,
         [switch]$Global = $false
     )
 
-    Write-Host "Install with scoop: $App"
-    $command = "scoop install $App"
-    if ($Global) {
-        $command += " -g"
+    if (-not (Test-Path $VerifyPath)) {
+        Write-Host "Install with scoop: $App"
+        $command = "scoop install $App"
+        if ($Global) {
+            $command += " -g"
+        }
+        Invoke-Expression $command
     }
-    Invoke-Expression $command
+    else {
+        Write-Host "App already installed: $App"
+    }
 }
 
 function Install-WithAppGet {
     Param(
-        [string]$App
+        [string]$App,
+        [string]$VerifyPath
     )
 
-    Write-Host "Install with AppGet: $App"
-    $command = "$env:ALLUSERSPROFILE\AppGet\bin\appget.exe install -s -v `"$App`""
-    Invoke-Expression $command
+    if (-not (Test-Path $VerifyPath)) {
+        Write-Host "Install with AppGet: $App"
+        $command = "$env:ALLUSERSPROFILE\AppGet\bin\appget.exe install -s -v `"$App`""
+        Invoke-Expression $command
+
+    }
+    else {
+        Write-Host "App already installed: $App"
+    }
 }
