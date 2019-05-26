@@ -8,7 +8,7 @@ function Set-DefaultEditor {
     {
         if (-not (Set-EditorToVSCode))
         {
-            Set-EditorToNotepad
+            Set-EditorToNotepad | Out-Null
         }
     }
 }
