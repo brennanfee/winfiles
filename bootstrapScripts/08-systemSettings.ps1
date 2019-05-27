@@ -5,9 +5,6 @@ Set-StrictMode -Version 2.0
 
 $computerDetails = Get-ComputerDetails
 
-# We set some explorer settings
-taskkill.exe /F /IM "explorer.exe"
-
 ########  Theme Settings
 Write-Host "Theme settings"
 

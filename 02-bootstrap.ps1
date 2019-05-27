@@ -49,5 +49,6 @@ explorer.exe
 
 Write-Host ""
 Write-LogAndConsole $logFile "A reboot will be necessary for settings to take effect." -Color "Yellow"
+Write-LogAndConsole $logFile "After reboot you can run .\03-cleanup.ps1" -Color "Yellow"
 Write-Host ""
 Write-LogAndConsole $logFile "Complete" -Color "Green"
