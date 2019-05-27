@@ -68,7 +68,6 @@ Set-StrictMode -Version 2.0
 # Removes some of the apps that come by default but are generally not needed.
 
 $apps = @(
-    "Microsoft.Advertising.Xaml"
     "Microsoft.BingNews"
     "Microsoft.GetHelp"
     "Microsoft.Getstarted"
@@ -86,6 +85,7 @@ $apps = @(
     "Microsoft.ScreenSketch"
     "Microsoft.Wallet"
     "Microsoft.Windows.Photos"
+    "microsoft.windowscommunicationsapps"
     "Microsoft.WindowsMaps"
     "Microsoft.ZuneMusic"
     "Microsoft.ZuneVideo"
@@ -100,9 +100,9 @@ foreach ($app in $apps) {
 
     Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage
 
-    Get-AppXProvisionedPackage -Online |
+    Get-AppxProvisionedPackage -Online |
     Where-Object DisplayName -eq $app |
-    Remove-AppxProvisionedPackage -Online
+    Remove-AppxProvisionedPackage -Online | Out-Null
 }
 
 # Prevents "Suggested Applications" returning
