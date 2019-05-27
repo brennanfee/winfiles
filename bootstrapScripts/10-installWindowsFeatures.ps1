@@ -38,7 +38,7 @@ foreach ($feature in $disableFeature) {
     $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
     if ($item -and $item.State -eq "Enabled") {
         Write-Host "Disabling feature: $feature"
-        Disable-WindowsOptionalFeature -FeatureName $feature -Online -NoRestart
+        Disable-WindowsOptionalFeature -FeatureName $feature -Online -NoRestart | Out-Null
         Write-Host "Feature disabled: $feature"
     }
     else {
@@ -76,7 +76,7 @@ foreach ($feature in $defaultFeatures) {
     $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
     if ($item -and $item.State -eq "Disabled") {
         Write-Host "Enabling feature: $feature"
-        Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart
+        Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart | Out-Null
         Write-Host "Feature enabled: $feature"
     }
     else {
@@ -98,7 +98,6 @@ $extraFeatures = @(
     "TelnetClient"
     "TFTP"
     "TIFFIFilter"
-    "Windows-Defender-Default-Definitions"
 )
 
 foreach ($feature in $extraFeatures) {
@@ -108,7 +107,7 @@ foreach ($feature in $extraFeatures) {
     $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
     if ($item -and $item.State -eq "Disabled") {
         Write-Host "Enabling feature: $feature"
-        Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart
+        Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart | Out-Null
         Write-Host "Feature enabled: $feature"
     }
     else {
@@ -138,7 +137,7 @@ if (-not ($computerDetails.IsVirtual)) {
         $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
         if ($item -and $item.State -eq "Disabled") {
             Write-Host "Enabling feature: $feature"
-            Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart
+            Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart | Out-Null
             Write-Host "Feature enabled: $feature"
         }
         else {
@@ -160,11 +159,11 @@ foreach ($feature in $disableCapabilities) {
         Where-Object { $_.State -eq "Installed" } |
         Where-Object { $_.Name.StartsWith($feature) }
 
-    if ($items -and $items.Count -gt 0) {
+    if ($items) {
         foreach ($item in $items) {
             $name = $item.Name
             Write-Host "Disabling feature: $name"
-            Remove-WindowsCapability -Online -Name $name
+            Remove-WindowsCapability -Online -Name $name | Out-Null
             Write-Host "Feature disabled: $name"
         }
     }
@@ -187,11 +186,11 @@ foreach ($feature in $extraCapabilities) {
     Where-Object { $_.State -eq "NotPresent" } |
     Where-Object { $_.Name.StartsWith($feature) }
 
-    if ($items -and $items.Count -gt 0) {
+    if ($items) {
         foreach ($item in $items) {
             $name = $item.Name
             Write-Host "Enabling feature: $name"
-            Add-WindowsCapability -Online -Name $name
+            Add-WindowsCapability -Online -Name $name | Out-Null
             Write-Host "Feature enabled: $name"
         }
     }
