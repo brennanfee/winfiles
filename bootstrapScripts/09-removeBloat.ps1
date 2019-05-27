@@ -89,10 +89,10 @@ $apps = @(
     "Microsoft.WindowsMaps"
     "Microsoft.ZuneMusic"
     "Microsoft.ZuneVideo"
-    "Windows.CBSPreview"
     # non-Microsoft
-    "king.com.*"  #CandyCrush and other viral games
-    "NORDCURRENT*"
+    "king.com.CandyCrushFriends"
+    "king.com.CandyCrushSaga"
+    "NORDCURRENT.COOKINGFEVER"
 )
 
 foreach ($app in $apps) {
