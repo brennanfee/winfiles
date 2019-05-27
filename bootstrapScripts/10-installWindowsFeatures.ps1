@@ -207,6 +207,7 @@ foreach ($feature in $extraCapabilities) {
 
 ########  Configure SSH Server
 # Enable the services to start at boot
+Start-Sleep 5
 Set-Service -Name sshd -StartupType 'Automatic'
 Set-Service -Name ssh-agent -StartupType 'Automatic'
 #Install-Module -Force OpenSSHUtils -Scope AllUsers
