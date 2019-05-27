@@ -43,6 +43,10 @@ Get-ChildItem "$PSScriptRoot\bootstrapScripts" -File -Filter "*.ps1" | Sort-Obje
 
 rundll32.exe user32.dll, UpdatePerUserSystemParameters
 
+# Kill and restart explorer
+taskkill.exe /F /IM "explorer.exe"
+explorer.exe
+
 Write-Host ""
 Write-LogAndConsole $logFile "A reboot will be necessary for settings to take effect." -Color "Yellow"
 Write-Host ""

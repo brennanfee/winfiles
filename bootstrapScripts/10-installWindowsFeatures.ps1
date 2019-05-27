@@ -5,7 +5,7 @@ Set-StrictMode -Version 2.0
 
 $computerDetails = Get-ComputerDetails
 
-$delay = 4
+$delay = 8
 
 ########  Install my selection of optional windows features.
 
@@ -209,7 +209,7 @@ foreach ($feature in $extraCapabilities) {
 
 ########  Configure SSH Server
 # Enable the services to start at boot
-Start-Sleep 15
+Start-Sleep 30
 Set-Service -Name sshd -StartupType 'Automatic'
 Set-Service -Name ssh-agent -StartupType 'Automatic'
 #Install-Module -Force OpenSSHUtils -Scope AllUsers
