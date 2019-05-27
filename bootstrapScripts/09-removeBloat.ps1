@@ -68,40 +68,31 @@ Set-StrictMode -Version 2.0
 # Removes some of the apps that come by default but are generally not needed.
 
 $apps = @(
-    "Microsoft.3DBuilder"
     "Microsoft.Advertising.Xaml"
-    "Microsoft.Appconnector"
-    "Microsoft.BingFinance"
-    "Microsoft.BingFoodAndDrink"
-    "Microsoft.BingHealthAndFitness"
-    "Microsoft.BingSports"
-    "Microsoft.BingTranslator"
-    "Microsoft.BingTravel"
-    "Microsoft.CommsPhone"
-    "Microsoft.ConnectivityStore"
+    "Microsoft.BingNews"
+    "Microsoft.GetHelp"
     "Microsoft.Getstarted"
     "Microsoft.Messaging"
+    "Microsoft.Microsoft3DViewer"
     "Microsoft.MicrosoftOfficeHub"
-    "Microsoft.MicrosoftPowerBIForWindows"
     "Microsoft.MicrosoftSolitaireCollection"
     "Microsoft.MicrosoftStickyNotes"
-    "Microsoft.MinecraftUWP"
-    "Microsoft.NetworkSpeedTest"
+    "Microsoft.MixedReality.Portal"
+    "Microsoft.MSPaint"
     "Microsoft.Office.OneNote"
     "Microsoft.Office.Sway"
     "Microsoft.OneConnect"
     "Microsoft.People"
+    "Microsoft.ScreenSketch"
+    "Microsoft.Wallet"
+    "Microsoft.Windows.Photos"
     "Microsoft.WindowsMaps"
-    "Microsoft.WindowsPhone"
-    "Microsoft.WindowsReadingList"
     "Microsoft.ZuneMusic"
     "Microsoft.ZuneVideo"
     "Windows.CBSPreview"
     # non-Microsoft
     "king.com.*"  #CandyCrush and other viral games
-
-    # Candidates, but kept for now
-#    "Microsoft.WindowsFeedbackHub"
+    "NORDCURRENT*"
 )
 
 foreach ($app in $apps) {
@@ -110,7 +101,7 @@ foreach ($app in $apps) {
     Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage
 
     Get-AppXProvisionedPackage -Online |
-    Where-Object DisplayName -EQ $app |
+    Where-Object DisplayName -eq $app |
     Remove-AppxProvisionedPackage -Online
 }
 
