@@ -7,11 +7,20 @@ function Add-ScoopBucket {
         [string]$Bucket
     )
 
+    Write-Host ""
+    Write-Host "Checking scoop bucket: $Bucket"
+
     $buckets = scoop bucket list
 
     if (-not ($buckets.Contains($Bucket))) {
         Write-Host "Adding scoop bucket: $Bucket"
+
         Invoke-Expression "scoop bucket add $Bucket"
+
+        Write-Host "Scoop bucket added: $Bucket"
+    }
+    else {
+        Write-Host "Scoop bucket already configured: $Bucket"
     }
 }
 
@@ -22,13 +31,19 @@ function Install-WithScoop {
         [switch]$Global
     )
 
+    Write-Host ""
+    Write-Host "Checking for Scoop app: $App"
+
     if (-not (Test-Path $VerifyPath)) {
-        Write-Host "Install with scoop: $App"
+        Write-Host "Install with Scoop: $App"
+
         $command = "scoop install $App"
         if ($Global) {
             $command += " -g"
         }
         Invoke-Expression $command
+
+        Write-Host "App installed: $App"
     }
     else {
         Write-Host "App already installed: $App"
@@ -39,6 +54,9 @@ function Install-WithAppGet {
     Param(
         [string]$App
     )
+
+    Write-Host ""
+    Write-Host "Checking for AppGet app: $App"
 
     $apps = AppGet.exe list
 

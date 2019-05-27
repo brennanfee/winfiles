@@ -5,6 +5,8 @@ Set-StrictMode -Version 2.0
 
 $computerDetails = Get-ComputerDetails
 
+$delay = 4
+
 ########  Install my selection of optional windows features.
 
 # To query installed features:
@@ -39,7 +41,7 @@ foreach ($feature in $disableFeature) {
     if ($item -and $item.State -eq "Enabled") {
         Write-Host "Disabling feature: $feature"
         Disable-WindowsOptionalFeature -FeatureName $feature -Online -NoRestart | Out-Null
-        Start-Sleep 2
+        Start-Sleep $delay
         Write-Host "Feature disabled: $feature"
     }
     else {
@@ -78,7 +80,7 @@ foreach ($feature in $defaultFeatures) {
     if ($item -and $item.State -eq "Disabled") {
         Write-Host "Enabling feature: $feature"
         Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart | Out-Null
-        Start-Sleep 2
+        Start-Sleep $delay
         Write-Host "Feature enabled: $feature"
     }
     else {
@@ -110,7 +112,7 @@ foreach ($feature in $extraFeatures) {
     if ($item -and $item.State -eq "Disabled") {
         Write-Host "Enabling feature: $feature"
         Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart | Out-Null
-        Start-Sleep 2
+        Start-Sleep $delay
         Write-Host "Feature enabled: $feature"
     }
     else {
@@ -141,7 +143,7 @@ if (-not ($computerDetails.IsVirtual)) {
         if ($item -and $item.State -eq "Disabled") {
             Write-Host "Enabling feature: $feature"
             Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart | Out-Null
-            Start-Sleep 2
+            Start-Sleep $delay
             Write-Host "Feature enabled: $feature"
         }
         else {
@@ -168,7 +170,7 @@ foreach ($feature in $disableCapabilities) {
             $name = $item.Name
             Write-Host "Disabling feature: $name"
             Remove-WindowsCapability -Online -Name $name | Out-Null
-            Start-Sleep 2
+            Start-Sleep $delay
             Write-Host "Feature disabled: $name"
         }
     }
@@ -196,7 +198,7 @@ foreach ($feature in $extraCapabilities) {
             $name = $item.Name
             Write-Host "Enabling feature: $name"
             Add-WindowsCapability -Online -Name $name | Out-Null
-            Start-Sleep 2
+            Start-Sleep $delay
             Write-Host "Feature enabled: $name"
         }
     }
@@ -207,7 +209,7 @@ foreach ($feature in $extraCapabilities) {
 
 ########  Configure SSH Server
 # Enable the services to start at boot
-Start-Sleep 5
+Start-Sleep 15
 Set-Service -Name sshd -StartupType 'Automatic'
 Set-Service -Name ssh-agent -StartupType 'Automatic'
 #Install-Module -Force OpenSSHUtils -Scope AllUsers

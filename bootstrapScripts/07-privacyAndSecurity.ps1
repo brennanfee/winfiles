@@ -64,9 +64,11 @@ $ips = @(
     "65.55.108.23"
     "64.4.54.254"
 )
+
 Remove-NetFirewallRule -DisplayName "Block Telemetry IPs" -ErrorAction SilentlyContinue
+
 New-NetFirewallRule -DisplayName "Block Telemetry IPs" -Direction Outbound `
-    -Action Block -RemoteAddress ([string[]]$ips)
+    -Action Block -RemoteAddress ([string[]]$ips) | Out-Null
 
 # Hosts file
 Write-Host "Adding telemetry domains to hosts file"

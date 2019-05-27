@@ -191,6 +191,7 @@ Write-Host "Search Settings"
 
 # Trun off web searches
 Set-WindowsSearchSetting -EnableWebResultsSetting $False
+
 # Set-WindowsSearchSetting -EnableWebResultsSetting $True `
 #     -EnableMeteredWebResultsSetting $False `
 #     -SafeSearchSetting "Moderate" `

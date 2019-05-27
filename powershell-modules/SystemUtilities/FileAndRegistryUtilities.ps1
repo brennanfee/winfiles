@@ -2,8 +2,6 @@
 #Requires -Version 5
 Set-StrictMode -Version 2.0
 
-# TODO: Add documentation to each function
-
 ## Registry
 function Set-RegistryBool {
     [CmdletBinding()]
@@ -74,12 +72,14 @@ function Set-RegistryValue {
         [string]$DataType
     )
 
-    if (!(Test-Path $Key)) {
+    if (-not (Test-Path $Key)) {
         New-Item -ItemType Directory -Force -Path $Key | Out-Null
     }
+
     New-ItemProperty -Path $Key -Name $ValueName -Value $Value `
         -PropertyType $DataType -ErrorAction SilentlyContinue | Out-Null
-    Set-ItemProperty -Path $Key -Name $ValueName -Value $Value
+
+    Set-ItemProperty -Path $Key -Name $ValueName -Value $Value | Out-Null
 }
 
 ## Taking ownership
