@@ -3,7 +3,8 @@
 Set-StrictMode -Version 2.0
 
 function Invoke-WslCommand {
-    params(
+    [CmdletBinding()]
+    param (
         [string]$WslCommand,
         [string]$Arguments,
         [string]$PowerShellFallback = ""
@@ -22,7 +23,8 @@ function Invoke-WslCommand {
 }
 
 function Get-ListingUsingWsl {
-    params(
+    [CmdletBinding()]
+    param (
         [string]$LsArguments,
         [string]$OtherArguments
     )
