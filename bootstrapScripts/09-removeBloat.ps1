@@ -103,6 +103,8 @@ foreach ($app in $apps) {
     Get-AppxProvisionedPackage -Online |
     Where-Object DisplayName -eq $app |
     Remove-AppxProvisionedPackage -Online | Out-Null
+
+    Start-Sleep 2
 }
 
 # Prevents "Suggested Applications" returning
