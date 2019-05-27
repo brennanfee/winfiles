@@ -104,7 +104,7 @@ foreach ($app in $apps) {
     Where-Object DisplayName -eq $app |
     Remove-AppxProvisionedPackage -Online | Out-Null
 
-    Start-Sleep 2
+    Start-Sleep 5
 }
 
 # Prevents "Suggested Applications" returning
