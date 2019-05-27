@@ -7,9 +7,13 @@ Set-Alias ge Edit-File # "graphical edit"
 Set-Alias edit Edit-File
 Set-Alias vis Edit-File # for "visual edit"
 
-function Get-ListingWslLs { wsl.exe ls -v --color=auto --group-directories-first $args }
+function Get-ListingWslLs {
+    Get-ListingUsingWsl "-v --color=auto --group-directories-first" $args
+}
 
-function Get-ListingWslLss { wsl.exe ls -1v --color=auto --group-directories-first $args }
+function Get-ListingWslLss {
+    wsl.exe ls -1v --color=auto --group-directories-first $args
+}
 Set-Alias lss Get-ListingWslLss
 
 function Get-ListingWslLa { wsl.exe ls -Av --color=auto --group-directories-first $args }

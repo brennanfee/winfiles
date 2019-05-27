@@ -31,6 +31,7 @@
         'Write-Log.ps1',
         'InstallUtilities.ps1',
         'Enable-RemoteDesktop.ps1',
+        'WslUtilities.ps1',
         'InvokeExternalPrograms.ps1'
     )
 
@@ -54,6 +55,7 @@
         'Get-GitInARepo',
         'Get-GitRootPath',
         'Get-IsAdministrator',
+        'Get-ListingUsingWsl',
         'Get-LogFile',
         'Get-SpecialFolder',
         'Install-WithAppGet',
@@ -63,6 +65,7 @@
         'Invoke-ExternalPowerShellCore',
         'Invoke-MsiInstaller',
         'Invoke-MsiInstallerFromUrl',
+        'Invoke-WslCommand',
         'New-DateDir',
         'New-DateFile',
         'New-SymbolicLink',
