@@ -58,6 +58,7 @@
         'Get-ListingUsingWsl',
         'Get-LogFile',
         'Get-SpecialFolder',
+        'Get-WslExe',
         'Install-WithAppGet',
         'Install-WithScoop',
         'Invoke-ExternalCommand',

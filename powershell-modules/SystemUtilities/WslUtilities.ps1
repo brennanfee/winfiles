@@ -2,6 +2,11 @@
 #Requires -Version 5
 Set-StrictMode -Version 2.0
 
+function Get-WslExe {
+    return Get-Command "wsl.exe" -ErrorAction SilentlyContinue |
+    Select-Object -ExpandProperty Definition
+}
+
 function Invoke-WslCommand {
     [CmdletBinding()]
     param (
@@ -10,8 +15,7 @@ function Invoke-WslCommand {
         [string]$PowerShellFallback = ""
     )
 
-    $wsl = Get-Command "wsl.exe" -ErrorAction SilentlyContinue |
-    Select-Object -ExpandProperty Definition
+    $wsl = Get-WslExe
 
     if ([string]::IsNullOrEmpty($wsl)) {
         # wsl.exe is not installed, so Run the PowerShellFallback
