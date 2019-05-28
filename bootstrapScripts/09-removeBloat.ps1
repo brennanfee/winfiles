@@ -68,6 +68,7 @@ Set-StrictMode -Version 2.0
 # Removes some of the apps that come by default but are generally not needed.
 
 $apps = @(
+    "Microsoft.3DBuilder"
     "Microsoft.BingNews"
     "Microsoft.GetHelp"
     "Microsoft.Getstarted"
