@@ -19,15 +19,14 @@ $executionPolicyBlock = {
     Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
 }
 
+$arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
+"-Command $executionPolicyBlock"
+
 if (Is64Bit) {
-    $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-    "-Command $executionPolicyBlock"
     Start-Process -Wait -NoNewWindow -ArgumentList $arguments `
         -FilePath "$env:SystemRoot\SysWOW64\WindowsPowerShell\v1.0\powershell.exe"
 }
 
-$arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-"-Command $executionPolicyBlock"
 Start-Process -Wait -NoNewWindow -FilePath "powershell.exe" -ArgumentList $arguments
 
 # Install Nuget provider if needed
