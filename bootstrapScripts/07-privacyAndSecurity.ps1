@@ -242,3 +242,75 @@ foreach ($service in $services) {
     Write-Output "Trying to disable $service"
     Get-Service -Name $service -ErrorAction SilentlyContinue | Set-Service -StartupType Disabled
 }
+
+
+## Reg values from O&O ShutUp10
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\TabletPC\PreventHandwritingDataSharing  1
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\HandwritingErrorReports\PreventHandwritingErrorReports  1
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat\DisableInventory 1
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization\NoLockScreenCamera 1
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\Messaging\AllowMessageSync 0
+# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation\Value "Deny"
+# HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Start_TrackProgs 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\DeviceAccess\Global\{2297E4E2-5DBE-466D-A12B-0F8286F0D9CA}\Value "Deny"
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\CredUI\DisablePasswordReveal 1
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat\DisableUAR 1
+# HKLM\System\CurrentControlSet\Services\dmwappushservice\Start 4
+# HKLM\System\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener\Start 0
+# HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main\DoNotTrack 1
+# HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\FlipAhead\FPEnabled 0
+# HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main\ShowSearchSuggestionsGlobal 0
+# HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\ServiceUI\EnableCortana 0
+# HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\ServiceUI\ShowSearchHistory\(Default) 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\SyncPolicy 5
+# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Personalization\Enabled 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\BrowserSettings\Enabled 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Credentials\Enabled 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Language\Enabled 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Accessibility\Enabled 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Windows\Enabled 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\Windows Search\CortanaConsent 0
+# HKCU\Software\Microsoft\Personalization\Settings\AcceptedPrivacyPolicy 0
+# HKCU\Software\Microsoft\InputPersonalization\RestrictImplicitInkCollection 1
+# HKCU\Software\Microsoft\InputPersonalization\RestrictImplicitTextCollection 1
+# HKCU\Software\Microsoft\InputPersonalization\TrainedDataStore\HarvestContacts 0
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search\AllowSearchToUseLocation 0
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search\DisableWebSearch 1
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search\ConnectedSearchUseWeb 0
+# HKLM\SOFTWARE\Microsoft\Speech_OneCore\Preferences\ModelDownloadAllowed 0
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search\AllowCloudSearch 0
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors\DisableLocation 1
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors\DisableWindowsLocationProvider 1
+#(may keep) HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors\DisableLocationScripting 1
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection\AllowTelemetry 0
+# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection\AllowTelemetry 0
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat\AITEnable 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SystemPaneSuggestionsEnabled 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\RotatingLockScreenEnabled 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\RotatingLockScreenOverlayEnabled 0
+# HKCU\Software\Microsoft\Siuf\Rules\NumberOfSIUFInPeriod 0
+# HKCU\Software\Microsoft\Siuf\Rules\PeriodInNanoSeconds 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SilentInstalledAppsEnabled 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SoftLandingEnabled 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ShowSyncProviderNotifications 1
+# HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People\PeopleBand 1
+
+# HKLM\SOFTWARE\Policies\Microsoft\Biometrics\Enabled 0
+# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\contacts\Value "Deny"
+# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appointments\Value "Deny"
+# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\phoneCallHistory\Value "Deny"
+# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\email\Value "Deny"
+# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userDataTasks\Value "Deny"
+# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\chat\Value "Deny"
+
+# HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main\Use FormSuggest "no"
+
+# HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Start_TrackDocs 0
+# HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ShowSyncProviderNotifications 0
+# HKLM\SOFTWARE\Microsoft\OneDrive\PreventNetworkTrafficPreUserSignIn 1
+
+# HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive\DisableFileSyncNGSC 1
+
+# HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People\PeopleBand 0
+
+
