@@ -15,6 +15,16 @@ function Invoke-WslCommand {
 
     if ([string]::IsNullOrEmpty($wsl)) {
         # wsl.exe is not installed, so Run the PowerShellFallback
+        # First, if the PowerShellFallback is blank, try a sane default
+        if ([string]::IsNullOrEmpty($PowerShellFallback)) {
+            if ($PowerShellFallback.StartsWith("ls ")) {
+                $PowerShellFallback = "Get-ChildItem"
+            }
+            else {
+                $PowerShellFallback = "$WslCommand"
+            }
+        }
+
         Invoke-Expression "$PowerShellFallback $Arguments"
     }
     else {
@@ -29,5 +39,5 @@ function Get-ListingUsingWsl {
         [string]$OtherArguments
     )
 
-    Invoke-WslCommand "ls $LsArguments" $OtherArguments "Get-ChildItem"
+    Invoke-WslCommand "ls $LsArguments" "$OtherArguments" "Get-ChildItem"
 }

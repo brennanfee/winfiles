@@ -7,46 +7,65 @@ Set-Alias ge Edit-File # "graphical edit"
 Set-Alias edit Edit-File
 Set-Alias vis Edit-File # for "visual edit"
 
-function Get-ListingWslLs {
-    Get-ListingUsingWsl "-v --color=auto --group-directories-first" $args
-}
+$commonArgs = "--color=auto --group-directories-first --time-style=long-iso"
 
-function Get-ListingWslLss {
-    wsl.exe ls -1v --color=auto --group-directories-first $args
-}
+function Get-ListingWslLs { Get-ListingUsingWsl "-v $commonArgs" "$args" }
+
+function Get-ListingWslLss { Get-ListingUsingWsl "-1v $commonArgs" "$args" }
 Set-Alias lss Get-ListingWslLss
 
-function Get-ListingWslLa { wsl.exe ls -Av --color=auto --group-directories-first $args }
+function Get-ListingWslLa { Get-ListingUsingWsl "-Av $commonArgs" "$args" }
 Set-Alias la Get-ListingWslLa
 
-function Get-ListingWslLl { wsl.exe ls -ohv --color=auto --group-directories-first --time-style=long-iso $args }
+function Get-ListingWslLl { Get-ListingUsingWsl "-ohv $commonArgs" "$args" }
 Set-Alias ll Get-ListingWslLl
 
-function Get-ListingWslLla { wsl.exe ls -ohAv --color=auto --group-directories-first --time-style=long-iso $args }
+function Get-ListingWslLla { Get-ListingUsingWsl "-ohAv $commonArgs" "$args" }
 Set-Alias lla Get-ListingWslLla
 
-function Get-ListingWslLls { wsl.exe ls -lhAv --color=auto --group-directories-first --time-style=long-iso $args }
+function Get-ListingWslLls { Get-ListingUsingWsl "-lhAv $commonArgs" "$args" }
 Set-Alias lls Get-ListingWslLls
 
-function Get-ListingWslLdir { wsl.exe ls -ohAv --color=never --group-directories-first --time-style=long-iso $args | wsl.exe grep --color=never "^d" }
+function Get-ListingWslLdir {
+    $wslCommand = "ls -ohAv --color=never --group-directories-first " +
+    "--time-style=long-iso $args | grep --color=never ^d"
+    $psCommand = 'Get-ChildItem | Where-Object { $_.Mode.StartsWith(''d'') }'
+    Invoke-WslCommand $wslCommand "" $psCommand
+}
 Set-Alias ldir Get-ListingWslLdir
 
-function Get-ListingWslVdir { wsl.exe ls -lhAv --color=auto --group-directories-first --time-style=long-iso $args }
+function Get-ListingWslVdir { Get-ListingUsingWsl "-lhAv $commonArgs" "$args" }
 Set-Alias vdir Get-ListingWslVdir
 
-function Get-ListingWslTree { wsl.exe tree -C }
+function Get-ListingWslTree { Invoke-WslCommand "tree -C" "" "tree.com" }
 Set-Alias tree Get-ListingWslTree
 
-function Search-ListingWslGrep { wsl.exe ls -A | wsl.exe grep -i "$args" }
+function Search-ListingWslGrep {
+    $wslCommand = "ls -A | grep -i $args"
+    $psCommand = 'Get-ChildItem | Where-Object { $_.Name.Contains(''' + "$args" + ''') }'
+    Invoke-WslCommand $wslCommand "" $psCommand
+}
 Set-Alias lsgrep Search-ListingWslGrep
 
-function Search-ListingWslGrepLong { wsl.exe ls -hlA --time-style=long-iso | wsl.exe grep -i "$args" }
+function Search-ListingWslGrepLong {
+    $wslCommand = "ls -hlA --time-style=long-iso | grep -i $args"
+    $psCommand = 'Get-ChildItem | Where-Object { $_.Name.Contains(''' + "$args" + ''') }'
+    Invoke-WslCommand $wslCommand "" $psCommand
+}
 Set-Alias llgrep Search-ListingWslGrepLong
 
-function Search-ListingWslRg { wsl.exe ls -A | wsl.exe rg -S "$args" }
+function Search-ListingWslRg {
+    $wslCommand = "ls -A | rg -S $args"
+    $psCommand = 'Get-ChildItem | Where-Object { $_.Name.Contains(''' + "$args" + ''') }'
+    Invoke-WslCommand $wslCommand "" $psCommand
+}
 Set-Alias lsrg Search-ListingWslRg
 
-function Search-ListingWslRgLong { wsl.exe ls -hlA --time-style=long-iso | wsl.exe rg -S "$args" }
+function Search-ListingWslRgLong {
+    $wslCommand = "ls -hlA --time-style=long-iso | rg -S $args"
+    $psCommand = 'Get-ChildItem | Where-Object { $_.Name.Contains(''' + "$args" + ''') }'
+    Invoke-WslCommand $wslCommand "" $psCommand
+}
 Set-Alias llrg Search-ListingWslRgLong
 
 Set-Alias mkdatedir New-DateDir
