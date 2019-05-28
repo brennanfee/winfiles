@@ -95,19 +95,11 @@ New-SymbolicLink $nugetFile "$winfilesRoot\powershell-profile\profile.ps1" -Forc
 
 # Install PowerShell Core if needed
 Write-Host "Checking for PowerShell Core"
-$psCoreExe = "$env:ProgramFiles\PowerShell\6\pwsh.exe"
+$psCoreExe = "$env:SCOOP_GLOBAL\shims\pwsh.exe"
 if (-not (Test-Path "$psCoreExe")) {
     Write-LogAndConsole $logFile "Installing PowerShell Core"
 
-    $msiLogFile = "$env:ProfilePath\logs\winfiles\pwsh-install.log"
-    $msiArguments = @(
-        "ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1"
-        "ENABLE_PSREMOTING=1"
-        "REGISTER_MANIFEST=1"
-    )
-
-    Invoke-MsiInstaller "$winfilesRoot\installs\PowerShell.msi" $msiLogFile `
-        $msiArguments
+    Invoke-Expression "scoop install -g pwsh"
 
     Write-LogAndConsole $logFile "PowerShell Core installed" -Color "Green"
 }
