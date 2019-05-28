@@ -117,6 +117,7 @@ Set-RegistryInt "$key" "AllItemsIconView" 0
 ######## Remove Desktop Icons
 $desktop = Get-SpecialFolder "Desktop"
 Remove-Item "$desktop\*.lnk" -ErrorAction SilentlyContinue
+Remove-Item "$env:PUBLIC\Desktop\*.lnk" -ErrorAction SilentlyContinue
 
 ########  Terminal (conhost) settings
 Write-Host "Terminal Settings"
