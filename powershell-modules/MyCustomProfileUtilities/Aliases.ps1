@@ -27,10 +27,15 @@ function Get-ListingWslLls { Get-ListingUsingWsl "-lhAv $commonArgs" "$args" }
 Set-Alias lls Get-ListingWslLls
 
 function Get-ListingWslLdir {
-    $wslCommand = "ls -ohAv --color=never --group-directories-first " +
-    "--time-style=long-iso $args | grep --color=never ^d"
-    $psCommand = 'Get-ChildItem | Where-Object { $_.Mode.StartsWith(''d'') }'
-    Invoke-WslCommand $wslCommand "" $psCommand
+    $wsl = Get-WslExe
+
+    if ([string]::IsNullOrEmpty($wsl)) {
+        Get-ChildItem | Where-Object { $_.Mode.StartsWith('d') }
+    }
+    else {
+        wsl.exe ls -ohAv --color=never --time-style=long-iso "$args" |
+        wsl.exe grep --color=never '^d'
+    }
 }
 Set-Alias ldir Get-ListingWslLdir
 
@@ -41,30 +46,50 @@ function Get-ListingWslTree { Invoke-WslCommand "tree -C" "" "tree.com" }
 Set-Alias tree Get-ListingWslTree
 
 function Search-ListingWslGrep {
-    $wslCommand = "ls -A | grep -i $args"
-    $psCommand = 'Get-ChildItem | Where-Object { $_.Name.Contains(''' + "$args" + ''') }'
-    Invoke-WslCommand $wslCommand "" $psCommand
+    $wsl = Get-WslExe
+
+    if ([string]::IsNullOrEmpty($wsl)) {
+        Get-ChildItem | Where-Object { $_.Name.Contains("$args") }
+    }
+    else {
+        wsl.exe ls -A | wsl.exe grep -i "$args"
+    }
 }
 Set-Alias lsgrep Search-ListingWslGrep
 
 function Search-ListingWslGrepLong {
-    $wslCommand = "ls -hlA --time-style=long-iso | grep -i $args"
-    $psCommand = 'Get-ChildItem | Where-Object { $_.Name.Contains(''' + "$args" + ''') }'
-    Invoke-WslCommand $wslCommand "" $psCommand
+    $wsl = Get-WslExe
+
+    if ([string]::IsNullOrEmpty($wsl)) {
+        Get-ChildItem | Where-Object { $_.Name.Contains("$args") }
+    }
+    else {
+        wsl.exe ls -hlA --time-style=long-iso | wsl.exe grep -i "$args"
+    }
 }
 Set-Alias llgrep Search-ListingWslGrepLong
 
 function Search-ListingWslRg {
-    $wslCommand = "ls -A | rg -S $args"
-    $psCommand = 'Get-ChildItem | Where-Object { $_.Name.Contains(''' + "$args" + ''') }'
-    Invoke-WslCommand $wslCommand "" $psCommand
+    $wsl = Get-WslExe
+
+    if ([string]::IsNullOrEmpty($wsl)) {
+        Get-ChildItem | Where-Object { $_.Name.Contains("$args") }
+    }
+    else {
+        wsl.exe ls -A | wsl.exe rg -S "$args"
+    }
 }
 Set-Alias lsrg Search-ListingWslRg
 
 function Search-ListingWslRgLong {
-    $wslCommand = "ls -hlA --time-style=long-iso | rg -S $args"
-    $psCommand = 'Get-ChildItem | Where-Object { $_.Name.Contains(''' + "$args" + ''') }'
-    Invoke-WslCommand $wslCommand "" $psCommand
+    $wsl = Get-WslExe
+
+    if ([string]::IsNullOrEmpty($wsl)) {
+        Get-ChildItem | Where-Object { $_.Name.Contains("$args") }
+    }
+    else {
+        wsl.exe ls -hlA --time-style=long-iso | wsl.exe rg -S "$args"
+    }
 }
 Set-Alias llrg Search-ListingWslRgLong
 
