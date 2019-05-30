@@ -5,21 +5,14 @@ Set-StrictMode -Version 2.0
 
 # Turn off Telemetry (set to Basic)
 $key = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection"
-Set-RegistryInt $key "AllowTelemetry" 1  # Basic
+Set-RegistryInt $key "AllowTelemetry" 0  # Off, not even basic (1)
 # Sneaky devils keep moving it around
 $key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection"
-Set-RegistryInt $key "AllowTelemetry" 1  # Basic
+Set-RegistryInt $key "AllowTelemetry" 0  # Off, not even basic (1)
 Set-RegistryInt $key "MaxTelemetryAllowed" 1
-
-# Turn off "Occasionally Show Suggestions In Start"
-$cdm = "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
-Set-RegistryInt $cdm "SubscribedContent-338388Enabled" 0
-
-# Turn off "Get Tips, Tricks, and Suggestions as you use Windows"
-Set-RegistryInt $cdm "SubscribedContent-338389Enabled" 0
-
-# Turn off "Show me Windows welcome experience after updates and occasionally when I sign in..."
-Set-RegistryInt $cdm "SubscribedContent-310093Enabled" 0
+Set-RegistryInt $key "DoNotShowFeedbackNotifications" 1
+$key = "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection"
+Set-RegistryInt $key "AllowTelemetry" 0  # Off, not even basic (1)
 
 # Increase the notification display time, 7 seconds
 Set-RegistryInt "HKCU:\Control Panel\Accessibility" "MessageDuration" 7
@@ -27,6 +20,10 @@ Set-RegistryInt "HKCU:\Control Panel\Accessibility" "MessageDuration" 7
 # Turn off the use of Advertising ID
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo"
 Set-RegistryInt $key "Enabled" 0
+
+# Bluetooth advertising (seriously?)
+$key = "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth"
+Set-RegistryInt $key "AllowAdvertising" 0
 
 # Do NOT allow apps to send emails
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\DeviceAccess\Global\" +
@@ -47,6 +44,108 @@ $compsPath = "SOFTWARE\Microsoft\Active Setup\Installed Components\" +
 
 Set-RegistryInt "HKLM:\$compsPath" "IsInstalled" 0
 Set-RegistryInt "HKCU:\$compsPath" "IsInstalled" 0
+
+# Turn off handwriting, ink, and other telemetry
+$key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows"
+Set-RegistryInt "$key\TabletPC" "PreventHandwritingDataSharing" 1
+Set-RegistryInt "$key\HandwritingErrorReports" "PreventHandwritingErrorReports" 1
+Set-RegistryInt "$key\AppCompat" "DisableInventory" 1
+Set-RegistryInt "$key\AppCompat" "DisableUAR" 1
+Set-RegistryInt "$key\AppCompat" "AITEnable" 0
+Set-RegistryInt "$key\Personalization" "NoLockScreenCamera" 1
+Set-RegistryInt "$key\Messaging" "AllowMessageSync" 0
+Set-RegistryInt "$key\CredUI" "DisablePasswordReveal" 1
+$key = "HKCU:\Software\Microsoft\InputPersonalization"
+Set-RegistryInt $key "RestrictImplicitInkCollection" 1
+Set-RegistryInt $key "RestrictImplicitTextCollection" 1
+Set-RegistryInt "$key\TrainedDataStore" "HarvestContacts" 0
+$key = "HKCU:\Software\Microsoft\Personalization\Settings"
+Set-RegistryInt $key "AcceptedPrivacyPolicy" 0
+$key = "HKCU:\SOFTWARE\Microsoft\Input\TIPC"
+Set-RegistryInt $key "Enabled" 0
+$key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\TabletPC"
+Set-RegistryInt $key "PreventHandwritingDataSharing" 1
+$key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\HandwritingErrorReports"
+Set-RegistryInt $key "PreventHandwritingErrorReports" 1
+$key = "HKLM:\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows\HandwritingErrorReports"
+Set-RegistryInt $key "PreventHandwritingErrorReports" 1
+
+# Microsoft Edge, although I never use it
+$key = "HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge"
+Set-RegistryInt "$key\Main" "DoNotTrack" 1
+Set-RegistryInt "$key\FlipAhead" "FPEnabled" 0
+Set-RegistryInt "$key\Main" "ShowSearchSuggestionsGlobal" 0
+Set-RegistryInt "$key\ServiceUI" "EnableCortana" 0
+Set-RegistryInt "$key\ServiceUI\ShowSearchHistory" "" 0 # The default key
+Set-RegistryString "$key\Main" "Use FormSuggest" "no"
+
+# Content delivery settings, "suggestions" on lock screen, start menu, other
+$key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+Set-RegistryInt $key "SystemPaneSuggestionsEnabled" 0
+Set-RegistryInt $key "RotatingLockScreenEnabled" 0
+Set-RegistryInt $key "RotatingLockScreenOverlayEnabled" 0
+Set-RegistryInt $key "SilentInstalledAppsEnabled" 0
+Remove-ItemProperty -Path "$key\SuggestedApps" -Name * -Force
+Set-RegistryInt $key "SoftLandingEnabled" 0
+# Turn off "Occasionally Show Suggestions In Start"
+Set-RegistryInt $key "SubscribedContent-338388Enabled" 0
+# Turn off "Get Tips, Tricks, and Suggestions as you use Windows"
+Set-RegistryInt $key "SubscribedContent-338389Enabled" 0
+# Turn off "Show me Windows welcome experience after updates and occasionally when I sign in..."
+Set-RegistryInt $key "SubscribedContent-310093Enabled" 0
+
+$key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent"
+Set-RegistryInt $key "DisableSoftLanding" 1
+#Set-RegistryInt $key "DisableWindowsSpotlightFeatures" 1
+Set-RegistryInt $key "DisableWindowsConsumerFeatures" 1
+
+# Biometrics
+$key = "HKLM:\SOFTWARE\Policies\Microsoft\Biometrics"
+Set-RegistryInt $key "Enabled" 0
+
+# Data access "consent"
+$key = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore"
+Set-RegistryString "$key\userAccountInformation" "Value" "Deny"
+Set-RegistryString "$key\contacts" "Value" "Deny"
+Set-RegistryString "$key\appointments" "Value" "Deny"
+Set-RegistryString "$key\phoneCallHistory" "Value" "Deny"
+Set-RegistryString "$key\email" "Value" "Deny"
+Set-RegistryString "$key\userDataTasks" "Value" "Deny"
+Set-RegistryString "$key\chat" "Value" "Deny"
+
+# OneDrive
+$ key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive"
+Set-RegistryInt $key "DisableFileSyncNGSC" 1
+$ key = "HKLM:\SOFTWARE\Microsoft\OneDrive"
+Set-RegistryInt $key "PreventNetworkTrafficPreUserSignIn" 1
+
+# Microsoft Feedback
+$key = "HKCU:\Software\Microsoft\Siuf\Rules"
+Set-RegistryInt $key "NumberOfSIUFInPeriod" 0
+Remove-ItemProperty -Path "$key" -Name "PeriodInNanoSeconds" -Force
+
+# Logging
+$key = "HKLM:\System\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener"
+Set-RegistryInt $key "Start" 0
+$key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\DeviceAccess\Global\{2297E4E2-5DBE-466D-A12B-0F8286F0D9CA}"
+Set-RegistryString $key "Value" "Deny"
+$key = "HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting"
+Set-RegistryInt $key "Disabled" 1
+
+# Maps (who uses Windows or Bing maps?)
+$key = "HKLM:\SYSTEM\Maps"
+Set-RegistryInt $key "AutoUpdateEnabled" 0
+
+# Telemetry Service
+$key = "HKLM:\System\CurrentControlSet\Services\dmwappushservice"
+Set-RegistryInt $key "Start" 4
+
+# Disable the SMB1 protocl
+Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
+
+# Disable Remote Assistance
+$key = "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance"
+Set-RegistryInt $key "fAllowToGetHelp" 0
 
 if (-not ($global:InstallType -eq "work")) {
     # Setup Telemetry rule in Firewall
@@ -238,6 +337,11 @@ $services = @(
     "RetailDemo"                               # Retail Demo Service, odd this isn't disabled by default
     "icssvc"                                   # Windows Mobile Hotspot Service, only needed on devices with cellular data
     "WwanSvc"                                  # WWAN AutoConfig, only needed on devices with cellular data
+    "HomeGroupListener"
+    "HomeGroupProvider"
+    "WerSvc"                                   # Error Reporting Service
+    "dmwappushservice"                         # WAP Push Service
+    "TrkWks"                                   # Distributed Link Tracking Service
 )
 
 foreach ($service in $services) {
@@ -245,74 +349,9 @@ foreach ($service in $services) {
     Get-Service -Name $service -ErrorAction SilentlyContinue | Set-Service -StartupType Disabled
 }
 
-
-## Reg values from O&O ShutUp10
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\TabletPC\PreventHandwritingDataSharing  1
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\HandwritingErrorReports\PreventHandwritingErrorReports  1
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat\DisableInventory 1
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization\NoLockScreenCamera 1
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\Messaging\AllowMessageSync 0
-# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation\Value "Deny"
-# HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Start_TrackProgs 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\DeviceAccess\Global\{2297E4E2-5DBE-466D-A12B-0F8286F0D9CA}\Value "Deny"
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\CredUI\DisablePasswordReveal 1
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat\DisableUAR 1
-# HKLM\System\CurrentControlSet\Services\dmwappushservice\Start 4
-# HKLM\System\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener\Start 0
-# HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main\DoNotTrack 1
-# HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\FlipAhead\FPEnabled 0
-# HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main\ShowSearchSuggestionsGlobal 0
-# HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\ServiceUI\EnableCortana 0
-# HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\ServiceUI\ShowSearchHistory\(Default) 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\SyncPolicy 5
-# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Personalization\Enabled 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\BrowserSettings\Enabled 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Credentials\Enabled 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Language\Enabled 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Accessibility\Enabled 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Windows\Enabled 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\Windows Search\CortanaConsent 0
-# HKCU\Software\Microsoft\Personalization\Settings\AcceptedPrivacyPolicy 0
-# HKCU\Software\Microsoft\InputPersonalization\RestrictImplicitInkCollection 1
-# HKCU\Software\Microsoft\InputPersonalization\RestrictImplicitTextCollection 1
-# HKCU\Software\Microsoft\InputPersonalization\TrainedDataStore\HarvestContacts 0
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search\AllowSearchToUseLocation 0
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search\DisableWebSearch 1
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search\ConnectedSearchUseWeb 0
-# HKLM\SOFTWARE\Microsoft\Speech_OneCore\Preferences\ModelDownloadAllowed 0
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search\AllowCloudSearch 0
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors\DisableLocation 1
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors\DisableWindowsLocationProvider 1
-#(may keep) HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors\DisableLocationScripting 1
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection\AllowTelemetry 0
-# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection\AllowTelemetry 0
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat\AITEnable 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SystemPaneSuggestionsEnabled 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\RotatingLockScreenEnabled 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\RotatingLockScreenOverlayEnabled 0
-# HKCU\Software\Microsoft\Siuf\Rules\NumberOfSIUFInPeriod 0
-# HKCU\Software\Microsoft\Siuf\Rules\PeriodInNanoSeconds 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SilentInstalledAppsEnabled 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SoftLandingEnabled 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ShowSyncProviderNotifications 1
-# HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People\PeopleBand 1
-
-# HKLM\SOFTWARE\Policies\Microsoft\Biometrics\Enabled 0
-# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\contacts\Value "Deny"
-# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appointments\Value "Deny"
-# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\phoneCallHistory\Value "Deny"
-# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\email\Value "Deny"
-# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userDataTasks\Value "Deny"
-# HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\chat\Value "Deny"
-
-# HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main\Use FormSuggest "no"
-
-# HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Start_TrackDocs 0
-# HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ShowSyncProviderNotifications 0
-# HKLM\SOFTWARE\Microsoft\OneDrive\PreventNetworkTrafficPreUserSignIn 1
-
-# HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive\DisableFileSyncNGSC 1
-
-# HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People\PeopleBand 0
-
-
+# Disable Unneede Scheduled Tasks
+Write-Host "Disabling Unneeded Scheduled Tasks..."
+schtasks /Change /TN Microsoft\Windows\CloudExperienceHost\CreateObjectTask /Disable | Out-Null
+schtasks /Change /TN Microsoft\Windows\Feedback\Siuf\DmClient /Disable | Out-Null
+schtasks /Change /TN Microsoft\Windows\NetTrace\GatherNetworkInfo /Disable | Out-Null
+schtasks /Change /TN Microsoft\Windows\Windows Error Reporting\QueueReporting /Disable | Out-Null

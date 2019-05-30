@@ -31,6 +31,7 @@ $disableFeature = @(
     "WindowsMediaPlayer"
     "WorkFolders-Client"
     "Xps-Foundation-Xps-Viewer"
+    "Internet-Explorer-Optional-amd64"  # Internet Explorer 11
 )
 
 foreach ($feature in $disableFeature) {
@@ -52,7 +53,6 @@ foreach ($feature in $disableFeature) {
 # For all desktops (these are installed by default in Windows 10), repeated here to be explicit
 $defaultFeatures = @(
     "FaxServicesClientPackage"
-    "Internet-Explorer-Optional-amd64"
     "MediaPlayback"
     "Microsoft-Windows-Client-EmbeddedExp-Package"
     "Microsoft-Windows-NetFx3-OC-Package"

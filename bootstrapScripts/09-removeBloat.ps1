@@ -107,7 +107,3 @@ foreach ($app in $apps) {
 
     Start-Sleep 5
 }
-
-# Prevents "Suggested Applications" returning
-$key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Cloud Content"
-Set-RegistryInt $key "DisableWindowsConsumerFeatures" 1
