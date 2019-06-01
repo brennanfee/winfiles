@@ -41,3 +41,60 @@ Write-Host "Install Apps - Automatic" -foreground "green"
 # Mezer Tools
 # VPN Software (currently Cisco AnyConnect)
 # Yarn (do NOT use Chocolatey for this)
+
+### Powershell Modules
+# Other package "providers"
+
+#GitHubProvider -> git repo as a package\module
+#GitLabProvider -> same as above but for GitLab
+#ChocolateyGet -> how does this differ than the chocolatey one
+#DockerProvider
+#GistProvider
+#AppxGet ?
+
+
+#From PS Gallery
+
+#powershell-yaml
+#PSLogging
+
+# JumpCloud
+# Posh-SSH
+# AWSPowerShell
+# AWSPowerShell.NetCore
+# JiraPS
+# ACMESharp
+# MSI
+# BurntToast
+# PsIni
+# SSHSessions
+# Logging
+# PowerShellForGitHub
+# Get-ChildItemColor -> fallback for wsl ls?
+# windows-screenfetch
+# Posh-ACME
+# BetterCredentials
+# SemVer
+###
+
+# Install Uplay (ubisoft)
+#$url = "http://ubi.li/4vxt9"
+#$output = "C:\Users\$env:username\Desktop\Programs\UPlay.exe"
+#Invoke-WebRequest $url -OutFile $output
+#Start-Process -FilePath "C:\Users\$env:username\Desktop\Programs\UPlay.exe" -ArgumentList "/S /silent /s" 2>&1 | Out-Null
+
+# Install FireFox Nightly
+#$url = "https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=win64&lang=en-US"
+#$output = "C:\Users\$env:username\Desktop\Programs\FireFoxNightly.exe"
+#Invoke-WebRequest $url -OutFile $output
+#Start-Process -FilePath "C:\Users\$env:username\Desktop\Programs\FireFoxNightly.exe" -ArgumentList "/S /silent /s -ms" 2>&1 | Out-Null
+
+# Install PushBullet
+#$url = "https://update.pushbullet.com/pushbullet_installer.exe"
+#$output = "C:\Users\$env:username\Desktop\Programs\PushBullet.exe"
+#Invoke-WebRequest $url -OutFile $output
+#Start-Process -FilePath "C:\Users\$env:username\Desktop\Programs\PushBullet.exe" -ArgumentList "/S /silent /s" 2>&1 | Out-Null
+
+
+
+
