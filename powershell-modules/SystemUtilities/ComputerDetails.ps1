@@ -143,7 +143,7 @@ function Get-ComputerDetails {
         $result += New-Object PsObject -Property $ResultProps
     }
     catch {
-        Write-Warning "Cannot connect to $computer"
+        Write-Warning "Cannot connect to $ComputerName"
     }
 
     return $result
