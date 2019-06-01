@@ -37,7 +37,7 @@ function Get-ComputerDetails {
 #>
     param(
         [parameter(Position = 0, ValueFromPipeline = $true, HelpMessage = "Computer or IP address of machine to test")]
-        [string[]]$ComputerName = $env:COMPUTERNAME,
+        [string]$ComputerName = $env:COMPUTERNAME,
         [parameter(HelpMessage = "Pass an alternate credential")]
         [System.Management.Automation.PSCredential]$Credential = $null
     )
@@ -48,26 +48,26 @@ function Get-ComputerDetails {
 
     try {
         if ($Credential -ne $null) {
-            $wmibios = Get-WmiObject -Class Win32_BIOS -ComputerName $ComputerName -Credential $Credential -ErrorAction Stop | Select-Object version, serialnumber
-            $wmisystem = Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName -Credential $Credential -ErrorAction Stop | Select-Object name, model, manufacturer, pcsystemtype
+            $wmibios = Get-WmiObject -Class Win32_BIOS -ComputerName $ComputerName -Credential $Credential -ErrorAction Stop | Select-Object Version, SerialNumber
+            $wmisystem = Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName -Credential $Credential -ErrorAction Stop | Select-Object Name, Model, Manufacturer, PCSystemType, HypervisorPresent
         }
         else {
-            $wmibios = Get-WmiObject -Class Win32_BIOS -ComputerName $ComputerName -ErrorAction Stop | Select-Object version, serialnumber
-            $wmisystem = Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName -ErrorAction Stop | Select-Object name, model, manufacturer, pcsystemtype
+            $wmibios = Get-WmiObject -Class Win32_BIOS -ComputerName $ComputerName -ErrorAction Stop | Select-Object Version, SerialNumber
+            $wmisystem = Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName -ErrorAction Stop | Select-Object Name, Model, Manufacturer, PCSystemType, HypervisorPresent
         }
 
         $ResultProps = @{
-            ComputerName = $wmisystem.name
+            ComputerName = $wmisystem.Name
             BIOSVersion  = $wmibios.Version
-            SerialNumber = $wmibios.serialnumber
-            Manufacturer = $wmisystem.manufacturer
-            Model        = $wmisystem.model
+            SerialNumber = $wmibios.SerialNumber
+            Manufacturer = $wmisystem.Manufacturer
+            Model        = $wmisystem.Model
             IsLaptop     = $false
             IsVirtual    = $false
             VirtualType  = $null
         }
 
-        if ($wmisystem.pcsystemtype -eq 2) {
+        if ($wmisystem.PCSystemType -eq 2) {
             $ResultProps.IsLaptop = $true
         }
 
@@ -97,33 +97,48 @@ function Get-ComputerDetails {
         }
 
         if (-not $ResultProps.IsVirtual) {
-            if ($wmisystem.manufacturer -like "*Microsoft*") {
+            if ($wmisystem.Manufacturer -like "*Microsoft*") {
                 $ResultProps.IsVirtual = $true
                 $ResultProps.VirtualType = "Hyper-V"
             }
-            elseif ($wmisystem.manufacturer -like "*VMWare*") {
+            elseif ($wmisystem.Manufacturer -like "*VMWare*") {
                 $ResultProps.IsVirtual = $true
                 $ResultProps.VirtualType = "VMWare"
             }
-            elseif ($wmisystem.model -eq "VirtualBox") {
+            elseif ($wmisystem.Model -eq "VirtualBox") {
                 $ResultProps.IsVirtual = $true
                 $ResultProps.VirtualType = "VirtualBox"
             }
-            elseif ($wmisystem.model -eq "KVM") {
+            elseif ($wmisystem.Model -eq "KVM") {
                 $ResultProps.IsVirtual = $true
                 $ResultProps.VirtualType = "KVM"
             }
-            elseif ($wmisystem.model -like "*Virtual*") {
+            elseif ($wmisystem.Model -like "*Virtual*") {
                 $ResultProps.IsVirtual = $true
                 $ResultProps.VirtualType = "Unknown"
             }
         }
 
-        # Windows Version Info
-        $ResultProps.WinVersionInfo = [System.Environment]::OSVersion.Version
-        $regKey = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
-        $ResultProps.WinReleaseId = `
-        (Get-ItemProperty -Path $regKey -Name ReleaseId).ReleaseId
+        $ResultProps.BootMode = "Unknown"
+        $ResultProps.WinVersionInfo = $null
+        $ResultProps.WinVersionInfo = 0
+
+        if ($ComputerName -eq $env:COMPUTERNAME) {
+            # Windows Version Info
+            $ResultProps.WinVersionInfo = [System.Environment]::OSVersion.Version
+            $regKey = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+            $ResultProps.WinReleaseId = `
+            (Get-ItemProperty -Path $regKey -Name ReleaseId).ReleaseId
+
+            # Boot type (UEFI or BIOS)
+            $pantherFile = "$env:SystemRoot\Panther\setupact.log"
+            $bootMode = (Select-String 'Detected boot environment' $pantherFile -AllMatches ).Line -Replace '.*:\s+'
+            if ($bootMode -eq "EFI") {
+                $ResultProps.BootMode = "UEFI"
+            } else {
+                $ResultProps.BootMode = $bootMode
+            }
+        }
 
         $result += New-Object PsObject -Property $ResultProps
     }
