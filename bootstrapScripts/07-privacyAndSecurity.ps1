@@ -20,6 +20,8 @@ Set-RegistryInt "HKCU:\Control Panel\Accessibility" "MessageDuration" 7
 # Turn off the use of Advertising ID
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo"
 Set-RegistryInt $key "Enabled" 0
+$key = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata"
+Set-RegistryInt $key "PreventDeviceMetadataFromNetwork" 1
 
 # Bluetooth advertising (seriously?)
 $key = "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth"
@@ -44,6 +46,14 @@ $compsPath = "SOFTWARE\Microsoft\Active Setup\Installed Components\" +
 
 Set-RegistryInt "HKLM:\$compsPath" "IsInstalled" 0
 Set-RegistryInt "HKCU:\$compsPath" "IsInstalled" 0
+
+# For Security, disable the ability for apps on other devices to open messages
+# and apps on this device
+$key = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CDP"
+Set-RegistryInt $key "RomeSdkChannelUserAuthzPolicy" 0
+Set-RegistryInt $key "CdpSessionUserAuthzPolicy" 0
+$key = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\SmartGlass"
+Set-RegistryInt $key "UserAuthPolicy" 0
 
 # Turn off handwriting, ink, and other telemetry
 $key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows"
@@ -79,6 +89,10 @@ Set-RegistryInt "$key\ServiceUI" "EnableCortana" 0
 Set-RegistryInt "$key\ServiceUI\ShowSearchHistory" "" 0 # The default key
 Set-RegistryString "$key\Main" "Use FormSuggest" "no"
 
+# IE
+$key = "HKCU:\SOFTWARE\Microsoft\Internet Explorer"
+Set-RegistryInt "$key\Main" "DoNotTrack" 1
+
 # Content delivery settings, "suggestions" on lock screen, start menu, other
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
 Set-RegistryInt $key "SystemPaneSuggestionsEnabled" 0
@@ -89,10 +103,23 @@ Remove-ItemProperty -Path "$key\SuggestedApps" -Name * -Force
 Set-RegistryInt $key "SoftLandingEnabled" 0
 # Turn off "Occasionally Show Suggestions In Start"
 Set-RegistryInt $key "SubscribedContent-338388Enabled" 0
+# Turn off Suggested Content in Settings app
+Set-RegistryInt $key "SubscribedContent-338393Enabled" 0
+Set-RegistryInt $key "SubscribedContent-353694Enabled" 0
+# Turn off Timeline Suggestions
+Set-RegistryInt $key "SubscribedContent-353698Enabled" 0
 # Turn off "Get Tips, Tricks, and Suggestions as you use Windows"
 Set-RegistryInt $key "SubscribedContent-338389Enabled" 0
 # Turn off "Show me Windows welcome experience after updates and occasionally when I sign in..."
 Set-RegistryInt $key "SubscribedContent-310093Enabled" 0
+# Turn off "My People" Suggestions
+Set-RegistryInt $key "SubscribedContent-314563Enabled" 0
+# Turn off pre-installed apps
+Set-RegistryInt $key "PreInstalledAppsEnabled" 0
+Set-RegistryInt $key "PreInstalledAppsEverEnabled" 0
+Set-RegistryInt $key "OEMPreInstalledAppsEnabled" 0
+Set-RegistryInt $key "ContentDeliveryAllowed" 0
+Set-RegistryInt $key "SubscribedContentEnabled" 0
 
 $key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent"
 Set-RegistryInt $key "DisableSoftLanding" 1
@@ -116,8 +143,13 @@ Set-RegistryString "$key\chat" "Value" "Deny"
 # OneDrive
 $ key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive"
 Set-RegistryInt $key "DisableFileSyncNGSC" 1
+Set-RegistryInt $key "DisableFileSync" 1
 $ key = "HKLM:\SOFTWARE\Microsoft\OneDrive"
 Set-RegistryInt $key "PreventNetworkTrafficPreUserSignIn" 1
+$key = "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}"
+Set-RegistryInt $key "System.IsPinnedToNameSpaceTree" 0
+$key = "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}"
+Set-RegistryInt $key "System.IsPinnedToNameSpaceTree" 0
 
 # Microsoft Feedback
 $key = "HKCU:\Software\Microsoft\Siuf\Rules"
@@ -340,7 +372,7 @@ $services = @(
     "HomeGroupListener"
     "HomeGroupProvider"
     "WerSvc"                                   # Error Reporting Service
-    "dmwappushservice"                         # WAP Push Service
+    "DmwApPushService"                         # WAP Push Service
     "TrkWks"                                   # Distributed Link Tracking Service
 )
 

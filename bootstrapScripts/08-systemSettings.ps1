@@ -229,6 +229,9 @@ Set-RegistryInt "$key\Advanced\People" "PeopleBand" 0
 Set-RegistryInt "$key\Advanced" "Start_TrackProgs" 0
 Set-RegistryInt "$key\Advanced" "Start_TrackDocs" 0
 
+# Disable Edge desktop shortcut
+Set-RegistryInt "$key" "DisableEdgeDesktopShortcutCreation" 1
+
 ########  Search Settings
 Write-Host "Search Settings"
 
@@ -250,23 +253,28 @@ Set-RegistryInt "HKCU:\Software\Speech_OneCore\Preferences" "VoiceActivationOn" 
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search"
 Set-RegistryInt $key "VoiceShortcut" 0
 
-# Remove Search Box/Button from Taskbar
-Set-RegistryInt $key "SearchboxTaskbarMode" 0
+# Remove Search Box/Button from Taskbar, 0 = no search, 1 = search icon, 2 = search bar
+Set-RegistryInt $key "SearchboxTaskbarMode" 1
 
 # Turn on storage sense (I know, not a search setting)
 Set-RegistryInt "HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy" "StoragePoliciesNotified" 1
-
-# Disable Bing search
-$key = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion'
-Set-RegistryInt "$key\Search" "BingSearchEnabled" 0
 
 # Disable Game Bar Tips
 Set-RegistryInt "HKCU:\SOFTWARE\Microsoft\GameBar" "ShowStartupPanel" 0
 Set-RegistryInt "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR" "AllowGameDVR" 0
 Set-RegistryInt "HKCU:\System\GameConfigStore" "GameDVR_Enabled" 0
 
-$key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Windows Search"
+$key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search"
 Set-RegistryInt $key "CortanaConsent" 0
+Set-RegistryInt $key "CanCortanaBeEnabled" 0
+Set-RegistryInt $key "DeviceHistoryEnabled" 0
+Set-RegistryInt $key "CortanaEnabled" 0
+Set-RegistryInt $key "CortanaInAmbientMode" 0
+# Disable Bing search
+Set-RegistryInt $key "BingSearchEnabled" 0
+Set-RegistryInt $key "HistoryViewEnabled" 0
+# Turn off the Cortana Shortcut (win+c)
+Set-RegistryInt $key "VoiceShortcut" 0
 
 $key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search"
 Set-RegistryInt $key "AllowSearchToUseLocation" 0
@@ -274,6 +282,11 @@ Set-RegistryInt $key "DisableWebSearch" 1
 Set-RegistryInt $key "ConnectedSearchUseWeb" 0
 Set-RegistryInt $key "AllowCloudSearch" 0
 Set-RegistryInt $key "AllowCortana" 0
+Set-RegistryInt $key "AllowCortanaAboveLock" 0
+
+#Add "Run as different user" to context menu
+$key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer"
+Set-RegistryInt $key "ShowRunasDifferentuserinStart" 1
 
 ########  Copy
 # Show detailed copy dialog by default
