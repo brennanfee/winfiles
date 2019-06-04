@@ -5,7 +5,7 @@
 Param(
     [Parameter(ValueFromPipeline = $true,
         ValueFromPipelineByPropertyName = $true)]
-    [ValidateSet('home','work')]
+    [ValidateSet('home','work','gaming')]
     [string] $InstallType = "home"
 )
 
