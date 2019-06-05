@@ -27,18 +27,14 @@ function Add-ScoopBucket {
 function Install-WithScoop {
     Param(
         [string]$App,
-        [string]$VerifyCommand,
+        [string]$VerifyPath,
         [switch]$Global
     )
 
     Write-Host ""
     Write-Host "Checking for Scoop app: $App"
 
-    if ([string]::IsNullOrEmpty($env:VerifyCommand)) {
-        $VerifyCommand = $App + ".exe"
-    }
-
-    if (-not (Get-Command -Name $VerifyCommand -ErrorAction SilentlyContinue)) {
+    if (-not (Test-Path $VerifyPath)) {
         Write-Host "Install with Scoop: $App"
 
         $command = "scoop install $App"
