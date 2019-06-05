@@ -41,6 +41,14 @@ The initial script run in Step 2 above will initialize Git and clone this reposi
 
 I install as many applications as I can automatically using two different install managers.  [AppGet](https://appget.net/) and [Scoop](https://scoop.sh/).
 
+### AppGet
+
+AppGet is generally the first source to install an application.  If both Scoop and AppGet offer the same application, AppGet is used (with a few exceptions).  It manages updates to applications well and can even handle applications that self-update (such as Google Chrome or Firefox).
+
+### Scoop
+
+Scoop is best for managing command-line applications or tools where multiple versions may be needed (such as programming languages like Python, Ruby).  While the focus is on command-line tools, when AppGet doesn't offer an application Scoop will still be used.
+
 ## License
 
 [MIT](license) © 2019 [Brennan Fee](https://github.com/brennanfee)
