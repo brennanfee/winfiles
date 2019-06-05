@@ -1,5 +1,2 @@
 AppGet.exe -> 0.65.3
 Site: https://appget.net/
-
-PowerShell.msi -> 6.2.1
-Site:  https://github.com/PowerShell/PowerShell/releases
