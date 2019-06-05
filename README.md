@@ -1,6 +1,24 @@
 # winfiles
 
-My ['dotfiles'](https://dotfiles.github.io) for Windows
+My ['dotfiles'](https://dotfiles.github.io) and configuration scripts for Windows
+
+## Purpose
+
+### A 'mostly' Automated Windows Setup
+
+Unlike better operating systems (ahem... Linux), Windows can't fully be configured automatically.  Well, simple installations might be able to but full desktop configurations with disparate applications and settings is nearly impossible to achieve.
+
+This is my attempt at making the setup of my machines as quick and "automatic" as possible.  There are still a number of manual steps I have to take and even the "automatic" process is a multi-step affair.  But, I can usually get a brand new Windows installation up and running fairly quickly and **consistently** with this setup.
+
+### Not just installation but config as well
+
+This repository also contains my personal settings and configurations much in the same way that `dotfiles` are used on Linux.  In fact, a sub-module of this repository is in fact my `dotfiles` so that I can share some files between all systems.
+
+## Installation Overview
+
+
+
+# OLD
 
 ## Installation Steps
 
