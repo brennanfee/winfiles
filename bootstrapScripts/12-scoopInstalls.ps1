@@ -92,7 +92,6 @@ $apps = @(
     [PSCustomObject]@{Name = "etcher-cli"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "emacs"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "hack-font"; Path = "$env:SystemRoot\Fonts\Hack-Regular.exe" }
-    [PSCustomObject]@{Name = "oni"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "rufus"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "speedcrunch"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "sysinternals"; Path = "$env:SCOOP\shims\psinfo.exe" }
