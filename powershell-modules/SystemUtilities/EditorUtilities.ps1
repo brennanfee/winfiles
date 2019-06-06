@@ -136,18 +136,18 @@ function Get-DefaultAtomExe {
 }
 
 function Get-DefaultVSCodeExe {
-    $app = Get-ApplicationPath "Code.exe"
+    $app = Get-ApplicationPath "code"
     if (-not ([string]::IsNullOrEmpty($app))) {
         return $app
     }
-    elseif (Test-Path "$env:LOCALAPPDATA\Programs\Microsoft VS Code\Code.exe") {
-        return "$env:LOCALAPPDATA\Programs\Microsoft VS Code\Code.exe"
+    elseif (Test-Path "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code") {
+        return "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code"
     }
-    elseif (Test-Path "C:\Program Files\Microsoft VS Code\Code.exe") {
-        return "C:\Program Files\Microsoft VS Code\Code.exe"
+    elseif (Test-Path "C:\Program Files\Microsoft VS Code\bin\code") {
+        return "C:\Program Files\Microsoft VS Code\bin\code"
     }
-    elseif (Test-Path "C:\Program Files (x86)\Microsoft VS Code\Code.exe") {
-        return "C:\Program Files (x86)\Microsoft VS Code\Code.exe"
+    elseif (Test-Path "C:\Program Files (x86)\Microsoft VS Code\bin\code") {
+        return "C:\Program Files (x86)\Microsoft VS Code\bin\code"
     }
     else {
         return ""
