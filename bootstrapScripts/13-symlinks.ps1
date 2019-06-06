@@ -19,3 +19,8 @@ if ($global:InstallType == "gaming") {
 
 $target = "$winFiles\dotfiles\rcs\tag-$tag\config\git\gitconfig.user"
 New-SymbolicLink "$env:USERPROFILE\.config\git\gitconfig.user" $target
+
+######## Ignore file
+# Used by RipGrep/Ag and other tools that respect ignore files
+
+New-SymbolicLink "$env:USERPROFILE\.ignore" "$winFiles\dotfiles\rcs\ignore"
