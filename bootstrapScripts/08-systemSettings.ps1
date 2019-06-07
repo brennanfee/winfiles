@@ -147,11 +147,6 @@ Set-RegistryString $key "Flags" "506"
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel"
 Set-RegistryInt "$key" "AllItemsIconView" 0
 
-######## Remove Desktop Icons
-$desktop = Get-SpecialFolder "Desktop"
-Remove-Item "$desktop\*.lnk" -ErrorAction SilentlyContinue
-Remove-Item "$env:PUBLIC\Desktop\*.lnk" -ErrorAction SilentlyContinue
-
 ########  Terminal (conhost) settings
 Write-Host "Terminal Settings"
 

@@ -96,11 +96,6 @@ if (-not ($computerDetails.IsVirtual)) {
     }
 }
 
-######## Remove Desktop Icons
-$desktop = Get-SpecialFolder "Desktop"
-Remove-Item "$desktop\*.lnk" -ErrorAction SilentlyContinue
-Remove-Item "$env:PUBLIC\Desktop\*.lnk" -ErrorAction SilentlyContinue
-
 ## Other AppGet packages available, installed only as needed
 ##
 # blender -> 3d graphics editor
