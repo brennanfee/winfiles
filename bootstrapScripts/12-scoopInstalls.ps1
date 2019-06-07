@@ -12,6 +12,8 @@ $apps = @(
     [PSCustomObject]@{Name = "innounp"; Path = "$env:SCOOP_GLOBAL\shims\innounp.exe" }
     [PSCustomObject]@{Name = "sudo"; Path = "$env:SCOOP_GLOBAL\shims\sudo.cmd" }
     [PSCustomObject]@{Name = "which"; Path = "$env:SCOOP_GLOBAL\shims\which.exe" }
+    [PSCustomObject]@{Name = "aria2"; Path = "$env:SCOOP_GLOBAL\shims\aria2c.exe" }
+    [PSCustomObject]@{Name = "pwsh"; Path = "$env:SCOOP_GLOBAL\shims\aria2c.exe" }
 )
 
 foreach ($app in $apps) {
@@ -20,7 +22,6 @@ foreach ($app in $apps) {
 
 Write-Host "Installing Scoop applications - main"
 $apps = @(
-    [PSCustomObject]@{Name = "aria2"; Path = "$env:SCOOP\shims\aria2c.exe" }
     [PSCustomObject]@{Name = "aws"; Path = "$env:SCOOP\shims\aws.exe" }
     [PSCustomObject]@{Name = "cake"; Path = "$env:SCOOP\shims\cake.exe" }
     [PSCustomObject]@{Name = "cloc"; Path = "$env:SCOOP\shims\cloc.exe" }
@@ -51,6 +52,7 @@ $apps = @(
     [PSCustomObject]@{Name = "imagemagick"; Path = "$env:SCOOP\shims\magick.exe" }
     [PSCustomObject]@{Name = "jira"; Path = "$env:SCOOP\shims\jira.exe" }
     [PSCustomObject]@{Name = "jq"; Path = "$env:SCOOP\shims\jq.exe" }
+    [PSCustomObject]@{Name = "latex"; Path = "$env:SCOOP\shims\jq.exe" }
     [PSCustomObject]@{Name = "less"; Path = "$env:SCOOP\shims\less.exe" }
     [PSCustomObject]@{Name = "megatools"; Path = "$env:SCOOP\shims\megacopy.exe" }
     [PSCustomObject]@{Name = "neofetch"; Path = "$env:SCOOP\shims\neofetch.exe" }
@@ -91,11 +93,13 @@ $apps = @(
     [PSCustomObject]@{Name = "carnac"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "etcher-cli"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "emacs"; Path = "$env:SCOOP\shims\blah.exe" }
-    [PSCustomObject]@{Name = "hack-font"; Path = "$env:SystemRoot\Fonts\Hack-Regular.exe" }
+    #[PSCustomObject]@{Name = "hack-font"; Path = "$env:SystemRoot\Fonts\Hack-Regular.exe" }
+    [PSCustomObject]@{Name = "pandoc"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "rufus"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "speedcrunch"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "sysinternals"; Path = "$env:SCOOP\shims\psinfo.exe" }
     [PSCustomObject]@{Name = "task"; Path = "$env:SCOOP\shims\blah.exe" }
+    [PSCustomObject]@{Name = "texmaker"; Path = "$env:SCOOP\shims\blah.exe" }
 )
 
 foreach ($app in $apps) {
@@ -104,8 +108,8 @@ foreach ($app in $apps) {
 
 Write-Host "Installing Scoop applications - java"
 $apps = @(
-    [PSCustomObject]@{Name = "coretto8"; Path = "$env:SCOOP\shims\blah.exe" }
-    [PSCustomObject]@{Name = "coretto11"; Path = "$env:SCOOP\shims\blah.exe" }
+    [PSCustomObject]@{Name = "corretto8"; Path = "$env:SCOOP\shims\blah.exe" }
+    [PSCustomObject]@{Name = "corretto11"; Path = "$env:SCOOP\shims\blah.exe" }
 )
 
 foreach ($app in $apps) {

@@ -3,8 +3,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# This script is intended to be run as the very first thing once starting up a new Ubuntu
-# shell.  It has been tested with the Ubuntu 18.04 shell available in the Windows Store.
+# This script is intended to be run as the very first thing once starting up a
+# new Ubuntu WSL shell.  It has been tested with the Ubuntu 18.04 shell available
+# in the Windows Store.
 
 # After this script five steps should be taken:
 # 1.  Restart the shell (close down and reload)

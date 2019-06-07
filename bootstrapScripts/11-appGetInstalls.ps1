@@ -30,20 +30,20 @@ $apps = @(
     "jetbrains-toolbox"
     "kindle"
     "megasync"
-    "miktex"
-    "pandoc"
+    #"miktex" -> scoop
+    #"pandoc" -> scoop
     "pencil"
     "pia"
     "plex-media-player"
     "postman"
-    #    "pushbullet", use Wavebox intead
+    #"pushbullet" # use Wavebox intead
     "rainmeter"
     "scribus"
     "signal"
-    "skype"
-    "spotify"
+    #"skype"
+    #"spotify" # use the Windows Store version instead?
     "sqlectron"
-    "texmaker"
+    #"texmaker" -> scoop
     "visual-studio-code"
     "vlc"
     "wavebox"

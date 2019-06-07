@@ -99,7 +99,7 @@ $psCoreExe = "$env:SCOOP_GLOBAL\shims\pwsh.exe"
 if (-not (Test-Path "$psCoreExe")) {
     Write-LogAndConsole $logFile "Installing PowerShell Core"
 
-    Invoke-Expression "scoop install -g pwsh"
+    Invoke-Expression "scoop install --global pwsh"
 
     Write-LogAndConsole $logFile "PowerShell Core installed" -Color "Green"
 }
