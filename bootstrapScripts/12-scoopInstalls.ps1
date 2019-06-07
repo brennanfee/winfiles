@@ -121,11 +121,12 @@ $apps = @(
     [PSCustomObject]@{Name = "Arimo-NF"; Path = "$env:SystemRoot\Fonts\Arimo*Nerd*.ttf" }
     [PSCustomObject]@{Name = "Cousine-NF"; Path = "$env:SystemRoot\Fonts\Cousine*Nerd*.ttf" }
     [PSCustomObject]@{Name = "DejaVuSansMono-NF"; Path = "$env:SystemRoot\Fonts\DejaVu Sans Mono*Nerd*.ttf" }
-    [PSCustomObject]@{Name = "DroidSansMono-NF"; Path = "$env:SystemRoot\Fonts\Droid Sans Mono*Nerd*.ttf" }
-    [PSCustomObject]@{Name = "FiraCode-NF"; Path = "$env:SystemRoot\Fonts\Fura Code*Nerd*.ttf" }
-    [PSCustomObject]@{Name = "FiraMono-NF"; Path = "$env:SystemRoot\Fonts\Furo Mono*Nerd*.ttf" }
+    [PSCustomObject]@{Name = "DroidSansMono-NF"; Path = "$env:SystemRoot\Fonts\Droid Sans Mono*Nerd*.otf" }
+    [PSCustomObject]@{Name = "FiraCode-NF"; Path = "$env:SystemRoot\Fonts\Fura Code*Nerd*.otf" }
+    [PSCustomObject]@{Name = "FiraMono-NF"; Path = "$env:SystemRoot\Fonts\Fura Mono*Nerd*.otf" }
+    [PSCustomObject]@{Name = "Go-Mono-NF"; Path = "$env:SystemRoot\Fonts\Go Mono*Nerd*.ttf" }
     [PSCustomObject]@{Name = "Hack-NF"; Path = "$env:SystemRoot\Fonts\Hack Regular*Nerd*.ttf" }
-    [PSCustomObject]@{Name = "Hasklig-NF"; Path = "$env:SystemRoot\Fonts\Hasklug*Nerd*.ttf" }
+    [PSCustomObject]@{Name = "Hasklig-NF"; Path = "$env:SystemRoot\Fonts\Hasklug*Nerd*.otf" }
     [PSCustomObject]@{Name = "LiberationMono-NF"; Path = "$env:SystemRoot\Fonts\Literation Mono*Nerd*.ttf" }
     [PSCustomObject]@{Name = "Monoid-NF"; Path = "$env:SystemRoot\Fonts\Monoid*Nerd*.ttf" }
     [PSCustomObject]@{Name = "Noto-NF"; Path = "$env:SystemRoot\Fonts\Noto Sans*Nerd*.ttf" }
