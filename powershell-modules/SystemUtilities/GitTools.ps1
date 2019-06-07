@@ -75,23 +75,48 @@ function Invoke-GitCommit {
 }
 
 function Invoke-GitDiff {
-    Invoke-Git "diff"
+    if ($args) {
+        Invoke-Git "diff" "$args"
+    }
+    else {
+        Invoke-Git "add"
+    }
 }
 
 function Invoke-GitDiffStaged {
-    Invoke-Git "diff" "--cached"
+    if ($args) {
+        Invoke-Git "diff" "--cached" "$args"
+    }
+    else {
+        Invoke-Git "diff" "--cached"
+    }
 }
 
 function Invoke-GitDifftool {
-    Invoke-Git "difftool" "-y"
+    if ($args) {
+        Invoke-Git "difftool" "-y" "$args"
+    }
+    else {
+        Invoke-Git "difftool" "-y"
+    }
 }
 
 function Invoke-GitDifftoolStaged {
-    Invoke-Git "difftool" "-y" "--cached"
+    if ($args) {
+        Invoke-Git "difftool" "-y" "--cached" "$args"
+    }
+    else {
+        Invoke-Git "difftool" "-y" "--cached"
+    }
 }
 
 function Invoke-GitMergetool {
-    Invoke-Git "mergetool" "-y"
+    if ($args) {
+        Invoke-Git "mergetool" "-y" "$args"
+    }
+    else {
+        Invoke-Git "mergetool" "-y"
+    }
 }
 
 function Invoke-GitExport {
