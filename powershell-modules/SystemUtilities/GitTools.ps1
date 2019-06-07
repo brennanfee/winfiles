@@ -79,7 +79,7 @@ function Invoke-GitDiff {
         Invoke-Git "diff" "$args"
     }
     else {
-        Invoke-Git "add"
+        Invoke-Git "diff"
     }
 }
 
