@@ -31,6 +31,7 @@
 - Posh-ACME
 - BetterCredentials
 - SemVer
+- OpenSSHUtils
 
 ## Sample Scripts for Manual Installations
 

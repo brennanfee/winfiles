@@ -14,5 +14,3 @@ if (Get-Service -Name ssh-agent -ErrorAction SilentlyContinue) {
     Start-Service -Name ssh-agent
     Set-Service -Name ssh-agent -StartupType 'Automatic'  | Out-Null
 }
-
-#Install-Module -Force OpenSSHUtils -Scope AllUsers
