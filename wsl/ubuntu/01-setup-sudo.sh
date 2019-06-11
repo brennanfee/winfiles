@@ -37,6 +37,9 @@ echo -e '\nexport TMP=/tmp' >> ~/.bashrc
 echo -e '\nexport TEMP=/tmp' >> ~/.bashrc
 echo -e '\nexport TMPDIR=/tmp' >> ~/.bashrc
 
+echo -e '[interop]' > /etc/wsl.conf
+echo -e '\nappendWindowsPath = false' >> /etc/wsl.conf
+
 echo ""
 echo "Close and re-open the shell and then run 02-setup-dotfiles.sh"
 echo ""
