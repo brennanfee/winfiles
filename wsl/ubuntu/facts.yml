@@ -1,0 +1,6 @@
+---
+- name: Facts
+  hosts: localhost
+  tasks:
+    - name: Facts
+    - debug: var=hostvars[inventory_hostname]

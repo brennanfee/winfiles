@@ -1,0 +1,11 @@
+---
+- name: Update the package cache
+  become: true
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Upgrade the packages
+  become: true
+  apt:
+    upgrade: "{{ apt_upgrade_level | default(safe) }}"

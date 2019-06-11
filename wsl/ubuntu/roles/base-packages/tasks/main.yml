@@ -1,0 +1,9 @@
+---
+- name: Install base tasks
+  become: true
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - ubuntu-server
+    - ubuntu-standard
+    - openssh-server
