@@ -11,7 +11,8 @@ IFS=$'\n\t'
 # 1.  Run `asdf install` - this will take very LONG time
 # 2.  Close and reload the shell
 
-ansible-playbook -b -K main.yml -e ansible_python_interpreter=/usr/bin/python3
+ANSIBLE_CONFIG=./ansible.cfg bash -c \
+'ansible-playbook -b -K main.yml -e ansible_python_interpreter=/usr/bin/python3'
 
 echo ""
 echo "You can now run `asdf install`, that will take a LONG time."
