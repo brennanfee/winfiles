@@ -3,4 +3,4 @@
   hosts: localhost
   tasks:
     - name: Facts
-    - debug: var=hostvars[inventory_hostname]
+      debug: var=hostvars[inventory_hostname]

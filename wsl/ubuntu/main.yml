@@ -1,5 +1,5 @@
 ---
-  name: Base setup
+- name: Base setup
   hosts: localhost
   roles:
     - { role: upgrade, apt_upgrade_level: full}
