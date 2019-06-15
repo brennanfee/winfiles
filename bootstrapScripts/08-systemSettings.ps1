@@ -150,8 +150,16 @@ Set-RegistryInt "$key" "AllItemsIconView" 0
 ########  Terminal (conhost) settings
 Write-Host "Terminal Settings"
 
-$key = 'HKCU:\Console'
+$key = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Console\TrueTypeFont'
+Set-RegistryString "$key" "000" "Hack"
+Set-RegistryString "$key" "0000" "Hack NF"
+Set-RegistryString "$key" "00000" "Hasklug NF"
+Set-RegistryString "$key" "000000" "SauceCodePro NF"
+Set-RegistryString "$key" "0000000" "NotoMono NF"
+Set-RegistryString "$key" "00000000" "FuraCode NF"
+Set-RegistryString "$key" "000000000" "FuraMono NF"
 
+$key = 'HKCU:\Console'
 # Setup font for console
 Set-RegistryString "$key" "FaceName" "__DefaultTTFont__"
 #TBD -> Set-RegistryString "$key" "FaceName" "SourceCodePro NF"
