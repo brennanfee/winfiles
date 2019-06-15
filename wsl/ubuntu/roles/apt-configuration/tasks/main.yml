@@ -1,0 +1,4 @@
+---
+- include: apt-sources.yml
+- include: apt-defaults.yml
+- include: update.yml

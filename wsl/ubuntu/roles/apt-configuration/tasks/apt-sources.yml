@@ -1,0 +1,11 @@
+---
+- name: Copy apt sources configuration
+  become: true
+  template:
+    src: etc-apt--sources.list.j2
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  register: apt_sources

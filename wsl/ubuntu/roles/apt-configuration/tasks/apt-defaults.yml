@@ -1,0 +1,10 @@
+---
+- name: Copy apt defaults
+  become: true
+  template:
+    src: etc-apt-apt.conf.d--90custom-defaults.j2
+    dest: /etc/apt/apt.conf.d/90custom-defaults
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes

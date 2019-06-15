@@ -6,3 +6,8 @@
     - base-packages
     - allow-sudo
     - ssh
+
+- name: Main Setup
+  hosts: localhost
+  roles:
+    - apt-configuration

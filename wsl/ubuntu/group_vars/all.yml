@@ -1,0 +1,5 @@
+---
+apt_include_backports: true
+apt_include_partners: true
+apt_include_source: false
+apt_upgrade_level: safe

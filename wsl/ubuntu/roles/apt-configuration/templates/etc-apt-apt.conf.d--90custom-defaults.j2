@@ -1,0 +1,18 @@
+// {{ ansible_managed }}
+
+// Be explicit about installation of recommended or suggested packages
+APT::Install-Recommends "1";
+APT::Install-Suggests "0";
+
+APT::Get::Show-Upgraded "true";
+
+// Turn on automatic download of upgradeable packages
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::AutocleanInterval "30";
+APT::Periodic::Unattended-Upgrade "0";
+
+// Configure unattended upgrades
+Unattended-Upgrade::Remove-Unused-Dependencies "true";
+Unattended-Upgrade::Automatic-Reboot "false";
+Unattended-Upgrade::Automatic-Reboot-Time "04:00";

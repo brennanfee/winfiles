@@ -1,0 +1,6 @@
+---
+- name: Update the package cache due to sources changes
+  become: true
+  apt:
+    update_cache: yes
+  when: apt_sources.changed
