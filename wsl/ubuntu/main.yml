@@ -32,3 +32,4 @@
   roles:
     - security
     - configure-alternatives
+    - configure-wsl
