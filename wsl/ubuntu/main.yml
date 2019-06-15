@@ -11,3 +11,4 @@
   hosts: localhost
   roles:
     - apt-configuration
+    - security
