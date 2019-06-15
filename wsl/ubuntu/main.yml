@@ -8,22 +8,18 @@
     - ssh
     - apt-configuration
 
-# Libraries needed for asdf to compile\install dev frameworks (python, ruby, php, etc.)
-- name: Dev Libraries
-  hosts: localhost
-  vars:
-    package_set: "Dev Libraries"
-  vars_files:
-    - vars/dev-libraries.yml
-  roles:
-    - install-applications
-
 - name: Main Applications
   hosts: localhost
   vars:
     package_set: "Main Applications"
   vars_files:
-    - vars/main-applications.yml
+    - vars/applications/base-packages.yml
+    - vars/applications/dev-libraries.yml
+    - vars/applications/emacs.yml
+    - vars/applications/flatpak.yml
+    - vars/applications/hub.yml
+    - vars/applications/neovim.yml
+    - vars/applications/rcm.yml
   roles:
     - install-applications
 

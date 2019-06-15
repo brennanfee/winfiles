@@ -1,0 +1,6 @@
+---
+ppa_repositories:
+  - "ppa:neovim-ppa/stable"
+apt_packages:
+  - neovim
+  - python-neovim

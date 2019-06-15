@@ -1,0 +1,5 @@
+---
+ppa_repositories:
+  - "ppa:martin-frost/thoughtbot-rcm"
+apt_packages:
+  - rcm

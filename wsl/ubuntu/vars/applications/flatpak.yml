@@ -1,0 +1,5 @@
+---
+ppa_repositories:
+  - "ppa:alexlarsson/flatpak"
+apt_packages:
+  - flatpak
