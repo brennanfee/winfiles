@@ -18,4 +18,5 @@
   become: true
   alternatives:
     name: pager
-    path: /usr/local/bin/less
+    path: /usr/bin/less
+#    path: /usr/local/bin/less
