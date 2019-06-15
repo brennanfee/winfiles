@@ -12,7 +12,7 @@
     dest: /etc/fstab
     state: present
     regexp: '^C:\s+\/mnt\/c'
-    line: 'C:  /mnt/c  drvfs  defaults,noatime,uid=1000,gid=1000,fmask=222,metadata,case=off  0  0'
+    line: 'C:  /mnt/c  drvfs  defaults,noatime,uid=1000,gid=1000,fmask=017,metadata,case=off  0  0'
     backup: yes
 
 - name: Setup mount for D drive
@@ -21,7 +21,7 @@
     dest: /etc/fstab
     state: present
     regexp: '^D:\s+\/mnt\/d'
-    line: 'D:  /mnt/d  drvfs  defaults,noatime,uid=1000,gid=1000,fmask=111,metadata,case=off  0  0'
+    line: 'D:  /mnt/d  drvfs  defaults,noatime,uid=1000,gid=1000,fmask=117,metadata,case=off  0  0'
     backup: yes
   when: driveCount.stdout != '1'
 
