@@ -12,3 +12,18 @@
   roles:
     - apt-configuration
     - security
+
+# Libraries needed for asdf to compile\install dev frameworks (python, ruby, php, etc.)
+- name: Dev Libraries
+  hosts: localhost
+  vars_files:
+    - vars/dev-libraries.yml
+  roles:
+    - install-applications
+
+- name: Main Applications
+  hosts: localhost
+  vars_files:
+    - vars/main-applications.yml
+  roles:
+    - install-applications

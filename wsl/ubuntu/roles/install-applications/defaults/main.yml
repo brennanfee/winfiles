@@ -1,0 +1,12 @@
+---
+# Apt
+ppa_repositories: []
+apt_repositories: []
+apt_keys: []
+apt_keyserver_keys: []
+apt_packages: []
+
+# Debs (.deb files to be installed by gdebi)
+deb_packages: []
+
+package_set: "-- UNKNOWN --"

@@ -1,0 +1,44 @@
+---
+### Install Apt Repos and Packages
+- name: Setup traditional repositories keys
+  become: true
+  apt_key:
+    url: "{{ item.url }}"
+    id: "{{ item.id }}"
+  with_items: "{{ apt_keys }}"
+
+- name: Setup keyserver repositories keys
+  become: true
+  apt_key:
+    keyserver: "{{ item.keyserver }}"
+    id: "{{ item.id }}"
+  with_items: "{{ apt_keyserver_keys }}"
+
+- name: Setup PPAs
+  become: true
+  apt_repository:
+    repo: "{{ item }}"
+    mode: 0644
+    update_cache: yes
+  with_items: "{{ ppa_repositories }}"
+
+- name: Setup traditional APT repositories
+  become: true
+  apt_repository:
+    repo: "{{ item.repo }}"
+    filename: "{{ item.filename }}"
+    mode: 0644
+    update_cache: yes
+  with_items: "{{ apt_repositories }}"
+
+- name: Install apt packages ({{ package_set }})
+  become: true
+  apt:
+    pkg: "{{ apt_packages }}"
+
+### Install deb files
+- name: Install deb packages ({{ package_set }})
+  become: true
+  apt:
+    deb: "{{ item }}"
+  with_items: "{{ deb_packages }}"

@@ -1,0 +1,41 @@
+---
+apt_packages:
+# Build tools
+    - build-essential
+    - autoconf
+    - libtool
+# Requirements for asdf-vm
+    - bison
+    - gfortran
+    - libbz2-dev
+    - libc6-dev
+    - libcurl4-openssl-dev
+    - libedit-dev
+    - libffi-dev
+    - libgdbm-dev
+    - libjpeg-dev
+    - liblzma-dev
+    - libncurses5-dev
+    - libncursesw5-dev
+    - libpcre3-dev
+    - libpng-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - libssl-dev
+    - libunwind-dev
+    - libxml2-dev
+    - libyaml-dev
+    - libzip-dev
+    - openssl
+    - python3-apt
+    - python3-dev
+    - python3-pip
+    - python3-smbus
+    - python3-venv
+    - sqlite3
+    - tcl
+    - tcl-dev
+    - tk
+    - tk-dev
+    - xorg-dev
+    - zlib1g-dev
