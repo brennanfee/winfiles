@@ -1,0 +1,21 @@
+---
+- name: Setup editor
+  become: true
+  alternatives:
+    name: "{{ item }}"
+    path: /usr/bin/vim.nox
+  with_items:
+    - editor
+    - vi
+    - view
+    - vim
+    - vimdiff
+    - ex
+    - rvim
+    - rview
+
+- name: Setup pager
+  become: true
+  alternatives:
+    name: pager
+    path: /usr/local/bin/less

@@ -75,7 +75,7 @@ apt_packages:
 # Editors
     - emacs26
     - exuberant-ctags
-    - vim
+    - vim.nox
     - neovim
     - python-neovim
 # Linters

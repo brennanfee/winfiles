@@ -41,7 +41,7 @@
       - tmux
       - unixodbc-dev
       - unzip
-      - vim
+      - vim.nox
       - wget
       - xz-utils
       - zlib1g-dev

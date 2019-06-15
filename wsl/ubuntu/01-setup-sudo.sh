@@ -29,7 +29,7 @@ apt-get install -y build-essential python3 python3-venv python3-pip \
 make automake autoconf libreadline-dev libncurses5-dev libssl-dev libyaml-dev \
 libxslt-dev libffi-dev libtool unixodbc-dev libbz2-dev zlib1g-dev libsqlite3-dev \
 libxml2-dev libxmlsec1-dev liblzma-dev xz-utils tk-dev unzip curl wget llvm \
-aptitude python3-apt p7zip-full p7zip-rar rcm tmux vim
+aptitude python3-apt p7zip-full p7zip-rar rcm tmux vim.nox
 
 cp /usr/bin/pip3 /usr/bin/pip
 

@@ -6,16 +6,13 @@
     - base-packages
     - allow-sudo
     - ssh
-
-- name: Main Setup
-  hosts: localhost
-  roles:
     - apt-configuration
-    - security
 
 # Libraries needed for asdf to compile\install dev frameworks (python, ruby, php, etc.)
 - name: Dev Libraries
   hosts: localhost
+  vars:
+    package_set: "Dev Libraries"
   vars_files:
     - vars/dev-libraries.yml
   roles:
@@ -23,7 +20,15 @@
 
 - name: Main Applications
   hosts: localhost
+  vars:
+    package_set: "Main Applications"
   vars_files:
     - vars/main-applications.yml
   roles:
     - install-applications
+
+- name: Configurations
+  hosts: localhost
+  roles:
+    - security
+    - configure-alternatives
