@@ -4,3 +4,5 @@
   roles:
     - { role: upgrade, apt_upgrade_level: full}
     - base-packages
+    - allow-sudo
+    - ssh

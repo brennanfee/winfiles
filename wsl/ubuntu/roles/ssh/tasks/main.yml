@@ -1,0 +1,98 @@
+---
+- name: Install ssh
+  become: true
+  apt:
+    pkg: "openssh-server"
+    state: present
+
+- name: Examine if we need to regenerate host keys
+  stat:
+    path: /etc/ssh/ssh_host_keys_regenerated
+    get_checksum: false
+    get_md5: false
+  register: host_keys
+
+- name: Remove Existing Keys
+  become: true
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/ssh/ssh_host_rsa_key
+    - /etc/ssh/ssh_host_rsa_key.pub
+    - /etc/ssh/ssh_host_ed25519_key
+    - /etc/ssh/ssh_host_ed25519_key.pub
+    - /etc/ssh/ssh_host_ecdsa_key
+    - /etc/ssh/ssh_host_ecdsa_key.pub
+  when: host_keys.stat.exists == False
+
+- name: Regenerate RSA Keys
+  become: true
+  command: /usr/bin/ssh-keygen -t rsa -b 4096 -o -a 100 -f /etc/ssh/ssh_host_rsa_key -N ''
+  args:
+    creates: /etc/ssh/ssh_host_rsa_key
+  when: host_keys.stat.exists == False
+
+- name: Regenerate ed25519 Key
+  become: true
+  command: /usr/bin/ssh-keygen -t ed25519 -o -a 100 -f /etc/ssh/ssh_host_ed25519_key -N ''
+  args:
+    creates: /etc/ssh/ssh_host_ed25519_key
+  when: host_keys.stat.exists == False
+
+- name: Regenerate ecdsa Key
+  become: true
+  command: /usr/bin/ssh-keygen -t ecdsa -b 521 -o -a 100 -f /etc/ssh/ssh_host_ecdsa_key -N ''
+  args:
+    creates: /etc/ssh/ssh_host_ecdsa_key
+  when: host_keys.stat.exists == False
+
+- name: Write Regenerate File
+  become: true
+  lineinfile:
+    dest: /etc/ssh/ssh_host_keys_regenerated
+    line: "Host keys regenerated."
+    state: present
+    create: yes
+    owner: root
+    group: root
+    mode: 0644
+  when: host_keys.stat.exists == False
+
+# TODO: Verify if these are coming back or not... if so, just remove this.
+- name: Remove outdated host keys
+  become: true
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/ssh/ssh_host_dsa_key
+    - /etc/ssh/ssh_host_dsa_key.pub
+
+- name: Copy ssh_config
+  become: true
+  template:
+    src: etc-ssh--ssh_config.j2
+    dest: /etc/ssh/ssh_config
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+
+- name: Copy sshd_config
+  become: true
+  template:
+    src: etc-ssh--sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify: Restart ssh
+
+- name: Start and enable the ssh service
+  become: true
+  service:
+    name: ssh
+    state: started
+    enabled: yes

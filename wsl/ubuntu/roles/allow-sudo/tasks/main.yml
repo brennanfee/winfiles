@@ -1,0 +1,10 @@
+---
+- name: Allow users in the sudo group to run sudo (with a password)
+  become: true
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^\%sudo'
+    line: '%sudo  ALL=(ALL:ALL) ALL'
+    validate: 'visudo -cf %s'
+    backup: yes
