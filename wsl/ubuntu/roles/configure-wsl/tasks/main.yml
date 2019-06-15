@@ -1,7 +1,7 @@
 ---
 # Determine how many "main" drives we have
 - name: Get drive count
-  command: ls -1 /mnt | wc -l
+  shell: /bin/ls -1 /mnt | /usr/bin/wc -l
   register: driveCount
   changed_when: false
 
