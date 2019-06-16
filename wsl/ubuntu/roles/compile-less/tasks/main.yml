@@ -4,14 +4,26 @@
     path: /usr/local/bin/less
   register: lessExe
 
+- name: Create destination directory if not present
+  become: true
+  file:
+    path: "/usr/local/src/less"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  when: not lessExe.stat.exists
+
 - name: Download Less Tarball
+  become: true
   get_url:
     url: http://www.greenwoodsoftware.com/less/less-551.tar.gz
     dest: /usr/local/src/less/less-551.tar.gz
-  when: not lessExe.exists
+  when: not lessExe.stat.exists
   register: less_source
 
 - name: Unpack Less Tarball
+  become: true
   unarchive:
     copy: no
     dest: /usr/local/src/less/source
@@ -20,6 +32,7 @@
   register: less_source_unpack
 
 - name: Configure Less Source
+  become: true
   command: "./configure"
   args:
     chdir: /usr/local/src/less/source
@@ -31,5 +44,5 @@
   shell: make && make install
   args:
     chdir: /usr/local/src/less/source
-  creates: /usr/local/bin/less
+    creates: /usr/local/bin/less
   when: less_configure.changed
