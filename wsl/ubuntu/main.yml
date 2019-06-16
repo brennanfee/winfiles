@@ -14,7 +14,7 @@
     package_set: "Main Applications"
   vars_files:
     - vars/applications/base-packages.yml
-    - vars/applications/dev-libraries.yml
+    - vars/applications/dev-packages.yml
     - vars/applications/emacs.yml
     - vars/applications/flatpak.yml
     - vars/applications/hub.yml

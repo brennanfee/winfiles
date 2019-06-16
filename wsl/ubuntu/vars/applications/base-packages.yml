@@ -119,3 +119,7 @@ apt_packages:
 ### Other stuff to install
 # lab -> gitlab version of hub
 # rg
+
+deb_packages:
+  - "https://github.com/jarun/googler/releases/download/v3.9/googler_3.9-1_ubuntu18.04.amd64.deb"
+  - "https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_11.0.1_amd64.deb"
