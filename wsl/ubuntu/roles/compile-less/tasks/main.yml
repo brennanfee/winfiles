@@ -7,7 +7,7 @@
 - name: Create destination directory if not present
   become: true
   file:
-    path: "/usr/local/src/less"
+    path: "/usr/local/src/less/source"
     owner: root
     group: root
     mode: 0755
@@ -28,7 +28,7 @@
     copy: no
     dest: /usr/local/src/less/source
     src: /usr/local/src/less/less-551.tar.gz
-  when: less_source.changed
+  when: not lessExe.stat.exists and less_source|success
   register: less_source_unpack
 
 - name: Configure Less Source
@@ -36,7 +36,7 @@
   command: "./configure"
   args:
     chdir: /usr/local/src/less/source
-  when: less_source_unpack.changed
+  when: not lessExe.stat.exists and less_source_unpack|success
   register: less_configure
 
 - name: Install Less
@@ -45,4 +45,4 @@
   args:
     chdir: /usr/local/src/less/source
     creates: /usr/local/bin/less
-  when: less_configure.changed
+  when: not lessExe.stat.exists and less_configure|success
