@@ -8,17 +8,65 @@
     - ssh
     - apt-configuration
 
-- name: Main Applications
+- name: Base Packages
   hosts: localhost
   vars:
-    package_set: "Main Applications"
+    package_set: "Base Packages"
   vars_files:
     - vars/applications/base-packages.yml
+  roles:
+    - install-applications
+
+- name: Dev Packages
+  hosts: localhost
+  vars:
+    package_set: "Dev Packages"
+  vars_files:
     - vars/applications/dev-packages.yml
+  roles:
+    - install-applications
+
+- name: Emacs Installation
+  hosts: localhost
+  vars:
+    package_set: "Emacs Installation"
+  vars_files:
     - vars/applications/emacs.yml
+  roles:
+    - install-applications
+
+- name: Flatpak Installation
+  hosts: localhost
+  vars:
+    package_set: "Flatpak Installation"
+  vars_files:
     - vars/applications/flatpak.yml
+  roles:
+    - install-applications
+
+- name: Hub Installation
+  hosts: localhost
+  vars:
+    package_set: "Hub Installation"
+  vars_files:
     - vars/applications/hub.yml
+  roles:
+    - install-applications
+
+- name: Neovim Installation
+  hosts: localhost
+  vars:
+    package_set: "Neovim Installation"
+  vars_files:
     - vars/applications/neovim.yml
+  roles:
+    - install-applications
+
+- name: Rcm Installation
+  hosts: localhost
+  vars:
+    package_set: "Rcm Installation"
+  vars_files:
     - vars/applications/rcm.yml
   roles:
     - install-applications
@@ -26,6 +74,6 @@
 - name: Configurations
   hosts: localhost
   roles:
-    - compile-less
+    - manual-installs
     - configure-alternatives
     - configure-wsl

@@ -1,0 +1,6 @@
+---
+- name: Install Lab
+  become: true
+  shell: curl -s https://raw.githubusercontent.com/zaquestion/lab/master/install.sh | bash
+  args:
+    creates: /usr/local/bin/lab
