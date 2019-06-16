@@ -103,7 +103,6 @@ apt_packages:
   - flac
   - wavpack
   - handbrake-cli
-  - libav-tools
 # Graphics
   - imagemagick
   - graphicsmagick
@@ -115,10 +114,6 @@ apt_packages:
   - tty-clock
   - w3m
   - vrms
-
-### Other stuff to install
-# lab -> gitlab version of hub
-# rg
 
 deb_packages:
   - "https://github.com/jarun/googler/releases/download/v3.9/googler_3.9-1_ubuntu18.04.amd64.deb"
