@@ -3,18 +3,25 @@
   become: true
   file:
     path: "/usr/local/bin/code"
-    src: "$USERPROFILE/AppData/Local/Programs/Microsoft VS Code/bin/code"
+    src: "{{ lookup('env', 'USERPROFILE') }}/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code"
     owner: root
     group: root
-    mode: 0755
     state: link
 
 - name: Create Chrome symlink
   become: true
   file:
     path: "/usr/local/bin/chrome"
-    src: "/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+    src: "/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe"
     owner: root
     group: root
-    mode: 0755
+    state: link
+
+- name: Create Firefox symlink
+  become: true
+  file:
+    path: "/usr/local/bin/firefox"
+    src: "/mnt/c/Program\ Files/Mozilla\ Firefox/firefox.exe"
+    owner: root
+    group: root
     state: link
