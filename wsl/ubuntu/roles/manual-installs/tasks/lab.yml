@@ -2,6 +2,6 @@
 - name: Install Lab
   become: true
   shell: curl -s https://raw.githubusercontent.com/zaquestion/lab/master/install.sh | bash
-  warn: false
   args:
     creates: /usr/local/bin/lab
+    warn: false
