@@ -309,3 +309,7 @@ Set-RegistryValue $key "Scancode Map" ([byte[]]$hexified) "Binary"
 
 # Lower keyboard delay
 Set-RegistryInt "HKCU:\Control Panel\Keyboard" "KeyboardDelay" 0
+
+########  Path Environment Variables
+
+Add-ToPath "$env:APPDATA\Python\Python37\Scripts"
