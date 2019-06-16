@@ -1,4 +1,3 @@
 ---
 - include: less.yml
 - include: lab.yml
-- include: symlinks.yml
