@@ -2,10 +2,25 @@
 apt_packages:
 # Build tools
   - build-essential
+  - binutils
   - autoconf
+  - automake
   - libtool
+  - cmake
+  - cscope
+  - manpages-dev
+  - highlight
+  - source-highlight
+  - sloccount
+  - cloc
+  - diffutils
+  - snapcraft
+  - lua-check
+  - licenseutils
 # Requirements for asdf-vm
   - bison
+  - flex
+  - gnu-standards
   - gfortran
   - libbz2-dev
   - libc6-dev

@@ -11,6 +11,7 @@ apt_packages:
 # Apt tools
   - apt-transport-https
   - ca-certificates
+  - software-properties-common
   - unattended-upgrades
   - apt-listchanges
   - gdebi-core
@@ -27,6 +28,7 @@ apt_packages:
   - git-doc
   - git-flow
   - git-extras
+  - patchutils
 # Install Zsh
   - zsh
   - zsh-doc
@@ -50,6 +52,8 @@ apt_packages:
   - zip
   - unzip
   - dtrx
+  - unar
+  - cabextract
 # Common applications
   - moreutils
   - command-not-found
@@ -78,18 +82,39 @@ apt_packages:
 # Latex
   - texlive-full
   - pandoc
+  - poppler-utils
 # Security
-  - 'whois'
-  - 'gnupg2'
-  - 'gpgv2'
-  - 'pinentry-curses'
-  - 'pinentry-doc'
-  - 'gnupg-agent'
-  - 'rush'
-  - 'rssh'
-  - 'sshfs'
-  - 'mosh'
-  - 'molly-guard'
+  - whois
+  - gnupg2
+  - gpgv2
+  - pinentry-curses
+  - pinentry-doc
+  - gnupg-agent
+  - rush
+  - rssh
+  - sshfs
+  - mosh
+  - molly-guard
+# Multimedia
+  - ffmpeg
+  - ffmpeg-doc
+  - opus-tools
+  - vorbis-tools
+  - flac
+  - wavpack
+  - handbrake-cli
+  - libav-tools
+# Graphics
+  - imagemagick
+  - graphicsmagick
+  - barcode
+# Console tools
+  - units
+  - lynx
+  - ncdu
+  - tty-clock
+  - w3m
+  - vrms
 
 ### Other stuff to install
 # lab -> gitlab version of hub
