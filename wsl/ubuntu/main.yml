@@ -26,6 +26,6 @@
 - name: Configurations
   hosts: localhost
   roles:
-    - security
+    - compile-less
     - configure-alternatives
     - configure-wsl

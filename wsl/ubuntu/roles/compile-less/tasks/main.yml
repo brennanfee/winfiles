@@ -1,0 +1,35 @@
+---
+- name: Check less installed
+  stat:
+    path: /usr/local/bin/less
+  register: lessExe
+
+- name: Download Less Tarball
+  get_url:
+    url: http://www.greenwoodsoftware.com/less/less-551.tar.gz
+    dest: /usr/local/src/less/less-551.tar.gz
+  when: not lessExe.exists
+  register: less_source
+
+- name: Unpack Less Tarball
+  unarchive:
+    copy: no
+    dest: /usr/local/src/less/source
+    src: /usr/local/src/less/less-551.tar.gz
+  when: less_source.changed
+  register: less_source_unpack
+
+- name: Configure Less Source
+  command: "./configure"
+  args:
+    chdir: /usr/local/src/less/source
+  when: less_source_unpack.changed
+  register: less_configure
+
+- name: Install Less
+  become: true
+  shell: make && make install
+  args:
+    chdir: /usr/local/src/less/source
+  creates: /usr/local/bin/less
+  when: less_configure.changed
