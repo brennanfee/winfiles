@@ -12,9 +12,12 @@ Remove-Item -Path "$env:USERPROFILE\.gitconfig"
 New-SymbolicLink "$env:USERPROFILE\.config\git\config" "$winFiles\dotfiles\rcs\config\git\config"
 New-SymbolicLink "$env:USERPROFILE\.config\git\gitconfig.os" "$winFiles\settings\gitconfig.os"
 
-$tag = $global:InstallType
-if ($global:InstallType == "gaming") {
-    $tag = "home"
+$tag = "home"
+if (Test-Path variable:global:InstallType) {
+    $tag = $global:InstallType
+    if ($tag -eq "gaming") {
+        $tag = "home"
+    }
 }
 
 $target = "$winFiles\dotfiles\rcs\tag-$tag\config\git\gitconfig.user"
