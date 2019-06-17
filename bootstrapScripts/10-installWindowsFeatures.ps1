@@ -207,8 +207,3 @@ foreach ($feature in $extraCapabilities) {
     }
 }
 
-########  Configure SSH Server
-# Enable the services to start at boot
-Start-Sleep 60
-
-Invoke-Expression "$env:ProfilePath\winfiles\cleanupScripts\01-sshServiceConfiguration.ps1"
