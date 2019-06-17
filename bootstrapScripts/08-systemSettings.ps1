@@ -312,4 +312,6 @@ Set-RegistryInt "HKCU:\Control Panel\Keyboard" "KeyboardDelay" 0
 
 ########  Path Environment Variables
 
-Add-ToPath "$env:APPDATA\Python\Python37\Scripts"
+if (Test-Path "$env:APPDATA\Python\Python37\Scripts") {
+    Add-ToPath "$env:APPDATA\Python\Python37\Scripts"
+}
