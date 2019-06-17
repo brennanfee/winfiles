@@ -141,6 +141,8 @@ foreach ($app in $apps) {
     Install-WithScoop $app.Name $app.Path
 }
 
+$computerDetails = Get-ComputerDetails
+
 if (-not ($computerDetails.IsVirtual)) {
     Write-Host "Installing Scoop applications - virtualization"
     $apps = @(
