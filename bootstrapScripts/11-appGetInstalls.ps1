@@ -3,7 +3,11 @@
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
-$computerDetails = Get-ComputerDetails
+## Resolve InstallType
+$installType = "home"
+if (Test-Path variable:global:InstallType) {
+    $installType = $global:InstallType
+}
 
 Write-Host "Installing applications using AppGet - Main"
 $apps = @(
@@ -54,13 +58,13 @@ foreach ($app in $apps) {
     Install-WithAppGet $app
 }
 
-if (-not ($global:InstallType -eq "work")) {
+if (-not ($installType -eq "work")) {
     Write-Host "Installing applications using AppGet - Non-Work"
     $apps = @(
         #        qbittorrent
         #        transmission
         #        transmission-remote-gui
-        myharmony
+        "myharmony"
     )
 
     foreach ($app in $apps) {
@@ -68,7 +72,7 @@ if (-not ($global:InstallType -eq "work")) {
     }
 }
 
-if ($global:InstallType -eq "gaming") {
+if ($installType -eq "gaming") {
     Write-Host "Installing applications using AppGet - Gaming"
     $apps = @(
         "battlenet"
@@ -83,6 +87,8 @@ if ($global:InstallType -eq "gaming") {
         Install-WithAppGet $app
     }
 }
+
+$computerDetails = Get-ComputerDetails
 
 if (-not ($computerDetails.IsVirtual)) {
     Write-Host "Installing applications using AppGet - Virtualization"

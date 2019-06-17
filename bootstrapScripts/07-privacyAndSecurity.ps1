@@ -3,6 +3,12 @@
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
+## Resolve InstallType
+$installType = "home"
+if (Test-Path variable:global:InstallType) {
+    $installType = $global:InstallType
+}
+
 # Turn off Telemetry (set to Basic)
 $key = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection"
 Set-RegistryInt $key "AllowTelemetry" 0  # Off, not even basic (1)
@@ -179,7 +185,7 @@ Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
 $key = "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance"
 Set-RegistryInt $key "fAllowToGetHelp" 0
 
-if (-not ($global:InstallType -eq "work")) {
+if (-not ($installType -eq "work")) {
     # Setup Telemetry rule in Firewall
     Write-Host "Adding telemetry ips to firewall"
     $ips = @(
