@@ -49,6 +49,7 @@ if (-not (Test-Path "$env:ProfilePath\scoop\shims\scoop")) {
     Add-MpPreference -ExclusionPath $env:SCOOP
     Add-MpPreference -ExclusionPath $env:SCOOP_GLOBAL
     Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
+    scoop config aria2-enabled false
 
     Write-Host "Scoop installed." -ForegroundColor "Green"
 }
