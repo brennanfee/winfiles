@@ -85,6 +85,10 @@ function Set-RegistryValue {
         [string]$DataType
     )
 
+    if ($key.StartsWith("HKCR")) {
+        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+    }
+
     if (-not (Test-Path $Key)) {
         New-Item -ItemType Directory -Force -Path $Key | Out-Null
     }
