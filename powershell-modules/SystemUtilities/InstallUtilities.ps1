@@ -24,6 +24,29 @@ function Add-ScoopBucket {
     }
 }
 
+function Add-ScoopBucketUrl {
+    Param(
+        [string]$Bucket,
+        [string]$Url
+    )
+
+    Write-Host ""
+    Write-Host "Checking scoop bucket: $Bucket"
+
+    $buckets = scoop bucket list
+
+    if (-not ($buckets.Contains($Bucket))) {
+        Write-Host "Adding scoop bucket: $Bucket"
+
+        Invoke-Expression "scoop bucket add $Bucket $Url"
+
+        Write-Host "Scoop bucket added: $Bucket"
+    }
+    else {
+        Write-Host "Scoop bucket already configured: $Bucket"
+    }
+}
+
 function Install-WithScoop {
     Param(
         [string]$App,

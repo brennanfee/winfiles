@@ -5,8 +5,11 @@ Set-StrictMode -Version 2.0
 
 # Setup "extras" repo for scoop
 Write-Host "Setting up scoop buckets"
+
 Add-ScoopBucket "main"
 Add-ScoopBucket "extras"
 Add-ScoopBucket "nerd-fonts"
 Add-ScoopBucket "java"
+Add-ScoopBucketUrl "zaquestion" "https://github.com/zaquestion/scoop-bucket.git"
+
 Write-Host "Scoop buckets configured"

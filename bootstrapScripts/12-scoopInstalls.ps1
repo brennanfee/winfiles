@@ -141,6 +141,15 @@ foreach ($app in $apps) {
     Install-WithScoop $app.Name $app.Path
 }
 
+Write-Host "Installing Scoop applications - custom buckets"
+$apps = @(
+    [PSCustomObject]@{Name = "Lab"; Path = "$env:SCOOP\shims\lab.exe" }
+)
+
+foreach ($app in $apps) {
+    Install-WithScoop $app.Name $app.Path
+}
+
 $computerDetails = Get-ComputerDetails
 
 if (-not ($computerDetails.IsVirtual)) {
