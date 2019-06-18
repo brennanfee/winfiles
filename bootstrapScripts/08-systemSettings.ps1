@@ -239,7 +239,13 @@ Set-RegistryInt "$key" "DisableEdgeDesktopShortcutCreation" 1
 Write-Host "Search Settings"
 
 # Trun off web searches
-Set-WindowsSearchSetting -EnableWebResultsSetting $False
+## This method doesn't seem to work any more.  It gives errors
+## no matter whether I'm trying to set it to false or true.
+## The error given is about your "organization" is managing
+## that value, even on machines that are not managed by an
+## organization.  Will return to examine further or
+## eventually remove.
+#Set-WindowsSearchSetting -EnableWebResultsSetting $False
 
 # Set-WindowsSearchSetting -EnableWebResultsSetting $True `
 #     -EnableMeteredWebResultsSetting $False `
@@ -304,7 +310,7 @@ Write-Host "Keyboard Settings"
 $hexified = "00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00".
 Split(',') | ForEach-Object { "0x$_" };
 
-$key = 'HKLM:\System\CurrentControlSet\Control\Keyboard Layout';
+$key = "HKLM:\System\CurrentControlSet\Control\Keyboard Layout"
 Set-RegistryValue $key "Scancode Map" ([byte[]]$hexified) "Binary"
 
 # Lower keyboard delay
