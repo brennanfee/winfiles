@@ -92,7 +92,7 @@ Set-RegistryInt "$key\Main" "DoNotTrack" 1
 Set-RegistryInt "$key\FlipAhead" "FPEnabled" 0
 Set-RegistryInt "$key\Main" "ShowSearchSuggestionsGlobal" 0
 Set-RegistryInt "$key\ServiceUI" "EnableCortana" 0
-Set-RegistryInt "$key\ServiceUI\ShowSearchHistory" "" 0 # The default key
+Set-RegistryInt "$key\ServiceUI\ShowSearchHistory" "(Default)" 0 # The default key
 Set-RegistryString "$key\Main" "Use FormSuggest" "no"
 
 # IE
@@ -147,10 +147,10 @@ Set-RegistryString "$key\userDataTasks" "Value" "Deny"
 Set-RegistryString "$key\chat" "Value" "Deny"
 
 # OneDrive
-$ key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive"
+$key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive"
 Set-RegistryInt $key "DisableFileSyncNGSC" 1
 Set-RegistryInt $key "DisableFileSync" 1
-$ key = "HKLM:\SOFTWARE\Microsoft\OneDrive"
+$key = "HKLM:\SOFTWARE\Microsoft\OneDrive"
 Set-RegistryInt $key "PreventNetworkTrafficPreUserSignIn" 1
 $key = "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}"
 Set-RegistryInt $key "System.IsPinnedToNameSpaceTree" 0
@@ -160,7 +160,7 @@ Set-RegistryInt $key "System.IsPinnedToNameSpaceTree" 0
 # Microsoft Feedback
 $key = "HKCU:\Software\Microsoft\Siuf\Rules"
 Set-RegistryInt $key "NumberOfSIUFInPeriod" 0
-Remove-ItemProperty -Path "$key" -Name "PeriodInNanoSeconds" -Force
+Remove-ItemProperty -Path "$key" -Name "PeriodInNanoSeconds" -Force -ErrorAction SilentlyContinue
 
 # Logging
 $key = "HKLM:\System\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener"
@@ -389,7 +389,7 @@ foreach ($service in $services) {
 
 # Disable Unneede Scheduled Tasks
 Write-Host "Disabling Unneeded Scheduled Tasks..."
-schtasks /Change /TN Microsoft\Windows\CloudExperienceHost\CreateObjectTask /Disable | Out-Null
-schtasks /Change /TN Microsoft\Windows\Feedback\Siuf\DmClient /Disable | Out-Null
-schtasks /Change /TN Microsoft\Windows\NetTrace\GatherNetworkInfo /Disable | Out-Null
-schtasks /Change /TN Microsoft\Windows\Windows Error Reporting\QueueReporting /Disable | Out-Null
+schtasks /Change /TN "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /Disable | Out-Null
+schtasks /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /Disable | Out-Null
+schtasks /Change /TN "Microsoft\Windows\NetTrace\GatherNetworkInfo" /Disable | Out-Null
+schtasks /Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /Disable | Out-Null
