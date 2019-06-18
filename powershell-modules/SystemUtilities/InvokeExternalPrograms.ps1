@@ -69,7 +69,13 @@ function Invoke-ExternalPowerShellCore {
 
     $argumentsArray = $arguments.ToArray()
 
-    $psCoreExe = "$env:ProgramFiles\PowerShell\6\pwsh.exe"
+    $psCoreExe = "$env:SCOOP_GLOBAL\shims\pwsh.exe"
+    if (-not (Test-Path $psCoreExe)) {
+        $psCoreExe = "$env:ProgramFiles\PowerShell\6\pwsh.exe"
+        if (-not (Test-Path $psCoreExe)) {
+            Write-Error "Unable to locate PowerShell Core"
+        }
+    }
 
     Start-Process -Wait -NoNewWindow -FilePath $psCoreExe `
         -ArgumentList $argumentsArray
