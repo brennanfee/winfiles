@@ -6,7 +6,9 @@ Set-StrictMode -Version 2.0
 function Set-RegistryBool {
     [CmdletBinding()]
     param(
+        [ValidateNotNullorEmpty()]
         [string]$Key,
+        [ValidateNotNullorEmpty()]
         [string]$ValueName,
         [bool]$Value
     )
@@ -22,7 +24,9 @@ function Set-RegistryBool {
 function Set-RegistryInt {
     [CmdletBinding()]
     param(
+        [ValidateNotNullorEmpty()]
         [string]$Key,
+        [ValidateNotNullorEmpty()]
         [string]$ValueName,
         [int]$Value
     )
@@ -33,7 +37,9 @@ function Set-RegistryInt {
 function Set-RegistryString {
     [CmdletBinding()]
     param(
+        [ValidateNotNullorEmpty()]
         [string]$Key,
+        [ValidateNotNullorEmpty()]
         [string]$ValueName,
         [string]$Value
     )
@@ -44,7 +50,9 @@ function Set-RegistryString {
 function Set-RegistryStringExpand {
     [CmdletBinding()]
     param(
+        [ValidateNotNullorEmpty()]
         [string]$Key,
+        [ValidateNotNullorEmpty()]
         [string]$ValueName,
         [string]$Value
     )
@@ -55,7 +63,9 @@ function Set-RegistryStringExpand {
 function Set-RegistryStringMulti {
     [CmdletBinding()]
     param(
+        [ValidateNotNullorEmpty()]
         [string]$Key,
+        [ValidateNotNullorEmpty()]
         [string]$ValueName,
         [string[]]$Values
     )
@@ -66,9 +76,12 @@ function Set-RegistryStringMulti {
 function Set-RegistryValue {
     [CmdletBinding()]
     param(
+        [ValidateNotNullorEmpty()]
         [string]$Key,
+        [ValidateNotNullorEmpty()]
         [string]$ValueName,
         $Value,
+        [ValidateNotNullorEmpty()]
         [string]$DataType
     )
 
