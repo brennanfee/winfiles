@@ -8,7 +8,7 @@ $winFiles = "$env:ProfilePath\winfiles"
 ########  Git Configuration
 Write-Host "Linking Git Configuration"
 
-Remove-Item -Path "$env:USERPROFILE\.gitconfig"
+Remove-Item -Path "$env:USERPROFILE\.gitconfig" -ErrorAction SilentlyContinue
 New-SymbolicLink "$env:USERPROFILE\.config\git\config" "$winFiles\dotfiles\rcs\config\git\config"
 New-SymbolicLink "$env:USERPROFILE\.config\git\gitconfig.os" "$winFiles\settings\gitconfig.os"
 
