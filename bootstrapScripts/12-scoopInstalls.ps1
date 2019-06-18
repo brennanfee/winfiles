@@ -64,7 +64,7 @@ $apps = @(
     [PSCustomObject]@{Name = "python"; Path = "$env:SCOOP\shims\python.exe" }
     [PSCustomObject]@{Name = "ripgrep"; Path = "$env:SCOOP\shims\rg.exe" }
     [PSCustomObject]@{Name = "ruby"; Path = "$env:SCOOP\apps\ruby\current\bin\ruby.exe" }
-    [PSCustomObject]@{Name = "rustup"; Path = "$env:SCOOP\persist\rustup\.cargo\bin\rustc.exe" }
+    [PSCustomObject]@{Name = "rust-msvc"; Path = "$env:SCOOP\persist\rustup\.cargo\bin\rustc.exe" }
     [PSCustomObject]@{Name = "sed"; Path = "$env:SCOOP\shims\sed.exe" }
     [PSCustomObject]@{Name = "serve"; Path = "$env:SCOOP\shims\serve.exe" }
     [PSCustomObject]@{Name = "shasum"; Path = "$env:SCOOP\shims\shasum.exe" }
