@@ -23,7 +23,6 @@ $apps = @(
     "chrome"
     "cmake"
     "devdocs"
-    "docker-community"
     "dotnet-core-sdk"
     "dotnet"
     #    "dropbox"
@@ -95,6 +94,7 @@ if (-not ($computerDetails.IsVirtual)) {
     $apps = @(
         "vagrant"
         "virtualbox"
+        "docker-community"
     )
 
     foreach ($app in $apps) {
