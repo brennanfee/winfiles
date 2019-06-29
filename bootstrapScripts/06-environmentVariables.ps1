@@ -19,7 +19,7 @@ $value = "%USERNAME%"
 $env:WIN_USER = "$value"
 
 # Set WSLENV
-$value = "TMP/up:USERPROFILE/up:WIN_USER"
+$value = "USERPROFILE/up:PROFILEPATH/up:SystemRoot/up:SCOOP/up:SCOOP_GLOBAL/up:WIN_USER"
 [Environment]::SetEnvironmentVariable("WSLENV", "$value", "User")
 $env:WIN_USER = "$value"
 
