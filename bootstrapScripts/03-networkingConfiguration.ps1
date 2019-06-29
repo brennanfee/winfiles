@@ -4,7 +4,8 @@
 Set-StrictMode -Version 2.0
 
 Write-Host "Check PSRemoting"
-$enabled = if (Test-WSMan -Authentication default | Out-Null) { $true } else { $false }
+$r = Test-WSMan -Authentication default -ErrorAction SilentlyContinue
+$enabled = if ($r) { $true } else { $false }
 
 if (-not $enabled) {
     Write-Host "Setting network profiles to private"
