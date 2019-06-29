@@ -42,20 +42,20 @@ Set-RegistryInt $key "JPEGImportQuality" 100
 #Set-RegistryInt "HKCU:\Control Panel\Desktop" "PaintDesktopVersion" 1
 
 ########  Night Light Settings
-Write-Host "Night Light Settings"
+# Write-Host "Night Light Settings"
 
-$key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\" +
-'DefaultAccount\Current\default$windows.data.bluelightreduction.settings\' +
-"windows.data.bluelightreduction.settings"
-$hexified = "43,42,01,00,0A,02,01,00,2A,06,B1,9E,A8,E7,05,2A".
-Split(',') | ForEach-Object { "0x$_" };
+# $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\" +
+# 'DefaultAccount\Current\default$windows.data.bluelightreduction.settings\' +
+# "windows.data.bluelightreduction.settings"
+# $hexified = "43,42,01,00,0A,02,01,00,2A,06,B1,9E,A8,E7,05,2A".
+# Split(',') | ForEach-Object { "0x$_" };
 
-Set-RegistryValue $key "Data" ([byte[]]$hexified) "Binary"
+# Set-RegistryValue $key "Data" ([byte[]]$hexified) "Binary"
 
-$key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\" +
-'DefaultAccount\Current\default$windows.data.bluelightreduction.' +
-"bluelightreductionstate\windows.data.bluelightreduction.bluelightreductionstate"
-Set-RegistryValue $key "Data" ([byte[]]$hexified) "Binary"
+# $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\" +
+# 'DefaultAccount\Current\default$windows.data.bluelightreduction.' +
+# "bluelightreductionstate\windows.data.bluelightreduction.bluelightreductionstate"
+# Set-RegistryValue $key "Data" ([byte[]]$hexified) "Binary"
 
 ########  Screen Saver
 Write-Host "Screen Save Settings"
