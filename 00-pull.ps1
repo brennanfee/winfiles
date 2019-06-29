@@ -23,18 +23,18 @@ $profilesPath = "C:\profile"
 if ($driveCount -ge 2) {
     $profilesPath = "D:\profile"
 }
-[Environment]::SetEnvironmentVariable("ProfilePath", $profilesPath, "User")
-$env:ProfilePath = $profilesPath
+[Environment]::SetEnvironmentVariable("PROFILEPATH", $profilesPath, "User")
+$env:PROFILEPATH = $profilesPath
 
 Write-Host ""
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 Write-Host "Pull script started - $date"
 
 # Check if scoop is already installed
-if (-not (Test-Path "$env:ProfilePath\scoop\shims\scoop")) {
+if (-not (Test-Path "$env:PROFILEPATH\scoop\shims\scoop")) {
     Write-Host "Scoop missing, preparing for install"
-    [environment]::SetEnvironmentVariable('SCOOP', "$env:ProfilePath\scoop", 'User')
-    $env:SCOOP = "$env:ProfilePath\scoop"
+    [environment]::SetEnvironmentVariable('SCOOP', "$env:PROFILEPATH\scoop", 'User')
+    $env:SCOOP = "$env:PROFILEPATH\scoop"
     [environment]::SetEnvironmentVariable('SCOOP_GLOBAL', 'C:\scoop-global', 'Machine')
     $env:SCOOP_GLOBAL = 'C:\scoop-global'
 
@@ -74,11 +74,11 @@ else {
 }
 
 ### Pull the WinFiles repo from GitHub
-if (-not (Test-Path "$env:ProfilePath\winfiles\README.md")) {
+if (-not (Test-Path "$env:PROFILEPATH\winfiles\README.md")) {
     Write-Host "Winfiles missing, preparing to clone"
 
     Write-Host ""
-    Invoke-Expression "git clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$env:ProfilePath\winfiles`""
+    Invoke-Expression "git clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$env:PROFILEPATH\winfiles`""
     Write-Host ""
 
     Write-Host "Finished cloning winfiles." -ForegroundColor "Green"
@@ -87,7 +87,7 @@ else {
     Write-Host "Winfiles already set up." -ForegroundColor "Green"
 }
 
-Set-Location "$env:ProfilePath\winfiles"
+Set-Location "$env:PROFILEPATH\winfiles"
 Write-Host "WinFiles are ready, you may now run .\01-setup-profile.ps1" -ForegroundColor "Yellow"
 
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"

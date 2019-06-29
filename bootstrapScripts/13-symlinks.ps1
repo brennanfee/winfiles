@@ -3,7 +3,7 @@
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
-$winFiles = "$env:ProfilePath\winfiles"
+$winFiles = "$env:PROFILEPATH\winfiles"
 
 ########  Git Configuration
 Write-Host "Linking Git Configuration"

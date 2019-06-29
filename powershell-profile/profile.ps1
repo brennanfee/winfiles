@@ -2,7 +2,7 @@
 #Requires -Version 5
 Set-StrictMode -Version 2.0
 
-$winFilesFolder = "$env:ProfilePath\winfiles"
+$winFilesFolder = "$env:PROFILEPATH\winfiles"
 
 if (-not ("$env:PSModulePath".Contains("$winFilesFolder\powershell-modules"))) {
     $env:PSModulePath = "$winFilesFolder\powershell-modules;" + "$env:PSModulePath"

@@ -17,10 +17,10 @@ Write-Host "Setting profile location"
 Set-MyCustomProfileLocation -Force
 
 # Check if scoop is already installed
-if (-not (Test-Path "$env:ProfilePath\scoop\shims\scoop")) {
+if (-not (Test-Path "$env:PROFILEPATH\scoop\shims\scoop")) {
     Write-Host "Scoop missing, preparing for install"
-    [environment]::SetEnvironmentVariable('SCOOP', "$env:ProfilePath\scoop", 'User')
-    $env:SCOOP = "$env:ProfilePath\scoop"
+    [environment]::SetEnvironmentVariable('SCOOP', "$env:PROFILEPATH\scoop", 'User')
+    $env:SCOOP = "$env:PROFILEPATH\scoop"
     [environment]::SetEnvironmentVariable('SCOOP_GLOBAL', 'C:\scoop-global', 'Machine')
     $env:SCOOP_GLOBAL = 'C:\scoop-global'
 
@@ -64,11 +64,11 @@ else {
 # there is no gaurantee they are in the right location.
 
 ### Pull the WinFiles repo from GitHub
-if (-not (Test-Path "$env:ProfilePath\winfiles\README.md")) {
+if (-not (Test-Path "$env:PROFILEPATH\winfiles\README.md")) {
     Write-Host "Winfiles missing, preparing to clone"
 
     Write-Host ""
-    Invoke-Expression "git clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$env:ProfilePath\winfiles`""
+    Invoke-Expression "git clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$env:PROFILEPATH\winfiles`""
     Write-Host ""
 
     Write-Host "Finished cloning winfiles." -ForegroundColor "Green"

@@ -3,7 +3,7 @@
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
-$logPath = "$env:ProfilePath\logs\winfiles"
+$logPath = "$env:PROFILEPATH\logs\winfiles"
 $logFile = "$logPath\cleanup.log"
 Write-Log $logFile "----------"
 Write-LogAndConsole $logFile "Cleanup script started"

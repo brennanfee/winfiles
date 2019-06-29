@@ -8,7 +8,7 @@ function Get-LogFile {
         [string]$SubPath = ""
     )
 
-    $logPath="$env:ProfilePath\logs"
+    $logPath = "$env:PROFILEPATH\logs"
     if ([string]::IsNullOrEmpty($SubPath)) {
         $logPath = Join-Path "$logPath" "$SubPath"
     }

@@ -68,7 +68,7 @@ Import-Module MyCustomProfileUtilities
 Write-Host "Setting profile location"
 Set-MyCustomProfileLocation
 
-$logFile = "$env:ProfilePath\logs\winfiles\setup-profile.log"
+$logFile = "$env:PROFILEPATH\logs\winfiles\setup-profile.log"
 
 Write-Log $logFile "----------"
 Write-LogAndConsole $logFile "Profile script log started"
@@ -127,7 +127,7 @@ Write-Host "Checking for AppGet"
 if (-not (Test-Path "C:\ProgramData\AppGet\bin\appget.exe")) {
     Write-Host "Installing AppGet"
 
-    $logFile = "$env:ProfilePath\logs\winfiles\appget-install.log"
+    $logFile = "$env:PROFILEPATH\logs\winfiles\appget-install.log"
     $appGetExe = "$winfilesRoot\installs\appget.exe"
     $arguments = @(
         "/VERYSILENT"

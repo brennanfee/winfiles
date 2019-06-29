@@ -5,14 +5,14 @@
 Param(
     [Parameter(ValueFromPipeline = $true,
         ValueFromPipelineByPropertyName = $true)]
-    [ValidateSet('home','work','gaming')]
+    [ValidateSet('home', 'work', 'gaming')]
     [string] $InstallType = "home"
 )
 
 Set-StrictMode -Version 2.0
 $global:InstallType = $InstallType
 
-$logPath = "$env:ProfilePath\logs\winfiles"
+$logPath = "$env:PROFILEPATH\logs\winfiles"
 $logFile = "$logPath\bootstrap.log"
 Write-Log $logFile "----------"
 Write-LogAndConsole $logFile "Bootstrap script started"

@@ -25,9 +25,9 @@ function Set-ProfileLocation {
         [switch]$Force = $false
     )
 
-    if ($Force -or [string]::IsNullOrEmpty($env:ProfilePath)) {
-        [Environment]::SetEnvironmentVariable("ProfilePath", $Path, "User")
-        $env:ProfilePath = $Path
+    if ($Force -or [string]::IsNullOrEmpty($env:PROFILEPATH)) {
+        [Environment]::SetEnvironmentVariable("PROFILEPATH", $Path, "User")
+        $env:PROFILEPATH = $Path
     }
 }
 
@@ -51,11 +51,11 @@ function Set-LocationToProfileFolder {
         [string]$Subfolder = ""
     )
 
-    if ([string]::IsNullOrEmpty($env:ProfilePath) -or (-not (Test-Path $env:ProfilePath))) {
+    if ([string]::IsNullOrEmpty($env:PROFILEPATH) -or (-not (Test-Path $env:PROFILEPATH))) {
         Write-Warning "The Profile location has not been set or does not exist.  Set it first and try again."
     }
     else {
-        Set-ToFolderInternal -RootPath $env:ProfilePath -Subfolder $Subfolder
+        Set-ToFolderInternal -RootPath $env:PROFILEPATH -Subfolder $Subfolder
     }
 }
 
@@ -131,38 +131,31 @@ function New-DateFile {
 
 # Special folder locations
 
-function Set-LocationToParent
-{
+function Set-LocationToParent {
     Set-Location ".."
 }
 
-function Set-LocationToDesktop
-{
+function Set-LocationToDesktop {
     Set-LocationToSpecialFolder "DesktopDirectory"
 }
 
-function Set-LocationToMusic
-{
+function Set-LocationToMusic {
     Set-LocationToSpecialFolder "MyMusic"
 }
 
-function Set-LocationToVideos
-{
+function Set-LocationToVideos {
     Set-LocationToSpecialFolder "MyVideos"
 }
 
-function Set-LocationToMyDocuments
-{
+function Set-LocationToMyDocuments {
     Set-LocationToSpecialFolder "MyDocuments"
 }
 
-function Set-LocationToPictures
-{
+function Set-LocationToPictures {
     Set-LocationToSpecialFolder "MyPictures"
 }
 
-function Set-LocationToUserProfile
-{
+function Set-LocationToUserProfile {
     Set-LocationToSpecialFolder "UserProfile"
 }
 

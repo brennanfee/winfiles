@@ -30,7 +30,7 @@ Set-RegistryInt "HKCU:\Software\Microsoft\Windows\DWM" "ColorPrevalance" 1
 Set-RegistryInt "$key\Themes\Personalize" "EnableTransparancy" 1
 
 # Set wallpaper
-$wallpaper = "$env:ProfilePath\winfiles\dotfiles\wallpapers\1920x1080\darkest-hour.jpg"
+$wallpaper = "$env:PROFILEPATH\winfiles\dotfiles\wallpapers\1920x1080\darkest-hour.jpg"
 $key = "HKCU:\Control Panel\Desktop"
 Set-RegistryString $key "Wallpaper" $wallpaper
 
