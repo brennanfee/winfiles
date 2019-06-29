@@ -11,15 +11,15 @@
 
     PowerShellVersion = '5.0'
 
-    RequiredModules = @(
+    RequiredModules   = @(
         @{
-            ModuleName="Pscx";
-            ModuleVersion="3.3.0";
-            Guid="0fab0d39-2f29-4e79-ab9a-fd750c66e6c5"
+            ModuleName    = "Pscx";
+            ModuleVersion = "3.3.0";
+            Guid          = "0fab0d39-2f29-4e79-ab9a-fd750c66e6c5"
         }
     )
 
-    NestedModules = @(
+    NestedModules     = @(
         'ComputerDetails.ps1',
         'EditorUtilities.ps1',
         'FileAndRegistryUtilities.ps1',
@@ -35,12 +35,13 @@
         'InvokeExternalPrograms.ps1'
     )
 
-    CmdletsToExport = ''
+    CmdletsToExport   = ''
 
     VariablesToExport = ''
 
     FunctionsToExport = @(
         'Add-ScoopBucket',
+        'Add-ScoopBucketUrl',
         'Add-ToPath',
         'Enable-RemoteDesktop',
         'Get-ApplicationPath',
@@ -95,7 +96,7 @@
         'Set-LocationTo*'
     )
 
-    AliasesToExport = @(
+    AliasesToExport   = @(
         'Set-DirectoryOwnership',
         'Set-LocationToHome'
     )
