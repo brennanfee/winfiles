@@ -16,15 +16,17 @@ if [[ "$EUID" -ne 0 ]]; then
     exit
 fi
 
+echo "Setup Starting..."
+
 # Set up the ppa for RCM
-add-apt-repository ppa:martin-frost/thoughtbot-rcm
+add-apt-repository -y ppa:martin-frost/thoughtbot-rcm
 
 # First fully upgrade
 apt-get update
 apt-get full-upgrade -y
 apt-get autoremove -y
 
-# Install python
+# Install python & build files (only build files needed for python)
 apt-get install -y build-essential python3 python3-venv python3-pip \
 make automake autoconf libreadline-dev libncurses5-dev libssl-dev libyaml-dev \
 libxslt-dev libffi-dev libtool unixodbc-dev libbz2-dev zlib1g-dev libsqlite3-dev \
@@ -37,6 +39,8 @@ echo -e '\nexport TMP=/tmp' >> ~/.bashrc
 echo -e '\nexport TEMP=/tmp' >> ~/.bashrc
 echo -e '\nexport TMPDIR=/tmp' >> ~/.bashrc
 
+# This wsl.conf is only temporary, but needed to complete the setup process
+# the Ansible script will set up a more complete config with this value included
 echo -e '[interop]' > /etc/wsl.conf
 echo -e '\nappendWindowsPath = false' >> /etc/wsl.conf
 

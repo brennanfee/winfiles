@@ -10,11 +10,21 @@ IFS=$'\n\t'
 # After running this script, run the 03-setup-ansible.sh script found in the
 # same directory as this file.
 
+# Should not be run as root
+if [[ "$EUID" -eq 0 ]]; then
+    echo "This script should not be run as root."
+    exit
+fi
+
+echo "Setting up SSH and dotfiles..."
+
 # Install asdf
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-cd ~/.asdf
-git checkout "$(git describe --abbrev=0 --tags)"
-cd -
+if [[ ! -d "$HOME/.asdf" ]]; then
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+  cd ~/.asdf
+  git checkout "$(git describe --abbrev=0 --tags)"
+  cd -
+fi
 
 # Source asdf and the completions
 source "$HOME/.asdf/asdf.sh"
@@ -37,7 +47,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Install ansible
 pipx install ansible
-pipx install ansible-lint
 
 # Setup the SSH keys
 driveNumber=$(ls -1 /mnt | wc -l)
@@ -49,7 +58,7 @@ else
 fi
 
 mkdir "$HOME/.ssh"
-7z e ssh-keys.7z -o"$HOME/.ssh"
+7z e "$HOME/ssh-keys.7z" -o"$HOME/.ssh"
 rmdir "$HOME/.ssh/ssh-keys"
 chmod +x "$HOME/.ssh/setPerms.sh"
 $HOME/.ssh/setPerms.sh
@@ -65,7 +74,7 @@ cd -
 
 echo ""
 echo "Edit the ~/.rcrc file if needed, then run `rcup`"
-echo "(Optional) Add the ~/.rcrc file to dotfiles with `mkrc -o "$HOME/.rcrc"`"
+echo "    (Optional) Add the ~/.rcrc file to dotfiles with `mkrc -o "$HOME/.rcrc"`"
 echo ""
 echo "Once done close the shell and re-open then run 03-setup-ansible.sh"
 echo ""

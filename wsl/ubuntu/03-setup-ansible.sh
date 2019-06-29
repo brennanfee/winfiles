@@ -11,6 +11,16 @@ IFS=$'\n\t'
 # 1.  Run `asdf install` - this will take very LONG time
 # 2.  Close and reload the shell
 
+# Should not be run as root
+if [[ "$EUID" -eq 0 ]]; then
+    echo "This script should not be run as root."
+    exit
+fi
+
+echo "Running ansible..."
+
+cd "$PROFILEPATH/winfiles/wsl/ubuntu"
+
 ## To run the facts script
 #
 #ANSIBLE_CONFIG=./ansible.cfg bash -c 'ansible-playbook facts.yml -e ansible_python_interpreter=/usr/bin/python3'
