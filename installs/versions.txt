@@ -1,2 +1,2 @@
-AppGet.exe -> 0.8.19
+AppGet.exe -> 1.0.12
 Site: https://appget.net/
