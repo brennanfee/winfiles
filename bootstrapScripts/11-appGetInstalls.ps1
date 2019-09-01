@@ -75,7 +75,7 @@ if ($installType -eq "gaming") {
     Write-Host "Installing applications using AppGet - Gaming"
     $apps = @(
         "battlenet"
-        "geforce-experience" # nvidia only
+        #"geforce-experience" # nvidia only
         "gog-galaxy"
         "origin"
         "steam"
