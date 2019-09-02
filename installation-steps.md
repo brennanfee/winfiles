@@ -7,6 +7,8 @@ This document covers the entire process (both automatic and manual) that I follo
 This is a manual step.  During installation, Windows should be connected to your Microsoft account.
 Reboot as needed.
 
+Don't forget to update the Windows Store and its apps.
+
 ## 2: Run the 00-pull Script
 
 1. Open PowerShell as an Administrator
@@ -27,3 +29,7 @@ If desired, instead of relying on the PowerShell aliases iex and iwr, you can ru
 1. Open PowerShell as an Administrator
 2. If not in the winfiles directory navigate to C:\profile\winfiles or D:\profile\winfiles (depending on if you have one hard drive or two).
 3. Run `.\02-bootstrap.ps1`
+    * As an option you can pass an install "type" like so `.\02-bootstrap.ps1 -InstallType "home"`.  "Home" is the default with "work" and "gaming" as other options.  The primary difference between the install types are what applications and settings are being used.
+
+During this step, be on the lookout for the occasional dialog box during application installations.
+
