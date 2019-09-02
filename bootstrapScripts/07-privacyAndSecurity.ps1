@@ -387,7 +387,7 @@ foreach ($service in $services) {
     Get-Service -Name $service -ErrorAction SilentlyContinue | Set-Service -StartupType Disabled
 }
 
-# Disable Unneede Scheduled Tasks
+# Disable Unneeded Scheduled Tasks
 Write-Host "Disabling Unneeded Scheduled Tasks..."
 schtasks /Change /TN "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /Disable | Out-Null
 schtasks /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /Disable | Out-Null

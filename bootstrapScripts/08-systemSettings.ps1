@@ -267,13 +267,13 @@ Set-RegistryInt "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR" "AllowGameDV
 Set-RegistryInt "HKCU:\System\GameConfigStore" "GameDVR_Enabled" 0
 
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search"
-Set-RegistryInt $key "CortanaConsent" 0
 Set-RegistryInt $key "CanCortanaBeEnabled" 0
 Set-RegistryInt $key "DeviceHistoryEnabled" 0
 Set-RegistryInt $key "CortanaEnabled" 0
 Set-RegistryInt $key "CortanaInAmbientMode" 0
 # Disable Bing search
-Set-RegistryInt $key "BingSearchEnabled" 0
+# Temporarily remove this one, a recent Win 10 update is causing issues with search if this is disabled
+#Set-RegistryInt $key "BingSearchEnabled" 0
 Set-RegistryInt $key "HistoryViewEnabled" 0
 # Turn off the Cortana Shortcut (win+c)
 Set-RegistryInt $key "VoiceShortcut" 0
