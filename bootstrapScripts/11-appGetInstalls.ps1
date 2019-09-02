@@ -32,6 +32,8 @@ $apps = @(
     "firefox"
     "ghostscript"
     "go"
+    "grep"
+    "gzip"
     "hack-fonts"
     "handbrake"
     "hashcheck"
@@ -50,6 +52,7 @@ $apps = @(
     "python"
     "rainmeter"
     "scribus"
+    "sed"
     "signal"
     #"spotify" # use the Windows Store version instead?
     "sqlectron"
@@ -58,6 +61,7 @@ $apps = @(
     "visual-studio-code"
     "vlc"
     "wavebox"
+    "wget"
     "zerotier-one"
 )
 
@@ -136,7 +140,6 @@ if (-not ($computerDetails.IsVirtual)) {
 # picard -> cross-plat music tagging tool
 # pidgin -> chat app
 # qtox -> another secure messaging app
-# scribus -> open source desktop publishing app
 # shotcut -> image\photo editor
 # skype
 # slack
@@ -147,8 +150,3 @@ if (-not ($computerDetails.IsVirtual)) {
 # twitch -> desktop client for the service
 # udeler -> udemy course downloader
 #
-# GNU tools
-# grep
-# gzip
-# sed
-# wget
