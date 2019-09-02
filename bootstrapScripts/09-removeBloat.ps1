@@ -92,7 +92,6 @@ $apps = @(
     "Microsoft.ZuneMusic"
     "Microsoft.ZuneVideo"
     # non-Microsoft
-    "SpotifyAB.SpotifyMusic"
     "king.com.BubbleWitch3Saga"
     "king.com.CandyCrushFriends"
     "king.com.CandyCrushSaga"

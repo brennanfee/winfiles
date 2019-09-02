@@ -46,15 +46,15 @@ $apps = @(
     "pandoc"
     "pencil"
     "perl"
-    "pia"
+    #"pia" # Shows prompts during install
     "plex-media-player"
     "postman"
     "python"
-    "rainmeter"
+    #"rainmeter" # Shows prompts during install
     "scribus"
     "sed"
     "signal"
-    #"spotify" # use the Windows Store version instead?
+    #"spotify"  # Won't install under an administrator shell
     "sqlectron"
     "teams"
     "texmaker"
