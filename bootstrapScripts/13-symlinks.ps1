@@ -31,7 +31,7 @@ New-SymbolicLink "$env:USERPROFILE\.ignore" "$winFiles\dotfiles\rcs\ignore"
 
 ######## Microsoft Terminal
 
-$statePath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\RoamingState"
+$statePath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 if (-not (Test-Path $statePath)) {
     New-Item -ItemType Directory -Force -Path $statePath | Out-Null
 }
