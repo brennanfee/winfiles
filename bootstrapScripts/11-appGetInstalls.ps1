@@ -24,16 +24,12 @@ $apps = @(
     "chrome"
     "cmake"
     "devdocs"
-    "dotnet-core-sdk"
     "dotnet-sdk"
     #    "dropbox"
     "etcher"
     "evernote"
     "firefox"
     "ghostscript"
-    "go"
-    "grep"
-    "gzip"
     "hack-fonts"
     "handbrake"
     "hashcheck"
@@ -42,17 +38,13 @@ $apps = @(
     "kindle"
     "megasync"
     "miktex"
-    "node-lts"
     "pandoc"
     "pencil"
-    "perl"
     #"pia" # Shows prompts during install
     "plex-media-player"
     "postman"
-    "python"
     #"rainmeter" # Shows prompts during install
     "scribus"
-    "sed"
     "signal"
     #"spotify"  # Won't install under an administrator shell
     "sqlectron"
@@ -61,7 +53,6 @@ $apps = @(
     "visual-studio-code"
     "vlc"
     "wavebox"
-    "wget"
     "zerotier-one"
 )
 

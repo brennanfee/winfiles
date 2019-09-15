@@ -22,6 +22,7 @@ foreach ($app in $apps) {
 
 Write-Host "Installing Scoop applications - main"
 $apps = @(
+    [PSCustomObject]@{Name = "bitwarden-cli"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "cake"; Path = "$env:SCOOP\shims\cake.exe" }
     [PSCustomObject]@{Name = "cloc"; Path = "$env:SCOOP\shims\cloc.exe" }
     [PSCustomObject]@{Name = "ColorTool"; Path = "$env:SCOOP\shims\colortool.exe" }
@@ -32,6 +33,7 @@ $apps = @(
     [PSCustomObject]@{Name = "diffutils"; Path = "$env:SCOOP\shims\diff.exe" }
     [PSCustomObject]@{Name = "dig"; Path = "$env:SCOOP\shims\dig.exe" }
     [PSCustomObject]@{Name = "dos2unix"; Path = "$env:SCOOP\shims\dos2unix.exe" }
+    [PSCustomObject]@{Name = "dotnet-sdk"; Path = "$env:SCOOP\shims\dotnet.exe" }
     [PSCustomObject]@{Name = "editorconfig"; Path = "$env:SCOOP\shims\editorconfig.exe" }
     [PSCustomObject]@{Name = "fd"; Path = "$env:SCOOP\shims\fd.exe" }
     [PSCustomObject]@{Name = "ffmpeg"; Path = "$env:SCOOP\shims\ffmpeg.exe" }
@@ -43,6 +45,9 @@ $apps = @(
     [PSCustomObject]@{Name = "gdb"; Path = "$env:SCOOP\shims\gdb.exe" }
     [PSCustomObject]@{Name = "genact"; Path = "$env:SCOOP\shims\genact.exe" }
     [PSCustomObject]@{Name = "gnupg"; Path = "$env:SCOOP\apps\gnupg\current\bin\gpg.exe" }
+    [PSCustomObject]@{Name = "go"; Path = "$env:SCOOP\shims\go.exe" }
+    [PSCustomObject]@{Name = "grep"; Path = "$env:SCOOP\shims\grep.exe" }
+    [PSCustomObject]@{Name = "gzip"; Path = "$env:SCOOP\shims\gzip.exe" }
     [PSCustomObject]@{Name = "handbrake-cli"; Path = "$env:SCOOP\shims\handbrakecli.exe" }
     [PSCustomObject]@{Name = "hub"; Path = "$env:SCOOP\shims\hub.exe" }
     [PSCustomObject]@{Name = "jira"; Path = "$env:SCOOP\shims\jira.exe" }
@@ -51,11 +56,15 @@ $apps = @(
     [PSCustomObject]@{Name = "megatools"; Path = "$env:SCOOP\shims\megacopy.exe" }
     [PSCustomObject]@{Name = "neofetch"; Path = "$env:SCOOP\shims\neofetch.exe" }
     [PSCustomObject]@{Name = "neovim"; Path = "$env:SCOOP\shims\nvim.exe" }
+    [PSCustomObject]@{Name = "nodejs-lts"; Path = "$env:SCOOP\shims\node.exe" }
     [PSCustomObject]@{Name = "nssm"; Path = "$env:SCOOP\shims\nssm.exe" }
     [PSCustomObject]@{Name = "patch"; Path = "$env:SCOOP\shims\patch.exe" }
+    [PSCustomObject]@{Name = "perl"; Path = "$env:SCOOP\apps\perl\current\perl\bin\perl.exe" }
+    [PSCustomObject]@{Name = "python"; Path = "$env:SCOOP\shims\python.exe" }
     [PSCustomObject]@{Name = "ripgrep"; Path = "$env:SCOOP\shims\rg.exe" }
     [PSCustomObject]@{Name = "ruby"; Path = "$env:SCOOP\apps\ruby\current\bin\ruby.exe" }
     [PSCustomObject]@{Name = "rust-msvc"; Path = "$env:SCOOP\persist\rustup\.cargo\bin\rustc.exe" }
+    [PSCustomObject]@{Name = "sed"; Path = "$env:SCOOP\shims\sed.exe" }
     [PSCustomObject]@{Name = "serve"; Path = "$env:SCOOP\shims\serve.exe" }
     [PSCustomObject]@{Name = "shasum"; Path = "$env:SCOOP\shims\shasum.exe" }
     [PSCustomObject]@{Name = "shellcheck"; Path = "$env:SCOOP\shims\shellcheck.exe" }
@@ -67,6 +76,7 @@ $apps = @(
     #   [PSCustomObject]@{Name = "transmission-cli"; Path = "$env:SCOOP\shims\transmission-create.exe" } # not for work machines
     [PSCustomObject]@{Name = "unzip"; Path = "$env:SCOOP\shims\unzip.exe" }
     [PSCustomObject]@{Name = "vim"; Path = "$env:SCOOP\shims\vim.exe" }
+    [PSCustomObject]@{Name = "wget"; Path = "$env:SCOOP\shims\wget.exe" }
     [PSCustomObject]@{Name = "youtube-dl"; Path = "$env:SCOOP\shims\youtube-dl.exe" }
     [PSCustomObject]@{Name = "zip"; Path = "$env:SCOOP\shims\zip.exe" }
 )
@@ -77,7 +87,6 @@ foreach ($app in $apps) {
 
 Write-Host "Installing Scoop applications - extras"
 $apps = @(
-    [PSCustomObject]@{Name = "bitwarden-cli"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "carnac"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "etcher-cli"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "emacs"; Path = "$env:SCOOP\shims\blah.exe" }
