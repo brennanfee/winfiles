@@ -15,9 +15,6 @@ New-SymbolicLink "$env:USERPROFILE\.config\git\gitconfig.os" "$winFiles\settings
 $tag = "home"
 if (Test-Path variable:global:InstallType) {
     $tag = $global:InstallType
-    if ($tag -eq "gaming") {
-        $tag = "home"
-    }
 }
 
 $target = "$winFiles\dotfiles\rcs\tag-$tag\config\git\gitconfig.user"

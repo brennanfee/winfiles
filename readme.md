@@ -27,7 +27,7 @@ In summary, the broad steps (particularly the automated parts) are as follows:
 3. Once complete run: `.\01-setup-profile.ps1'
 4. Once complete, close PowerShell and re-open as Administrator.
 5. Run: `.\02-bootstrap.ps1`
-    * As an option you can pass an install "type" like so `.\02-bootstrap.ps1 -InstallType "home"`.  "Home" is the default with "work" and "gaming" as other options.  The primary difference between the install types are what applications and settings are being used.
+    * As an option you can pass an install "type" like so `.\02-bootstrap.ps1 -InstallType "home"`.  "Home" is the default with "work" as the other options.  The primary difference between the install types are what applications and settings are being used.
 6. Reboot.
 7. Run: `.\03-cleanup.ps1`
 

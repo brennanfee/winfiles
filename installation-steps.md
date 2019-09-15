@@ -29,7 +29,7 @@ If desired, instead of relying on the PowerShell aliases iex and iwr, you can ru
 1. Open PowerShell as an Administrator
 2. If not in the winfiles directory navigate to C:\profile\winfiles or D:\profile\winfiles (depending on if you have one hard drive or two).
 3. Run `.\02-bootstrap.ps1`
-    * As an option you can pass an install "type" like so `.\02-bootstrap.ps1 -InstallType "home"`.  "Home" is the default with "work" and "gaming" as other options.  The primary difference between the install types are what applications and settings are being used.
+    * As an option you can pass an install "type" like so `.\02-bootstrap.ps1 -InstallType "home"`.  "Home" is the default with "work" as the other option.  The primary difference between the install types are what applications and settings are being used.
 4. Reboot
 
 During this step, be on the lookout for the occasional dialog box during application installations.

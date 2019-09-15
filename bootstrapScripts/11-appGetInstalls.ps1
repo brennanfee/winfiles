@@ -40,7 +40,6 @@ $apps = @(
     "miktex"
     "pandoc"
     "pencil"
-    #"pia" # Shows prompts during install
     "plex-media-player"
     "postman"
     #"rainmeter" # Shows prompts during install
@@ -63,20 +62,15 @@ foreach ($app in $apps) {
 if (-not ($installType -eq "work")) {
     Write-Host "Installing applications using AppGet - Non-Work"
     $apps = @(
+        # Torrent apps
         "qbittorrent"
-        #        transmission
-        #        transmission-remote-gui
+        "transmission"
+        "transmission-remote-gui"
+        # Harmony remote
         "myharmony"
-    )
-
-    foreach ($app in $apps) {
-        Install-WithAppGet $app
-    }
-}
-
-if ($installType -eq "gaming") {
-    Write-Host "Installing applications using AppGet - Gaming"
-    $apps = @(
+        # PIA VPN
+        #"pia" # Shows prompts during install, install manually instead
+        # Game installers
         "battlenet"
         "gog-galaxy"
         "origin"
