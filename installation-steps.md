@@ -43,10 +43,25 @@ During this step, be on the lookout for the occasional dialog box during applica
 
 ## 6: Manual Installations
 
+### Install Store Applications
+
+Use the "Microsoft Store" app to install the following:
+
+1. Netflix
+2. Hulu
+3. Twitter
+4. Microsoft Remote Desktop
+5. Alexa
+6. Windows Terminal
+7. X410
+8. Ubuntu
+9. Debian
+
+### Install Manual Applications
+
+PIA
+Rainmeter
+Directory Opus
 
 
-
-NOTE: Remove PIA from auto-install (shows prompts)
-NOTE: Remove Rainmeter from auto-install (shows prompts)
-
-
+NOTE: What about Arch for WSL, looks like it was removed from the store
