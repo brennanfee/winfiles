@@ -3,7 +3,7 @@
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
-Invoke-Expression -command "$PSScriptRoot\set-system-type.ps1"
+Invoke-Expression -command "$PSScriptRoot\shared\set-system-type.ps1"
 
 $logPath = "$env:PROFILEPATH\logs\winfiles"
 $logFile = "$logPath\cleanup.log"

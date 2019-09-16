@@ -14,7 +14,7 @@ if (-not $enabled) {
 
     Write-Host "Enabling PSRemoting"
 
-    $command = "$PSScriptRoot\..\bin\ConfigureRemotingForAnsible.ps1 " +
+    $command = "$PSScriptRoot\..\shared\ConfigureRemotingForAnsible.ps1 " +
     "-CertValidityDays 3650 -ForceNewSSLCert -Verbose"
 
     Invoke-Expression $command

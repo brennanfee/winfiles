@@ -9,7 +9,7 @@ Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
 
 function Is64Bit { [IntPtr]::Size -eq 8 }
 
-Invoke-Expression -command "$PSScriptRoot\set-system-type.ps1"
+Invoke-Expression -command "$PSScriptRoot\shared\set-system-type.ps1"
 
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 Write-Host "Setup Profile script started - $date"
