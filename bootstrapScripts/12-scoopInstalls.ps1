@@ -150,7 +150,6 @@ if (-not ($computerDetails.IsVirtual)) {
     Write-Host "Installing Scoop applications - virtualization"
     $apps = @(
         [PSCustomObject]@{Name = "packer"; Path = "$env:SCOOP\shims\packer.exe" }
-        [PSCustomObject]@{Name = "chefdk"; Path = "$env:SCOOP\shims\blah.exe" }
     )
 
     foreach ($app in $apps) {

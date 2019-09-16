@@ -71,9 +71,9 @@ if (-not ($installType -eq "work")) {
         # PIA VPN
         #"pia" # Shows prompts during install, install manually instead
         # Game installers
-        "battlenet"
+        #"battlenet"  # Shows prompts during install, install manually instead
         "gog-galaxy"
-        "origin"
+        #"origin"  # Shows prompts during install, install manually instead
         "steam"
         "uplay"
     )
@@ -90,7 +90,7 @@ if (-not ($computerDetails.IsVirtual)) {
     $apps = @(
         "vagrant"
         "virtualbox"
-        "docker-community"
+        #"docker-community"  # Shows prompts during install, install manually instead
     )
 
     foreach ($app in $apps) {
