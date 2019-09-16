@@ -3,10 +3,15 @@
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
+Invoke-Expression -command "$PSScriptRoot\set-system-type.ps1"
+
 $logPath = "$env:PROFILEPATH\logs\winfiles"
 $logFile = "$logPath\cleanup.log"
 Write-Log $logFile "----------"
-Write-LogAndConsole $logFile "Cleanup script started"
+$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
+Write-LogAndConsole $logFile "Cleanup script started - $date"
+Write-LogAndConsole $logFile  "System type: $env:SYSTEMTYPE"
+Write-LogAndConsole $logFile  ""
 
 Get-ChildItem "$PSScriptRoot\cleanupScripts" -File -Filter "*.ps1" | Sort-Object "FullName" | ForEach-Object {
     $script = $_.FullName

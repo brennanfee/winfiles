@@ -3,12 +3,6 @@
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
-## Resolve InstallType
-$installType = "home"
-if (Test-Path variable:global:InstallType) {
-    $installType = $global:InstallType
-}
-
 Write-Host "Installing applications using AppGet - Main"
 $apps = @(
     "7zip"
@@ -59,7 +53,7 @@ foreach ($app in $apps) {
     Install-WithAppGet $app
 }
 
-if (-not ($installType -eq "work")) {
+if (-not ($env:SYSTEMTYPE -eq "WORK")) {
     Write-Host "Installing applications using AppGet - Non-Work"
     $apps = @(
         # Torrent apps

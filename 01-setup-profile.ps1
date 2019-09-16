@@ -9,8 +9,11 @@ Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
 
 function Is64Bit { [IntPtr]::Size -eq 8 }
 
+Invoke-Expression -command "$PSScriptRoot\set-system-type.ps1"
+
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 Write-Host "Setup Profile script started - $date"
+Write-Host "System type: $env:SYSTEMTYPE"
 Write-Host ""
 
 $executionPolicyBlock = {
@@ -71,7 +74,9 @@ Set-MyCustomProfileLocation
 $logFile = "$env:PROFILEPATH\logs\winfiles\setup-profile.log"
 
 Write-Log $logFile "----------"
-Write-LogAndConsole $logFile "Profile script log started"
+$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
+Write-LogAndConsole $logFile "Profile script log started - $date"
+Write-LogAndConsole $logFile  "System type: $env:SYSTEMTYPE"
 Write-LogAndConsole $logFile ""
 
 Write-LogAndConsole $logFile "Installing posh-git"

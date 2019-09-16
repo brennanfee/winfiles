@@ -13,8 +13,8 @@ New-SymbolicLink "$env:USERPROFILE\.config\git\config" "$winFiles\dotfiles\rcs\c
 New-SymbolicLink "$env:USERPROFILE\.config\git\gitconfig.os" "$winFiles\settings\gitconfig.os"
 
 $tag = "home"
-if (Test-Path variable:global:InstallType) {
-    $tag = $global:InstallType
+if ($env:SYSTEMTYPE -eq "WORK") {
+    $tag = "work"
 }
 
 $target = "$winFiles\dotfiles\rcs\tag-$tag\config\git\gitconfig.user"

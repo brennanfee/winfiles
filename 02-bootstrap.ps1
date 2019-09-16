@@ -1,22 +1,17 @@
 #!/usr/bin/env pwsh.exe
 #Requires -Version 5
 #Requires -RunAsAdministrator
-
-Param(
-    [Parameter(ValueFromPipeline = $true,
-        ValueFromPipelineByPropertyName = $true)]
-    [ValidateSet('home', 'work')]
-    [string] $InstallType = "home"
-)
-
 Set-StrictMode -Version 2.0
-$global:InstallType = $InstallType
+
+Invoke-Expression -command "$PSScriptRoot\set-system-type.ps1"
 
 $logPath = "$env:PROFILEPATH\logs\winfiles"
 $logFile = "$logPath\bootstrap.log"
 Write-Log $logFile "----------"
-Write-LogAndConsole $logFile "Bootstrap script started"
-Write-LogAndConsole $logFile "Install type: $global:InstallType"
+$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
+Write-LogAndConsole $logFile "Bootstrap script started - $date"
+Write-LogAndConsole $logFile "System type: $env:SYSTEMTYPE"
+Write-LogAndConsole $logFile ""
 
 Get-ChildItem "$PSScriptRoot\bootstrapScripts" -File -Filter "*.ps1" | Sort-Object "FullName" | ForEach-Object {
     $script = $_.FullName

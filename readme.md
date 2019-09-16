@@ -14,6 +14,8 @@ This is my attempt at making the setup of my machines as quick and "automatic" a
 
 This repository also contains my personal settings and configurations much in the same way that `dotfiles` are used on Linux.  In fact, a sub-module of this repository is in fact my Linux\Mac `dotfiles` so that I can share some files between all systems.
 
+During installation, the scripts will prompt for what "system type" the installation is for.  I offer two options, "Home" and "Work", which should largely be self explanatory.  The primary difference between the two types are what applications and settings are being used.
+
 ## Installation Overview
 
 Full installation steps, including the manual portions can be found in [Installation Steps](installation-steps.md).
@@ -27,7 +29,6 @@ In summary, the broad steps (particularly the automated parts) are as follows:
 3. Once complete run: `.\01-setup-profile.ps1'
 4. Once complete, close PowerShell and re-open as Administrator.
 5. Run: `.\02-bootstrap.ps1`
-    * As an option you can pass an install "type" like so `.\02-bootstrap.ps1 -InstallType "home"`.  "Home" is the default with "work" as the other options.  The primary difference between the install types are what applications and settings are being used.
 6. Reboot.
 7. Run: `.\03-cleanup.ps1`
 
