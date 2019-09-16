@@ -26,6 +26,10 @@ Write-Host "Linking Ignore file"
 
 New-SymbolicLink "$env:USERPROFILE\.ignore" "$winFiles\dotfiles\rcs\ignore"
 
+######## Windows Terminal
+Write-Host "Linking Windows Terminal Settings"
+Invoke-Expression "$PSScriptRoot\..\shared\symlink-terminal-settings.ps1"
+
 ######## Vim
 Write-Host "Linking Vim settings"
 
