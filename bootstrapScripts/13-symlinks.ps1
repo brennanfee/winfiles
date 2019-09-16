@@ -51,7 +51,7 @@ New-SymbolicLink "$env:USERPROFILE\_vsvimrc" "$winFiles\settings\vsvimrc"
 New-SymbolicLink "$env:USERPROFILE\_viemurc" "$winFiles\settings\viemurc"
 
 # GVim
-New-SymbolicLink "$env:USERPROFILE\.vimrc" "$winFiles\dotfiles\rcs\vim\vimrc" -Force
+New-SymbolicLink "$env:USERPROFILE\_vimrc" "$winFiles\dotfiles\rcs\vim\vimrc" -Force
 New-SymbolicLink "$env:USERPROFILE\.vim\vimrc.bundles" "$winFiles\dotfiles\rcs\vim\vimrc.bundles"
 New-SymbolicLink "$env:USERPROFILE\.vim\vimrc.lightline" "$winFiles\dotfiles\rcs\vim\vimrc.lightline"
 
