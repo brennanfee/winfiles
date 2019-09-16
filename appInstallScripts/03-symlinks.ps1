@@ -26,17 +26,6 @@ Write-Host "Linking Ignore file"
 
 New-SymbolicLink "$env:USERPROFILE\.ignore" "$winFiles\dotfiles\rcs\ignore"
 
-######## Microsoft Terminal
-
-$statePath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
-if (-not (Test-Path $statePath)) {
-    New-Item -ItemType Directory -Force -Path $statePath | Out-Null
-}
-
-Remove-Item -Path "$statePath\profiles.json" -ErrorAction SilentlyContinue
-
-New-SymbolicLink "$statePath\profiles.json" "$winFiles\settings\profiles.json"
-
 ######## Vim
 Write-Host "Linking Vim settings"
 

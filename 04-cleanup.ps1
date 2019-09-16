@@ -40,4 +40,5 @@ Write-Host ""
 Write-LogAndConsole $logFile -Color "Yellow" `
     "You will need to close and re-open PowerShell to continue."
 Write-Host ""
-Write-LogAndConsole $logFile "Complete" -Color "Green"
+$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
+Write-LogAndConsole $logFile "System Installation Is Complete - $date" -Color "Green"

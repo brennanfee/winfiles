@@ -156,4 +156,5 @@ Write-LogAndConsole $logFile -Color "Yellow" `
 Write-LogAndConsole $logFile -Color "Yellow" `
     "Once reloaded as admin you can run .\02-bootstrap.ps1"
 Write-Host ""
-Write-LogAndConsole $logFile "Complete" -Color "Green"
+$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
+Write-LogAndConsole $logFile "Script Complete - $date" -Color "Green"
