@@ -5,7 +5,7 @@ Set-StrictMode -Version 2.0
 
 $computerDetails = Get-ComputerDetails
 
-$delay = 15
+$delay = 30
 
 ########  Install my selection of optional windows features.
 
