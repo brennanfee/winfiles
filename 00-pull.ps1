@@ -87,7 +87,7 @@ else {
     Write-Host "Winfiles already set up." -ForegroundColor "Green"
 }
 
-Invoke-Expression -command "$env:PROFILEPATH\winfiles\set-machine-type.ps1"
+Invoke-Expression -command "$env:PROFILEPATH\winfiles\shared\set-system-type.ps1"
 
 Set-Location "$env:PROFILEPATH\winfiles"
 Write-Host "WinFiles are ready, you may now run .\01-setup-profile.ps1" -ForegroundColor "Yellow"
