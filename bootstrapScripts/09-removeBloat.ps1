@@ -95,6 +95,8 @@ $apps = @(
     "king.com.BubbleWitch3Saga"
     "king.com.CandyCrushFriends"
     "king.com.CandyCrushSaga"
+    "king.com.FarmHeroesSaga"
+    "king.com.*"
     "NORDCURRENT.COOKINGFEVER"
 )
 
