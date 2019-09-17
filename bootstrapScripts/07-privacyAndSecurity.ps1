@@ -40,6 +40,10 @@ Set-RegistryInt $key "TailoredExperiencesWithDiagnosticDataEnabled" 0
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\PenWorkspace"
 Set-RegistryInt $key "PenWorkspaceAppSuggestionsEnabled" 0
 
+# Turn off auto downloading of store apps (games and crap)
+$key = "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore"
+Set-RegistryInt $key "AutoDownload" 2
+
 # Disable Internet Explorer ESC protections, this is usually only turned on for servers
 $compsPath = "SOFTWARE\Microsoft\Active Setup\Installed Components\" +
 "{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}"
