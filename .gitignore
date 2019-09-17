@@ -333,3 +333,4 @@ typings/
 
 ###### Custom project specific overrides ######
 output/
+dotfiles-private/
