@@ -5,6 +5,8 @@ Set-StrictMode -Version 2.0
 
 ######## Microsoft Terminal
 
+$winfiles = "$env:PROFILEPATH\winfiles"
+
 $statePath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 if (-not (Test-Path $statePath)) {
     New-Item -ItemType Directory -Force -Path $statePath | Out-Null
@@ -13,4 +15,3 @@ if (-not (Test-Path $statePath)) {
 Remove-Item -Path "$statePath\profiles.json" -ErrorAction SilentlyContinue
 
 New-SymbolicLink "$statePath\profiles.json" "$winFiles\settings\profiles.json"
-
