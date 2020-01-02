@@ -10,7 +10,6 @@ $apps = @(
     "amazon-workspaces"
     "autohotkey"
     "avidemux"
-    "aws-cli"
     #    "aws-tools-for-dotnet" # Needs to be manual, after install of Visual Studio
     "beyond-compare"
     "bitwarden"
@@ -18,7 +17,7 @@ $apps = @(
     "chrome"
     "cmake"
     "devdocs"
-    #    "dropbox"
+    #    "dropbox"  # On hold, evaluating Mega.nz
     "etcher"
     "evernote"
     "firefox"

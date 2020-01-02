@@ -22,6 +22,7 @@ foreach ($app in $apps) {
 
 Write-Host "Installing Scoop applications - main"
 $apps = @(
+    [PSCustomObject]@{Name = "aws"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "bitwarden-cli"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "cake"; Path = "$env:SCOOP\shims\cake.exe" }
     [PSCustomObject]@{Name = "cloc"; Path = "$env:SCOOP\shims\cloc.exe" }
@@ -48,7 +49,6 @@ $apps = @(
     [PSCustomObject]@{Name = "go"; Path = "$env:SCOOP\shims\go.exe" }
     [PSCustomObject]@{Name = "grep"; Path = "$env:SCOOP\shims\grep.exe" }
     [PSCustomObject]@{Name = "gzip"; Path = "$env:SCOOP\shims\gzip.exe" }
-    [PSCustomObject]@{Name = "handbrake-cli"; Path = "$env:SCOOP\shims\handbrakecli.exe" }
     [PSCustomObject]@{Name = "hub"; Path = "$env:SCOOP\shims\hub.exe" }
     [PSCustomObject]@{Name = "jira"; Path = "$env:SCOOP\shims\jira.exe" }
     [PSCustomObject]@{Name = "jq"; Path = "$env:SCOOP\shims\jq.exe" }
@@ -73,7 +73,6 @@ $apps = @(
     [PSCustomObject]@{Name = "terraform"; Path = "$env:SCOOP\shims\terraform.exe" }
     [PSCustomObject]@{Name = "tldr"; Path = "$env:SCOOP\shims\tldr.exe" }
     [PSCustomObject]@{Name = "touch"; Path = "$env:SCOOP\shims\touch.exe" }
-    #   [PSCustomObject]@{Name = "transmission-cli"; Path = "$env:SCOOP\shims\transmission-create.exe" } # not for work machines
     [PSCustomObject]@{Name = "unzip"; Path = "$env:SCOOP\shims\unzip.exe" }
     [PSCustomObject]@{Name = "vim"; Path = "$env:SCOOP\shims\vim.exe" }
     [PSCustomObject]@{Name = "wget"; Path = "$env:SCOOP\shims\wget.exe" }
@@ -88,7 +87,6 @@ foreach ($app in $apps) {
 Write-Host "Installing Scoop applications - extras"
 $apps = @(
     [PSCustomObject]@{Name = "carnac"; Path = "$env:SCOOP\shims\blah.exe" }
-    [PSCustomObject]@{Name = "etcher-cli"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "emacs"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "rufus"; Path = "$env:SCOOP\shims\blah.exe" }
     [PSCustomObject]@{Name = "speedcrunch"; Path = "$env:SCOOP\shims\blah.exe" }
@@ -102,8 +100,8 @@ foreach ($app in $apps) {
 
 Write-Host "Installing Scoop applications - java"
 $apps = @(
-    [PSCustomObject]@{Name = "corretto8"; Path = "$env:SCOOP\shims\blah.exe" }
-    [PSCustomObject]@{Name = "corretto11"; Path = "$env:SCOOP\shims\blah.exe" }
+    [PSCustomObject]@{Name = "adopt11-hotspot"; Path = "$env:SCOOP\shims\blah.exe" }
+    [PSCustomObject]@{Name = "adopt13-hotspot"; Path = "$env:SCOOP\shims\blah.exe" }
 )
 
 foreach ($app in $apps) {
@@ -122,6 +120,7 @@ $apps = @(
     [PSCustomObject]@{Name = "Hack-NF"; Path = "$env:SystemRoot\Fonts\Hack Regular*Nerd*.ttf" }
     [PSCustomObject]@{Name = "Hasklig-NF"; Path = "$env:SystemRoot\Fonts\Hasklug*Nerd*.otf" }
     [PSCustomObject]@{Name = "LiberationMono-NF"; Path = "$env:SystemRoot\Fonts\Literation Mono*Nerd*.ttf" }
+    [PSCustomObject]@{Name = "Meslo-NF"; Path = "$env:SystemRoot\Fonts\Monoid*Nerd*.ttf" }
     [PSCustomObject]@{Name = "Monoid-NF"; Path = "$env:SystemRoot\Fonts\Monoid*Nerd*.ttf" }
     [PSCustomObject]@{Name = "Noto-NF"; Path = "$env:SystemRoot\Fonts\Noto Sans*Nerd*.ttf" }
     [PSCustomObject]@{Name = "RobotoMono-NF"; Path = "$env:SystemRoot\Fonts\Roboto Mono*Nerd*.ttf" }
@@ -129,6 +128,13 @@ $apps = @(
     [PSCustomObject]@{Name = "Tinos-NF"; Path = "$env:SystemRoot\Fonts\Tinos*Nerd*.ttf" }
     [PSCustomObject]@{Name = "Ubuntu-NF"; Path = "$env:SystemRoot\Fonts\Ubuntu Medium*Nerd*.ttf" }
     [PSCustomObject]@{Name = "UbuntuMono-NF"; Path = "$env:SystemRoot\Fonts\Ubuntu Mono*Nerd*.ttf" }
+    # These are not from NerdFonts but part of Microsofts new terminal
+    [PSCustomObject]@{Name = "Cascadia-Code"; Path = "$env:SystemRoot\Fonts\Ubuntu Mono*Nerd*.ttf" }
+    [PSCustomObject]@{Name = "Cascadia-Mono"; Path = "$env:SystemRoot\Fonts\Ubuntu Mono*Nerd*.ttf" }
+    [PSCustomObject]@{Name = "Delugia-Nerd-Font-Complete"; Path = "$env:SystemRoot\Fonts\Ubuntu Mono*Nerd*.ttf" }
+    [PSCustomObject]@{Name = "Delugia-Nerd-Font"; Path = "$env:SystemRoot\Fonts\Ubuntu Mono*Nerd*.ttf" }
+    # Other fonts
+    [PSCustomObject]@{Name = "FiraCode"; Path = "$env:SystemRoot\Fonts\Ubuntu Mono*Nerd*.ttf" }
 )
 
 foreach ($app in $apps) {
