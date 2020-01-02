@@ -18,7 +18,6 @@ $apps = @(
     "chrome"
     "cmake"
     "devdocs"
-    "dotnet-sdk"
     #    "dropbox"
     "etcher"
     "evernote"
@@ -58,18 +57,18 @@ if (-not ($env:SYSTEMTYPE -eq "WORK")) {
     $apps = @(
         # Torrent apps
         "qbittorrent"
-        "transmission"
-        "transmission-remote-gui"
+        #"transmission"
+        #"transmission-remote-gui"
         # Harmony remote
         "myharmony"
         # PIA VPN
         #"pia" # Shows prompts during install, install manually instead
         # Game installers
         #"battlenet"  # Shows prompts during install, install manually instead
-        "gog-galaxy"
+        #"gog-galaxy"
         #"origin"  # Shows prompts during install, install manually instead
-        "steam"
-        "uplay"
+        #"steam"
+        #"uplay"
     )
 
     foreach ($app in $apps) {
