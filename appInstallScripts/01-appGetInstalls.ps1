@@ -56,18 +56,10 @@ if (-not ($env:SYSTEMTYPE -eq "WORK")) {
     $apps = @(
         # Torrent apps
         "qbittorrent"
-        #"transmission"
-        #"transmission-remote-gui"
         # Harmony remote
         "myharmony"
         # PIA VPN
         #"pia" # Shows prompts during install, install manually instead
-        # Game installers
-        #"battlenet"  # Shows prompts during install, install manually instead
-        #"gog-galaxy"
-        #"origin"  # Shows prompts during install, install manually instead
-        #"steam"
-        #"uplay"
     )
 
     foreach ($app in $apps) {
