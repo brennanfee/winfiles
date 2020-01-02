@@ -123,6 +123,7 @@ $apps = @(
     [PSCustomObject]@{Name = "Meslo-NF"; Path = "$env:SystemRoot\Fonts\Meslo*Nerd*.ttf" }
     [PSCustomObject]@{Name = "Monoid-NF"; Path = "$env:SystemRoot\Fonts\Monoid*Nerd*.ttf" }
     [PSCustomObject]@{Name = "Noto-NF"; Path = "$env:SystemRoot\Fonts\Noto Sans*Nerd*.ttf" }
+    [PSCustomObject]@{Name = "Overpass-NF"; Path = "$env:SystemRoot\Fonts\Overpass*Nerd*.ttf" }
     [PSCustomObject]@{Name = "RobotoMono-NF"; Path = "$env:SystemRoot\Fonts\Roboto Mono*Nerd*.ttf" }
     [PSCustomObject]@{Name = "SourceCodePro-NF"; Path = "$env:SystemRoot\Fonts\Sauce Code Pro*Nerd*.ttf" }
     [PSCustomObject]@{Name = "Tinos-NF"; Path = "$env:SystemRoot\Fonts\Tinos*Nerd*.ttf" }
