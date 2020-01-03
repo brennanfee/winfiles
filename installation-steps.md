@@ -141,11 +141,19 @@ And finally, this one must be run from a non-Administrator PowerShell.
 
 ### Install Applications Not Available In AppGet Or Scoop
 
+Q: Why are most of these things in the "cloud" synced folder rather than the winfiles folder?
+
+A: Because I may not have legal right to re-distribute those files or they are sensitive (like my settings).
+
 #### Directory Opus
 
 1. Directory Opus.  The install can be found in `$profile\cloud\installs\windows\DirectoryOpus\`.
 2. After install, the license can be loaded from `$profile\cloud\appSettings\DirectoryOpus`
 3. Lastly, the configuration can be restored from the same directory in step #2.
+
+For those that want to obtain Directory Opus you can find the install and buy a license here: https://www.gpsoft.com.au
+
+It is one of the few licensed\proprietary applications that I use and it is **so good** that I truly can't use Windows without it.  It is a full replacement for the Windows File Explorer.
 
 #### Fonts
 
