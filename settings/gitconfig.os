@@ -1,3 +1,5 @@
+[core]
+    pager = less --tabs=4 -RFX
 [diff]
     tool = bc
     guitool = bc
@@ -8,4 +10,3 @@
     guitool = bc
 [mergetool "bc"]
     path = C:/Program Files/Beyond Compare 4/BComp.exe
-
