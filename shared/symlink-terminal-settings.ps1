@@ -14,4 +14,4 @@ if (-not (Test-Path $statePath)) {
 
 Remove-Item -Path "$statePath\profiles.json" -ErrorAction SilentlyContinue
 
-New-SymbolicLink "$statePath\profiles.json" "$winFiles\settings\profiles.json"
+New-SymbolicLink "$statePath\profiles.json" "$winFiles\settings\windows-terminal-settings.json"
