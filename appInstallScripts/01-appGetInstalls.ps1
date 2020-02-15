@@ -29,8 +29,6 @@ $apps = @(
     "jetbrains-toolbox"
     "kindle"
     "megasync"
-    "miktex"
-    "pandoc"
     "pencil"
     "plex-media-player"
     "postman"
@@ -40,7 +38,6 @@ $apps = @(
     #"spotify"  # Won't install under an administrator shell
     "sqlectron"
     "teams"
-    "texmaker"
     "visual-studio-code"
     "vlc"
     "wavebox"

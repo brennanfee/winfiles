@@ -52,12 +52,14 @@ $apps = @(
     [PSCustomObject]@{Name = "hub"; Path = "$env:SCOOP\shims\hub.exe" }
     [PSCustomObject]@{Name = "jira"; Path = "$env:SCOOP\shims\jira.exe" }
     [PSCustomObject]@{Name = "jq"; Path = "$env:SCOOP\shims\jq.exe" }
+    [PSCustomObject]@{Name = "latex"; Path = "$env:SCOOP\shims\miktex.exe" }
     [PSCustomObject]@{Name = "less"; Path = "$env:SCOOP\shims\less.exe" }
     [PSCustomObject]@{Name = "megatools"; Path = "$env:SCOOP\shims\megacopy.exe" }
     [PSCustomObject]@{Name = "neofetch"; Path = "$env:SCOOP\shims\neofetch.exe" }
     [PSCustomObject]@{Name = "neovim"; Path = "$env:SCOOP\shims\nvim.exe" }
     [PSCustomObject]@{Name = "nodejs-lts"; Path = "$env:SCOOP\apps\nodejs-lts\current\node.exe" }
     [PSCustomObject]@{Name = "nssm"; Path = "$env:SCOOP\shims\nssm.exe" }
+    [PSCustomObject]@{Name = "pandoc"; Path = "$env:SCOOP\shims\pandoc.exe" }
     [PSCustomObject]@{Name = "patch"; Path = "$env:SCOOP\shims\patch.exe" }
     [PSCustomObject]@{Name = "perl"; Path = "$env:SCOOP\apps\perl\current\perl\bin\perl.exe" }
     [PSCustomObject]@{Name = "python"; Path = "$env:SCOOP\apps\python\current\python.exe" }
@@ -92,6 +94,7 @@ $apps = @(
     [PSCustomObject]@{Name = "speedcrunch"; Path = "$env:SCOOP\shims\speedcrunch.exe" }
     [PSCustomObject]@{Name = "sysinternals"; Path = "$env:SCOOP\shims\psinfo.exe" }
     [PSCustomObject]@{Name = "task"; Path = "$env:SCOOP\shims\task.exe" }
+    [PSCustomObject]@{Name = "texmaker"; Path = "$env:SCOOP\apps\texmaker\current\texmaker.exe" }
 )
 
 foreach ($app in $apps) {
