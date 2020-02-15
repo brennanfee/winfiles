@@ -26,12 +26,12 @@ $apps = @(
     "handbrake"
     "hashcheck"
     "imagemagick"
+    "insomnia"
     "jetbrains-toolbox"
     "kindle"
     "megasync"
     "pencil"
     "plex-media-player"
-    "postman"
     #"rainmeter" # Shows prompts during install
     "scribus"
     "signal"
