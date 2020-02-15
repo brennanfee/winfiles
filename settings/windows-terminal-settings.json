@@ -14,13 +14,13 @@
     "$schema": "https://aka.ms/terminal-profiles-schema",
 
     "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-    "initialCols": 125,
+    "initialCols": 102,
     "initialRows": 32,
 
     "profiles": {
         "defaults": {
-            "fontFace": "Hasklug NF",
-            "fontSize": 14,
+            "fontFace": "JetBrainsMono NF",
+            "fontSize": 15,
             "padding": "10, 10, 10, 10",
             "useAcrylic" : false
         },
