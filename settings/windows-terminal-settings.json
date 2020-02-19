@@ -29,7 +29,7 @@
                 "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                 "hidden": false,
                 "name": "Ubuntu",
-                "colorScheme": "One Half Dark",
+                "colorScheme": "One Half Dark-Fixed",
                 "source": "Windows.Terminal.Wsl"
             },
             {
@@ -48,7 +48,7 @@
                 "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
                 "hidden": false,
                 "name": "Debian",
-                "colorScheme": "One Half Dark",
+                "colorScheme": "One Half Dark-Fixed",
                 "source": "Windows.Terminal.Wsl"
             },
             {
@@ -74,7 +74,29 @@
     },
 
     // Add custom color schemes to this array
-    "schemes": [],
+    "schemes": [
+        {
+            "name": "One Half Dark-Fixed",
+            "foreground": "#DCDFE4",
+            "background": "#282C34",
+            "black": "#282C34",
+            "red": "#E06C75",
+            "green": "#98C379",
+            "yellow": "#E5C07B",
+            "blue": "#61AFEF",
+            "purple": "#C678DD",
+            "cyan": "#56B6C2",
+            "white": "#DCDFE4",
+            "brightBlack": "#313740",
+            "brightRed": "#E06C75",
+            "brightGreen": "#98C379",
+            "brightYellow": "#E5C07B",
+            "brightBlue": "#61AFEF",
+            "brightPurple": "#C678DD",
+            "brightCyan": "#56B6C2",
+            "brightWhite": "#DCDFE4"
+        }
+    ],
 
     // Add any keybinding overrides to this array.
     // To unbind a default keybinding, set the command to "unbound"
