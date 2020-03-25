@@ -11,3 +11,8 @@ Add-ScoopBucket "extras"
 Add-ScoopBucket "nerd-fonts"
 
 Write-Host "Scoop buckets configured"
+
+Write-Host "Setting up Chocolatey features"
+Invoke-Expression "choco feature enable -n=useRememberedArgumentsForUpgrades"
+Invoke-Expression "choco feature enable -n=skipPackageUpgradesWhenNotInstalled"
+#Invoke-Expression "choco feature enable -n=ignoreUnfoundPackagesOnUpgradeOutdated"
