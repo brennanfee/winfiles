@@ -13,7 +13,7 @@ Set-StrictMode -Version 2.0
 #    iex ((iwr -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)
 
 # Note, this may need to be run BEFORE this script
-Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force -ErrorAction Ignore
+Set-ExecutionPolicy Bypass -Scope Process -Force -ErrorAction Ignore
 
 ### Set Profile location (based on how many disks we have)
 ### 1 disk means porfile is in C:\profile, 2 disks or more means D:\profile
@@ -25,48 +25,41 @@ if ($driveCount -ge 2) {
 }
 [Environment]::SetEnvironmentVariable("PROFILEPATH", $profilesPath, "User")
 $env:PROFILEPATH = $profilesPath
+if (-not (Test-Path "$env:PROFILEPATH")) {
+    New-Item -ItemType Directory -Force -Path $env:PROFILEPATH | Out-Null
+}
 
 Write-Host ""
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 Write-Host "Pull script started - $date"
 
-# Check if scoop is already installed
-if (-not (Test-Path "$env:PROFILEPATH\scoop\shims\scoop")) {
-    Write-Host "Scoop missing, preparing for install"
-    [environment]::SetEnvironmentVariable('SCOOP', "$env:PROFILEPATH\scoop", 'User')
-    $env:SCOOP = "$env:PROFILEPATH\scoop"
-    [environment]::SetEnvironmentVariable('SCOOP_GLOBAL', 'C:\scoop-global', 'Machine')
-    $env:SCOOP_GLOBAL = 'C:\scoop-global'
+# Check if Chocolatey is already installed
+if (-not (Test-Path "C:\ProgramData\Chocolatey\bin\choco.exe")) {
+    Write-Host "Chocolatey missing, preparing for install"
 
-    # Install scoop
-    Write-Host ""
-    Set-StrictMode -Off # Need to turn StrictMode off because Scoop script has errors
-    Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -Uri 'https://get.scoop.sh').Content)
-    Set-StrictMode -Version 2.0
-    Write-Host ""
-
-    # Scoop configuration
-    Add-MpPreference -ExclusionPath $env:SCOOP
-    Add-MpPreference -ExclusionPath $env:SCOOP_GLOBAL
-    Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
-    Invoke-Expression "scoop config aria2-enabled false"
-
-    Write-Host "Scoop installed." -ForegroundColor "Green"
+    Invoke-Expression (
+        (Invoke-WebRequest -UseBasicParsing -Uri 'https://chocolatey.org/install.ps1').Content
+    )
 }
 else {
-    Write-Host "Scoop already installed." -ForegroundColor "Green"
+    Write-Host "Chocolatey is already installed." -ForegroundColor "Green"
 }
 
 # Check if git is already installed
-if (-not (Test-Path "$env:SCOOP_GLOBAL\shims\git.exe")) {
-    Write-Host "Git missing, preparing for install using scoop."
+if (-not (Test-Path "C:\Program Files\Git\cmd\git.exe")) {
+    Write-Host "Git missing, preparing for install using Chocolatey."
 
     Write-Host ""
-    Invoke-Expression "scoop install --global sudo 7zip git git-lfs innounp dark which aria2"
-    Write-Host ""
+    Invoke-Expression "C:\ProgramData\Chocolatey\bin\choco.exe install -y -r git --params `"/GitOnlyOnPath /NoAutoCrlf /WindowsTerminal /NoShellIntegration`""
 
-    [environment]::SetEnvironmentVariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
-    $env:GIT_SSH = (resolve-path (scoop which ssh))
+    $sshPath = "C:\Program Files\Git\usr\bin\ssh.exe"
+    if ((Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*').State -eq "Installed") {
+        $sshPath = "C:\Windows\System32\OpenSSH\ssh.exe"
+    }
+
+    [environment]::SetEnvironmentVariable('GIT_SSH', $sshPath, 'USER')
+    $env:GIT_SSH = $sshPath
+
     Write-Host "Git installed." -ForegroundColor "Green"
 }
 else {
@@ -78,7 +71,7 @@ if (-not (Test-Path "$env:PROFILEPATH\winfiles\README.md")) {
     Write-Host "Winfiles missing, preparing to clone"
 
     Write-Host ""
-    Invoke-Expression "git clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$env:PROFILEPATH\winfiles`""
+    Invoke-Expression "&`"C:\Program Files\Git\cmd\git.exe`" clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$env:PROFILEPATH\winfiles`""
     Write-Host ""
 
     Write-Host "Finished cloning winfiles." -ForegroundColor "Green"
@@ -90,7 +83,10 @@ else {
 Invoke-Expression -command "$env:PROFILEPATH\winfiles\shared\set-system-type.ps1"
 
 Set-Location "$env:PROFILEPATH\winfiles"
-Write-Host "WinFiles are ready, you may now run .\01-setup-profile.ps1" -ForegroundColor "Yellow"
+Write-Host "WinFiles are ready" -Color "Green"
+Write-Host ""
+Write-Host "You will need to close and re-open PowerShell to continue." -Color "Yellow"
+Write-Host "Once reloaded as admin you can run .\01-setup-profile.ps1" -Color "Yellow"
 
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 Write-Host "Pull script finished - $date"
