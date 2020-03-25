@@ -137,6 +137,9 @@ Set-RegistryInt "$key" "NoUseStoreOpenWith" 1
 $key = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer"
 Set-RegistryInt "$key" "NoDriveTypeAutoRun" 255
 
+######## File system settings
+Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled'
+
 ######## Accessibility
 # Disable Sticky Keys Prompt
 $key = "HKCU:\Control Panel\Accessibility\StickyKeys"
