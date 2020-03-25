@@ -155,6 +155,7 @@ if (-not ($computerDetails.IsVirtual)) {
 $disableCapabilities = @(
     "Media.WindowsMediaPlayer~"
     "XPS.Viewer~"
+    "Browser.InternetExplorer~"
 )
 
 foreach ($feature in $disableCapabilities) {
@@ -162,8 +163,8 @@ foreach ($feature in $disableCapabilities) {
     Write-Host "Checking feature: $feature"
 
     $items = Get-WindowsCapability -Online |
-        Where-Object { $_.State -eq "Installed" } |
-        Where-Object { $_.Name.StartsWith($feature) }
+    Where-Object { $_.State -eq "Installed" } |
+    Where-Object { $_.Name.StartsWith($feature) }
 
     if ($items) {
         foreach ($item in $items) {
@@ -206,4 +207,3 @@ foreach ($feature in $extraCapabilities) {
         Write-Host "Feature '$feature' already enabled"
     }
 }
-
