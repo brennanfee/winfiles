@@ -5,12 +5,13 @@ Set-StrictMode -Version 2.0
 
 $directories = @(
     "cloud"
-    "desktop"
     "documents"
-    "downloads\installs"
+    "downloads"
+    "installs"
+    "mounts"
     "music"
     "pictures"
-    "source"
+    "source\github"
     "templates"
     "videos"
     "vms"
@@ -29,3 +30,23 @@ foreach ($dir in $directories) {
     }
 }
 
+if ($env:SYSTEMTYPE -eq "WORK") {
+    Write-Host "Setting up extra work related directories"
+
+    $directories = @(
+        "source\personal"
+        "workdocs"
+    )
+
+    foreach ($dir in $directories) {
+        Write-Host ""
+        Write-Host "Checking folder: $dir"
+
+        $folder = "$env:PROFILEPATH\$dir"
+
+        if (-not (Test-Path "$folder")) {
+            New-Item -ItemType Directory -Force -Path $folder | Out-Null
+            Write-Host "Folder created: $dir"
+        }
+    }
+}

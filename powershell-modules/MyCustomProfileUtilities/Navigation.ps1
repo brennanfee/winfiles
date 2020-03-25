@@ -9,7 +9,7 @@ Set-Alias cdp Set-LocationToProfileFolder
 Set-Alias cdk Set-LocationToDesktop
 Set-Alias cdsk Set-LocationToDesktop
 
-function Set-LocationToTemplates { Set-LocationToProfileFolder "Templates" }
+function Set-LocationToTemplates { Set-LocationToProfileFolder "templates" }
 Set-Alias cdl Set-LocationToTemplates
 Set-Alias cdtm Set-LocationToTemplates
 
@@ -21,12 +21,13 @@ Set-Alias cdss Set-LocationToSourcePersonal
 Set-Alias cdsp Set-LocationToSourcePersonal
 
 function Set-LocationToSourceGithub { Set-LocationToProfileFolder "source\github" }
+Set-Alias cdg Set-LocationToSourceGithub
 Set-Alias cdsg Set-LocationToSourceGithub
 
 function Set-LocationToDownloads { Set-LocationToProfileFolder "downloads" }
 Set-Alias cdd Set-LocationToDownloads
 
-function Set-LocationToInstalls { Set-LocationToProfileFolder "downloads\installs" }
+function Set-LocationToInstalls { Set-LocationToProfileFolder "installs" }
 Set-Alias cdi Set-LocationToInstalls
 Set-Alias cddi Set-LocationToInstalls
 
