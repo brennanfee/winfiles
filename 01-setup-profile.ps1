@@ -5,7 +5,7 @@
 Set-StrictMode -Version 2.0
 
 # Note, this may need to be run BEFORE this script
-Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
+Set-ExecutionPolicy Bypass -Scope Process -Force -ErrorAction Ignore
 
 function Is64Bit { [IntPtr]::Size -eq 8 }
 
@@ -100,11 +100,11 @@ New-SymbolicLink $nugetFile "$winfilesRoot\powershell-profile\profile.ps1" -Forc
 
 # Install PowerShell Core if needed
 Write-Host "Checking for PowerShell Core"
-$psCoreExe = "$env:SCOOP_GLOBAL\shims\pwsh.exe"
+$psCoreExe = "C:\Program Files\PowerShell\7\pwsh.exe"
 if (-not (Test-Path "$psCoreExe")) {
     Write-LogAndConsole $logFile "Installing PowerShell Core"
 
-    Invoke-Expression "scoop install --global pwsh"
+    Invoke-Expression "choco install -y -r powershell-core --installarguments `"/quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1`""
 
     Write-LogAndConsole $logFile "PowerShell Core installed" -Color "Green"
 }
@@ -127,29 +127,7 @@ $myDocsFolder = [Environment]::GetFolderPath("MyDocuments")
 $psCoreProfile = "$myDocsFolder\PowerShell\Microsoft.PowerShell_profile.ps1"
 New-SymbolicLink $psCoreProfile "$winfilesRoot\powershell-profile\profile.ps1" -Force
 
-# Install AppGet
-Write-Host "Checking for AppGet"
-if (-not (Test-Path "C:\ProgramData\AppGet\bin\appget.exe")) {
-    Write-Host "Installing AppGet"
-
-    $logFile = "$env:PROFILEPATH\logs\winfiles\appget-install.log"
-    $appGetExe = "$winfilesRoot\installs\appget.exe"
-    $arguments = @(
-        "/VERYSILENT"
-        "/SUPPRESSMSGBOXES"
-        "/SP"
-        ('"/LOG={0}"' -f $logFile)
-    )
-
-    Start-Process -Wait -NoNewWindow -FilePath $appGetExe -ArgumentList $arguments
-
-    Write-LogAndConsole $logFile "AppGet installed" -Color "Green"
-}
-else {
-    Write-LogAndConsole $logFile "AppGet already installed" -Color "Green"
-}
-
-Write-LogAndConsole $logFile "Profile setup complete" -Color "Green"
+Write-LogAndConsole $logFile "Powershell profile setup complete" -Color "Green"
 Write-Host ""
 Write-LogAndConsole $logFile -Color "Yellow" `
     "You will need to close and re-open PowerShell to continue."
