@@ -64,7 +64,7 @@ if (-not (Test-Path "C:\Program Files\Git\cmd\git.exe")) {
     Invoke-Expression "&C:\ProgramData\Chocolatey\bin\choco.exe install -y -r git --params `"/GitOnlyOnPath /NoAutoCrlf /WindowsTerminal /NoShellIntegration`""
 
     $sshPath = "C:\Program Files\Git\usr\bin\ssh.exe"
-    if ((Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*').State -eq "Installed") {
+    if ((Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.Client*').State -eq "Installed") {
         $sshPath = "C:\Windows\System32\OpenSSH\ssh.exe"
     }
 
