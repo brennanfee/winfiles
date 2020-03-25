@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packages>
+  <package id="avidemux" />
+  <package id="handbrake" />
+  <package id="qbittorrent" />
+  <package id="myharmony" />
+  <!-- Considering
+    pia -> had prompts in AppGet
+  -->
+</packages>
