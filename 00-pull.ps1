@@ -45,12 +45,40 @@ else {
     Write-Host "Chocolatey is already installed." -ForegroundColor "Green"
 }
 
+# While I use Chocolatey for most things, I still use scoop for some installations
+# Check if scoop is already installed
+if (-not (Test-Path "$env:PROFILEPATH\scoop\shims\scoop")) {
+    Write-Host "Scoop missing, preparing for install"
+    [environment]::SetEnvironmentVariable('SCOOP', "$env:PROFILEPATH\scoop", 'User')
+    $env:SCOOP = "$env:PROFILEPATH\scoop"
+    [environment]::SetEnvironmentVariable('SCOOP_GLOBAL', 'C:\scoop-global', 'Machine')
+    $env:SCOOP_GLOBAL = 'C:\scoop-global'
+
+    # Install scoop
+    Write-Host ""
+    Set-StrictMode -Off # Need to turn StrictMode off because Scoop script has errors
+    Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -Uri 'https://get.scoop.sh').Content)
+    Set-StrictMode -Version 2.0
+    Write-Host ""
+
+    # Scoop configuration
+    Add-MpPreference -ExclusionPath $env:SCOOP
+    Add-MpPreference -ExclusionPath $env:SCOOP_GLOBAL
+    Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
+    Invoke-Expression "scoop config aria2-enabled false"
+
+    Write-Host "Scoop installed." -ForegroundColor "Green"
+}
+else {
+    Write-Host "Scoop already installed." -ForegroundColor "Green"
+}
+
 # Check if git is already installed
 if (-not (Test-Path "C:\Program Files\Git\cmd\git.exe")) {
     Write-Host "Git missing, preparing for install using Chocolatey."
 
     Write-Host ""
-    Invoke-Expression "C:\ProgramData\Chocolatey\bin\choco.exe install -y -r git --params `"/GitOnlyOnPath /NoAutoCrlf /WindowsTerminal /NoShellIntegration`""
+    Invoke-Expression "&C:\ProgramData\Chocolatey\bin\choco.exe install -y -r git --params `"/GitOnlyOnPath /NoAutoCrlf /WindowsTerminal /NoShellIntegration`""
 
     $sshPath = "C:\Program Files\Git\usr\bin\ssh.exe"
     if ((Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*').State -eq "Installed") {

@@ -98,13 +98,25 @@ $nugetFile = Join-Path $profileLocation "NuGet_profile.ps1"
 
 New-SymbolicLink $nugetFile "$winfilesRoot\powershell-profile\profile.ps1" -Force
 
+# Install Chocolatey if needed
+if (-not (Test-Path "C:\ProgramData\Chocolatey\bin\choco.exe")) {
+    Write-Host "Chocolatey missing, preparing for install"
+
+    Invoke-Expression (
+        (Invoke-WebRequest -UseBasicParsing -Uri 'https://chocolatey.org/install.ps1').Content
+    )
+}
+else {
+    Write-Host "Chocolatey is already installed." -ForegroundColor "Green"
+}
+
 # Install PowerShell Core if needed
 Write-Host "Checking for PowerShell Core"
 $psCoreExe = "C:\Program Files\PowerShell\7\pwsh.exe"
 if (-not (Test-Path "$psCoreExe")) {
     Write-LogAndConsole $logFile "Installing PowerShell Core"
 
-    Invoke-Expression "choco install -y -r powershell-core --installarguments `"/quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1`""
+    Invoke-Expression "&C:\ProgramData\Chocolatey\bin\choco.exe install -y -r powershell-core --installarguments `"/quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1`""
 
     Write-LogAndConsole $logFile "PowerShell Core installed" -Color "Green"
 }
