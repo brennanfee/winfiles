@@ -12,7 +12,7 @@ indent_size = 2
 insert_final_newline = true
 trim_trailing_whitespace = true
 # Not all editors support this
-# max_line_length = 100
+max_line_length = 88
 
 # Python PEP8, PHP (PSR-2), Perl, Rust
 [*.{py,py3,php,pl,pm,t,PL,rs}]
