@@ -98,6 +98,7 @@ $apps = @(
     "king.com.FarmHeroesSaga"
     "king.com.*"
     "NORDCURRENT.COOKINGFEVER"
+    "SpotifyAB.SpotifyMusic"
 )
 
 foreach ($app in $apps) {
