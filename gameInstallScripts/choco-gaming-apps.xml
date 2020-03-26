@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packages>
+  <package id="goggalaxy" />
+  <package id="steam" />
+  <package id="steam-cleaner" />
+  <package id="uplay" />
+  <package id="epicgameslauncher" />
+  <package id="twitch" />
+  <package id="battle.net" />
+  <package id="origin" />
+</packages>

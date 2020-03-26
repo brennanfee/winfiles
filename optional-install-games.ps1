@@ -13,28 +13,8 @@ Write-LogAndConsole $logFile "Game Installs script started - $date"
 Write-LogAndConsole $logFile "System type: $env:SYSTEMTYPE"
 Write-LogAndConsole $logFile ""
 
-Get-ChildItem "$PSScriptRoot\gameInstallScripts" -File -Filter "*.ps1" | Sort-Object "FullName" | ForEach-Object {
-    $script = $_.FullName
-    $scriptName = [System.IO.Path]::GetFileNameWithoutExtension("$script")
-
-    Write-Host ""
-    Write-LogAndConsole $logFile "Running script: $script"
-
-    try {
-        Start-Transcript -Path "$logPath\script-$scriptName.log" -Append
-        Invoke-Expression -command "$script"
-        Start-Sleep -Seconds 1
-    }
-    finally {
-        Stop-Transcript
-    }
-
-    Write-LogAndConsole $logFile "Script finished: $script"
-    Write-Host ""
-
-    ## For debugging
-    #[void](Read-Host -Prompt 'Press Enter to continue...')
-}
+Write-Host "Installing applications using Chocolatey - Gaming"
+Invoke-Expression "choco install -y -r `"$PSScriptRoot\gameInstallScripts\choco-gaming-apps.xml`""
 
 Write-Host ""
 Write-LogAndConsole $logFile "A reboot will be necessary (again)." -Color "Yellow"
