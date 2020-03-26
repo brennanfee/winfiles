@@ -36,11 +36,102 @@
   <package id="vlc" />
   <package id="wavebox" />
   <package id="zerotier-one" />
-  <!--
-    Considering...
+  <!-- Copied from scoop -->
+  <package id="which" />
+  <package id="awscli" />
+  <package id="cloc" />
+  <package id="loc" />
+  <package id="colortool" />
+  <package id="gnuwin32-coreutils.install" />
+  <package id="universal-ctags" />
+  <package id="curl" />
+  <package id="diffutils" />
+  <package id="bind-toolsonly" />
+  <package id="dos2unix" />
+  <package id="netfx-4.8-devpack" />
+  <package id="dotnetcore-sdk" />
+  <package id="editorconfig.core" />
+  <package id="fd" />
+  <package id="ffmpeg" />
+  <package id="findutils" />
+  <package id="gawk" />
+  <package id="gnupg" />
+  <package id="golang" />
+  <package id="grep" />
+  <package id="gzip" />
+  <package id="hub" />
+  <package id="jiracli" />
+  <package id="jq" />
+  <package id="yq" />
+  <package id="miktex" />
+  <package id="less" />
+  <package id="neovim" />
+  <package id="nodejs-lts" />
+  <package id="nssm" />
+  <package id="pandoc" />
+  <package id="patch" />
+  <package id="strawberryperl" />
+  <package id="php" />
+  <package id="python" />
+  <package id="ripgrep" />
+  <package id="ruby" />
+  <package id="rust-ms" />
+  <package id="sed" />
+  <package id="serve" />
+  <package id="shellcheck" />
+  <package id="terraform" />
+  <package id="tflint" />
+  <package id="unzip" />
+  <!-- Compare vim and vim-tux to determine which features are different between the builds -->
+  <package id="vim-tux" packageParameters="/InstallPopUp /RestartExplorer /NoDefaultVimrc /NoDesktopShortcuts" />
+  <package id="wget" />
+  <!-- If I can get pipx working on Windows, consider moving this to there -->
+  <package id="youtube-dl" />
+  <package id="zip" />
+  <package id="carnac" />
+  <package id="emacs" />
+  <package id="riot-web" />
+  <package id="rufus" />
+  <package id="speedcrunch" />
+  <package id="sysinternals" />
+  <package id="texmaker" />
+  <package id="adoptopenjdk11" />
+  <package id="adoptopenjdk14" />
+  <package id="corretto11jdk" />
+  <package id="" />
+  <package id="" />
+  <!-- Considering...
       rainmeter, had prompts under AppGet
       spotify, couldn't install from admin shell (does require removal of store app)
       hack-fonts -> will be looping back on fonts later
       sqlectron, no Chocolatey package
+      darktable -> wasn't available in AppGet, only scoop
+      uget -> wasn't available in AppGet, only scoop
+      fontforge -> font editor
+      skyfonts -> font manager
+
+      Fonts:
+font-nerd-dejavusansmono
+font-awesome-font
+liberationfonts
+firacode
+hackfont
+cascadiacode
+croscorefonts-font
+crosextrafonts-caladea-font
+crosextrafonts-carlito-font
+fira
+firanf
+firacodenf
+robotofonts
+cascadiamono
+cascadiafonts
+cascadiacodepl
+cascadiamonopl
+jetbrainsmono
+hackfont-windows
+inconsolata
+noto
+opensans
   -->
 </packages>

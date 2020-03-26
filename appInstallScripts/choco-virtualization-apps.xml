@@ -2,6 +2,7 @@
 <packages>
   <package id="virtualbox" packageParameters="/NoDesktopShortcut /ExtensionPack" />
   <package id="vagrant" />
+  <package id="packer" />
   <!-- Considering
     docker-desktop -> had prompts in AppGet
   -->
