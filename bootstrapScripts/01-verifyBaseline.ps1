@@ -23,6 +23,8 @@ if (-not (Test-Path "C:\ProgramData\Chocolatey\bin\choco.exe")) {
     Invoke-Expression (
         (Invoke-WebRequest -UseBasicParsing -Uri 'https://chocolatey.org/install.ps1').Content
     )
+
+    New-Item -Path "C:\ProgramData\Chocolatey\license" -Type Directory -Force | Out-Null
 }
 else {
     Write-Host "Chocolatey is already installed." -ForegroundColor "Green"
