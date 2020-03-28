@@ -2,9 +2,7 @@
 <packages>
   <package id="avidemux" />
   <package id="handbrake" />
-  <package id="qbittorrent" />
   <package id="myharmony" />
-  <!-- Considering
-    pia -> had prompts in AppGet
-  -->
+  <package id="pia" />
+  <package id="qbittorrent" />
 </packages>

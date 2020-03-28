@@ -3,106 +3,101 @@
   <!-- To replicate the baseline installations -->
   <package id="git" packageParameters="/GitOnlyOnPath /NoAutoCrlf /WindowsTerminal /NoShellIntegration" />
   <package id="powershell-core" installArguments="/quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1" />
+  <!-- Compare vim and vim-tux to determine which features are different between the builds -->
+  <package id="vim-tux" packageParameters="/InstallPopUp /RestartExplorer /NoDefaultVimrc /NoDesktopShortcuts" />
   <!-- Main applications -->
   <package id="7zip" />
+  <package id="adoptopenjdk11" />
   <package id="amazon-music" />
-  <package id="amazon-workspaces" />
   <package id="autohotkey" />
+  <package id="awscli" />
   <package id="beyondcompare" />
-  <package id="bitwarden" />
+  <package id="bind-toolsonly" />
   <package id="bitwarden-cli" />
-  <!-- May switch to "ungoogled-chromium" -->
-  <package id="googlechrome" />
+  <package id="bitwarden" />
+  <package id="carnac" />
   <package id="cmake" />
+  <package id="colortool" />
+  <package id="curl" />
   <package id="devdocs-app" />
+  <package id="diffutils" />
   <package id="directoryopus" ignoreChecksums="true" />
+  <package id="dos2unix" />
+  <package id="dotnetcore-sdk" />
+  <package id="drawio" />
+  <package id="editorconfig.core" />
+  <package id="emacs" />
   <package id="etcher" />
   <package id="evernote" />
-  <package id="firefox" />
-  <package id="ghostscript" />
-  <package id="hashcheck" />
-  <package id="imagemagick" />
-  <package id="insomnia-rest-api-client" />
-  <package id="jetbrainstoolbox" />
-  <package id="kindle" />
-  <package id="megasync" />
-  <package id="megatools" />
-  <package id="pencil" />
-  <package id="plex" />
-  <package id="scribus" />
-  <package id="signal" packageParameters="/NoShortcut" />
-  <package id="microsoft-teams" />
-  <package id="vscode" packageParameters="/NoDesktopIcon" />
-  <package id="vlc" />
-  <package id="wavebox" />
-  <package id="zerotier-one" />
-  <!-- Copied from scoop -->
-  <package id="which" />
-  <package id="awscli" />
-  <package id="cloc" />
-  <package id="loc" />
-  <package id="colortool" />
-  <package id="gnuwin32-coreutils.install" />
-  <package id="universal-ctags" />
-  <package id="curl" />
-  <package id="diffutils" />
-  <package id="bind-toolsonly" />
-  <package id="dos2unix" />
-  <package id="netfx-4.8-devpack" />
-  <package id="dotnetcore-sdk" />
-  <package id="editorconfig.core" />
   <package id="fd" />
   <package id="ffmpeg" />
   <package id="findutils" />
+  <package id="firefox" />
   <package id="gawk" />
+  <package id="ghostscript" />
   <package id="gnupg" />
+  <package id="gnuwin32-coreutils.install" />
   <package id="golang" />
   <package id="grep" />
   <package id="gzip" />
+  <package id="hashcheck" />
   <package id="hub" />
+  <package id="imagemagick" />
+  <package id="jetbrainstoolbox" />
   <package id="jiracli" />
   <package id="jq" />
-  <package id="yq" />
-  <package id="miktex" />
+  <package id="kindle" />
   <package id="less" />
+  <package id="megasync" />
+  <package id="megatools" />
+  <package id="microsoft-teams" />
+  <package id="microsoft-windows-terminal" />
+  <package id="miktex" />
   <package id="neovim" />
+  <package id="netfx-4.8-devpack" />
   <package id="nodejs-lts" />
   <package id="nssm" />
+  <package id="okular" />
   <package id="pandoc" />
   <package id="patch" />
-  <package id="strawberryperl" />
-  <package id="php" />
+  <package id="pencil" />
+  <package id="plex" />
   <package id="python" />
+  <package id="riot-web" />
   <package id="ripgrep" />
-  <package id="ruby" />
-  <package id="rust-ms" />
+  <package id="rufus" />
+  <package id="scribus" />
   <package id="sed" />
   <package id="serve" />
   <package id="shellcheck" />
-  <package id="terraform" />
-  <package id="tflint" />
-  <package id="unzip" />
-  <!-- Compare vim and vim-tux to determine which features are different between the builds -->
-  <package id="vim-tux" packageParameters="/InstallPopUp /RestartExplorer /NoDefaultVimrc /NoDesktopShortcuts" />
-  <package id="wget" />
-  <!-- If I can get pipx working on Windows, consider moving this to there -->
-  <package id="youtube-dl" />
-  <package id="zip" />
-  <package id="carnac" />
-  <package id="emacs" />
-  <package id="riot-web" />
-  <package id="rufus" />
+  <package id="signal" packageParameters="/NoShortcut" />
   <package id="speedcrunch" />
+  <package id="spotify" />
+  <package id="strawberryperl" />
   <package id="sysinternals" />
+  <package id="terraform" />
   <package id="texmaker" />
-  <package id="adoptopenjdk11" />
-  <package id="adoptopenjdk14" />
-  <package id="corretto11jdk" />
-  <package id="" />
-  <package id="" />
+  <package id="tflint" />
+  <package id="ubuntuhere" />
+  <package id="ungoogled-chromium" />
+  <!-- <package id="googlechrome" /> In case ungoogled-chromium doesn't work out. -->
+  <package id="universal-ctags" />
+  <package id="unzip" />
+  <package id="vcredist-all" />
+  <package id="vcxsrv" />
+  <package id="vlc" />
+  <package id="vscode" packageParameters="/NoDesktopIcon" />
+  <package id="wavebox" />
+  <package id="wget" />
+  <package id="which" />
+  <package id="wsl-archlinux" />
+  <package id="wsl-debiangnulinux" />
+  <package id="wsl-ubuntu-1804" />
+  <package id="yq" />
+  <package id="zerotier-one" />
+  <package id="zip" />
+
   <!-- Considering...
-      rainmeter, had prompts under AppGet
-      spotify, couldn't install from admin shell (does require removal of store app)
       hack-fonts -> will be looping back on fonts later
       sqlectron, no Chocolatey package
       darktable -> wasn't available in AppGet, only scoop

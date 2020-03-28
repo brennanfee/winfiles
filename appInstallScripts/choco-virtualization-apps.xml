@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packages>
-  <package id="virtualbox" packageParameters="/NoDesktopShortcut /ExtensionPack" />
-  <package id="vagrant" />
   <package id="packer" />
-  <!-- Considering
-    docker-desktop -> had prompts in AppGet
-  -->
+  <package id="vagrant" />
+  <package id="virtualbox" packageParameters="/NoDesktopShortcut /ExtensionPack" />
 </packages>
