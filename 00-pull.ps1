@@ -29,6 +29,7 @@ if (-not (Test-Path "$env:PROFILEPATH")) {
     New-Item -ItemType Directory -Force -Path $env:PROFILEPATH | Out-Null
 }
 
+Write-Host "Brennan Fee's WinFiles Pull Script" -ForegroundColor "Green"
 Write-Host ""
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 Write-Host "Pull script started - $date"
@@ -113,10 +114,10 @@ else {
 Invoke-Expression -command "$env:PROFILEPATH\winfiles\shared\set-system-type.ps1"
 
 Set-Location "$env:PROFILEPATH\winfiles"
-Write-Host "WinFiles are ready" -Color "Green"
+Write-Host "WinFiles are ready" -ForegroundColor "Green"
 Write-Host ""
-Write-Host "You will need to close and re-open PowerShell to continue." -Color "Yellow"
-Write-Host "Once reloaded as admin you can run .\01-setup-profile.ps1" -Color "Yellow"
+Write-Host "You will need to close and re-open PowerShell to continue." -ForegroundColor "Yellow"
+Write-Host "Once reloaded as admin you can run .\01-setup-profile.ps1" -ForegroundColor "Yellow"
 
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
 Write-Host "Pull script finished - $date"
