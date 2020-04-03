@@ -17,9 +17,9 @@ Write-Host "System type: $env:SYSTEMTYPE"
 Write-Host ""
 
 $executionPolicyBlock = {
-    Set-ExecutionPolicy Unrestricted -scope Process -Force -ErrorAction Ignore
-    Set-ExecutionPolicy Unrestricted -scope LocalMachine -Force -ErrorAction Ignore
-    Set-ExecutionPolicy Unrestricted -scope CurrentUser -Force -ErrorAction Ignore
+    Set-ExecutionPolicy Unrestricted -Scope Process -Force -ErrorAction Ignore
+    Set-ExecutionPolicy Unrestricted -Scope LocalMachine -Force -ErrorAction Ignore
+    Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force -ErrorAction Ignore
 }
 
 $arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +

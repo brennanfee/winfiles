@@ -14,6 +14,7 @@ Set-StrictMode -Version 2.0
 
 # Note, this may need to be run BEFORE this script
 Set-ExecutionPolicy Bypass -Scope Process -Force -ErrorAction Ignore
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force -ErrorAction Ignore
 
 ### Set Profile location (based on how many disks we have)
 ### 1 disk means porfile is in C:\profile, 2 disks or more means D:\profile
