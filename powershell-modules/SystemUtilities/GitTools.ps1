@@ -38,7 +38,7 @@ function Get-GitExeSafe {
 
 function Invoke-Git {
     $git = Get-GitExeSafe
-    Invoke-Expression -command "$git $args"
+    Invoke-Expression -command "&$git $args"
 }
 
 function Invoke-GitStatus {
@@ -131,7 +131,7 @@ function Invoke-GitLog {
 
 function Get-GitInARepo {
     $git = Get-GitExeSafe
-    $command = "$git rev-parse --is-inside-work-tree" + ' 2>$null'
+    $command = "&$git rev-parse --is-inside-work-tree" + ' 2>$null'
     $result = Invoke-Expression -command $command
     if ($result -eq "true") {
         return $true
@@ -144,7 +144,7 @@ function Get-GitInARepo {
 function Get-GitBranchName {
     if (Get-GitInARepo) {
         $git = Get-GitExeSafe
-        $result = Invoke-Expression -command "$git rev-parse --abbrev-ref HEAD"
+        $result = Invoke-Expression -command "&$git rev-parse --abbrev-ref HEAD"
         return $result
     }
     else {
@@ -156,7 +156,7 @@ function Get-GitBranchName {
 function Get-GitRootPath {
     if (Get-GitInARepo) {
         $git = Get-GitExeSafe
-        $result = Invoke-Expression -command "$git rev-parse --show-toplevel"
+        $result = Invoke-Expression -command "&$git rev-parse --show-toplevel"
         return $result
     }
     else {

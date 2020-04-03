@@ -83,7 +83,7 @@ function Set-EditorToAtom {
 }
 function Set-EditorToNotepad {
     Write-Host -ForegroundColor 'Green' "Setting editor to notepad."
-    Set-Editor("C:\Windows\system32\notepad.exe")
+    Set-Editor("""C:\Windows\system32\notepad.exe""")
     return $true
 }
 
@@ -99,7 +99,7 @@ function Get-ApplicationPath {
     $command = Get-Command -CommandType Application -ErrorAction Ignore -Name "$Application"
     if ($command) {
         if (Test-Path $command.Source) {
-            return $command.Source
+            return """$command.Source"""
         }
     }
 
@@ -112,10 +112,10 @@ function Get-DefaultSublimeTextExe {
         return $app
     }
     elseif (Test-Path "C:\Program Files\Sublime Text 3\sublime_text.exe") {
-        return "C:\Program Files\Sublime Text 3\sublime_text.exe"
+        return """C:\Program Files\Sublime Text 3\sublime_text.exe"""
     }
     elseif (Test-Path "C:\Program Files (x86)\Sublime Text 3\sublime_text.exe") {
-        return "C:\Program Files (x86)\Sublime Text 3\sublime_text.exe"
+        return """C:\Program Files (x86)\Sublime Text 3\sublime_text.exe"""
     }
     else {
         return ""
@@ -128,7 +128,7 @@ function Get-DefaultAtomExe {
         return $app
     }
     elseif (Test-Path "$env:LOCALAPPDATA\atom\atom.exe") {
-        return "$env:LOCALAPPDATA\atom\atom.exe"
+        return """$env:LOCALAPPDATA\atom\atom.exe"""
     }
     else {
         return ""
@@ -141,13 +141,13 @@ function Get-DefaultVSCodeExe {
         return $app
     }
     elseif (Test-Path "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code") {
-        return "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code"
+        return """$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code"""
     }
     elseif (Test-Path "C:\Program Files\Microsoft VS Code\bin\code") {
-        return "C:\Program Files\Microsoft VS Code\bin\code"
+        return """C:\Program Files\Microsoft VS Code\bin\code"""
     }
     elseif (Test-Path "C:\Program Files (x86)\Microsoft VS Code\bin\code") {
-        return "C:\Program Files (x86)\Microsoft VS Code\bin\code"
+        return """C:\Program Files (x86)\Microsoft VS Code\bin\code"""
     }
     else {
         return ""
@@ -168,10 +168,10 @@ function Get-DefaultVimExe {
             "73"
         ) | ForEach-Object {
             if (Test-Path "C:\Program Files\Vim\vim$_\gvim.exe") {
-                return "C:\Program Files\Vim\vim$_\gvim.exe"
+                return """C:\Program Files\Vim\vim$_\gvim.exe"""
             }
             elseif (Test-Path "C:\Program Files (x86)\Vim\vim$_\gvim.exe") {
-                return "C:\Program Files (x86)\Vim\vim$_\gvim.exe"
+                return """C:\Program Files (x86)\Vim\vim$_\gvim.exe"""
             }
         }
     }
@@ -185,10 +185,10 @@ function Get-DefaultEmacsExe {
         return $app
     }
     elseif (Test-Path "C:\Program Files\Emacs\bin\emacsclientw.exe") {
-        return "C:\Program Files\Emacs\bin\emacsclientw.exe"
+        return """C:\Program Files\Emacs\bin\emacsclientw.exe"""
     }
     elseif (Test-Path "C:\Program Files (x86)\Emacs\bin\emacsclientw.exe") {
-        return "C:\Program Files (x86)\Emacs\bin\emacsclientw.exe"
+        return """C:\Program Files (x86)\Emacs\bin\emacsclientw.exe"""
     }
     else {
         return ""
