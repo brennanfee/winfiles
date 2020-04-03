@@ -41,6 +41,12 @@ $Pscx:Preferences['TextEditor'] = $env:EDITOR
 
 Initialize-PsHistory
 
+# Chocolatey profile\completion script
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+    Import-Module "$ChocolateyProfile"
+}
+
 function prompt {
     return Get-CustomPrompt
 }
