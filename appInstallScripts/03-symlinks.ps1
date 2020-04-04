@@ -51,6 +51,7 @@ New-SymbolicLink "$env:USERPROFILE\.vim\vimrc.bundles" "$winFiles\dotfiles\rcs\v
 New-SymbolicLink "$env:USERPROFILE\.vim\vimrc.lightline" "$winFiles\dotfiles\rcs\vim\vimrc.lightline"
 
 # Download vim-plug if not present
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.vim\autoload" | Out-Null
 $vimPlug = "$env:USERPROFILE\.vim\autoload\plug.vim"
 if (-not (Test-Path $vimPlug)) {
     Invoke-WebRequest `
@@ -60,6 +61,6 @@ if (-not (Test-Path $vimPlug)) {
 }
 
 # Initialize the bundles
-if (Get-Command "gvim.exe") {
+if (Get-Command "gvim.exe" -ErrorAction SilentlyContinue) {
     gvim.exe -N -u "$env:USERPROFILE\.vim\vimrc.bundles" +PlugUpdate +PlugClean +qa -
 }
