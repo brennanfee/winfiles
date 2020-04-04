@@ -6,27 +6,27 @@ Set-StrictMode -Version 2.0
 # At present there are four "packages" of applications.  "Main" applications are installed on every machine.  "Home" applications are installed on all non-work machines.  "Work" applications are only installed on work machines.  Finally, "Virtualization" applications are installed if the machine being installed to is not itself a virtual machine.
 
 Write-Host "Installing applications using Chocolatey - Main"
-Invoke-Expression "choco install -y -r --skip-virus-checks `
-    `"$PSScriptRoot\choco-main-apps.config`""
+$package = "$PSScriptRoot\choco-main-apps.config"
+Invoke-Expression "choco install -y -r --skip-virus-check `"$package`""
 
 if (-not ($env:SYSTEMTYPE -eq "WORK")) {
     Write-Host "Installing applications using Chocolatey - Non-Work"
-    Invoke-Expression "choco install -y -r --skip-virus-checks `
-        `"$PSScriptRoot\choco-nonWork-apps.config`""
+    $package = "$PSScriptRoot\choco-nonWork-apps.config"
+    Invoke-Expression "choco install -y -r --skip-virus-check `"$package`""
 }
 
 if ($env:SYSTEMTYPE -eq "WORK") {
     Write-Host "Installing applications using Chocolatey - Work Specific"
-    Invoke-Expression "choco install -y -r  --skip-virus-checks `
-        `"$PSScriptRoot\choco-work-apps.config`""
+    $package = "$PSScriptRoot\choco-work-apps.config"
+    Invoke-Expression "choco install -y -r --skip-virus-check `"$package`""
 }
 
 $computerDetails = Get-ComputerDetails
 
 if (-not ($computerDetails.IsVirtual)) {
     Write-Host "Installing applications using Chocolatey - Virtualization"
-    Invoke-Expression "choco install -y -r  --skip-virus-checks `
-        `"$PSScriptRoot\choco-virtualization-apps.config`""
+    $package = "$PSScriptRoot\choco-virtualization-apps.config"
+    Invoke-Expression "choco install -y -r --skip-virus-check `"$package`""
 }
 
 ## Other applications to consider, installed only as needed
