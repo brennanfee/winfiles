@@ -175,6 +175,22 @@ Likewise with Directory Opus. Beyond Compare is another of the rare license appl
 that I use. This one I even use on my Mac and Linux machines as well whereas Directory
 Opus is Windows only.
 
+### Apps To Log Into
+
+A number of applications require login information. The first application that should be
+used is BitWarden because the login information for the rest of the applications are
+likely in there. This is just a list to serve as a reminder of apps that should be
+configured with account information or other initial configuration.
+
+- Bitwarden
+- Jetbrains Toolbox
+- Evernote
+- Spotify
+- Firefox
+- Chrome (ungoogled_chromium)
+- Wavebox (mySms)
+- Signal
+
 ### (Optional) License Visual Studio
 
 TBD
