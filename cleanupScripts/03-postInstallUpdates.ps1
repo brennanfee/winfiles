@@ -9,10 +9,14 @@ Write-Host "Updating Paths"
 if (Test-Path "$env:APPDATA\Python\Python37\Scripts") {
     Add-ToPath "$env:APPDATA\Python\Python37\Scripts"
 }
+if (Test-Path "$env:APPDATA\Python\Python38\Scripts") {
+    Add-ToPath "$env:APPDATA\Python\Python38\Scripts"
+}
 
-Add-ToPath "$env:PROFILEPATH\cloud\win-bin"
+if (Test-Path "$env:PROFILEPATH\cloud\win-bin") {
+    Add-ToPath "$env:PROFILEPATH\cloud\win-bin"
+}
 
 ######## Windows Terminal
 Write-Host "Linking Windows Terminal Settings"
 Invoke-Expression "$PSScriptRoot\..\shared\symlink-terminal-settings.ps1"
-
