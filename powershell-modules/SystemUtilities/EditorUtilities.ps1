@@ -99,7 +99,8 @@ function Get-ApplicationPath {
     $command = Get-Command -CommandType Application -ErrorAction Ignore -Name "$Application"
     if ($command) {
         if (Test-Path $command.Source) {
-            return """$command.Source"""
+            $appPath = $command.Source
+            return """$appPath"""
         }
     }
 
