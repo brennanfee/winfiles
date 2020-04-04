@@ -162,6 +162,7 @@ function Get-DefaultVimExe {
     else {
         ## Look for an installed vim
         @(
+            "82",
             "81",
             "80",
             "74",
