@@ -14,7 +14,8 @@ Write-LogAndConsole $logFile "System type: $env:SYSTEMTYPE"
 Write-LogAndConsole $logFile ""
 
 Write-Host "Installing applications using Chocolatey - Development"
-Invoke-Expression "choco install -y -r `"$PSScriptRoot\gameInstallScripts\choco-development-apps.xml`""
+Invoke-Expression "choco install -y -r `
+    `"$PSScriptRoot\gameInstallScripts\choco-development-apps.config`""
 
 Write-Host ""
 Write-LogAndConsole $logFile "A reboot will be necessary (again)." -Color "Yellow"
