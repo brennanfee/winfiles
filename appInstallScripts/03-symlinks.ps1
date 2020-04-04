@@ -61,6 +61,10 @@ if (-not (Test-Path $vimPlug)) {
 }
 
 # Initialize the bundles
-if (Get-Command "gvim.exe" -ErrorAction SilentlyContinue) {
-    gvim.exe -N -u "$env:USERPROFILE\.vim\vimrc.bundles" +PlugUpdate +PlugClean +qa -
+$vimExe = Get-DefaultVimExe
+if ((-not $vimExe -eq "") -and (Test-Path "$vimExe")) {
+    Invoke-Expression "&`"$vimExe`" -N -u `"$env:USERPROFILE\.vim\vimrc.bundles`" +PlugUpdate +PlugClean +qa -"
+}
+else {
+    Write-Host "Vim not found, skipping configuration" -ForegroundColor Yellow
 }
