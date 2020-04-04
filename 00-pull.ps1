@@ -13,7 +13,6 @@ Set-StrictMode -Version 2.0
 #    iex ((iwr -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)
 
 # Note, this may need to be run BEFORE this script
-Set-ExecutionPolicy Bypass -Scope Process -Force -ErrorAction Ignore
 Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force -ErrorAction Ignore
 
 ### Set Profile location (based on how many disks we have)
