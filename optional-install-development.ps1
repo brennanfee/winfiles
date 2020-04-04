@@ -14,7 +14,7 @@ Write-LogAndConsole $logFile "System type: $env:SYSTEMTYPE"
 Write-LogAndConsole $logFile ""
 
 Write-Host "Installing applications using Chocolatey - Development"
-Invoke-Expression "choco install -y -r `
+Invoke-Expression "choco install -y -r --skip-virus-checks `
     `"$PSScriptRoot\gameInstallScripts\choco-development-apps.config`""
 
 Write-Host ""
