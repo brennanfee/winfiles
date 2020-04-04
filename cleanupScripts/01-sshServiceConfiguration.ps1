@@ -11,6 +11,6 @@ if (Get-Service -Name sshd -ErrorAction SilentlyContinue) {
 
 Write-Host "Checking ssh-agent service"
 if (Get-Service -Name ssh-agent -ErrorAction SilentlyContinue) {
-    Start-Service -Name ssh-agent - ErrorAction SilentlyContinue
+    Start-Service -Name ssh-agent -ErrorAction SilentlyContinue
     Set-Service -Name ssh-agent -StartupType 'Automatic' -ErrorAction SilentlyContinue | Out-Null
 }
