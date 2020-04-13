@@ -69,6 +69,18 @@
                 "name": "Windows PowerShell (old)",
                 "commandline": "powershell.exe",
                 "hidden": false
+            },
+            {
+                "guid": "{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}",
+                "hidden": true,
+                "name": "Ubuntu-18.04",
+                "source": "Windows.Terminal.Wsl"
+            },
+            {
+                "guid": "{f4356e75-9cdf-5558-95f2-bc47899ab780}",
+                "hidden": true,
+                "name": "Arch_Linux",
+                "source": "Windows.Terminal.Wsl"
             }
         ]
     },
