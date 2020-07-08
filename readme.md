@@ -44,7 +44,7 @@ In summary, the broad steps (particularly the automated parts) are as follows:
 6. Run: `.\02-bootstrap.ps1`, this will take a while
 7. Reboot. Re-open PowerShell as Administrator
 8. (Optional) Manually install the Chocolatey license file (see full installation steps
-   below). It is a good idea to do this hear rather than later as it will help the
+   below). It is a good idea to do this here rather than later as it will help the
    application installs be faster and more reliable.
 9. Run: `.\03-app-installs.ps1`, this will take a **LONG** time
 10. Reboot (again). Re-open PowerShell as Administrator
