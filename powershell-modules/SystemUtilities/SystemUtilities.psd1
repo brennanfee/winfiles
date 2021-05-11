@@ -29,7 +29,6 @@
         'PermissionUtilities.ps1',
         'GitTools.ps1',
         'Write-Log.ps1',
-        'InstallUtilities.ps1',
         'Enable-RemoteDesktop.ps1',
         'WslUtilities.ps1',
         'InvokeExternalPrograms.ps1'
