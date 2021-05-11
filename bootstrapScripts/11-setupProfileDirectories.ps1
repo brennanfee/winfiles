@@ -35,7 +35,7 @@ if ($env:SYSTEMTYPE -eq "WORK") {
 
     $directories = @(
         "source\personal"
-        "workdocs"
+        "workdocs" ## Only for Amazon
     )
 
     foreach ($dir in $directories) {

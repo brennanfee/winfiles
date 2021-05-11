@@ -71,8 +71,6 @@ function Invoke-ExternalPowerShellCore {
 
     # These are in order of preference
     $pathsToCheck = @(
-        "$env:SCOOP_GLOBAL\shims\pwsh.exe"
-        "$env:SCOOP\shims\pwsh.exe"
         "$env:ProgramFiles\PowerShell\7\pwsh.exe"
         "$env:ProgramFiles\PowerShell\6\pwsh.exe"
     )

@@ -11,22 +11,17 @@ than one.
 
 ## Step 1: Install Windows & Run Updates
 
-This is a manual step. During installation, Windows should be connected to your
-Microsoft account. Reboot as needed and run updates as many times as necessary in order
-to be "fully" updated.
+This is a manual step. Reboot as needed and run updates as many times as necessary in
+order to be "fully" updated.
 
 ## Step 2: Run the 00-pull Script
 
 This script will initialize Git and clone this repository.
 
 1. Open PowerShell as an Administrator
-2. Run `iex ((iwr -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)`
-3. Close PowerShell
-
-If desired, instead of relying on the PowerShell aliases iex and iwr, you can run the
-following instead:
-
-`Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)`
+2. Run `Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force -ErrorAction Ignore`
+3. Run `iex ((iwr -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)`
+4. Close PowerShell
 
 Lastly, if it is preferred to do this step manually, you can. Some people feel it is a
 security risk to run scripts from the web and as such want to avoid that practice. In
@@ -46,7 +41,7 @@ below from within the folder for this repository.
 1. Open PowerShell as an Administrator
 2. If not in the winfiles directory navigate to \$profile\winfiles
 3. Run `.\02-bootstrap.ps1`
-4. Reboot
+4. **Reboot**
 
 This step will take a while. It sets up a bunch of registry settings as well as
 installs\removes Windows modules and default applications. Be sure to reboot once
@@ -74,7 +69,7 @@ needed. Simply follow the steps below.
 1. Open PowerShell as an Administrator
 2. If not in the winfiles directory navigate to \$profile\winfiles
 3. Run `.\03-app-installs.ps1`
-4. Reboot (again)
+4. **Reboot (again)**
 
 This step will take a **LONG** time. During this step, be on the lookout for the
 occasional dialog box during application installations. I have tried my best to ensure
@@ -98,7 +93,7 @@ and so on.
 1. Open PowerShell as an Administrator
 2. If not in the winfiles directory navigate to \$profile\winfiles
 3. Run `.\optional-install-games.ps1` or `.\optional-install-development.ps1`
-4. Reboot (yes, again - each time)
+4. **Reboot (yes, again - each time, thanks Microsoft)**
 
 **NOTE**: These installations are more likely to have prompts or blocking dialogs so pay
 attention during this script run more closely then the general installation above.
@@ -133,9 +128,10 @@ There are a few manual configurations that must be performed before continuing.
    - NOTE: DO NOT redirect 'My Documents', my profile 'documents' folder holds regular
      files and the 'My Documents' folders gets filled with a bunch of application
      garbage.
-2. Log into Mega and configure Mega Sync (the most important folder to sync is the
-   \$profile\cloud). I commonly also sync my music folder (\$profile\music) if the hard
-   drives are large enough.
+2. Manually install [InSync](https://www.insynchq.com/) application and sync with your
+   Google Cloud account. The most important folder to sync is the \$profile\cloud
+   folder, but I commonly also sync my music folder (\$profile\music) if the hard drives
+   are large enough.
 3. I like to configure "Quick Access" in a specific order. So, open File Explorer and
    add\remove paths to the "Quick Access" menu as follows:
    - profile (\$profile)
@@ -184,11 +180,11 @@ configured with account information or other initial configuration.
 
 - Bitwarden
 - Jetbrains Toolbox
-- Evernote
+- Evernote (eventually to be replaced by Joplin)
 - Spotify
 - Firefox
-- Chrome (ungoogled_chromium)
-- Wavebox (mySms)
+- Chrome (ungoogled_chromium?)
+- Ferdi (for mySms)
 - Signal
 
 ### (Optional) License Visual Studio
@@ -221,19 +217,19 @@ For games:
 
 ### Install Applications With Prompts Or Dialogs
 
-The following applications are available from Chocolatey or Scoop but bring up blocking
-dialogs or require other immediate configuration to complete. So they must be manually
-installed here. These all should be done within an Administrator PowerShell.
+The following applications are available from Chocolatey but bring up blocking dialogs
+or require other immediate configuration to complete. So they must be manually installed
+here. These all should be done within an Administrator PowerShell.
 
 1. `choco install -y -r rainmeter`
 
-### Install Applications Not Available In Chocolatey Or Scoop
+### Install Applications Not Available In Chocolatey
 
 Q: Why are most of these things in the "cloud" synced folder rather than the winfiles
 folder?
 
 A: Because I may not have legal right to re-distribute those files or they are sensitive
-(like my settings).
+(like my settings or license files\keys).
 
 #### Fonts
 

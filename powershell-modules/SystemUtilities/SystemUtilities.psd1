@@ -40,8 +40,6 @@
     VariablesToExport = ''
 
     FunctionsToExport = @(
-        'Add-ScoopBucket',
-        'Add-ScoopBucketUrl',
         'Add-ToPath',
         'Enable-RemoteDesktop',
         'Get-ApplicationPath',
@@ -60,8 +58,6 @@
         'Get-LogFile',
         'Get-SpecialFolder',
         'Get-WslExe',
-        'Install-WithAppGet',
-        'Install-WithScoop',
         'Invoke-ExternalCommand',
         'Invoke-ExternalPowerShell',
         'Invoke-ExternalPowerShellCore',
