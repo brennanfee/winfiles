@@ -38,7 +38,7 @@ function Get-GitExeSafe {
 
 function Invoke-Git {
     $git = Get-GitExeSafe
-    Invoke-Expression -command "&""$git"" $args"
+    Invoke-Expression -command "&`"$git`" $args"
 }
 
 function Invoke-GitStatus {

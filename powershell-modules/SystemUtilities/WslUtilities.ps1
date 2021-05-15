@@ -2,6 +2,8 @@
 #Requires -Version 5
 Set-StrictMode -Version 2.0
 
+$global:hasWslDistribution = $null
+
 function Get-WslExe {
     return Get-Command "wsl.exe" -ErrorAction SilentlyContinue |
     Select-Object -ExpandProperty Definition
@@ -16,9 +18,22 @@ function Invoke-WslCommand {
     )
 
     $wsl = Get-WslExe
-
     if ([string]::IsNullOrEmpty($wsl)) {
-        # wsl.exe is not installed, so Run the PowerShellFallback
+        # wsl.exe is not installed
+        $global:hasWslDistribution = $false
+    }
+    if ($global:hasWslDistribution -eq $null) {
+        # Need to perform a one time check to see if we have a WSL distribution installed...
+        Invoke-Expression "wsl.exe -l --all"
+        $global:hasWslDistribution = $LastExitCode -eq 0
+    }
+
+    if ($global:hasWslDistribution) {
+        Invoke-Expression "wsl.exe $WslCommand $Arguments"
+    }
+    else {
+        # We don't have WSL so use the PowerShellFallback
+
         # First, if the PowerShellFallback is blank, try a sane default
         if ([string]::IsNullOrEmpty($PowerShellFallback)) {
             if ($PowerShellFallback.StartsWith("ls ")) {
@@ -30,9 +45,6 @@ function Invoke-WslCommand {
         }
 
         Invoke-Expression "$PowerShellFallback $Arguments"
-    }
-    else {
-        Invoke-Expression "wsl.exe $WslCommand $Arguments"
     }
 }
 
