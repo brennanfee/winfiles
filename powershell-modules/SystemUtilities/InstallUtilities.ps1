@@ -28,7 +28,8 @@ function Install-WithChocolatey {
     $arguments.Add("-r")
     $arguments.Add("--skip-virus-check")
     $arguments.Add("--accept-license")
-    $arguments.Add("--no-progress")
+    ## TODO: Add this after testing/debugging
+    #$arguments.Add("--no-progress")
 
     if (-not [string]::IsNullOrEmpty($PackageParameters)) {
         $arguments.Add("--package-parameters=`"${PackageParameters}`"")
@@ -70,36 +71,41 @@ function Install-WithChocolateyList {
 
     ## TODO: Could add a more sophisticated file format that allows passing package and install arguments
 
-    $applications = Get-Content $ListFile
+    $applications = Get-Content -Path $ListFile
 
-    foreach ($application in $applications) {
+    foreach ($appObject in $applications) {
+        $application = [string]$appObject
+        Write-Host "Working on ${application}"
+
         ## If the global is null, initialized it
         if ($global:installCount -eq $null) {
             $global:installCount = 0
         }
+        Write-Host "global install count: ${global:installCount}"
 
         # Skip blank lines
         if ([string]::IsNullOrEmpty($application)) {
             continue
         }
+
         # Skip comments
-        if ($application.StarsWith("#")) {
+        if ($application.StartsWith("#")) {
             continue
         }
 
+        # Install the app
         Install-WithChocolatey $application
 
-        if ($Timeout -ge 1) {
-            Start-Sleep -Seconds ($Timeout * 60)
-        }
-
+        # Sleep for a bit
         $global:installCount++;
         if ($SetDelayCount -ge 1 -and $global:installCount -ge $SetDelayCount) {
             $global:installCount = 0
+            Write-Host "Sleeping for ${SetDelayTimeout} minutes (set delay)."
             Start-Sleep -Seconds ($SetDelayTimeout * 60)
         }
         else {
             if ($Timeout -ge 1) {
+                Write-Host "Sleeping for ${Timeout} minutes."
                 Start-Sleep -Seconds ($Timeout * 60)
             }
         }

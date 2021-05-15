@@ -21,7 +21,6 @@ if ($env:SYSTEMTYPE -eq "WORK") {
 $computerDetails = Get-ComputerDetails
 
 if (-not ($computerDetails.IsVirtual)) {
-# Manual:  <package id="virtualbox" packageParameters="/NoDesktopShortcut /ExtensionPack" />
     Write-Host "Installing applications using Chocolatey - Virtualization"
     Install-WithChocolateyList "$PSScriptRoot\virtualization-apps.txt"
 }
