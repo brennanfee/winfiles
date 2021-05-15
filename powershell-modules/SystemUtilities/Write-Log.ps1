@@ -4,7 +4,7 @@ Set-StrictMode -Version 2.0
 
 function Get-LogFile {
     Param(
-        [string]$Name,
+        [string]$LogName,
         [string]$SubPath = ""
     )
 
@@ -13,8 +13,11 @@ function Get-LogFile {
         $logPath = Join-Path "$logPath" "$SubPath"
     }
 
-    $fileName = "$Name.log"
-    return Join-Path "$logPath" "$fileName"
+    if ([string]::IsNullOrEmpty([io.path]::GetExtension($LogName))) {
+        $LogName = "${LogName}.log"
+    }
+
+    return Join-Path "$logPath" "$LogName"
 }
 
 function Write-Log {
