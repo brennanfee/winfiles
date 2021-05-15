@@ -83,6 +83,19 @@ else {
     Write-Host "Winfiles already set up." -ForegroundColor "Green"
 }
 
+# Check if Firefox is already installed
+if (-not (Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe")) {
+    Write-Host "Firefox missing, preparing for install using Chocolatey."
+
+    Write-Host ""
+    Invoke-Expression "&C:\ProgramData\Chocolatey\bin\choco.exe install -y -r firefox"
+
+    Write-Host "Firefox installed." -ForegroundColor "Green"
+}
+else {
+    Write-Host "Firefox already installed." -ForegroundColor "Green"
+}
+
 Invoke-Expression -command "$env:PROFILEPATH\winfiles\shared\set-system-type.ps1"
 
 Set-Location "$env:PROFILEPATH\winfiles"

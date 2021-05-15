@@ -60,7 +60,7 @@ needed. Simply follow the steps below.
 1. Get your license file (you should know where it is - **NOT SOMETHING TO BE PUT INTO
    GIT**) and copy it to the `C:\ProgramData\Chocolatey\license` directory
 2. Open PowerShell as an Administrator
-3. Run `choco install --force chocolatey.extension`
+3. Run `choco install -y --force chocolatey.extension`
 4. Afterward, run `choco` by itself and check the version string. It should read
    something like `Chocolatey vx.xx.xx Professional` or `Chocolatey vx.xx.xx Business`
 
