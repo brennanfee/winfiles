@@ -1,0 +1,5 @@
+avidemux
+handbrake
+myharmony
+mullvad-app
+qbittorrent

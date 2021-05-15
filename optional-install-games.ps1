@@ -14,8 +14,7 @@ Write-LogAndConsole $logFile "System type: $env:SYSTEMTYPE"
 Write-LogAndConsole $logFile ""
 
 Write-Host "Installing applications using Chocolatey - Gaming"
-$package = "$PSScriptRoot\optionalInstallScripts\choco-gaming-apps.config"
-Invoke-Expression "choco install -y -r --skip-virus-check `"$package`""
+Install-WithChocolateyList "$PSScriptRoot\optionalInstallScripts\gaming-apps.txt"
 
 Write-Host ""
 Write-LogAndConsole $logFile "A reboot will be necessary (again)." -Color "Yellow"

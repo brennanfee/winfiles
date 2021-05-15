@@ -29,6 +29,7 @@
         'PermissionUtilities.ps1',
         'GitTools.ps1',
         'Write-Log.ps1',
+        'InstallUtilities.ps1',
         'Enable-RemoteDesktop.ps1',
         'WslUtilities.ps1',
         'InvokeExternalPrograms.ps1'
@@ -57,6 +58,8 @@
         'Get-LogFile',
         'Get-SpecialFolder',
         'Get-WslExe',
+        'Install-WithChocolatey',
+        'Install-WithChocolateyList',
         'Invoke-ExternalCommand',
         'Invoke-ExternalPowerShell',
         'Invoke-ExternalPowerShellCore',

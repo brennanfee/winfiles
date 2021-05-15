@@ -14,8 +14,10 @@ Write-LogAndConsole $logFile "System type: $env:SYSTEMTYPE"
 Write-LogAndConsole $logFile ""
 
 Write-Host "Installing applications using Chocolatey - Development"
-$package = "$PSScriptRoot\optionalInstallScripts\choco-development-apps.config"
-Invoke-Expression "choco install -y -r --skip-virus-check `"$package`""
+Install-WithChocolateyList "$PSScriptRoot\optionalInstallScripts\development-apps.txt"
+
+## Manually install visual studio
+Install-WithChocolatey "visualstudio2019professional" "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
 
 Write-Host ""
 Write-LogAndConsole $logFile "A reboot will be necessary (again)." -Color "Yellow"
