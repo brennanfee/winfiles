@@ -7,9 +7,18 @@ $global:installCount = $null
 function Install-WithChocolatey {
     [CmdletBinding()]
     param(
+        [Parameter(Position = 0, ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true,
+            HelpMessage = "Name of the application (chocolatey package) to install")]
         [string]$Application,
+        [Parameter(Position = 1, ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true,
+            HelpMessage = "Additional package parameters to pass to the core installer.")]
         [string]$PackageParameters = "",
-        [string]$InstallArguments = "",
+        [Parameter(Position = 2, ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true,
+            HelpMessage = "Additional install arguments to pass to the Chocolatey script.")]
+        [string]$InstallArguments = ""
     )
 
     Write-Host "Installing $Application with Chocolatey"
@@ -53,7 +62,7 @@ function Install-WithChocolateyList {
             ValueFromPipelineByPropertyName = $true,
             HelpMessage = "Number of installs between which an extra delay will be added (default 10)")]
         [int]$SetDelayCount = 10,
-        [Parameter(Position = 1, ValueFromPipeline = $true,
+        [Parameter(Position = 3, ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true,
             HelpMessage = "Timeout to add between a set of applications, in minutes (default 5)")]
         [int]$SetDelayTimeout = 5
@@ -65,7 +74,9 @@ function Install-WithChocolateyList {
 
     foreach ($application in $applications) {
         ## If the global is null, initialized it
-        $global:installCount ?? $global:installCount = 0
+        if ($global:installCount -eq $null) {
+            $global:installCount = 0
+        }
 
         # Skip blank lines
         if ([string]::IsNullOrEmpty($application)) {
@@ -78,17 +89,17 @@ function Install-WithChocolateyList {
 
         Install-WithChocolatey $application
 
-        if ($Timeout -gte 1) {
+        if ($Timeout -ge 1) {
             Start-Sleep -Seconds ($Timeout * 60)
         }
 
         $global:installCount++;
-        if ($SetDelayCount -gte 1 -and $global:installCount -gte $SetDelayCount) {
+        if ($SetDelayCount -ge 1 -and $global:installCount -ge $SetDelayCount) {
             $global:installCount = 0
             Start-Sleep -Seconds ($SetDelayTimeout * 60)
         }
         else {
-            if ($Timeout -gte 1) {
+            if ($Timeout -ge 1) {
                 Start-Sleep -Seconds ($Timeout * 60)
             }
         }
