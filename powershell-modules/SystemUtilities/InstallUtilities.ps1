@@ -18,18 +18,27 @@ function Install-WithChocolatey {
         [Parameter(Position = 2, ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true,
             HelpMessage = "Additional install arguments to pass to the Chocolatey script.")]
-        [string]$InstallArguments = ""
+        [string]$InstallArguments = "",
+        [Parameter(Position = 3, ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true,
+            HelpMessage = "Path to an output file to log the install progress.")]
+        [string]$LogFile = ""
     )
+
+    if ([string]::IsNullOrEmpty($LogFile)) {
+        $LogFile = Get-LogFile "choco-$Application.log"
+    }
 
     Write-Host "Installing $Application with Chocolatey"
     $arguments = New-Object System.Collections.Generic.List[System.Object]
 
+    $arguments.Add("install")
     $arguments.Add("-y")
     $arguments.Add("-r")
     $arguments.Add("--skip-virus-check")
     $arguments.Add("--accept-license")
-    ## TODO: Add this after testing/debugging
-    #$arguments.Add("--no-progress")
+    $arguments.Add("--log-file=`"${LogFile}`"")
+    $arguments.Add("--no-progress")
 
     if (-not [string]::IsNullOrEmpty($PackageParameters)) {
         $arguments.Add("--package-parameters=`"${PackageParameters}`"")
@@ -43,8 +52,7 @@ function Install-WithChocolatey {
 
     $argumentsArray = $arguments.ToArray()
 
-    Start-Process -Wait -NoNewWindow -FilePath "choco.exe" `
-        -ArgumentList $argumentsArray
+    Start-Process -Wait -NoNewWindow -FilePath "choco.exe" -ArgumentList $argumentsArray
 }
 
 function Install-WithChocolateyList {
@@ -57,16 +65,16 @@ function Install-WithChocolateyList {
         [string]$ListFile,
         [Parameter(Position = 1, ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true,
-            HelpMessage = "Timeout between application installs, in minutes (default 1)")]
-        [int]$Timeout = 1,
+            HelpMessage = "Timeout between application installs, in seconds (default 30)")]
+        [int]$Timeout = 30,
         [Parameter(Position = 2, ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true,
             HelpMessage = "Number of installs between which an extra delay will be added (default 10)")]
         [int]$SetDelayCount = 10,
         [Parameter(Position = 3, ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true,
-            HelpMessage = "Timeout to add between a set of applications, in minutes (default 5)")]
-        [int]$SetDelayTimeout = 5
+            HelpMessage = "Timeout to add between a set of applications, in minutes (default 3)")]
+        [int]$SetDelayTimeout = 3
     )
 
     ## TODO: Could add a more sophisticated file format that allows passing package and install arguments
@@ -75,6 +83,7 @@ function Install-WithChocolateyList {
 
     foreach ($appObject in $applications) {
         $application = [string]$appObject
+        Write-Host "---"
         Write-Host "Working on ${application}"
 
         ## If the global is null, initialized it
@@ -100,13 +109,13 @@ function Install-WithChocolateyList {
         $global:installCount++;
         if ($SetDelayCount -ge 1 -and $global:installCount -ge $SetDelayCount) {
             $global:installCount = 0
-            Write-Host "Sleeping for ${SetDelayTimeout} minutes (set delay)."
+            Write-Host "Sleeping for ${SetDelayTimeout} minutes (delay between set)."
             Start-Sleep -Seconds ($SetDelayTimeout * 60)
         }
         else {
             if ($Timeout -ge 1) {
-                Write-Host "Sleeping for ${Timeout} minutes."
-                Start-Sleep -Seconds ($Timeout * 60)
+                Write-Host "Sleeping for ${Timeout} seconds."
+                Start-Sleep -Seconds ($Timeout)
             }
         }
     }
