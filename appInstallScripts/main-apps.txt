@@ -60,7 +60,7 @@ zerotier-one
 hackfont
 nerdfont-hack
 croscorefonts-font
-crosextrafonts-caladeo-font
+crosextrafonts-caladea-font
 crosextrafonts-carlito-font
 cascadiafonts
 cascadia-code-nerd-font

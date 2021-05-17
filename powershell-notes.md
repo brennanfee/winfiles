@@ -54,6 +54,7 @@
 - opensans
 - php
 - ruby
+- myharmony - has dialogs during install
 
 ## Other applications to consider, installed only as needed
 
