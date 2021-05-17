@@ -65,8 +65,8 @@ function Install-WithChocolateyList {
         [string]$ListFile,
         [Parameter(Position = 1, ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true,
-            HelpMessage = "Timeout between application installs, in seconds (default 30)")]
-        [int]$Timeout = 30,
+            HelpMessage = "Timeout between application installs, in seconds (default 15)")]
+        [int]$Timeout = 15,
         [Parameter(Position = 2, ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true,
             HelpMessage = "Number of installs between which an extra delay will be added (default 10)")]
