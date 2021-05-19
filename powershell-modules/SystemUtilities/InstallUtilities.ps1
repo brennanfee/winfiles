@@ -94,11 +94,13 @@ function Install-WithChocolateyList {
 
         # Skip blank lines
         if ([string]::IsNullOrEmpty($application)) {
+            Write-Host "Skipping an empty line"
             continue
         }
 
         # Skip comments
         if ($application.StartsWith("#")) {
+            Write-Host "Skipping an comment line"
             continue
         }
 
