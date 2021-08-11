@@ -3,6 +3,25 @@
 ## Tasks
 
 1. Write PowerShell script to install WinGet if not already there.
+2. Write out a config file (if not present?)
+
+## Issue with PowerShell Core
+
+There is a PowerShell core issue with using Appx methods.  Use the following to load the module.
+
+Import-Module -Name Appx -UseWindowsPowershell -WarningAction SilentlyContinue
+
+Maybe add a powershell function in one of my modules that will load Appx this way if not able to be loaded the other?  Check if in Powershell core?  Something to make it seamless.
+
+## Script
+
+https://gist.github.com/crutkas/6c2096eae387e544bd05cde246f23901
+
+https://call4cloud.nl/2021/05/cloudy-with-a-chance-of-winget/
+
+## Tool
+
+Tool to create an import file:  https://winstall.app
 
 ## Features
 
