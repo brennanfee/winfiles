@@ -1,6 +1,5 @@
-
-# Created by https://www.toptal.com/developers/gitignore/api/git,linux,windows,macos,backup,vim,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=git,linux,windows,macos,backup,vim,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/git,linux,windows,macos,backup,vim,visualstudiocode,vagrant
+# Edit at https://www.toptal.com/developers/gitignore?templates=git,linux,windows,macos,backup,vim,visualstudiocode,vagrant
 
 ### Backup ###
 *.bak
@@ -67,6 +66,16 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### Vagrant ###
+# General
+.vagrant/
+
+# Log files (if you are creating logs in debug mode, uncomment this)
+# *.log
+
+### Vagrant Patch ###
+*.box
+
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]
@@ -129,7 +138,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/git,linux,windows,macos,backup,vim,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/git,linux,windows,macos,backup,vim,visualstudiocode,vagrant
 
 ###### Custom project specific overrides ######
 output/
