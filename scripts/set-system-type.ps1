@@ -1,6 +1,5 @@
 #!/usr/bin/env pwsh.exe
 #Requires -Version 5
-#Requires -PSEdition Desktop
 Set-StrictMode -Version 2.0
 
 # Determine the system type (home or work)
@@ -16,4 +15,3 @@ if (-not ($env:SYSTEMTYPE -eq 'HOME' -or $env:SYSTEMTYPE -eq 'WORK')) {
       $env:SYSTEMTYPE = 'HOME'
     }
 }
-

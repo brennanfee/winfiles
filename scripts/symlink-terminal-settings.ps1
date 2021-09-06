@@ -9,7 +9,7 @@ $winfiles = "$env:PROFILEPATH\winfiles"
 
 $statePath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 if (-not (Test-Path $statePath)) {
-    New-Item -ItemType Directory -Force -Path $statePath | Out-Null
+    $null = New-Item -ItemType Directory -Force -Path $statePath
 }
 
 Remove-Item -Path "$statePath\profiles.json" -ErrorAction SilentlyContinue

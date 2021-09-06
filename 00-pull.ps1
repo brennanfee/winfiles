@@ -1,109 +1,48 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env powershell.exe
 #Requires -Version 5
 #Requires -RunAsAdministrator
 #Requires -PSEdition Desktop
+param (
+    [ValidateSet('main', 'develop', 'local')]
+    [string] $Branch = "main"
+)
+
 Set-StrictMode -Version 2.0
 
-# BAF - The purpose of this script is to do the minimum necessary to pull
-# my WinFiles repository onto the current machine.  The "WinFiles" are like
-# Linux "dotfiles" but for Windows.  It is intended that this script be run
-# directly from the web from the command line without any prior setup for
-# the machine.  Use one of these command:
+# BAF - This script simply pulls the latest clean-install.ps1 script and executes it.  An optional branch name can be passed in to use a specific version.  "Local" can also be passed in but is used for debugging with a local copy of the files already in place.
+#
+# It is intended that this script be run directly from the web from the command line without any prior setup for the machine.  Use one of these commands:
 #    Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)
+# or shorter:
 #    iex ((iwr -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)
 
 # Note, this may need to be run BEFORE this script
-Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force -ErrorAction Ignore
+Set-ExecutionPolicy Bypass -Scope Process -Force -ErrorAction Ignore
 
-### Set Profile location (based on how many disks we have)
-### 1 disk means porfile is in C:\profile, 2 disks or more means D:\profile
-$driveCount = (Get-PhysicalDisk | Measure-Object).Count
-
-$profilesPath = "C:\profile"
-if ($driveCount -ge 2) {
-    $profilesPath = "D:\profile"
-}
-[Environment]::SetEnvironmentVariable("PROFILEPATH", $profilesPath, "User")
-$env:PROFILEPATH = $profilesPath
-if (-not (Test-Path "$env:PROFILEPATH")) {
-    New-Item -ItemType Directory -Force -Path $env:PROFILEPATH | Out-Null
-}
-
-Write-Host "Brennan Fee's WinFiles Pull Script" -ForegroundColor "Green"
+$currentScript = $MyInvocation.MyCommand.Name
+Write-Host "Brennan Fee's WinFiles Pull Script - $currentScript" -ForegroundColor "Green"
 Write-Host ""
-$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
-Write-Host "Pull script started - $date"
 
-# Check if Chocolatey is already installed
-if (-not (Test-Path "C:\ProgramData\Chocolatey\bin\choco.exe")) {
-    Write-Host "Chocolatey missing, preparing for install"
+$scriptName = "clean-install.ps1"
+$tempPath = [System.IO.Path]::GetTempPath()
 
-    Invoke-Expression (
-        (Invoke-WebRequest -UseBasicParsing -Uri 'https://chocolatey.org/install.ps1').Content
-    )
+$scriptFile = Join-Path -Path $tempPath -ChildPath $scriptName
 
-    New-Item -Path "C:\ProgramData\Chocolatey\license" -Type Directory -Force | Out-Null
+if ($Branch -eq "local") {
+    Write-Host "Copying local $scriptName script file."
+    $localPath = "$PSScriptRoot\scripts\$scriptName"
+
+    Copy-Item -Path $localPath -Destination $scriptFile
 }
 else {
-    Write-Host "Chocolatey is already installed." -ForegroundColor "Green"
+    Write-Host "Downloading current $scriptName script file for branch '$Branch'."
+    $scriptUrl = "https://raw.githubusercontent.com/brennanfee/winfiles/$Branch/scripts/$scriptName"
+
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    Invoke-WebRequest -Uri $scriptUrl -OutFile $scriptFile
 }
 
-# Check if git is already installed
-if (-not (Test-Path "C:\Program Files\Git\cmd\git.exe")) {
-    Write-Host "Git missing, preparing for install using Chocolatey."
-
-    Write-Host ""
-    Invoke-Expression "&C:\ProgramData\Chocolatey\bin\choco.exe install -y -r git --params `"/GitOnlyOnPath /NoAutoCrlf /WindowsTerminal /NoShellIntegration`""
-
-    $sshPath = "C:\Program Files\Git\usr\bin\ssh.exe"
-    if ((Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.Client*').State -eq "Installed") {
-        $sshPath = "C:\Windows\System32\OpenSSH\ssh.exe"
-    }
-
-    [environment]::SetEnvironmentVariable('GIT_SSH', $sshPath, 'USER')
-    $env:GIT_SSH = $sshPath
-
-    Write-Host "Git installed." -ForegroundColor "Green"
-}
-else {
-    Write-Host "Git already installed." -ForegroundColor "Green"
-}
-
-### Pull the WinFiles repo from GitHub
-if (-not (Test-Path "$env:PROFILEPATH\winfiles\README.md")) {
-    Write-Host "Winfiles missing, preparing to clone"
-
-    Write-Host ""
-    Invoke-Expression "&`"C:\Program Files\Git\cmd\git.exe`" clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$env:PROFILEPATH\winfiles`""
-    Write-Host ""
-
-    Write-Host "Finished cloning winfiles." -ForegroundColor "Green"
-}
-else {
-    Write-Host "Winfiles already set up." -ForegroundColor "Green"
-}
-
-# Check if Firefox is already installed
-if (-not (Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe")) {
-    Write-Host "Firefox missing, preparing for install using Chocolatey."
-
-    Write-Host ""
-    Invoke-Expression "&C:\ProgramData\Chocolatey\bin\choco.exe install -y -r firefox"
-
-    Write-Host "Firefox installed." -ForegroundColor "Green"
-}
-else {
-    Write-Host "Firefox already installed." -ForegroundColor "Green"
-}
-
-Invoke-Expression -command "$env:PROFILEPATH\winfiles\shared\set-system-type.ps1"
-
-Set-Location "$env:PROFILEPATH\winfiles"
-Write-Host "WinFiles are ready" -ForegroundColor "Green"
+### Now execute that script
+Write-Host "Running $scriptName script."
 Write-Host ""
-Write-Host "You will need to close and re-open PowerShell to continue." -ForegroundColor "Yellow"
-Write-Host "Once reloaded as admin you can run .\01-setup-profile.ps1" -ForegroundColor "Yellow"
-
-$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
-Write-Host "Pull script finished - $date"
-Write-Host ""
+& "$scriptFile" -Branch $Branch

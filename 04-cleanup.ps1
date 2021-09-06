@@ -3,15 +3,19 @@
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
-Invoke-Expression -command "$PSScriptRoot\shared\set-system-type.ps1"
+& "$PSScriptRoot\scripts\set-system-type.ps1"
 
+$scriptName = $MyInvocation.MyCommand.Name
+Write-Host "Brennan Fee's WinFiles Setup Scripts - $scriptName" -ForegroundColor "Green"
+Write-Host ""
 $logPath = "$env:PROFILEPATH\logs\winfiles"
 $logFile = "$logPath\cleanup.log"
 Write-Log $logFile "----------"
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
-Write-LogAndConsole $logFile "Cleanup script started - $date"
-Write-LogAndConsole $logFile  "System type: $env:SYSTEMTYPE"
-Write-LogAndConsole $logFile  ""
+Write-LogAndConsole $logFile "Cleanup script started - $date" -ForegroundColor "Magenta"
+Write-LogAndConsole $logFile "System type: $env:SYSTEMTYPE"
+Write-LogAndConsole $logFile ""
+Write-Host ""
 
 Get-ChildItem "$PSScriptRoot\cleanupScripts" -File -Filter "*.ps1" | Sort-Object "FullName" | ForEach-Object {
     $script = $_.FullName
@@ -22,7 +26,8 @@ Get-ChildItem "$PSScriptRoot\cleanupScripts" -File -Filter "*.ps1" | Sort-Object
 
     try {
         Start-Transcript -Path "$logPath\cleanup-$scriptName.log" -Append
-        Invoke-Expression -command "$script"
+        #Invoke-Expression -command "$script"
+        & "$script"
         Start-Sleep -Seconds 1
     }
     finally {
@@ -37,8 +42,9 @@ Get-ChildItem "$PSScriptRoot\cleanupScripts" -File -Filter "*.ps1" | Sort-Object
 }
 
 Write-Host ""
+$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
+Write-LogAndConsole $logFile "System Installation Is Complete - $date" -Color "Magenta"
+Write-Host ""
 Write-LogAndConsole $logFile -Color "Yellow" `
     "You will need to close and re-open PowerShell to continue."
 Write-Host ""
-$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
-Write-LogAndConsole $logFile "System Installation Is Complete - $date" -Color "Green"

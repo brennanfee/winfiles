@@ -1,0 +1,33 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.require_version ">= 2.2"
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  config.vm.box = "windows-vagrant-temp"
+  config.vm.communicator = "winrm"
+  config.vm.guest = :windows
+
+  config.vm.network :forwarded_port, guest: 3389, host: 3399, id: "rdp", auto_correct: true
+  config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
+  config.vm.network :forwarded_port, guest: 5986, host: 5986, id: "winrms", auto_correct: true
+  config.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", auto_correct: true
+
+  config.vm.synced_folder ".", "/vagrant",
+    SharedFoldersEnableSymlinksCreate: false,
+    smb_username: "vagrant",
+    mb_password: "vagrant"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = true
+    vb.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
+  end
+end

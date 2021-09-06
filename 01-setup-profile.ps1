@@ -1,43 +1,33 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env powershell.exe
 #Requires -Version 5
 #Requires -RunAsAdministrator
 #Requires -PSEdition Desktop
 Set-StrictMode -Version 2.0
 
+# BAF - While this script is "usually" run after the 00-pull.ps1 script, it is intended that given circumstance the Winfiles repo could be pulled manually first and the pull script skipped.  As a result, this script performs some of the same steps as the 00-pull.ps1 to ensure success.
+
 # Note, this may need to be run BEFORE this script
 Set-ExecutionPolicy Bypass -Scope Process -Force -ErrorAction Ignore
 
-function Is64Bit { [IntPtr]::Size -eq 8 }
+& "$PSScriptRoot\scripts\set-system-type.ps1"
 
-Invoke-Expression -command "$PSScriptRoot\shared\set-system-type.ps1"
-
+$scriptName = $MyInvocation.MyCommand.Name
+Write-Host "Brennan Fee's WinFiles Setup Scripts - $scriptName" -ForegroundColor "Green"
+Write-Host ""
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
-Write-Host "Setup Profile script started - $date"
+Write-Host "Setup Profile script started - $date" -ForegroundColor "Magenta"
 Write-Host "System type: $env:SYSTEMTYPE"
 Write-Host ""
 
-$executionPolicyBlock = {
-    Set-ExecutionPolicy Unrestricted -Scope Process -Force -ErrorAction Ignore
-    Set-ExecutionPolicy Unrestricted -Scope LocalMachine -Force -ErrorAction Ignore
-    Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force -ErrorAction Ignore
-}
+& "$PSScriptRoot\scripts\configure-executionPolicies.ps1"
 
-$arguments = "-NoProfile -NonInteractive -ExecutionPolicy Unrestricted " +
-"-Command $executionPolicyBlock"
-
-if (Is64Bit) {
-    Start-Process -Wait -NoNewWindow -ArgumentList $arguments `
-        -FilePath "$env:SystemRoot\SysWOW64\WindowsPowerShell\v1.0\powershell.exe"
-}
-
-Start-Process -Wait -NoNewWindow -FilePath "powershell.exe" -ArgumentList $arguments
-
-# Install Nuget provider if needed
+### Install Nuget provider if needed
 $providers = Get-PackageProvider | Select-Object Name
 if (-not ($providers.Contains("nuget"))) {
     Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-Null
 }
 
+### Install PowerShell modules
 $moduleBlock = {
     Write-Host "Setting up PowerShell repositories"
     Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
@@ -67,7 +57,7 @@ Write-Host "Importing modules"
 Import-Module SystemUtilities
 Import-Module MyCustomProfileUtilities
 
-# Setup the profile environment variable
+### Setup the PowerShell profile
 Write-Host "Setting profile location"
 Set-MyCustomProfileLocation
 
@@ -98,36 +88,11 @@ $nugetFile = Join-Path $profileLocation "NuGet_profile.ps1"
 
 New-SymbolicLink $nugetFile "$winfilesRoot\powershell-profile\profile.ps1" -Force
 
-# Install Chocolatey if needed
-if (-not (Test-Path "C:\ProgramData\Chocolatey\bin\choco.exe")) {
-    Write-Host "Chocolatey missing, preparing for install"
+### Check for and install Winget if necessary
+& "$PSScriptRoot\scripts\install-winget.ps1"
 
-    Invoke-Expression (
-        (Invoke-WebRequest -UseBasicParsing -Uri 'https://chocolatey.org/install.ps1').Content
-    )
-
-    New-Item -Path "C:\ProgramData\Chocolatey\license" -Type Directory -Force | Out-Null
-}
-else {
-    Write-Host "Chocolatey is already installed." -ForegroundColor "Green"
-}
-
-# Install PowerShell Core if needed
-Write-Host "Checking for PowerShell Core"
-$psCoreExe = "C:\Program Files\PowerShell\7\pwsh.exe"
-if (-not (Test-Path "$psCoreExe")) {
-    Write-LogAndConsole $logFile "Installing PowerShell Core"
-
-    Invoke-Expression "&C:\ProgramData\Chocolatey\bin\choco.exe install -y -r powershell-core --installarguments `"/quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1`""
-
-    Write-LogAndConsole $logFile "PowerShell Core installed" -Color "Green"
-}
-else {
-    Write-LogAndConsole $logFile "PowerShell Core already installed" -Color "Green"
-}
-
-Write-LogAndConsole $logFile "Setting PowerShell Core permissions"
-Invoke-ExternalPowerShellCore $executionPolicyBlock
+### Check for and install PowerShell Core if necessary
+& "$PSScriptRoot\scripts\install-powerShellCore.ps1"
 
 Write-LogAndConsole $logFile "Installing modules for PowerShell Core"
 Invoke-ExternalPowerShellCore $moduleBlock
@@ -141,6 +106,10 @@ $myDocsFolder = [Environment]::GetFolderPath("MyDocuments")
 $psCoreProfile = "$myDocsFolder\PowerShell\Microsoft.PowerShell_profile.ps1"
 New-SymbolicLink $psCoreProfile "$winfilesRoot\powershell-profile\profile.ps1" -Force
 
+Write-Host ""
+$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
+Write-LogAndConsole $logFile "Script Complete - $date" -Color "Magenta"
+Write-Host ""
 Write-LogAndConsole $logFile "Powershell profile setup complete" -Color "Green"
 Write-Host ""
 Write-LogAndConsole $logFile -Color "Yellow" `
@@ -148,5 +117,3 @@ Write-LogAndConsole $logFile -Color "Yellow" `
 Write-LogAndConsole $logFile -Color "Yellow" `
     "Once reloaded as admin you can run .\02-bootstrap.ps1"
 Write-Host ""
-$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
-Write-LogAndConsole $logFile "Script Complete - $date" -Color "Green"
