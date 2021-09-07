@@ -1,7 +1,7 @@
-#!/usr/bin/env powershell.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
-#Requires -PSEdition Desktop
+Set-StrictMode -Version 2.0
 
 Write-Host "Configurationg Profile Path" -ForegroundColor "Green"
 
@@ -18,3 +18,6 @@ $env:PROFILEPATH = $profilesPath
 if (-not (Test-Path "$env:PROFILEPATH")) {
     $null = New-Item -ItemType Directory -Force -Path $env:PROFILEPATH
 }
+
+Write-Host "Profile path configured."
+Write-Host ""

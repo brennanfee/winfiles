@@ -1,7 +1,13 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
+
+Write-Host "Configuring privacy and security settings" -ForegroundColor "Green"
+
+# Enable UAC (in case it got disabled)
+$key = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System"
+Set-RegistryInt $key "EnableLUA" 1
 
 # Turn off Telemetry (set to Basic)
 $key = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection"
@@ -203,8 +209,8 @@ if (-not ($env:SYSTEMTYPE -eq "WORK")) {
 
     Remove-NetFirewallRule -DisplayName "Block Telemetry IPs" -ErrorAction SilentlyContinue
 
-    New-NetFirewallRule -DisplayName "Block Telemetry IPs" -Direction Outbound `
-        -Action Block -RemoteAddress ([string[]]$ips) | Out-Null
+    $null = New-NetFirewallRule -DisplayName "Block Telemetry IPs" -Direction Outbound `
+        -Action Block -RemoteAddress ([string[]]$ips)
 
     # Hosts file
     Write-Host "Adding telemetry domains to hosts file"
@@ -387,7 +393,12 @@ foreach ($service in $services) {
 
 # Disable Unneeded Scheduled Tasks
 Write-Host "Disabling Unneeded Scheduled Tasks..."
-schtasks /Change /TN "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /Disable | Out-Null
-schtasks /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /Disable | Out-Null
-schtasks /Change /TN "Microsoft\Windows\NetTrace\GatherNetworkInfo" /Disable | Out-Null
-schtasks /Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /Disable | Out-Null
+$null = & schtasks.exe /Change /TN "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /Disable
+$null = & schtasks.exe /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /Disable
+$null = & schtasks.exe /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /Disable
+/Change /TN "Microsoft\Windows\NetTrace\GatherNetworkInfo" /Disable
+$null = & schtasks.exe /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /Disable
+/Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /Disable
+
+Write-Host "Privacy and security settings configured"
+Write-Host ""

@@ -1,9 +1,9 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
-Write-Host "Setting up environment variables"
+Write-Host "Setting up environment variables" -ForegroundColor "Green"
 
 Set-HomeEnvironmentVariable
 Set-DefaultEditor
@@ -24,13 +24,12 @@ $value = "USERPROFILE/up:PROFILEPATH/up:SystemRoot/up:WIN_USER"
 $env:WIN_USER = "$value"
 
 # Docker
+# TODO: Verify if these are still correct for latest Docker Desktop versions
 $value = "linux"
 [Environment]::SetEnvironmentVariable("DOCKER_DEFAULT_PLATFORM", "$value", "User")
 $env:DOCKER_DEFAULT_PLATFORM = "$value"
 [Environment]::SetEnvironmentVariable("LCOW_API_PLATFORM_IF_OMITTED", "$value", "User")
 $env:LCOW_API_PLATFORM_IF_OMITTED = "$value"
 
-# Python pipenv
-$value = "1"
-[Environment]::SetEnvironmentVariable("PIPENV_VENV_IN_PROJECT", "$value", "User")
-$env:PIPENV_VENV_IN_PROJECT = "$value"
+Write-Host "Environment Variables complete"
+Write-Host ""

@@ -1,7 +1,9 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
+
+Write-Host "Removing Microsoft bloat" -ForegroundColor "Green"
 
 ######  Remove OneDrive
 ## For the time being this is commented out
@@ -91,6 +93,7 @@ $apps = @(
     "Microsoft.WindowsMaps"
     "Microsoft.ZuneMusic"
     "Microsoft.ZuneVideo"
+    "Windows.CBSPreview"
     # non-Microsoft
     "king.com.BubbleWitch3Saga"
     "king.com.CandyCrushFriends"
@@ -106,9 +109,12 @@ foreach ($app in $apps) {
 
     Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage
 
-    Get-AppxProvisionedPackage -Online |
+    $null = Get-AppxProvisionedPackage -Online |
     Where-Object DisplayName -eq $app |
-    Remove-AppxProvisionedPackage -Online | Out-Null
+    Remove-AppxProvisionedPackage -Online
 
     Start-Sleep 5
 }
+
+Write-Host "Microsoft bloat removed"
+Write-Host ""

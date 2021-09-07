@@ -1,27 +1,18 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
-Write-Host "Check PSRemoting"
-$r = Test-WSMan -Authentication default -ErrorAction SilentlyContinue
-$enabled = if ($r) { $true } else { $false }
+Write-Host "Configuring Networking." -ForegroundColor "Green"
 
-if (-not $enabled) {
-    Write-Host "Setting network profiles to private"
-    # Turn all network connections to "Private"
-    Get-NetConnectionProfile | Set-NetConnectionProfile -NetworkCategory Private
+# Turn off the thing that prompts whether a network is private or public
+& reg.exe add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff"
 
-    Write-Host "Enabling PSRemoting"
+# WinRM
+& "$PSScriptRoot\..\scripts\enable-winrm.ps1"
 
-    $command = "$PSScriptRoot\..\shared\ConfigureRemotingForAnsible.ps1 " +
-    "-CertValidityDays 3650 -ForceNewSSLCert -Verbose"
+# RDP
+& "$PSScriptRoot\..\scripts\enable-rdp.ps1"
 
-    Invoke-Expression $command
-}
-else {
-    Write-Host "PSRemoting already enabled"
-}
-
-Write-Host "Enabling Remote Desktop"
-Enable-RemoteDesktop
+Write-Host "Networking configured"
+Write-Host ""

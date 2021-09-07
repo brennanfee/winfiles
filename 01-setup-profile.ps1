@@ -9,7 +9,7 @@ Set-StrictMode -Version 2.0
 # Note, this may need to be run BEFORE this script
 Set-ExecutionPolicy Bypass -Scope Process -Force -ErrorAction Ignore
 
-& "$PSScriptRoot\scripts\set-system-type.ps1"
+& "$PSScriptRoot\shared\set-system-type.ps1"
 
 $scriptName = $MyInvocation.MyCommand.Name
 Write-Host "Brennan Fee's WinFiles Setup Scripts - $scriptName" -ForegroundColor "Green"
@@ -24,7 +24,7 @@ Write-Host ""
 ### Install Nuget provider if needed
 $providers = Get-PackageProvider | Select-Object Name
 if (-not ($providers.Contains("nuget"))) {
-    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-Null
+    $null = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 }
 
 ### Install PowerShell modules

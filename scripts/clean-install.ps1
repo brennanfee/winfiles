@@ -74,7 +74,7 @@ foreach ($script in $scripts) {
 & "$env:PROFILEPATH\winfiles\scripts\install-firefox.ps1"
 
 ### Finally, ensure the system type is set
-& "$env:PROFILEPATH\winfiles\scripts\set-system-type.ps1"
+& "$env:PROFILEPATH\winfiles\shared\set-system-type.ps1"
 
 Write-Host ""
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"

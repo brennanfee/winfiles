@@ -1,7 +1,6 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
-#Requires -PSEdition Desktop
 param (
     [switch] $Force = $false
 )

@@ -34,11 +34,11 @@ Invoke-Expression "$PSScriptRoot\..\shared\symlink-terminal-settings.ps1"
 Write-Host "Linking Vim settings"
 
 # Create the directories
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.cache\vim" | Out-Null
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.cache\zsh" | Out-Null
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.vim\vimscratch\backup" | Out-Null
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.vim\vimscratch\swap" | Out-Null
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.vim\vimscratch\undo" | Out-Null
+$null = New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.cache\vim"
+$null = New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.cache\zsh"
+$null = New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.vim\vimscratch\backup"
+$null = New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.vim\vimscratch\swap"
+$null = New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.vim\vimscratch\undo"
 
 # VsVim & ViEmu
 New-SymbolicLink "$env:USERPROFILE\_vsvimrc" "$winFiles\settings\vsvimrc"
@@ -51,7 +51,7 @@ New-SymbolicLink "$env:USERPROFILE\.vim\vimrc.bundles" "$winFiles\dotfiles\rcs\v
 New-SymbolicLink "$env:USERPROFILE\.vim\vimrc.lightline" "$winFiles\dotfiles\rcs\vim\vimrc.lightline"
 
 # Download vim-plug if not present
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.vim\autoload" | Out-Null
+$null = New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.vim\autoload"
 $vimPlug = "$env:USERPROFILE\.vim\autoload\plug.vim"
 if (-not (Test-Path $vimPlug)) {
     Invoke-WebRequest `

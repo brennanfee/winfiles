@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
@@ -15,7 +15,7 @@ foreach ($feature in $features) {
 
     if ($feature.State -eq "NotPresent") {
         Write-Host "Enabling feature: $name"
-        Add-WindowsCapability -Online -Name $name | Out-Null
+        $null = Add-WindowsCapability -Online -Name $name
         Start-Sleep $delay
         Write-Host "Feature enabled: $name"
     }
@@ -24,7 +24,7 @@ foreach ($feature in $features) {
     }
 }
 
-Write-Host "Configuring SSH Service."
+Write-Host "Configuring SSH Service"
 
 # Locate PowerShell with a priority on Core
 $powerShellCmd = (Get-Command -Name pwsh.exe)
@@ -43,6 +43,7 @@ else {
 $null = New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value $powerShell -PropertyType String -Force
 
 # Setup the firewall and the service
+Write-Host "Checking sshd service"
 Enable-NetFirewallRule -DisplayName 'OpenSSH SSH Server (sshd)'
 Set-Service -Name sshd -StartupType 'Automatic'
 # Need to start the service first to create the config files in C:\ProgramData\ssh
@@ -54,6 +55,12 @@ $find = "#MaxAuthTries 6"
 $replace = "MaxAuthTries 20"
 (Get-Content $file).replace($find, $replace) | Set-Content $file
 Restart-Service -Name sshd
+
+Write-Host "Checking ssh-agent service"
+if (Get-Service -Name ssh-agent -ErrorAction SilentlyContinue) {
+    Start-Service -Name ssh-agent -ErrorAction SilentlyContinue
+    $null = Set-Service -Name ssh-agent -StartupType 'Automatic' -ErrorAction SilentlyContinue
+}
 
 Write-Host ""
 Write-Host "Microsoft OpenSSH configured." -ForegroundColor "Cyan"

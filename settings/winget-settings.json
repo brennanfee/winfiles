@@ -1,0 +1,25 @@
+{
+  "$schema": "https://aka.ms/winget-settings.schema.json",
+
+  "source": {
+    "autoUpdateIntervalInMinutes": 5,
+    "progressBar": "accent",
+    "installBehavior": {
+      "preferences": {
+        "scope": "user",
+        "locale": ["en-US"]
+      }
+    },
+    "telemetry": {
+      "disable": true
+    },
+    "network": {
+      "downloader": "default"
+    },
+    "experimentalFeatures": {
+      "experimentalMSStore": true,
+      "directMSI": true,
+      "dependencies": true
+    }
+  }
+}

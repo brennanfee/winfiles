@@ -1,11 +1,11 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
 ######## Microsoft Terminal
 
-$winfiles = "$env:PROFILEPATH\winfiles"
+$winfiles = Join-Path -Path "$env:PROFILEPATH" -ChildItem "winfiles"
 
 $statePath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 if (-not (Test-Path $statePath)) {

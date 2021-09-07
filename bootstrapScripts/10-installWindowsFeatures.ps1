@@ -1,11 +1,15 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
+Write-Host "Configuring Windows Features and Capabilities" -ForegroundColor "Green"
+
 $computerDetails = Get-ComputerDetails
 
-$delay = 30
+$delay = 20
+
+## TODO: Add functions to my system modules for enabling/disabling features and capabilities
 
 ########  Install my selection of optional windows features.
 
@@ -13,13 +17,46 @@ $delay = 30
 #   Get-WindowsOptionalFeature -Online | Where-Object {$_.State -eq "Enabled"}
 #   | Select-Object FeatureName
 
-# Turn on developer mode, this is done on all machines for the symlink functionality (to not need admin console to create links)
-$key = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock"
-Set-RegistryInt "$key" "AllowDevelopmentWithoutDevLicense" 1
+# For all desktops (these are installed by default in Windows 10), repeated here to be explicit
+$defaultFeatures = @(
+    #"Internet-Explorer-Optional-amd64"  # Removed below
+    "MediaPlayback"
+    "MicrosoftWindowsPowerShellV2"
+    "MicrosoftWindowsPowerShellV2Root"
+    "MSRDC-Infrastructure"
+    "NetFx4-AdvSrvs"
+    "Printing-Foundation-Features"
+    "Printing-Foundation-InternetPrinting-Client"
+    "Printing-PrintToPDFServices-Features"
+    #"Printing-XPSServices-Features" # Removed below
+    "SearchEngine-Client-Package"
+    "SmbDirect"
+    "WCF-Services45"
+    "WCF-TCP-PortSharing45"
+    # "WindowsMediaPlayer" # Removed below
+    # "WorkFolders-Client" # Removed below
+)
 
-# First, remove what we don't want
+foreach ($feature in $defaultFeatures) {
+    Write-Host ""
+    Write-Host "Checking default feature: $feature"
+
+    $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
+    if ($item -and $item.State -eq "Disabled") {
+        Write-Host "Enabling feature: $feature"
+        $null = Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart
+        Start-Sleep $delay
+        Write-Host "Feature enabled: $feature"
+    }
+    else {
+        Write-Host "Feature '$feature' is already enabled"
+    }
+}
+
+# Now, remove what we don't want
 $disableFeature = @(
     "DirectPlay"
+    "Internet-Explorer-Optional-amd64"  # Internet Explorer 11
     "LegacyComponents"
     "Printing-Foundation-LPDPrintService"
     "Printing-Foundation-LPRPortMonitor"
@@ -30,8 +67,6 @@ $disableFeature = @(
     "SMB1Protocol"
     "WindowsMediaPlayer"
     "WorkFolders-Client"
-    "Xps-Foundation-Xps-Viewer"
-    "Internet-Explorer-Optional-amd64"  # Internet Explorer 11
 )
 
 foreach ($feature in $disableFeature) {
@@ -41,7 +76,7 @@ foreach ($feature in $disableFeature) {
     $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
     if ($item -and $item.State -eq "Enabled") {
         Write-Host "Disabling feature: $feature"
-        Disable-WindowsOptionalFeature -FeatureName $feature -Online -NoRestart | Out-Null
+        $null = Disable-WindowsOptionalFeature -FeatureName $feature -Online -NoRestart
         Start-Sleep $delay
         Write-Host "Feature disabled: $feature"
     }
@@ -50,51 +85,21 @@ foreach ($feature in $disableFeature) {
     }
 }
 
-# For all desktops (these are installed by default in Windows 10), repeated here to be explicit
-$defaultFeatures = @(
-    "FaxServicesClientPackage"
-    "MediaPlayback"
-    "Microsoft-Windows-Client-EmbeddedExp-Package"
-    "Microsoft-Windows-NetFx3-OC-Package"
-    "Microsoft-Windows-NetFx3-WCF-OC-Package"
-    "Microsoft-Windows-NetFx4-US-OC-Package"
-    "Microsoft-Windows-NetFx4-WCF-US-OC-Package"
-    "MicrosoftWindowsPowerShellV2"
-    "MicrosoftWindowsPowerShellV2Root"
-    "MSRDC-Infrastructure"
-    "NetFx4-AdvSrvs"
-    "Printing-Foundation-Features"
-    "Printing-Foundation-InternetPrinting-Client"
-    "Printing-PrintToPDFServices-Features"
-    "SearchEngine-Client-Package"
-    "SmbDirect"
-    "WCF-Services45"
-    "WCF-TCP-PortSharing45"
-)
-
-foreach ($feature in $defaultFeatures) {
-    Write-Host ""
-    Write-Host "Checking default feature: $feature"
-
-    $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
-    if ($item -and $item.State -eq "Disabled") {
-        Write-Host "Enabling feature: $feature"
-        Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart | Out-Null
-        Start-Sleep $delay
-        Write-Host "Feature enabled: $feature"
-    }
-    else {
-        Write-Host "Feature '$feature' is already enabled"
-    }
-}
-
 # The additional features I want on my machines
 $extraFeatures = @(
     "Client-ProjFS"
     "ClientForNFS-Infrastructure"
     "Containers"
+    "IIS-ASPNET45"
+    "IIS-DefaultDocument"
     "IIS-HostableWebCore"
-    "Microsoft-Windows-Subsystem-Linux"
+    "IIS-HttpCompressionDynamic"
+    "IIS-HttpCompressionStatic"
+    "IIS-HttpErrors"
+    "IIS-HttpLogging"
+    "IIS-HttpRedirect"
+    "IIS-NetFxExtensibility45"
+    "IIS-StaticContent"
     "NetFx4Extended-ASPNET45"
     "NFS-Administration"
     "ServicesForNFS-ClientOnly"
@@ -111,7 +116,7 @@ foreach ($feature in $extraFeatures) {
     $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
     if ($item -and $item.State -eq "Disabled") {
         Write-Host "Enabling feature: $feature"
-        Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart | Out-Null
+        $null = Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart
         Start-Sleep $delay
         Write-Host "Feature enabled: $feature"
     }
@@ -142,7 +147,7 @@ if (-not ($computerDetails.IsVirtual)) {
         $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
         if ($item -and $item.State -eq "Disabled") {
             Write-Host "Enabling feature: $feature"
-            Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart | Out-Null
+            $null = Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart
             Start-Sleep $delay
             Write-Host "Feature enabled: $feature"
         }
@@ -152,10 +157,14 @@ if (-not ($computerDetails.IsVirtual)) {
     }
 }
 
+# Disable unwanted capabilities
 $disableCapabilities = @(
-    "Media.WindowsMediaPlayer~"
-    "XPS.Viewer~"
     "Browser.InternetExplorer~"
+    "Media.WindowsMediaPlayer~"
+    "Microsoft.Windows.MSPaint~"
+    "Microsoft.Windows.PowerShell.ISE~"
+    "Microsoft.Windows.WordPad~"
+    "XPS.Viewer~"
 )
 
 foreach ($feature in $disableCapabilities) {
@@ -170,7 +179,7 @@ foreach ($feature in $disableCapabilities) {
         foreach ($item in $items) {
             $name = $item.Name
             Write-Host "Disabling feature: $name"
-            Remove-WindowsCapability -Online -Name $name | Out-Null
+            $null = Remove-WindowsCapability -Online -Name $name
             Start-Sleep $delay
             Write-Host "Feature disabled: $name"
         }
@@ -180,30 +189,5 @@ foreach ($feature in $disableCapabilities) {
     }
 }
 
-$extraCapabilities = @(
-    "OpenSSH.Client~"
-    "OpenSSH.Server~"
-    "Tools.DeveloperMode.Core~"
-)
-
-foreach ($feature in $extraCapabilities) {
-    Write-Host ""
-    Write-Host "Checking feature: $feature"
-
-    $items = Get-WindowsCapability -Online |
-    Where-Object { $_.State -eq "NotPresent" } |
-    Where-Object { $_.Name.StartsWith($feature) }
-
-    if ($items) {
-        foreach ($item in $items) {
-            $name = $item.Name
-            Write-Host "Enabling feature: $name"
-            Add-WindowsCapability -Online -Name $name | Out-Null
-            Start-Sleep $delay
-            Write-Host "Feature enabled: $name"
-        }
-    }
-    else {
-        Write-Host "Feature '$feature' already enabled"
-    }
-}
+Write-Host "Windows Features and Capabilities configured."
+Write-Host ""

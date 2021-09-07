@@ -28,7 +28,7 @@ function Write-Log {
 
     $path = Split-Path $LogFile -Parent
     if (-not (Test-Path $path)) {
-        New-Item -ItemType Directory -Path "$path" -Force -ErrorAction SilentlyContinue | Out-Null
+        $null = New-Item -ItemType Directory -Path "$path" -Force -ErrorAction SilentlyContinue
     }
 
     $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"

@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
@@ -10,76 +10,36 @@ Set-StrictMode -Version 2.0
 # this script and 00-pull.ps1.  Changes to 00-pull.ps1 may need to be copied
 # to here.
 
-Write-Host "Verifying baseline"
+Write-Host "Verifying baseline" -ForegroundColor "Green"
+Write-Host ""
 
 # Setup the profile environment variable
 Write-Host "Setting profile location"
 Set-MyCustomProfileLocation -Force
 
-# Check if Chocolatey is already installed
-if (-not (Test-Path "C:\ProgramData\Chocolatey\bin\choco.exe")) {
-    Write-Host "Chocolatey missing, preparing for install"
+### Check for and install Winget if necessary
+& "$PSScriptRoot\..\scripts\install-winget.ps1"
 
-    Invoke-Expression (
-        (Invoke-WebRequest -UseBasicParsing -Uri 'https://chocolatey.org/install.ps1').Content
-    )
+### Check for and install PowerShell Core if necessary
+& "$PSScriptRoot\..\scripts\install-powerShellCore.ps1"
 
-    New-Item -Path "C:\ProgramData\Chocolatey\license" -Type Directory -Force | Out-Null
-}
-else {
-    Write-Host "Chocolatey is already installed." -ForegroundColor "Green"
-}
+### Check for and install OpenSSH if necessary
+& "$PSScriptRoot\..\scripts\install-ssh.ps1"
 
-# Check if git is already installed
-if (-not (Test-Path "C:\Program Files\Git\cmd\git.exe")) {
-    Write-Host "Git missing, preparing for install using Chocolatey."
+### Check for and install Git if necessary
+& "$PSScriptRoot\..\scripts\install-git.ps1"
 
-    Write-Host ""
-    Invoke-Expression "&C:\ProgramData\Chocolatey\bin\choco.exe install -y -r git --params `"/GitOnlyOnPath /NoAutoCrlf /WindowsTerminal /NoShellIntegration`""
-
-    $sshPath = "C:\Program Files\Git\usr\bin\ssh.exe"
-    if ((Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.Client*').State -eq "Installed") {
-        $sshPath = "C:\Windows\System32\OpenSSH\ssh.exe"
-    }
-
-    [environment]::SetEnvironmentVariable('GIT_SSH', $sshPath, 'USER')
-    $env:GIT_SSH = $sshPath
-
-    Write-Host "Git installed." -ForegroundColor "Green"
-}
-else {
-    Write-Host "Git already installed." -ForegroundColor "Green"
-}
-
+### Pull the Winfiles, if needed
 # I know it might look odd to check for pulling the Winfiles repo.  But,
 # while the user is obviously running these files from within a copy of the Winfiles,
-# there is no gaurantee they are in the right location or that they pulled it using Git.
+# there is no gaurantee they are in the "right" location or that they pulled it using Git.
+& "$PSScriptRoot\..\scripts\pull-winfiles.ps1"
 
-### Pull the WinFiles repo from GitHub
-if (-not (Test-Path "$env:PROFILEPATH\winfiles\README.md")) {
-    Write-Host "Winfiles missing, preparing to clone"
+### Check for and install Firefox if necessary
+& "$env:PROFILEPATH\winfiles\scripts\install-firefox.ps1"
 
-    Write-Host ""
-    Invoke-Expression "&`"C:\Program Files\Git\cmd\git.exe`" clone --recurse-submodules https://github.com/brennanfee/winfiles.git `"$env:PROFILEPATH\winfiles`""
-    Write-Host ""
+### Finally, ensure the system type is set
+& "$env:PROFILEPATH\winfiles\shared\set-system-type.ps1"
 
-    Write-Host "Finished cloning winfiles." -ForegroundColor "Green"
-}
-else {
-    Write-Host "Winfiles already set up." -ForegroundColor "Green"
-}
-
-# Check if Firefox is already installed
-if (-not (Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe")) {
-    Write-Host "Firefox missing, preparing for install using Chocolatey."
-
-    Write-Host ""
-    Invoke-Expression "&C:\ProgramData\Chocolatey\bin\choco.exe install -y -r firefox"
-
-    Write-Host "Firefox installed." -ForegroundColor "Green"
-}
-else {
-    Write-Host "Firefox already installed." -ForegroundColor "Green"
-}
-
-Invoke-Expression -command "$env:PROFILEPATH\winfiles\shared\set-system-type.ps1"
+Write-Host "Baseline verified and adjusted as needed"
+Write-Host ""

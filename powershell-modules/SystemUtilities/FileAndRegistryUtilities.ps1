@@ -86,17 +86,17 @@ function Set-RegistryValue {
     )
 
     if ($key.StartsWith("HKCR")) {
-        New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+        $null = New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT
     }
 
     if (-not (Test-Path $Key)) {
-        New-Item -ItemType Directory -Force -Path $Key | Out-Null
+        $null = New-Item -ItemType Directory -Force -Path $Key
     }
 
-    New-ItemProperty -Path $Key -Name $ValueName -Value $Value `
-        -PropertyType $DataType -ErrorAction SilentlyContinue | Out-Null
+    $null = New-ItemProperty -Path $Key -Name $ValueName -Value $Value `
+        -PropertyType $DataType -ErrorAction SilentlyContinue
 
-    Set-ItemProperty -Path $Key -Name $ValueName -Value $Value | Out-Null
+    $null = Set-ItemProperty -Path $Key -Name $ValueName -Value $Value
 }
 
 ## Taking ownership
@@ -196,6 +196,6 @@ function New-SymbolicLink {
     }
 
     if (-not (Test-Path $Link)) {
-        New-Item -ItemType SymbolicLink -Path $Link -Value $Target -Force | Out-Null
+        $null = New-Item -ItemType SymbolicLink -Path $Link -Value $Target -Force
     }
 }

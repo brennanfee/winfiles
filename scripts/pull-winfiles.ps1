@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
 param (
@@ -29,17 +29,18 @@ if (-not (Test-Path -Path $readme)) {
     & "$gitExe" clone --recurse-submodules https://github.com/brennanfee/winfiles.git "$winfilesPath"
     Write-Host ""
 
+    # Switch branch if needed
+    if ($Branch -ne "main") {
+        $currentLocation = Get-Location
+        Set-Location "$winfilesPath"
+        & "$gitExe" switch $Branch
+        Set-Location $currentLocation
+    }
+
     Write-Host "Finished cloning winfiles." -ForegroundColor "Cyan"
 }
 else {
     Write-Host "Winfiles already cloned." -ForegroundColor "Cyan"
 }
-
-$currentLocation = Get-Location
-Set-Location "$winfilesPath"
-
-& "$gitExe" switch $Branch
-
-Set-Location $currentLocation
 
 Write-Host ""

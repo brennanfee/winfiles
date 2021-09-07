@@ -1,7 +1,9 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
+
+Write-Host "Setting up system and personalization settings" -ForegroundColor "Green"
 
 $computerDetails = Get-ComputerDetails
 
@@ -68,6 +70,9 @@ if (-not ($computerDetails.IsVirtual)) {
     # 1800 = 30 minutes
     Set-RegistryInt $key "ScreenSaveTimeout" 1800
     Set-RegistryString $key "SCRNSAVE.EXE" "$env:SystemRoot\system32\scrnsave.scr"
+}
+else {
+    Set-RegistryInt "HKCU:\Control Panel\Desktop" "ScreenSaveActive" 0
 }
 
 ########  Explorer Settings
@@ -138,8 +143,7 @@ $key = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer"
 Set-RegistryInt "$key" "NoDriveTypeAutoRun" 255
 
 ######## File system settings
-Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' `
-    -Name 'LongPathsEnabled' -Value 1
+Set-RegistryInt "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" "LongPathsEnabled" 1
 
 ######## Accessibility
 # Disable Sticky Keys Prompt
@@ -151,22 +155,28 @@ Set-RegistryString $key "Flags" "506"
 $key = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel"
 Set-RegistryInt "$key" "AllItemsIconView" 0
 
+########  Notepad settings
+Write-Host "Notepad Settings"
+$key = "HKCU:\Software\Microsoft\Notepad"
+Set-RegistryString "$key" "lfFaceName" "JetBrains Mono Medium"
+Set-RegistryInt "$key" "iPointSize" 140
+Set-RegistryInt "$key" "lfWeight" 500
+
 ########  Terminal (conhost) settings
 Write-Host "Terminal Settings"
 
-$key = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Console\TrueTypeFont'
-Set-RegistryString "$key" "000" "Hack"
-Set-RegistryString "$key" "0000" "Hack NF"
-Set-RegistryString "$key" "00000" "Hasklug NF"
-Set-RegistryString "$key" "000000" "SauceCodePro NF"
-Set-RegistryString "$key" "0000000" "NotoMono NF"
-Set-RegistryString "$key" "00000000" "FuraCode NF"
-Set-RegistryString "$key" "000000000" "FuraMono NF"
+# I don't believe this is still needed with latest versions of Windows
+#$key = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Console\TrueTypeFont'
+#Set-RegistryString "$key" "000" "JetBrains Mono Medium"
+#Set-RegistryString "$key" "0000" "JetBrains Mono"
+#Set-RegistryString "$key" "00000" "JetBrainsMono Nerd Font Mono"
+#Set-RegistryString "$key" "000000" "Hack"
+#Set-RegistryString "$key" "0000000" "Hack Nerd Font Mono"
 
 $key = 'HKCU:\Console'
 # Setup font for console
-Set-RegistryString "$key" "FaceName" "__DefaultTTFont__"
-#TBD -> Set-RegistryString "$key" "FaceName" "SourceCodePro NF"
+#Set-RegistryString "$key" "FaceName" "__DefaultTTFont__"
+Set-RegistryString "$key" "FaceName" "JetBrains Mono Medium"
 Set-RegistryInt "$key" "FontSize" 1310720
 
 # Console settings
@@ -193,13 +203,15 @@ Set-RegistryInt "$key" "NumberOfHistoryBuffers" 4
 Set-RegistryInt "$key" "HistoryNoDup" 1
 
 # Powershell
-#Set-RegistryString "$key\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe" "FaceName" "SourceCodePro NF"
-#Set-RegistryString "$key\%SystemRoot%_SysWOW64_WindowsPowerShell_v1.0_powershell.exe" "FaceName" "SourceCodePro NF"
-Set-RegistryInt "$key\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe" "FontSize" 1310720
-Set-RegistryInt "$key\%SystemRoot%_SysWOW64_WindowsPowerShell_v1.0_powershell.exe" "FontSize" 1310720
+$key = 'HKCU:\Console\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe'
+Set-RegistryString "$key" "FaceName" "JetBrains Mono Medium"
+Set-RegistryInt "$key" "FontSize" 1310720
+Set-RegistryInt "$key" "QuickEdit" 1
 
-Set-RegistryInt "$key\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe" "QuickEdit" 1
-Set-RegistryInt "$key\%SystemRoot%_SysWOW64_WindowsPowerShell_v1.0_powershell.exe" "QuickEdit" 1
+$key = 'HKCU:\Console\%SystemRoot%_SysWOW64_WindowsPowerShell_v1.0_powershell.exe'
+Set-RegistryString "$key" "FaceName" "JetBrains Mono Medium"
+Set-RegistryInt "$key" "FontSize" 1310720
+Set-RegistryInt "$key" "QuickEdit" 1
 
 ########  Taskbar Settings
 Write-Host "Taskbar Settings"
@@ -300,7 +312,6 @@ $key = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatus
 Set-RegistryInt $key "EnthusiastMode" 1
 
 ########  Keyboard Settings
-
 Write-Host "Keyboard Settings"
 
 # Map the CAPS LOCK key to the Control key
@@ -312,3 +323,6 @@ Set-RegistryValue $key "Scancode Map" ([byte[]]$hexified) "Binary"
 
 # Lower keyboard delay
 Set-RegistryInt "HKCU:\Control Panel\Keyboard" "KeyboardDelay" 0
+
+Write-Host "System and personalization settings configured"
+Write-Host ""
