@@ -19,7 +19,7 @@ order to be "fully" updated.
 This script will initialize Git and clone this repository.
 
 1. Open PowerShell as an Administrator
-2. Run `Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force -ErrorAction Ignore`
+2. Run `Set-ExecutionPolicy Bypass -Scope Process -Force -ErrorAction Ignore`
 3. Run `iex ((iwr -UseBasicParsing -Uri 'https://git.io/fjBQX').Content)`
 4. Close PowerShell
 
@@ -47,24 +47,7 @@ This step will take a while. It sets up a bunch of registry settings as well as
 installs\removes Windows modules and default applications. Be sure to reboot once
 completed as that will "complete" many of the removals and installations.
 
-## Step 5: (OPTIONAL): Manually install the Chocolatey license file
-
-This is a good spot to pause and (manually) install the Chocolatey license file if you
-have one. If you do, then the following application install steps will be faster and
-more reliable as having a license allows the tool to use a non-open list of servers that
-are more reliable.
-
-During the installation of Chocolatey, the scripts pre-created the license folder
-needed. Simply follow the steps below.
-
-1. Get your license file (you should know where it is - **NOT SOMETHING TO BE PUT INTO
-   GIT**) and copy it to the `C:\ProgramData\Chocolatey\license` directory
-2. Open PowerShell as an Administrator
-3. Run `choco install -y --force chocolatey.extension`
-4. Afterward, run `choco` by itself and check the version string. It should read
-   something like `Chocolatey vx.xx.xx Professional` or `Chocolatey vx.xx.xx Business`
-
-## Step 6: Run the 03-app-installs Script
+## Step 5: Run the 03-app-installs Script
 
 1. Open PowerShell as an Administrator
 2. If not in the winfiles directory navigate to \$profile\winfiles
@@ -79,15 +62,15 @@ to be on the lookout and check the machine every now and again.
 Again, the reboot may be necessary for some of the applications installed, so don't skip
 that step.
 
-## Step 7 (OPTIONAL): Run any or all of the optional install packages
+## Step 6 (OPTIONAL): Run any or all of the optional install packages
 
 This is an **optional** step and will include applications that are more single-purposed
 in usage. At present, I have two "install packs". One for gaming and another for
 development applications.
 
-The game pack includes things like BattleNet, Steam, GOG Galaxy, and so on.
+The game pack includes things like Steam, GOG Galaxy, and so on.
 
-The development pack includes things like Visual Studio (which is quite large), docker,
+The development pack includes things like Docker, Visual Studio (which is quite large),
 and so on.
 
 1. Open PowerShell as an Administrator
@@ -119,20 +102,8 @@ prompts or other manual steps.
 
 There are a few manual configurations that must be performed before continuing.
 
-1. Point some Windows "special folders" to the profile location folders. The folders to
-   redirect are:
-   - Downloads
-   - Music
-   - Pictures
-   - Videos
-   - NOTE: DO NOT redirect 'My Documents', my profile 'documents' folder holds regular
-     files and the 'My Documents' folders gets filled with a bunch of application
-     garbage.
-2. Manually install [InSync](https://www.insynchq.com/) application and sync with your
-   Google Cloud account. The most important folder to sync is the \$profile\cloud
-   folder, but I commonly also sync my music folder (\$profile\music) if the hard drives
-   are large enough.
-3. I like to configure "Quick Access" in a specific order. So, open File Explorer and
+1. Load and configure [InSync](https://www.insynchq.com/).  The application should have been installed, but it needs to be configured to sync with my Google Cloud account.  The most important folder to sync is the \$profile\cloud folder, but I commonly also sync my music folder (\$profile\music) if the hard drives are large enough.
+2. I like to configure "Quick Access" in a specific order. So, open File Explorer and
    add\remove paths to the "Quick Access" menu as follows:
    - profile (\$profile)
    - source (\$profile\source)
@@ -149,7 +120,7 @@ There are a few manual configurations that must be performed before continuing.
 
 I use only a handful of licensed applications.
 
-Directory Opus
+#### Directory Opus
 
 The installation package installed Directory Opus but both the license and my
 configuration need to be loaded.
@@ -165,11 +136,15 @@ It is one of the handful of licensed\proprietary applications that I use and it 
 good** that I truly can't use Windows without it. It is a full replacement for the
 Windows File Explorer.
 
-### License Beyond Compare
+#### License Beyond Compare
 
-Likewise with Directory Opus. Beyond Compare is another of the rare license applications
+Likewise with Directory Opus, Beyond Compare is another of the rare license applications
 that I use. This one I even use on my Mac and Linux machines as well whereas Directory
 Opus is Windows only.
+
+#### (Optional) License Visual Studio
+
+TBD
 
 ### Apps To Log Into
 
@@ -180,20 +155,17 @@ configured with account information or other initial configuration.
 
 - Bitwarden
 - Jetbrains Toolbox
-- Evernote (eventually to be replaced by Joplin)
-- Spotify
-- Firefox
-- Chrome (ungoogled_chromium?)
+- Joplin (the syncing needs to be set up - and initial sync will take a long while)
+- Firefox (syncing)
+- Chrome (syncing)
 - Ferdi (for mySms)
 - Signal
-
-### (Optional) License Visual Studio
-
-TBD
 
 ## Step 10: Manual Installations
 
 ### Install Store Applications
+
+*NOTE*: WinGet will eventually get support to install Windows Store apps.  At that time I will automate these.
 
 Start by loading the "Microsoft Store" app and run all updates.
 
@@ -201,12 +173,12 @@ Use the "Microsoft Store" app to install the following (which can usually be see
 'Ready To Install' section):
 
 - Dolby Access
-- Microsoft Remote Desktop
 - Netflix
 - Hulu
 - Twitter
 - NPR One
 - Alexa
+- Okular
 
 For games:
 
@@ -215,15 +187,7 @@ For games:
 - Microsoft Solitaire Collection
 - Microsoft Ultimate Word Games
 
-### Install Applications With Prompts Or Dialogs
-
-The following applications are available from Chocolatey but bring up blocking dialogs
-or require other immediate configuration to complete. So they must be manually installed
-here. These all should be done within an Administrator PowerShell.
-
-1. `choco install -y -r rainmeter`
-
-### Install Applications Not Available In Chocolatey
+### Install Applications Not Available In WinGet
 
 Q: Why are most of these things in the "cloud" synced folder rather than the winfiles
 folder?
@@ -231,7 +195,11 @@ folder?
 A: Because I may not have legal right to re-distribute those files or they are sensitive
 (like my settings or license files\keys).
 
+**TBD**
+
 #### Fonts
+
+**TBD** This section may be getting removed as I am working on automatic install of fonts.
 
 There are some fonts which need to be manually installed in the following locations:
 

@@ -25,7 +25,7 @@ if (-not (Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe") -or $Force) 
     Write-Host "Firefox missing, preparing for install using WinGet."
 
     Write-Host ""
-    & "$wingetExe" install --silent Firefox
+    & "$wingetExe" install --silent Mozilla.Firefox
 
     Write-Host "Firefox installed." -ForegroundColor "Cyan"
 }

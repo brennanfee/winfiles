@@ -1,8 +1,8 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 Set-StrictMode -Version 2.0
 
-$winFilesFolder = "$env:PROFILEPATH\winfiles"
+$winFilesFolder = Join-Path -Path $env:PROFILEPATH -ChildPath "winfiles"
 
 if (-not ("$env:PSModulePath".Contains("$winFilesFolder\powershell-modules"))) {
     $env:PSModulePath = "$winFilesFolder\powershell-modules;" + "$env:PSModulePath"
@@ -17,6 +17,11 @@ Import-Module posh-git
 Import-Module SystemUtilities
 Import-Module MyCustomProfileUtilities
 Import-Module PsHistory
+
+# A workaround for a little bug in PowerShell Core.  It currently can't load the Appx package by itself
+if ($PSEdition -eq "Core") {
+    Import-Module -Name Appx -UseWindowsPowershell -WarningAction SilentlyContinue
+}
 
 # posh-git settings
 #$global:GitPromptSettings.EnableWindowTitle = $true
@@ -40,12 +45,6 @@ if ([string]::IsNullOrEmpty($env:EDITOR)) {
 $Pscx:Preferences['TextEditor'] = $env:EDITOR
 
 Initialize-PsHistory
-
-# Chocolatey profile\completion script
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-    Import-Module "$ChocolateyProfile"
-}
 
 function prompt {
     return Get-CustomPrompt

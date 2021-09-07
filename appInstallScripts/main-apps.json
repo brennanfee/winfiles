@@ -1,0 +1,68 @@
+{
+  "$schema": "https://aka.ms/winget-packages.schema.1.0.json",
+
+  "WinGetVersion": "1.0.11692",
+  "CreationDate": "2021-09-06T14:00:00.000-06:00",
+
+  "Sources": [
+    {
+      "SourceDetails": {
+        "Argument": "https://winget.azureedge.net/cache",
+        "Identifier": "Microsoft.Winget.Source_8wekyb3d8bbwe",
+        "Name": "winget",
+        "Type": "Microsoft.PreIndexed.Package"
+      },
+      "Packages": [
+        { "Id": "7zip.7zip" },
+        { "Id": "AdoptOpenJDK.OpenJDK.16" },
+        { "Id": "Alacritty.Alacritty" },
+        { "Id": "Amazon.AWSCLI" },
+        { "Id": "Amazon.Corretto.16" },
+        { "Id": "Amazon.Kindle" },
+        { "Id": "AmineMouafik.Ferdi" },
+        { "Id": "Bitwarden.Bitwarden" },
+        { "Id": "BleachBit.BleachBit" },
+        { "Id": "calibre.calibre" },
+        { "Id": "Canonical.Ubuntu" },
+        { "Id": "code52.Carnac" },
+        { "Id": "Debian.Debian" },
+        { "Id": "Element.Element" },
+        { "Id": "Evolus.Pencil" },
+        { "Id": "GitHub.cli" },
+        { "Id": "GitHub.GitLFS" },
+        { "Id": "GNU.Emacs" },
+        { "Id": "GnuPG.GnuPG" },
+        { "Id": "GoLang.Go" },
+        { "Id": "Google.Chrome" },
+        { "Id": "GPSoftware.DirectoryOpus" },
+        { "Id": "Insynchq.Insync" },
+        { "Id": "JetBrains.Toolbox" },
+        { "Id": "JGraph.Draw" },
+        { "Id": "Joplin.Joplin" },
+        { "Id": "Lexikos.AutoHotkey" },
+        { "Id": "LibreOffice.LibreOffice" },
+        { "Id": "Microsoft.dotnet" },
+        { "Id": "Microsoft.GitCredentialManagerCore" },
+        { "Id": "Microsoft.RemoteDesktopClient" },
+        { "Id": "Microsoft.VC++2015-2019Redist-x64" },
+        { "Id": "Microsoft.VisualStudioCode" },
+        { "Id": "Microsoft.WindowsTerminal" },
+        { "Id": "Mozilla.Firefox" },
+        { "Id": "OpenJS.NodeJSLTS" },
+        { "Id": "OpenWhisperSystems.Signal" },
+        { "Id": "plex.Plexamp" },
+        { "Id": "plex.plexmediaplayer" },
+        { "Id": "Python.Python.3" },
+        { "Id": "Rainmeter.Rainmeter" },
+        { "Id": "ScooterSoftware.BeyondCompare4" },
+        { "Id": "Scribus.Scribus" },
+        { "Id": "SourceFoundry.HackFonts" },
+        { "Id": "SpeedCrunch.SpeedCrunch" },
+        { "Id": "VideoLAN.VLC" },
+        { "Id": "vim.vim" },
+        { "Id": "WinDirStat.WinDirStat" },
+        { "Id": "ZeroTier.ZeroTierOne" }
+      ]
+    }
+  ]
+}

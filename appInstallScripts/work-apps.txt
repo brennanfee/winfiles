@@ -1,6 +1,0 @@
-amazon-workspaces
-microsoft-teams
-slack
-skype
-skypeforbusiness
-zoom

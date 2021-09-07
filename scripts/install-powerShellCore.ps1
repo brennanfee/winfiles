@@ -26,7 +26,7 @@ if (-not (Test-Path -Path $powerShellPath) -or $Force) {
     Write-Host "PowerShell Core missing, preparing for install using WinGet."
 
     Write-Host ""
-    & "$wingetExe" install PowerShell --override "/quiet /passive ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1"
+    & "$wingetExe" install Microsoft.PowerShell --override "/quiet /passive ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1"
 
     if (Test-Path -Path ".\configure-executionPolicies.ps1") {
         & ".\configure-executionPolicies.ps1"

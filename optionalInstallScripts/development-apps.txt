@@ -1,3 +1,0 @@
-docker-desktop
-insomnia-rest-api-client
-rust-ms

@@ -1,9 +1,12 @@
-#!/usr/bin/env pwsh.exe
+#!/usr/bin/env pwsh
 #Requires -Version 5
 #Requires -RunAsAdministrator
 Set-StrictMode -Version 2.0
 
-$winFiles = "$env:PROFILEPATH\winfiles"
+Write-Host "Symlinking files" -ForegroundColor "Green"
+Write-Host ""
+
+$winFiles = Join-Path -Path $env:PROFILEPATH -ChildPath "winfiles"
 
 ########  Git Configuration
 Write-Host "Linking Git Configuration"
@@ -27,8 +30,7 @@ Write-Host "Linking Ignore file"
 New-SymbolicLink "$env:USERPROFILE\.ignore" "$winFiles\dotfiles\rcs\ignore"
 
 ######## Windows Terminal
-Write-Host "Linking Windows Terminal Settings"
-Invoke-Expression "$PSScriptRoot\..\shared\symlink-terminal-settings.ps1"
+& "$PSScriptRoot\..\scripts\symlink-terminal-settings.ps1"
 
 ######## Vim
 Write-Host "Linking Vim settings"
@@ -63,8 +65,11 @@ if (-not (Test-Path $vimPlug)) {
 # Initialize the bundles
 $vimExe = Get-DefaultVimExe
 if ((-not $vimExe -eq "") -and (Test-Path "$vimExe")) {
-    Invoke-Expression "&`"$vimExe`" -N -u `"$env:USERPROFILE\.vim\vimrc.bundles`" +PlugUpdate +PlugClean +qa -"
+    & "$vimExe" -N -u "$env:USERPROFILE\.vim\vimrc.bundles" +PlugUpdate +PlugClean +qa -
 }
 else {
     Write-Host "Vim not found, skipping configuration" -ForegroundColor Yellow
 }
+
+Write-Host "Symlinks complete"
+Write-Host ""

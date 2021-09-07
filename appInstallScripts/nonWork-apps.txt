@@ -1,4 +1,0 @@
-avidemux
-handbrake
-mullvad-app
-qbittorrent

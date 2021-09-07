@@ -1,0 +1,27 @@
+{
+  "$schema": "https://aka.ms/winget-packages.schema.1.0.json",
+
+  "WinGetVersion": "1.0.11692",
+  "CreationDate": "2021-09-06T14:00:00.000-06:00",
+
+  "Sources": [
+    {
+      "SourceDetails": {
+        "Argument": "https://winget.azureedge.net/cache",
+        "Identifier": "Microsoft.Winget.Source_8wekyb3d8bbwe",
+        "Name": "winget",
+        "Type": "Microsoft.PreIndexed.Package"
+      },
+      "Packages": [
+        { "Id": "Amazon.Games" },
+        { "Id": "ElectronicArts.EADesktop" },
+        { "Id": "EpicGames.EpicGamesLauncher" },
+        { "Id": "GOG.Galaxy" },
+        { "Id": "Playnite.Playnite" },
+        { "Id": "Twitch.Twitch" },
+        { "Id": "Ubisoft.Connect" },
+        { "Id": "Valve.Steam" }
+      ]
+    }
+  ]
+}

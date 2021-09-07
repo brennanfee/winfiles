@@ -1,8 +1,0 @@
-goggalaxy
-steam
-steam-cleaner
-uplay
-epicgameslauncher
-twitch
-battle.net
-origin
