@@ -13,7 +13,7 @@ if ($wingetCmd) {
     $wingetExe = "$($wingetCmd.Source)"
 }
 else {
-    $wingetExe = Join-Path -Path "$env:LOCALAPPDATA" -ChildItem "Microsoft\WindowsApps\winget.exe"
+    $wingetExe = Join-Path -Path "$env:LOCALAPPDATA" -ChildPath "Microsoft\WindowsApps\winget.exe"
 }
 if (-not (Test-Path -Path "$wingetExe")) {
     throw "Unable to locate WinGet, it must be installed first before this script will function."

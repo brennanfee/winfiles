@@ -5,7 +5,7 @@ Set-StrictMode -Version 2.0
 
 ######## Microsoft Terminal
 
-$winfiles = Join-Path -Path "$env:PROFILEPATH" -ChildItem "winfiles"
+$winfiles = Join-Path -Path "$env:PROFILEPATH" -ChildPath "winfiles"
 
 $statePath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 if (-not (Test-Path $statePath)) {

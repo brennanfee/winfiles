@@ -12,7 +12,7 @@ if ($gitCmd) {
     $gitExe = "$($gitCmd.Source)"
 }
 else {
-    $gitExe = Join-Path -Path "$env:PROGRAMFILES" -ChildItem "Git\cmd\git.exe"
+    $gitExe = Join-Path -Path "$env:PROGRAMFILES" -ChildPath "Git\cmd\git.exe"
 }
 if (-not (Test-Path -Path "$gitExe")) {
     throw "Unable to locate Git, it must be installed first before this script will function."

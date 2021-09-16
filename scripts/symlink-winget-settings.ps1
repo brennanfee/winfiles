@@ -5,10 +5,10 @@ Set-StrictMode -Version 2.0
 
 Write-Host "Symlinking the WinGet settings file." -ForegroundColor "Green"
 
-$winfiles = Join-Path -Path "$env:PROFILEPATH" -ChildItem "winfiles"
+$winfiles = Join-Path -Path "$env:PROFILEPATH" -ChildPath "winfiles"
 
 $statePath = "$env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState"
-$wingetSettingsFile = Join-Path -Path "$statePath" -ChildItem "settings.json"
+$wingetSettingsFile = Join-Path -Path "$statePath" -ChildPath "settings.json"
 
 if (-not (Test-Path $statePath)) {
     $null = New-Item -ItemType Directory -Force -Path $statePath
