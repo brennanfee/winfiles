@@ -7,6 +7,11 @@ Write-Host "Setting up system and personalization settings" -ForegroundColor "Gr
 
 $computerDetails = Get-ComputerDetails
 
+########  Page file settings
+$pagefile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
+$pagefile.AutomaticManagedPagefile = $true
+$pagefile.put() | Out-Null
+
 ########  Theme Settings
 Write-Host "Theme settings"
 

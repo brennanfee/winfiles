@@ -20,12 +20,14 @@ if ($computerDetails.IsVirtual) {
     & powercfg.exe -Change -disk-timeout-dc 0
 
     Write-Host "Disabling Hibernation"
-    Set-RegistryInt "HKLM:\System\CurrentControlSet\Control\Power" "HibernateFileSizePercent" 0
-    Set-RegistryInt "HKLM:\System\CurrentControlSet\Control\Power" "HibernateEnabled" 0
+    & powercfg.exe /hibernate off
 }
 else {
     Write-Host "Enabling Screensaver"
     Set-RegistryInt "HKCU:\Control Panel\Desktop" "ScreenSaveActive" 1
+
+    # Resize the hibernate file
+    & powercfg.exe -h -size "%50"
 
     # Set to "Balanced" profile
     & powercfg.exe -setactive "381b4222-f694-41f0-9685-ff5bb260df2e"

@@ -263,3 +263,4 @@ These are apps that ARE available in WinGet but that I am currently not installi
 - nomacs - Image Lounge (nomacs.nomacs)
 - unsplash-wallpapers (soroushchehresa.unsplash-wallpapers)
 - MQTT Explorer (thomasnordquist.MQTT-Explorer)
+- Balena Etcher (balena.Etcher)
