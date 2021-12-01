@@ -32,6 +32,7 @@ $tempPath = [System.IO.Path]::GetTempPath()
 # WARNING: The order matters, they will be run in this order
 $scripts = @(
     "configure-profilePath.ps1"
+    "configure-tls.ps1"
     "install-winget.ps1"
     "install-powerShellCore.ps1"
     "install-ssh.ps1"
