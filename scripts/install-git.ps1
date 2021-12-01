@@ -24,7 +24,7 @@ if (-not (Test-Path "C:\Program Files\Git\cmd\git.exe") -or $Force) {
     Write-Host "Git missing, preparing for install using WinGet."
 
     Write-Host ""
-    & "$wingetExe" install Git.Git --silent --accept-package-agreements --accept-source-agreements --override "/SILENT /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /COMPONENTS=`"icons,gitlfs,windowsterminal,scalar`""
+    & "$wingetExe" install Git.Git --silent --accept-package-agreements --accept-source-agreements --override "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /NOICONS /GitOnlyOnPath /NoAutoCrlf /WindowsTerminal /NoShellIntegration /NoOpenSSH /Symlinks"
 
     Write-Host "Git installed." -ForegroundColor "Cyan"
 }
