@@ -109,7 +109,7 @@ Set-RegistryInt $key "SystemPaneSuggestionsEnabled" 0
 Set-RegistryInt $key "RotatingLockScreenEnabled" 0
 Set-RegistryInt $key "RotatingLockScreenOverlayEnabled" 0
 Set-RegistryInt $key "SilentInstalledAppsEnabled" 0
-Remove-ItemProperty -Path "$key\SuggestedApps" -Name * -Force
+Remove-ItemProperty -Path "$key\SuggestedApps" -Name * -Force -ErrorAction SilentlyContinue
 Set-RegistryInt $key "SoftLandingEnabled" 0
 # Turn off "Occasionally Show Suggestions In Start"
 Set-RegistryInt $key "SubscribedContent-338388Enabled" 0
@@ -396,9 +396,9 @@ Write-Host "Disabling Unneeded Scheduled Tasks..."
 $null = & schtasks.exe /Change /TN "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /Disable
 $null = & schtasks.exe /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /Disable
 $null = & schtasks.exe /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /Disable
-/Change /TN "Microsoft\Windows\NetTrace\GatherNetworkInfo" /Disable
+$null = & schtasks.exe /Change /TN "Microsoft\Windows\NetTrace\GatherNetworkInfo" /Disable
 $null = & schtasks.exe /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /Disable
-/Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /Disable
+$null = & schtasks.exe /Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /Disable
 
 Write-Host "Privacy and security settings configured"
 Write-Host ""

@@ -5,6 +5,8 @@ Set-StrictMode -Version 2.0
 
 Write-Host "Installing Developer Mode & WSL" -ForegroundColor "Green"
 
+$delay = 15
+
 # Developer Mode
 $key = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock"
 Set-RegistryInt "$key" "AllowDevelopmentWithoutDevLicense" 1

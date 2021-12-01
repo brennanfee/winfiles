@@ -6,7 +6,7 @@ Set-StrictMode -Version 2.0
 Write-Host "Configuring Networking." -ForegroundColor "Green"
 
 # Turn off the thing that prompts whether a network is private or public
-& reg.exe add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff"
+$null = New-Item -Path "HKLM:\System\CurrentControlSet\Control\Network" -Name NewNetworkWindowOff -Force -ErrorAction SilentlyContinue
 
 # WinRM
 & "$PSScriptRoot\..\scripts\enable-winrm.ps1"

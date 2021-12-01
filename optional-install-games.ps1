@@ -18,7 +18,7 @@ Write-LogAndConsole $logFile ""
 ## TODO: Add a thing to my profile to get the winget.exe with full path
 $wingetExe = "winget.exe"
 
-& "$wingetExe" import -i "$PSScriptRoot\optionalInstallPacks\game-apps.json" --silent --ignore-unavailable --accept-source-agreements --accept-package-agreements
+& "$wingetExe" import -i "$PSScriptRoot\optionalInstallPacks\game-apps.json" --ignore-unavailable --accept-source-agreements --accept-package-agreements
 
 Write-Host ""
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
