@@ -400,5 +400,44 @@ $null = & schtasks.exe /Change /TN "Microsoft\Windows\NetTrace\GatherNetworkInfo
 $null = & schtasks.exe /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /Disable
 $null = & schtasks.exe /Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /Disable
 
+# Setup Windows And .NET to use TLS 1.2
+Write-Host "Configuring TLS defaults..."
+
+$key = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server"
+Set-RegistryInt $key "Enabled" 0
+Set-RegistryInt $key "DisabledByDefault" 1
+
+$key = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client"
+Set-RegistryInt $key "Enabled" 0
+Set-RegistryInt $key "DisabledByDefault" 1
+
+$key = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server"
+Set-RegistryInt $key "Enabled" 0
+Set-RegistryInt $key "DisabledByDefault" 1
+
+$key = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client"
+Set-RegistryInt $key "Enabled" 0
+Set-RegistryInt $key "DisabledByDefault" 1
+
+$key = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server"
+Set-RegistryInt $key "Enabled" 1
+Set-RegistryInt $key "DisabledByDefault" 0
+
+$key = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client"
+Set-RegistryInt $key "Enabled" 1
+Set-RegistryInt $key "DisabledByDefault" 0
+
+# Now .NET
+Set-RegistryInt "HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319" "SchUseStrongCrypto" 1
+Set-RegistryInt "HKLM:\SOFTWARE\Microsoft\.NetFramework\v4.0.30319" "SchUseStrongCrypto" 1
+
+New-ItemProperty -Path $key -Name 'Enabled' -Value '0' -PropertyType 'DWord' -Force | Out-Null
+
+New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server' -Name 'DisabledByDefault' -Value 1 -PropertyType 'DWord' -Force | Out-Null
+
+
+
+
+
 Write-Host "Privacy and security settings configured"
 Write-Host ""

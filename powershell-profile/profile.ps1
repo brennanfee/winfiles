@@ -29,6 +29,9 @@ if ($PSEdition -eq "Core") {
 
 Write-Host "Modules imported."
 
+# Set TLS 1.2 as the default in PowerShell
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 # Aliases.  These are here because it seems a module can't export an alias
 # that overrides a built-in alias.
 Set-Alias ls Get-ListingWslLs -Force -Option AllScope
