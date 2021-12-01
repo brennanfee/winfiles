@@ -8,7 +8,7 @@ param (
 Set-StrictMode -Version 2.0
 
 $needToInstall = $false
-$neededVersionMinimum = "1.12.11692.0"
+$neededVersionMinimum = "1.16.12986.0"
 $hasPackageManager = Get-AppPackage -name "Microsoft.DesktopAppInstaller"
 
 Write-Host "Checking for WinGet..." -ForegroundColor "Green"

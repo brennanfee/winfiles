@@ -39,10 +39,10 @@ $scripts = @(
 ### Download or copy the scripts to the temp directory
 foreach ($script in $scripts) {
     Write-Host ""
-    $outputFile = Join-Path -Path $tempPath -ChildPath $scriptName
+    $outputFile = Join-Path -Path $tempPath -ChildPath $script
 
     if ($Branch -eq "local") {
-        $localPath = "./$scirpt"
+        $localPath = "./$script"
 
         Copy-Item -Path $localPath -Destination $outputFile
     }
