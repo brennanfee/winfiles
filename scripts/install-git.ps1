@@ -7,7 +7,7 @@ param (
 
 Set-StrictMode -Version 2.0
 
-$wingetCmd = (Get-Command -Name winget.exe)
+$wingetCmd = (Get-Command -Name winget.exe -ErrorAction SilentlyContinue)
 if ($wingetCmd) {
     $wingetExe = "$($wingetCmd.Source)"
 }
@@ -24,7 +24,7 @@ if (-not (Test-Path "C:\Program Files\Git\cmd\git.exe") -or $Force) {
     Write-Host "Git missing, preparing for install using WinGet."
 
     Write-Host ""
-    & "$wingetExe" install Git.Git --override "/SILENT /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /COMPONENTS=`"icons,gitlfs,windowsterminal,scalar`""
+    & "$wingetExe" install Git.Git --silent --accept-package-agreements --accept-source-agreements --override "/SILENT /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /COMPONENTS=`"icons,gitlfs,windowsterminal,scalar`""
 
     Write-Host "Git installed." -ForegroundColor "Cyan"
 }

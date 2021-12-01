@@ -27,7 +27,7 @@ foreach ($feature in $features) {
 Write-Host "Configuring SSH Service"
 
 # Locate PowerShell with a priority on Core
-$powerShellCmd = (Get-Command -Name pwsh.exe)
+$powerShellCmd = (Get-Command -Name pwsh.exe -ErrorAction SilentlyContinue)
 $defaultPowerShellCorePath = "C:\Program Files\PowerShell\7\pwsh.exe"
 if ($powerShellCmd) {
     $powerShell = "$($powerShellCmd.Source)"

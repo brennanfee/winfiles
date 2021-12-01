@@ -18,7 +18,7 @@ Write-LogAndConsole $logFile ""
 ## TODO: Add a thing to my profile to get the winget.exe with full path
 $wingetExe = "winget.exe"
 
-& "$wingetExe" import -i "$PSScriptRoot\optionalInstallPacks\development-apps.json" --silent --ignore-unavailable
+& "$wingetExe" import -i "$PSScriptRoot\optionalInstallPacks\development-apps.json" --silent --ignore-unavailable --accept-source-agreements --accept-package-agreements
 
 ## Manually install visual studio
 # "visualstudio2019professional" "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"

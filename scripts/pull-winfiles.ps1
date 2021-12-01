@@ -7,7 +7,7 @@ param (
 )
 Set-StrictMode -Version 2.0
 
-$gitCmd = (Get-Command -Name git.exe)
+$gitCmd = (Get-Command -Name git.exe -ErrorAction SilentlyContinue)
 if ($gitCmd) {
     $gitExe = "$($gitCmd.Source)"
 }

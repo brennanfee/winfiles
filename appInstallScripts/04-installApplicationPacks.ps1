@@ -12,23 +12,23 @@ Write-Host ""
 $wingetExe = "winget.exe"
 
 Write-Host "Installing applications using WinGet - Main"
-& "$wingetExe" import -i "$PSScriptRoot\main-apps.json" --silent --ignore-unavailable
+& "$wingetExe" import -i "$PSScriptRoot\main-apps.json" --silent --ignore-unavailable --accept-source-agreements --accept-package-agreements
 
 if (-not ($env:SYSTEMTYPE -eq "WORK")) {
     Write-Host "Installing applications using WinGet - Non-Work"
-    & "$wingetExe" import -i "$PSScriptRoot\nonWork-apps.json" --silent --ignore-unavailable
+    & "$wingetExe" import -i "$PSScriptRoot\nonWork-apps.json" --silent --ignore-unavailable --accept-source-agreements --accept-package-agreements
 }
 
 if ($env:SYSTEMTYPE -eq "WORK") {
     Write-Host "Installing applications using WinGet - Work Specific"
-    & "$wingetExe" import -i "$PSScriptRoot\work-apps.json" --silent --ignore-unavailable
+    & "$wingetExe" import -i "$PSScriptRoot\work-apps.json" --silent --ignore-unavailable --accept-source-agreements --accept-package-agreements
 }
 
 $computerDetails = Get-ComputerDetails
 
 if (-not ($computerDetails.IsVirtual)) {
     Write-Host "Installing applications using WinGet - Virtualization"
-    & "$wingetExe" import -i "$PSScriptRoot\virtualization-apps.json" --silent --ignore-unavailable
+    & "$wingetExe" import -i "$PSScriptRoot\virtualization-apps.json" --silent --ignore-unavailable --accept-source-agreements --accept-package-agreements
 }
 
 Write-Host "Application packs installed"

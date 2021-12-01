@@ -14,7 +14,7 @@ $wingetExe = "winget.exe"
 # Can't uninstall Edge at present because even with silent it prompts.
 #& "$wingetExe" uninstall --silent Microsoft.Edge
 
-& "$wingetExe" install --silent Microsoft.OneDrive
+& "$wingetExe" uninstall --silent --accept-source-agreements Microsoft.OneDrive
 
 Write-Host "Application removal complete"
 Write-Host ""

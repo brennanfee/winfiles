@@ -32,11 +32,21 @@ if (OnWindows) {
     }
 
     # If PowerShell Core is installed, it also needs configuration
-    $powerShellCore = (Get-Command pwsh.exe -ErrorAction SilentlyContinue)
+    $powerShellCmd = (Get-Command -Name pwsh.exe -ErrorAction SilentlyContinue)
+    $defaultPowerShellCorePath = "C:\Program Files\PowerShell\7\pwsh.exe"
+    if ($powerShellCmd) {
+        $powerShell = "$($powerShellCmd.Source)"
+    }
+    elseif (Test-Path -Path $defaultPowerShellCorePath) {
+        $powerShell = $defaultPowerShellCorePath
+    }
+    else {
+        $powerShell = $null
+    }
 
-    if ($powerShellCore) {
+    if ($powerShell) {
         Write-Host "Configuring PowerShell Core"
-        Start-Process -Wait -NoNewWindow -FilePath $powerShellCore.Source -ArgumentList $arguments
+        Start-Process -Wait -NoNewWindow -FilePath $powerShell -ArgumentList $arguments
     }
 }
 

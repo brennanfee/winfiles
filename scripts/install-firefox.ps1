@@ -7,7 +7,7 @@ param (
 
 Set-StrictMode -Version 2.0
 
-$wingetCmd = (Get-Command -Name winget.exe)
+$wingetCmd = (Get-Command -Name winget.exe -ErrorAction SilentlyContinue)
 if ($wingetCmd) {
     $wingetExe = "$($wingetCmd.Source)"
 }
@@ -25,7 +25,7 @@ if (-not (Test-Path "C:\Program Files\Mozilla Firefox\firefox.exe") -or $Force) 
     Write-Host "Firefox missing, preparing for install using WinGet."
 
     Write-Host ""
-    & "$wingetExe" install --silent Mozilla.Firefox
+    & "$wingetExe" install --silent --accept-package-agreements --accept-source-agreements Mozilla.Firefox
 
     Write-Host "Firefox installed." -ForegroundColor "Cyan"
 }
