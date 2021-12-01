@@ -431,13 +431,12 @@ Set-RegistryInt $key "DisabledByDefault" 0
 Set-RegistryInt "HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319" "SchUseStrongCrypto" 1
 Set-RegistryInt "HKLM:\SOFTWARE\Microsoft\.NetFramework\v4.0.30319" "SchUseStrongCrypto" 1
 
-New-ItemProperty -Path $key -Name 'Enabled' -Value '0' -PropertyType 'DWord' -Force | Out-Null
-
-New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server' -Name 'DisabledByDefault' -Value 1 -PropertyType 'DWord' -Force | Out-Null
-
-
-
-
+# Now the users profile
+$key = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings"
+# Should be just TLS 1.2
+Set-RegistryInt $key "SecureProtocols" 2048
+Set-RegistryInt $key "EnableHttp1_1" 1
+Set-RegistryInt $key "EnableHTTP2" 1
 
 Write-Host "Privacy and security settings configured"
 Write-Host ""

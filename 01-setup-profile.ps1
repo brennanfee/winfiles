@@ -9,6 +9,9 @@ Set-StrictMode -Version 2.0
 # Note, this may need to be run BEFORE this script
 Set-ExecutionPolicy Bypass -Scope Process -Force -ErrorAction Ignore
 
+# Set TLS 1.2 as the default in PowerShell
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 & "$PSScriptRoot\shared\set-system-type.ps1"
 
 $scriptName = $MyInvocation.MyCommand.Name
