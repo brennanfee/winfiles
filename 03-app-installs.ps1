@@ -25,7 +25,7 @@ Get-ChildItem "$PSScriptRoot\appInstallScripts" -File -Filter "*.ps1" | Sort-Obj
     Write-LogAndConsole $logFile "Running script: $script"
 
     try {
-        Start-Transcript -Path "$logPath\script-$scriptName.log" -Append
+        Start-Transcript -Path "$logPath\appInstallScript-$scriptName.log" -Append
         #Invoke-Expression -command "$script"
         & "$script"
         Start-Sleep -Seconds 1

@@ -261,10 +261,13 @@ Write-Host "Search Settings"
 ## eventually remove.
 #Set-WindowsSearchSetting -EnableWebResultsSetting $False
 
-# Set-WindowsSearchSetting -EnableWebResultsSetting $True `
-#     -EnableMeteredWebResultsSetting $False `
-#     -SafeSearchSetting "Moderate" `
-#     -SearchExperienceSetting "NotPersonalized"
+#Set-WindowsSearchSetting -EnableWebResultsSetting $False -SafeSearchSetting "Off" -SearchExperienceSetting "NotPersonalized" -ErrorAction SilentlyContinue
+
+# So use the registry instead
+$key = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\SearchSettings"
+Set-RegistryInt $key "IsAADCloudSearchEnabled" 0
+Set-RegistryInt $key "IsMSACloudSearchEnabled" 0
+Set-RegistryInt $key "SafeSearchMode" 0
 
 # Turn off Cortana when device is locked
 Set-RegistryInt "HKCU:\Software\Speech_OneCore\Preferences" "VoiceActivationEnableAboveLockscreen" 0
@@ -302,7 +305,6 @@ Set-RegistryInt $key "VoiceShortcut" 0
 $key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search"
 Set-RegistryInt $key "AllowSearchToUseLocation" 0
 Set-RegistryInt $key "DisableWebSearch" 1
-Set-RegistryInt $key "ConnectedSearchUseWeb" 0
 Set-RegistryInt $key "AllowCloudSearch" 0
 Set-RegistryInt $key "AllowCortana" 0
 Set-RegistryInt $key "AllowCortanaAboveLock" 0

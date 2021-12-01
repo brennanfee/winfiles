@@ -5,8 +5,6 @@ Set-StrictMode -Version 2.0
 
 Write-Host "Configuring Windows Features and Capabilities" -ForegroundColor "Green"
 
-$computerDetails = Get-ComputerDetails
-
 $delay = 20
 
 ## TODO: Add functions to my system modules for enabling/disabling features and capabilities
@@ -41,15 +39,18 @@ foreach ($feature in $defaultFeatures) {
     Write-Host ""
     Write-Host "Checking default feature: $feature"
 
-    $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
-    if ($item -and $item.State -eq "Disabled") {
-        Write-Host "Enabling feature: $feature"
-        $null = Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart
-        Start-Sleep $delay
-        Write-Host "Feature enabled: $feature"
-    }
-    else {
-        Write-Host "Feature '$feature' is already enabled"
+    $items = Get-WindowsOptionalFeature -Online -FeatureName $feature
+    foreach ($item in $items) {
+        $name = $item.FeatureName
+        if ($item -and $item.State -eq "Disabled") {
+            Write-Host "Enabling feature: $name"
+            $null = Enable-WindowsOptionalFeature -FeatureName $name -Online -All -NoRestart
+            Start-Sleep $delay
+            Write-Host "Feature enabled: $name"
+        }
+        else {
+            Write-Host "Feature '$name' is already enabled"
+        }
     }
 }
 
@@ -61,27 +62,39 @@ $disableFeature = @(
     "Printing-Foundation-LPDPrintService"
     "Printing-Foundation-LPRPortMonitor"
     "Printing-XPSServices-Features"
-    "SMB1Protocol-Client"
-    "SMB1Protocol-Deprecation"
-    "SMB1Protocol-Server"
-    "SMB1Protocol"
+    "TFTP"
     "WindowsMediaPlayer"
     "WorkFolders-Client"
+    "NetFx4Extended-ASPNET45"
+    "Windows-Identity-Foundation"
+    # All SMB1 features
+    "SMB1*"
+    # Everything IIS
+    "IIS-*"
+    # Everything WCF
+    "WCF-*"
+    # Everything WAS (Windows Activation Service)
+    "WAS-*"
+    # Everything MSMQ
+    "MSMQ-*"
 )
 
 foreach ($feature in $disableFeature) {
     Write-Host ""
     Write-Host "Checking feature: $feature"
 
-    $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
-    if ($item -and $item.State -eq "Enabled") {
-        Write-Host "Disabling feature: $feature"
-        $null = Disable-WindowsOptionalFeature -FeatureName $feature -Online -NoRestart
-        Start-Sleep $delay
-        Write-Host "Feature disabled: $feature"
-    }
-    else {
-        Write-Host "Feature '$feature' already disabled"
+    $items = Get-WindowsOptionalFeature -Online -FeatureName $feature
+    foreach ($item in $items) {
+        $name = $item.FeatureName
+        if ($item -and $item.State -eq "Enabled") {
+            Write-Host "Disabling feature: $name"
+            $null = Disable-WindowsOptionalFeature -FeatureName $name -Online -NoRestart
+            Start-Sleep $delay
+            Write-Host "Feature disabled: $name"
+        }
+        else {
+            Write-Host "Feature '$name' already disabled"
+        }
     }
 }
 
@@ -90,80 +103,74 @@ $extraFeatures = @(
     "Client-ProjFS"
     "ClientForNFS-Infrastructure"
     "Containers"
-    "IIS-ASPNET45"
-    "IIS-DefaultDocument"
-    "IIS-HostableWebCore"
-    "IIS-HttpCompressionDynamic"
-    "IIS-HttpCompressionStatic"
-    "IIS-HttpErrors"
-    "IIS-HttpLogging"
-    "IIS-HttpRedirect"
-    "IIS-NetFxExtensibility45"
-    "IIS-StaticContent"
-    "NetFx4Extended-ASPNET45"
     "NFS-Administration"
     "ServicesForNFS-ClientOnly"
     "SimpleTCP"
     "TelnetClient"
-    "TFTP"
     "TIFFIFilter"
+    # Virtualization Stuff
+    "Containers-DisposableClientVM" # a.k.a. Windows Sandbox
+    "HypervisorPlatform"
+    "Microsoft-Hyper-V"
+    "Microsoft-Hyper-V-*"
+    "VirtualMachinePlatform"
+    "TestBlah"
 )
 
 foreach ($feature in $extraFeatures) {
     Write-Host ""
     Write-Host "Checking feature: $feature"
 
-    $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
-    if ($item -and $item.State -eq "Disabled") {
-        Write-Host "Enabling feature: $feature"
-        $null = Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart
-        Start-Sleep $delay
-        Write-Host "Feature enabled: $feature"
-    }
-    else {
-        Write-Host "Feature '$feature' is already enabled"
+    $items = Get-WindowsOptionalFeature -Online -FeatureName $feature
+    foreach ($item in $items) {
+        $name = $item.FeatureName
+        if ($item -and $item.State -eq "Disabled") {
+            Write-Host "Enabling feature: $name"
+            $null = Enable-WindowsOptionalFeature -FeatureName $name -Online -All -NoRestart
+            Start-Sleep $delay
+            Write-Host "Feature enabled: $name"
+        }
+        else {
+            Write-Host "Feature '$name' is already enabled"
+        }
     }
 }
 
 # Virtualization (only when not in a VM already)
-if (-not ($computerDetails.IsVirtual)) {
-    $virtualizationFeatures = @(
-        "Containers-DisposableClientVM" # a.k.a. Windows Sandbox
-        "HypervisorPlatform"
-        "Microsoft-Hyper-V-All"
-        "Microsoft-Hyper-V-Hypervisor"
-        "Microsoft-Hyper-V-Management-Clients"
-        "Microsoft-Hyper-V-Management-PowerShell"
-        "Microsoft-Hyper-V-Services"
-        "Microsoft-Hyper-V-Tools-All"
-        "Microsoft-Hyper-V"
-        "VirtualMachinePlatform"
-    )
+#$computerDetails = Get-ComputerDetails
+# if (-not ($computerDetails.IsVirtual)) {
+#     $virtualizationFeatures = @(
+#     )
 
-    foreach ($feature in $virtualizationFeatures) {
-        Write-Host ""
-        Write-Host "Checking Virtualization feature: $feature"
+#     foreach ($feature in $virtualizationFeatures) {
+#         Write-Host ""
+#         Write-Host "Checking Virtualization feature: $feature"
 
-        $item = Get-WindowsOptionalFeature -Online -FeatureName $feature
-        if ($item -and $item.State -eq "Disabled") {
-            Write-Host "Enabling feature: $feature"
-            $null = Enable-WindowsOptionalFeature -FeatureName $feature -Online -All -NoRestart
-            Start-Sleep $delay
-            Write-Host "Feature enabled: $feature"
-        }
-        else {
-            Write-Host "Feature '$feature' is already enabled"
-        }
-    }
-}
+#         $items = Get-WindowsOptionalFeature -Online -FeatureName $feature
+#         foreach ($item in $items) {
+#             $name = $item.FeatureName
+#             if ($item -and $item.State -eq "Disabled") {
+#                 Write-Host "Enabling feature: $name"
+#                 $null = Enable-WindowsOptionalFeature -FeatureName $name -Online -All -NoRestart
+#                 Start-Sleep $delay
+#                 Write-Host "Feature enabled: $name"
+#             }
+#             else {
+#                 Write-Host "Feature '$name' is already enabled"
+#             }
+#         }
+#     }
+# }
 
 # Disable unwanted capabilities
 $disableCapabilities = @(
+    "App.StepsRecorder~"
     "Browser.InternetExplorer~"
     "Media.WindowsMediaPlayer~"
     "Microsoft.Windows.MSPaint~"
     "Microsoft.Windows.PowerShell.ISE~"
     "Microsoft.Windows.WordPad~"
+    "OneCoreUAP.OneSync~"
     "XPS.Viewer~"
 )
 

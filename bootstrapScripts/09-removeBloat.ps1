@@ -26,6 +26,7 @@ If ((Get-ChildItem "$env:userprofile\OneDrive" -Recurse | Measure-Object).Count 
 
 $apps = @(
     "Microsoft.3DBuilder"
+    "Microsoft.Advertising.Xaml"
     "Microsoft.BingNews"
     "Microsoft.GetHelp"
     "Microsoft.Getstarted"
@@ -61,11 +62,11 @@ $apps = @(
 foreach ($app in $apps) {
     Write-Host "Trying to remove $app"
 
-    Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage
+    Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage -ErrorAction SilentlyContinue
 
     $null = Get-AppxProvisionedPackage -Online |
     Where-Object DisplayName -eq $app |
-    Remove-AppxProvisionedPackage -Online
+    Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue
 
     Start-Sleep 5
 }

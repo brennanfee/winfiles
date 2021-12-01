@@ -15,11 +15,6 @@
     },
     "network": {
       "downloader": "default"
-    },
-    "experimentalFeatures": {
-      "experimentalMSStore": true,
-      "directMSI": true,
-      "dependencies": true
     }
   }
 }

@@ -28,7 +28,7 @@ Get-ChildItem "$PSScriptRoot\bootstrapScripts" -File -Filter "*.ps1" | Sort-Obje
     Write-LogAndConsole $logFile "Running script: $script"
 
     try {
-        Start-Transcript -Path "$logPath\script-$scriptName.log" -Append
+        Start-Transcript -Path "$logPath\bootstrapScript-$scriptName.log" -Append
         #        Invoke-Expression -command "$script"
         & "$script"
         Start-Sleep -Seconds 1

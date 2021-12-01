@@ -25,7 +25,7 @@ Get-ChildItem "$PSScriptRoot\cleanupScripts" -File -Filter "*.ps1" | Sort-Object
     Write-LogAndConsole $logFile "Running script: $script"
 
     try {
-        Start-Transcript -Path "$logPath\cleanup-$scriptName.log" -Append
+        Start-Transcript -Path "$logPath\cleanupScript-$scriptName.log" -Append
         #Invoke-Expression -command "$script"
         & "$script"
         Start-Sleep -Seconds 1
