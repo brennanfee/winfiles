@@ -23,8 +23,40 @@ Write-Host "Checking for Git..." -ForegroundColor "Green"
 if (-not (Test-Path "C:\Program Files\Git\cmd\git.exe") -or $Force) {
     Write-Host "Git missing, preparing for install using WinGet."
 
+    # GitPullBehaviorOption options: Merge, FFOnly, Rebase
+
+    $infTest = @"
+[Setup]
+Lang=default
+Dir=C:\Program Files\Git
+Group=Git
+NoIcons=1
+SetupType=default
+Components=gitlfs
+Tasks=
+EditorOption=VIM
+CustomEditorPath=
+DefaultBranchOption=main
+PathOption=Cmd
+SSHOption=ExternalOpenSSH
+TortoiseOption=false
+CURLOption=OpenSSL
+CRLFOption=CRLFCommitAsIs
+BashTerminalOption=ConHost
+GitPullBehaviorOption=FFOnly
+UseCredentialManager=Enabled
+PerformanceTweaksFSCache=Enabled
+EnableSymlinks=Enabled
+EnablePseudoConsoleSupport=Disabled
+EnableFSMonitor=Disabled
+"@
+
+    $tempPath = [System.IO.Path]::GetTempPath()
+    $infFile = Join-Path -Path $tempPath -ChildPath "git.inf"
+    $infTest | Out-File -FilePath $infFile
+
     Write-Host ""
-    & "$wingetExe" install Git.Git --silent --accept-package-agreements --accept-source-agreements --override "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /NOICONS /GitOnlyOnPath /NoAutoCrlf /WindowsTerminal /NoShellIntegration /NoOpenSSH /Symlinks"
+    & "$wingetExe" install Git.Git --silent --accept-package-agreements --accept-source-agreements --override "/SILENT /SUPPRESSMSGBOXES /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /NOICONS /LOADINF=`"$infFile`""
 
     Write-Host "Git installed." -ForegroundColor "Cyan"
 }
