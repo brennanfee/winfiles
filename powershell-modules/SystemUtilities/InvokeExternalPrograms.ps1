@@ -72,7 +72,6 @@ function Invoke-ExternalPowerShellCore {
     # These are in order of preference
     $pathsToCheck = @(
         "$env:ProgramFiles\PowerShell\7\pwsh.exe"
-        "$env:ProgramFiles\PowerShell\6\pwsh.exe"
     )
 
     $psCoreExe = "NotFound"
