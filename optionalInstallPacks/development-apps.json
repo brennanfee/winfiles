@@ -12,11 +12,7 @@
         "Name": "winget",
         "Type": "Microsoft.PreIndexed.Package"
       },
-      "Packages": [
-        { "Id": "Docker.DockerDesktop" },
-        { "Id": "Insomnia.Insomnia" },
-        { "Id": "Rustlang.rust-msvc" }
-      ]
+      "Packages": [{ "Id": "suse.RancherDesktop" }, { "Id": "Rustlang.rust-msvc" }]
     }
   ]
 }

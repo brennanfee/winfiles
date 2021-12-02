@@ -15,7 +15,6 @@ These are applications which are not available through winget and no easy mechan
 - packer (on virtualization machines only)
 - bitwarden-cli
 - dos2unix
-- editorconfig.core
 - fd
 - neovim
 - okular
@@ -264,3 +263,4 @@ These are apps that ARE available in WinGet but that I am currently not installi
 - unsplash-wallpapers (soroushchehresa.unsplash-wallpapers)
 - MQTT Explorer (thomasnordquist.MQTT-Explorer)
 - Balena Etcher (balena.Etcher)
+- WSL Distro Manager (Bostrot.WSLManager)
