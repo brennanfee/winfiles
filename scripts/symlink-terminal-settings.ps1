@@ -12,6 +12,6 @@ if (-not (Test-Path $statePath)) {
     $null = New-Item -ItemType Directory -Force -Path $statePath
 }
 
-Remove-Item -Path "$statePath\profiles.json" -ErrorAction SilentlyContinue
+Remove-Item -Path "$statePath\settings.json" -ErrorAction SilentlyContinue
 
-New-SymbolicLink "$statePath\profiles.json" "$winFiles\settings\windows-terminal-settings.json"
+New-SymbolicLink "$statePath\settings.json" "$winFiles\settings\windows-terminal-settings.json"
